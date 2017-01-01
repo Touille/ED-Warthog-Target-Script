@@ -1,6 +1,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // INCLUDED FILES 																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
 include "target.tmh"
 include "ED+HCS v2.2_KeyBindings.ttm"
 include "ED+HCS v2.2_Settings.tmh"
@@ -244,8 +245,8 @@ int main()
 //--TRHOTTLE-----------------------------------------------------------------------------------------------------------------------------------------------------//
 
 //	-------------------------Throttle Idle Detents LEFT 
-	MapKey(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));														// ON	[Locking (Down): Stationary]
-	MapKeyR(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));														// ON RELEASE
+	MapKey(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));												// ON	[Locking (Down): Stationary]
+	MapKeyR(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));												// ON RELEASE
 //	MapKey(&Throttle, IDLELOFF, 0);																					// OFF
 
 //	-------------------------Throttle Idle Detents RIGHT
