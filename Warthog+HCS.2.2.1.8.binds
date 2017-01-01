@@ -355,12 +355,12 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</TargetNextRouteSystem>
 	<PrimaryFire>
-		<Primary Device="Mouse" Key="Mouse_1" />
-		<Secondary Device="ThrustMasterWarthogCombined" Key="Joy_1" />
+		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_1" />
+		<Secondary Device="{NoDevice}" Key="" />
 	</PrimaryFire>
 	<SecondaryFire>
-		<Primary Device="Mouse" Key="Mouse_2" />
-		<Secondary Device="ThrustMasterWarthogCombined" Key="Joy_2" />
+		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_2" />
+		<Secondary Device="{NoDevice}" Key="" />
 	</SecondaryFire>
 	<CycleFireGroupNext>
 		<Primary Device="Keyboard" Key="Key_Period" />
@@ -766,7 +766,7 @@
 	</SelectTarget_Buggy>
 	<MouseTurretXMode Value="Bindings_MouseYaw" />
 	<MouseTurretXDecay Value="1" />
-	<MouseTurretYMode Value="Bindings_MousePitchInverted" />
+	<MouseTurretYMode Value="Bindings_MousePitch" />
 	<MouseTurretYDecay Value="1" />
 	<BuggyTurretYawAxisRaw>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_XAxis" />
@@ -801,7 +801,9 @@
 	</DriveSpeedAxis>
 	<BuggyThrottleRange Value="Bindings_BuggyThrottleForewardOnly" />
 	<BuggyToggleReverseThrottleInput>
-		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_20" />
+		<Primary Device="Keyboard" Key="Key_LeftControl">
+			<Modifier Device="Keyboard" Key="Key_R" />
+		</Primary>
 		<Secondary Device="{NoDevice}" Key="" />
 		<ToggleOn Value="0" />
 	</BuggyToggleReverseThrottleInput>
