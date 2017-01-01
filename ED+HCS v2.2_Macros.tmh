@@ -1,0 +1,103 @@
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// MACRO VARIABLE INITALISATION 																																//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkOnSilentRuning;
+	int mPowerEngSys, mPowerEngWep, mPowerSysWep, mPowerSysEng, mPowerWepSys, mPowerWepEng, mSplitPowerEng, mSplitPowerSys, mSplitPowerWep, mPowerTank, mPowerOffensive;
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// MACRO FUNCTIONS 																																				//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	
+	int initCustomCommands(){
+//		if(DebugMode){printf("-----------------------------Custom Commands------------------------------\x0a");printf("Initialising Custom Commands\x0a");}
+	
+		// MACRO: Auto-Docking Request //
+		mRequestCancelDock = CHAIN(
+			LOCK+PULSE+SetSpeed0, D(),
+			PULSE+TargetPanel, D(350),
+			PULSE+UINextPanel, D(350), 
+			PULSE+UINextPanel, D(350),
+			PULSE+UISelect, D(350),
+			PULSE+UIDown, D(350),
+			PULSE+UISelect, D(350),
+			PULSE+UIPrevPanel, D(350),
+			PULSE+UIPrevPanel, D(350),
+			PULSE+UIBack, 
+			LOCK);
+
+		// MACRO: System Jump //
+		mSystemJump = CHAIN(																	 
+			PULSE+SelectNextSystemInRoute, D(250),
+			PULSE+SetSpeed100, D(2000),
+			EXEC("initFrameShiftDrive();"), D(25000),
+			PULSE+SetSpeed0);
+			
+		// MACRO: Escape Fight //
+		mEscapeFight = CHAIN(																	 
+			PULSE+mPowerEngSys, D(350),
+			PULSE+SetSpeed100, D(250),
+			PULSE+EngineBoost, D(2000),
+			EXEC("initToggleSilentRuning();"), D(350),
+			PULSE+mPowerSysEng, D(350),
+			PULSE+EngineBoost, D(250),
+			EXEC("initSuperCruise();"), D(3000),
+			EXEC("initToggleSilentRuning();"));
+			
+		// MACRO: Heat Sink on Silence Runing
+		mHeatSinkOnSilentRuning = CHAIN(
+			EXEC("initToggleSilentRuning();"), D(HeatSinkOnSilentRuningDelay),
+			PULSE+DeployHeatSink);
+	}
+		
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// PIP MANAGEMENT MACRO FUNCTIONS 																																//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	int initPIPCommands(){
+		if (DebugMode){printf("Initialising PIP Commands\x0a");}
+		
+		// MACRO: Advanced PIP Management: 4xENG, 2xSYS
+		// HOLD down PIP to Engines button to activate
+		mPowerEngSys = CHAIN(PULSE+BalancePower, D(),PULSE+PowerEng, D(),PULSE+PowerSys, D(),PULSE+PowerEng, D(),PULSE+PowerEng);
+
+		// MACRO: Advanced PIP Management: 4xENG, 2xWEP
+		// LONG HOLD down PIP to Engines button to activate
+		mPowerEngWep = CHAIN(PULSE+BalancePower, D(),PULSE+PowerEng, D(),PULSE+PowerWep, D(),PULSE+PowerEng, D(),PULSE+PowerEng);
+			
+		// MACRO: Advanced PIP Management: 4xSYS, 2xENG
+		// HOLD down PIP to System button to activate
+		mPowerSysEng = CHAIN(PULSE+BalancePower, D(),PULSE+PowerSys, D(),PULSE+PowerEng, D(),PULSE+PowerSys, D(),PULSE+PowerSys);
+				
+		// MACRO: Advanced PIP Management: 4xSYS, 2xWEP
+		// LONG HOLD down PIP to System button to activate
+		mPowerSysWep = CHAIN(PULSE+BalancePower, D(),PULSE+PowerSys, D(),PULSE+PowerWep, D(),PULSE+PowerSys, D(),PULSE+PowerSys);
+
+		// MACRO: Advanced PIP Management: 4xWEP, 2xENG
+		// HOLD down PIP to Weapon button to activate
+		mPowerWepEng = CHAIN(PULSE+BalancePower, D(),PULSE+PowerWep, D(),PULSE+PowerEng, D(),PULSE+PowerWep, D(),PULSE+PowerWep);
+			
+		// MACRO: Advanced PIP Management: 4xWEP, 2xSYS
+		// LONG HOLD down PIP to Weapon button to activate
+		mPowerWepSys = CHAIN(PULSE+BalancePower, D(),PULSE+PowerWep, D(),PULSE+PowerSys, D(),PULSE+PowerWep, D(),PULSE+PowerWep);
+
+		// MACRO: PIP ALTERNATIVE: 3xWEP, 3xSYS
+		// HOLD down Balance PIPs button to activate
+		mPowerTank = CHAIN(	PULSE+BalancePower, D(),PULSE+PowerWep, D(),PULSE+PowerSys, D(),PULSE+PowerWep, D(),PULSE+PowerWep, D(),PULSE+PowerSys);
+
+		// MACRO: PIP ALTERNATIVE: 3xWEP, 3xENG
+		// LONG HOLD down Balance PIPs button to activate		
+		mPowerOffensive = CHAIN(PULSE+BalancePower, D(),PULSE+PowerEng,D(),PULSE+PowerWep, D(),PULSE+PowerEng, D(),PULSE+PowerEng, D(),PULSE+PowerWep);
+				
+		// MACRO: PIP ALTERNATIVE: 4xENG, 1xSYS, 1xWEP
+		// <Unmapped>
+		mSplitPowerEng = CHAIN(PULSE+BalancePower, D(),PULSE+PowerEng, D(),PULSE+PowerEng);
+		
+		// MACRO: PIP ALTERNATIVE: 4xSYS, 1xENG, 1xWEP
+		// <Unmapped>
+		mSplitPowerSys = CHAIN(PULSE+BalancePower, D(),	PULSE+PowerSys, D(),PULSE+PowerSys);
+		
+		// MACRO: PIP ALTERNATIVE: 4xWEP, 1xSYS, 1xENG
+		// <Unmapped>
+		mSplitPowerWep = CHAIN(PULSE+BalancePower, D(),PULSE+PowerWep, D(),PULSE+PowerWep);
+
+	}

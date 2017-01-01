@@ -1,0 +1,842 @@
+// TARGET definitions
+// Copyright (c) Thrustmaster
+
+include "hid.tmh"
+include "defines.tmh"
+alias Throttle	= "VID_044F&PID_0404", Joystick	= "VID_044F&PID_0402", LMFD		= "VID_044F&PID_b351";
+alias RMFD 		= "VID_044F&PID_b352", HCougar	= "VID_044F&PID_0400", T16000	= "VID_044F&PID_B10A";
+alias TWCSThrottle	= "VID_044F&PID_B687", TFRPRudder="VID_044F&PID_B679", T16000L	= "VID_044F&PID_B10B";
+
+
+define KDATASIZE		13
+define MAXKEYDATA		52*KDATASIZE	// max 52 physical+virtual keys for each device
+define AXDATASIZE		64				// sizeof(sAxis)
+define MAXAXDATA		16*AXDATASIZE	// max 16 physical axis for each device
+struct sAxis
+{
+	char dxmap;
+	char dir;
+	int curvemode;	// 0=none, 1=S, 2=J, else=custom
+	char lower, center, upper, curve;	 		// S curve parameters
+	float ab;									// J curve parameter, zoom for Scurve
+	char locked;
+	char relative;
+	int trim;
+	int val, relpos;
+	int key[6];		// ou, iu, om, im, od, id
+}
+struct sDevice
+{
+	int keymap[MAXKEYDATA];	// int array
+	char axmap[MAXAXDATA];	// sAxis array of 16
+}
+sAxis axdata;
+sDevice devicedata[16], devdata;
+
+// Virtual keyboard interface
+int KeyD(int c){ _key(c, OUT_VALUE_BUTTON_PRESS, 0); }
+int KeyU(int c){ _key(c, OUT_VALUE_BUTTON_RELEASE, 0); }
+int Key(int c, int delay=0){ _key(c, OUT_VALUE_BUTTON_PRESS_RELEASE, delay); }
+int AutoRepeat(int handler, int delay, alias proc, int param){ PostEvent(EV_USR+1+handler, &proc, param, -delay); }
+int StopAutoRepeat(int handler){ RemoveEvent(EV_USR+1+handler); }
+int DeferCall(int delay, alias proc, int param){ PostEvent(EV_USR, &proc, param, delay); }
+int PulseKey(int key, int i=0){ Key(key, kb_pulse); }
+int HoldKey(int key, int press)
+{ 
+	if(press) KeyD(key); else KeyU(key);
+	return press;
+}
+int DX(int index, int value=2){ VirtualOutput(OUT_TYPE_GAME, index, value); } // <index> may be DX button index - 1, axis or POV
+int kb_pulse=32, kb_delay=48;
+int SetKBRate(int pulse_ms=32, int delay_ms=48){ kb_pulse = pulse_ms; kb_delay = delay_ms; }
+int KBLayout[] = {&ASCE, &ASCF, &ASCG};
+define KB_ENG	0
+define KB_FR	1
+define KB_GER	2
+int SetKBLayout(int layout){ &ASC = KBLayout[layout]; }
+
+int layer_sw[9], layer;	//(&&dev[btn], flag, status) * 3
+define	L_SHIFT			0x00010000
+define	R_SHIFT			0x00020000
+define	L_ALT			0x00040000
+define	R_ALT			0x00080000
+define	L_CTL			0x00100000
+define	R_CTL			0x00200000
+define	L_WIN			0x00400000
+define	R_WIN			0x00800000
+define	PULSE			0x01000000
+define	DOWN			0x02000000
+define	UP				0x04000000
+define	PROC			0x08000000
+define	JUMP			0x10000000
+define	DELAY			0x20000000
+define	LOCK			0x40000000
+define	KEYON			0x80000000
+
+int ActKey(int k, int x=0x7fffffff)
+{
+	alias hk;
+	if(k & PROC)
+	{
+		&hk = keyalloc[k & 0xffff];
+		if(x > AMAX) return hk(&keyalloc, k);
+		else return hk(&keyalloc, k, x);
+	}
+	int press = k<0;
+	if((k & (PULSE | DOWN | UP)) == PULSE)
+		if(!press) return 0;
+		else &hk = &PulseKey;
+	else if(k & 0xffffff) &hk = &HoldKey;
+		else return 0;
+	if(press | !(k & (DOWN | UP)))
+	{
+		press = press & !(k & UP);
+		kb_pulse = kb_pulse + 1;
+		LockPulseTimestamps(OUT_TYPE_KEYBOARD, 1);
+		if(k & L_SHIFT) hk(LSHF, press);
+		if(k & R_SHIFT) hk(RSHF, press);
+		if(k & L_ALT) hk(LALT, press);
+		if(k & R_ALT) hk(RALT, press);
+		if(k & L_CTL) hk(LCTL, press);
+		if(k & R_CTL) hk(RCTL, press);
+		if(k & L_WIN) hk(LWIN, press);
+		if(k & R_WIN) hk(RWIN, press);
+		kb_pulse = kb_pulse - 1;
+		if(k & 0xffff) hk(k & 0xffff, press);
+		LockPulseTimestamps(OUT_TYPE_KEYBOARD, 0);
+	}
+}
+
+int DefaultMapping(alias o, int x) 
+{	
+	int i, k, ktbl;
+	alias a;
+	while(i < 9) 
+		if(&&o[x] == layer_sw[i]) 
+		{
+			layer_sw[i+2] = layer_sw[i+2] & layer_sw[i+1] ^ o[x]; 
+			if(i>0 & layer_sw[i+2]) layer_sw[11-i] = 0;
+			break;
+		}
+		else i = i+3; 
+	k = k + layer_sw[2] + ((layer_sw[8] + !layer_sw[5]) << 1);
+	GetDeviceData(&o);
+	if(x < IN_POSITION_AXES) 
+	{
+		i = x*KDATASIZE;
+		Map(&ktbl, &&devdata.keymap); Dim(&ktbl, MAXKEYDATA);
+		if(o[x]) ktbl[i + KDATASIZE - 1] = k;
+		else
+		{
+			k = ktbl[i + KDATASIZE - 1];
+			ActKey(ktbl[i + k]);			// key release
+			k = k + 6;						// /R	
+		}
+		ActKey(ktbl[i + k] | KEYON);		// key press
+	}
+	else if(x < IN_POSITION_HAT)
+	{
+		GetAxisData(&o, x);
+		axdata.val = AxisVal(o[x], &axdata);
+		if(&o == &Throttle & (x == THR_LEFT | x == THR_RIGHT)) axdata.val = -axdata.val;
+		if(!!axdata.dxmap & !axdata.locked & !axdata.relative) DXAxis(axdata.dxmap, axdata.val);
+		Map(&ktbl, &&axdata.key); Dim(&ktbl, 6);
+		i = 0; while(i<6)
+		{
+			if(ktbl[i])
+				if(i == k) ActKey(ktbl[i], o[x]);
+				else if(ktbl[i] != ktbl[k]) ActKey(ktbl[i], -AMAX*3);
+			i = i+1;
+		}
+	}
+	else; // ignore HAT input
+}
+
+short joy0[296]; // non present joystick dummy
+int GetIndexJoy(int index)
+{
+	if(index < 0) return &joy0;
+	char t; Dim(&t, 64);
+	sprintf(&t, "&joy%u", index+1);
+	return ieval(&t);
+}
+
+define MODE_EXCLUDED	0
+define MODE_KEEPENABLED	1
+define MODE_FILTERED	2
+int Exclude(alias a){ Configure(&a, MODE_EXCLUDED); } 
+int Configure(alias a, int mode){ a[0] = mode; }
+int Select(alias id)
+{ 
+	int i = id[0];
+	id[0] = 'V';
+	if(i == MODE_EXCLUDED) return -1; 
+	else if(i == MODE_KEEPENABLED) return SelectUsbDevice(&id, 1);
+	else if(i == MODE_FILTERED) return SelectUsbDevice(&id, 2);
+	return SelectUsbDevice(&id);	// 0
+}
+
+//                    BUT  HAT X   Y   Z   Rx  Ry  Rz Thrtl SLD1 SLD2 SLD3 SLD4
+stGameCfg virtualj = { 32, 1,  1,  1,  1,  1,  1,  1,    1,   1,   0,   0,   0};
+define CREATE_JOYSTICK	1
+define CREATE_KEYBOARD	2
+define CREATE_MOUSE		4
+int Init(alias h, int cfg=CREATE_JOYSTICK+CREATE_KEYBOARD+CREATE_MOUSE)
+{ 
+	&Throttle = GetIndexJoy(Select(&Throttle));	// expect a Warthog Throttle to be plugged on USB
+	&Joystick = GetIndexJoy(Select(&Joystick));	// expect a Warthog Stick to be plugged on USB
+	&LMFD = GetIndexJoy(Select(&LMFD));			// expect a LMFD to be plugged on USB
+	&RMFD = GetIndexJoy(Select(&RMFD));			// expect a RMFD to be plugged on USB
+	&HCougar = GetIndexJoy(Select(&HCougar));	// expect a Hotas Cougar to be plugged on USB
+	&T16000 = GetIndexJoy(Select(&T16000));		// expect a T16000 to be plugged on USB
+	&T16000L = GetIndexJoy(Select(&T16000L));	// expect a T16000 left handed to be plugged on USB
+	&TWCSThrottle = GetIndexJoy(Select(&TWCSThrottle));	// expect a TWCSThrottle to be plugged on USB
+	&TFRPRudder = GetIndexJoy(Select(&TFRPRudder));		// expect a TFRPRudder to be plugged on USB
+	if(cfg & CREATE_JOYSTICK) PlugGame(&virtualj, "Thrustmaster Combined");						// create a Virtual device
+	if(cfg & CREATE_KEYBOARD) PlugKeyboard();
+	if(cfg & CREATE_MOUSE) PlugMouse(1);
+	&_evh = &h;
+	SetEventHandler(&DefEventHandler); 
+	SEQ();		// initialize SEQ function as VPN	
+	CHAIN();	// initialize CHAIN function as VPN	
+	AXMAP2();
+	int i; while(i<256) { USB[i] = i+1000; i = i+1; }					// fill the USB table
+	MapList(&Joystick, &JoystickMap);	// default DX buttons mapping for all devices
+	MapList(&Throttle, &ThrottleMap);
+	MapList(&HCougar, &JoystickMap);
+	MapList(&HCougar, &HCougarMap);
+	MapList(&LMFD, &MFDMap);
+	MapList(&RMFD, &MFDMap);
+	MapList(&T16000, &T16000Map);
+	MapList(&T16000L, &T16000Map);
+	MapList(&TWCSThrottle, &TWCSThrottleMap);
+	MapList(&TFRPRudder, &TFRPRudderMap);
+	i=elements(&vbtntbl); while(i>0) 	// initialize Throttle virtual buttons with 1
+	{
+		i = i-1;
+		if(vbtntbl[i]) Throttle[vbtntbl[i]] = 1;
+	}
+	HCougar[DFM] = 1;					// initialize Cougar virtual buttons with 1
+	HCougar[SPDM] = 1;
+	DXAxis(MOUSE_X_AXIS, 0);
+	DXAxis(MOUSE_Y_AXIS, 0);
+}
+
+int _gch;		// game callback handler
+int RegisterGameCallback(int TCPPort, alias GameCallback)
+{
+	_gch = &GameCallback;
+	return InitSocketServer(TCPPort);
+}
+
+alias _evh;
+char h2blookup[9] = {0,1,3,2,6,4,12,8,9}, csStatus[4], h1Status[4], h1cStatus[4], h16000Status[4], hTWCSThrottleStatus[4], h16000LStatus[4];
+char vbtntbl[32]={0,0,0,0,0,0,SPDM,SPDM,BSM,BSM,CHM,CHM,PSM,PSM,0,EFLOVER,EFROVER,EOLNORM,EORNORM,APUOFF,0,FLAPM,FLAPM,EACOFF,RDRDIS,APDIS,APAH,APAH,IDLEROFF,IDLELOFF,EOLNORM,EORNORM};
+int DefEventHandler(int e, alias dev, int event) // must be called before any processing in the event handler
+{
+	alloc_locked = 1;
+	if(e >= EV_USR) return dev(event);
+	if(e == EV_GAME_DATA) 
+	{
+		if(!_gch) return 0;
+		e = dev;
+		&dev = _gch;
+		return dev(e, event);
+	}
+	if(&dev == &Throttle & (event == THR_LEFT | event == THR_RIGHT)) dev[event] = -dev[event];
+	_evh(EV_HID_INPUT_DATA, &dev, event);
+	if(&dev == &Throttle)
+		if(event <= EORIGN)
+			if(vbtntbl[event])			// generate virtual keys
+			{
+				dev[vbtntbl[event]] = !dev[event];
+				_evh(EV_HID_INPUT_DATA, &dev, vbtntbl[event]);
+			}
+			else;
+		else if(event == CS)	Hat2Btn(&dev, CS, CSU, &csStatus);		// throttle HAT
+		else;
+	else if(&dev == &Joystick)
+		if(event == POV) Hat2Btn(&dev, POV, H1U, &h1Status);
+		else;
+	else if(&dev == &HCougar)
+		if(event == T7 | event == T8){ dev[DFM] = !dev[event]; _evh(EV_HID_INPUT_DATA, &dev, DFM); }
+		else if(event == T9 | event == T10){ dev[SPDM] = !dev[event]; _evh(EV_HID_INPUT_DATA, &dev, SPDM); }
+		else if(event == POV) Hat2Btn(&dev, POV, H1U, &h1cStatus);
+		else;
+	else if(&dev == &T16000)
+		if(event == HAT) Hat2Btn(&dev, HAT, H1U, &h16000Status);
+		else;
+	else if(&dev == &T16000L)
+		if(event == HAT) Hat2Btn(&dev, HAT, H1U, &h16000LStatus);
+		else;
+	else if(&dev == &TWCSThrottle)
+		if(event == THAT2) Hat2Btn(&dev, THAT2, THAT2U, &hTWCSThrottleStatus);
+		else;
+}
+
+int Hat2Btn(alias dev, int hat, int e, alias status)
+{
+	int i; while(i < 4)					// 4 virtual keys - release
+	{
+		dev[e+i] = 1 & h2blookup[(dev[hat]+45)/45] >> i;
+		if(!dev[e+i] & status[i]) { _evh(EV_HID_INPUT_DATA, &dev, e+i); status[i] = 0; }
+		i = i + 1;
+	}
+	while(i)										// 4 virtual keys - press
+	{
+		i = i - 1;
+		if(dev[e+i] & !status[i]) {_evh(EV_HID_INPUT_DATA, &dev, e+i); status[i] = 1; }
+	}
+}
+
+int GetDeviceData(alias dev) // fill global devdata alias based on device name (joy1, joy2,...)
+{
+	char t; Dim(&t, 16);
+	strname(&dev, &t);
+	Map(&devdata, &&devicedata[t[3]-'0']);
+}
+
+define IOTOGGLE		1
+define UDTOGGLE 	2
+int SetShiftButton(int devI=0, int indexI=0, int devUMD=0, int indexU=0, int indexD=0, int flag=0)
+{ 
+	alias io = devI, umd = devUMD;
+	layer_sw = 0;
+	if(devI) layer_sw[0] = &&io + (indexI << 1);
+	layer_sw[1] = flag & 1;
+	if(devUMD) layer_sw[3] = &&umd + (indexU << 1);
+	layer_sw[4] = flag >> 1;
+	if(devUMD) layer_sw[6] = &&umd + (indexD << 1);
+	layer_sw[7] = layer_sw[4];
+}
+int MapKey(alias dev, int btnidx, int key=0, int layer=0)
+{ 
+	if(dev[btnidx]){ dev[btnidx] = 0; _evh(EV_HID_INPUT_DATA, &dev, btnidx); dev[btnidx] = 1;}
+	layer = GetLayerBits(layer);
+	GetDeviceData(&dev);
+	Map(&btnidx, &&devdata.keymap+btnidx*KDATASIZE*4 + 24*!!(layer & 0x40)); Dim(&btnidx, 6);
+	int i=6; while(i) 
+	{
+		i = i-1;
+		if(layer & 1) btnidx[i] = key;
+		layer = layer >> 1;
+	}
+}
+int MapKeyIO(alias dev, int btnidx, int keyI=0, int keyO=0){ MapKeyIOUMD(&dev, btnidx, keyI, keyO, keyI, keyO, keyI, keyO); }
+int MapKeyUMD(alias dev, int btnidx, int keyU=0, int keyM=0, int keyD=0){ MapKeyIOUMD(&dev, btnidx, keyU, keyU, keyM, keyM, keyD, keyD); }
+int MapKeyIOUMD(alias dev, int btnidx, int keyIU=0, int keyOU=0, int keyIM=0, int keyOM=0, int keyID=0, int keyOD=0)
+{
+	if(dev[btnidx]){ dev[btnidx] = 0; _evh(EV_HID_INPUT_DATA, &dev, btnidx); }
+	GetDeviceData(&dev);
+	Map(&btnidx, &&devdata.keymap+btnidx*KDATASIZE*4); Dim(&btnidx, 6);
+	btnidx[0] = keyOU;
+	btnidx[1] = keyIU;
+	btnidx[2] = keyOM;
+	btnidx[3] = keyIM;
+	btnidx[4] = keyOD;
+	btnidx[5] = keyID;
+}
+int MapKeyR(alias dev, int btnidx, int key=0){ MapKeyRIOUMD(&dev, btnidx, key, key, key, key, key, key); }
+int MapKeyRIO(alias dev, int btnidx, int keyI=0, int keyO=0){ MapKeyRIOUMD(&dev, btnidx, keyI, keyO, keyI, keyO, keyI, keyO); }
+int MapKeyRUMD(alias dev, int btnidx, int keyU=0, int keyM=0, int keyD=0){ MapKeyRIOUMD(&dev, btnidx, keyU, keyU, keyM, keyM, keyD, keyD); }
+int MapKeyRIOUMD(alias dev, int btnidx, int keyIU=0, int keyOU=0, int keyIM=0, int keyOM=0, int keyID=0, int keyOD=0)
+{
+	GetDeviceData(&dev);
+	Map(&btnidx, &&devdata.keymap+btnidx*KDATASIZE*4 + 24); Dim(&btnidx, 7);
+	btnidx[0] = PULSE | keyOU;
+	btnidx[1] = PULSE | keyIU;
+	btnidx[2] = PULSE | keyOM;
+	btnidx[3] = PULSE | keyIM;
+	btnidx[4] = PULSE | keyOD;
+	btnidx[5] = PULSE | keyID;
+	btnidx[6] = 0;							// shift status
+}
+
+int keyalloc[16384], kpos, alloc_locked, tmp[4];
+int SEQ(){ Map(&SEQ, MakeProcInstance(&_SEQ), MAP_IPTR_VPN); }
+int _SEQ(int i, int np, int p){ return ASMAlloc(np, p, &seqproc); }
+int CHAIN(){ Map(&CHAIN, MakeProcInstance(&_CHAIN), MAP_IPTR_VPN); }
+int _CHAIN(int i, int np, int p){ return ASMAlloc(np, p, &chainproc); }
+int D(word ms=0){ if(!ms) ms = kb_delay; return ms | DELAY; }
+int TEMPO(int x, int y, int d = 200){ tmp[0]=x; tmp[1]=y; tmp[2]=d; return ASMAlloc(3, &&tmp, &tempoproc); }
+int AXIS(int x, int d, int ms){ tmp[0]=x; tmp[1]=d; tmp[2]=ms; return ASMAlloc(3, &&tmp, &axisproc); }
+int EXEC(alias cmdon, int cmdoff=0){ tmp[0]=&cmdon; tmp[1]=cmdoff; return ASMAlloc(2, &&tmp, &execproc); }
+int execproc(alias v, int p){ p = v[(p+2 & 0xffff) + !(p&KEYON)]; if(p) execute(p); }
+define RNOSTOP	0
+int REXEC(int h, word t, alias cmdon, int rstop=1){ tmp[0]=h; tmp[1]=t; tmp[2]=&cmdon; tmp[3]=rstop; return ASMAlloc(4, &&tmp, &rexecproc); }
+define LED_ONOFF		0
+define LED_INTENSITY	1
+define LED_CURRENT		0x55555555
+define LED0				0x3
+define LED1				0x30
+define LED2				0x300
+define LED3				0x3000
+define LED4				0x30000
+define LED5				0x300000
+int LED(alias dev, int mode, int led){ tmp[0]=&dev; tmp[1]=mode; tmp[2] = led; return ASMAlloc(3, &&tmp, &ledproc); }
+
+int ASMAlloc(int np, int p, alias proc)
+{
+	int v, x;	
+//	if(alloc_locked) return 0 & printf("WARNING: you can declare compound key statements (SEQ, CHAIN, EXEC, TEMPO, AXIS) only inside main() call, and not during an event.\xa");
+	v = elements(&keyalloc) - kpos - 4;
+	if(v < np | !np) return 0;						// not enough allocation space or no parameters
+	Map(&v, p); Dim(&v, np);						// v = params array
+	keyalloc[kpos] = np + 4;						// size
+	keyalloc[kpos+1] = &proc;						// function
+	keyalloc[kpos+2] = kpos + 2 + np;				// parameters index
+	while(x < np)
+	{
+		keyalloc[kpos+3+x] = v[x];
+		x = x+1;
+	}
+	keyalloc[kpos+3+np] = kpos + 3 | JUMP; 
+	x = ASMFind(kpos);
+	if(x == kpos) kpos = kpos + np + 4;
+	return x + 1 | PROC;	// skip block size
+}
+
+int ASMFind(int x)
+{
+	int i, j, k; while(i < x)
+	{
+		k = i + keyalloc[i]; // next
+		if(keyalloc[i] == keyalloc[x])	// size
+			if(keyalloc[i+1] == keyalloc[x+1]) // proc
+			{
+				j = x-i;
+				i = i+3;
+				while(keyalloc[i] == keyalloc[j+i]) i = i+1;	// param
+				if((keyalloc[i] & 0xffff0000) == JUMP) return x-j;
+			}
+		i = k; 
+	}
+	return x;
+}
+
+int seqproc(alias v, int p)		// key sequence procedure
+{
+	int flag = p & (PULSE | KEYON);	
+	p = (p & 0xffff) + 1;										// params index
+	if(flag & KEYON) 
+	{
+		v[p] = v[p] + 1;
+		if(v[v[p]] & JUMP) v[p] = v[v[p]]  & 0xffff;
+	}
+	p = v[v[p]] | flag;
+	if(p & LOCK) chainlock = !chainlock;
+	return ActKey(p);
+}
+
+int chainlock;
+int chaincall(int p){ chainproc(&keyalloc, p); }
+int chainproc(alias v, int p)
+{
+	int k, press = p & KEYON;
+	p = p + 1;
+	do
+	{
+		p = p + 1;
+		k = v[p & 0xffff];
+		if(!!(k & LOCK) & !!press) chainlock = !chainlock;
+		if(k & DELAY)
+			if(chainlock) Sleep(k & 0xffff);
+			else return DeferCall(k & 0xffff, &chaincall, p-1 | press);
+		else if(k & JUMP) break;							// end chain
+		else ActKey(k | p & PULSE | press);
+	} while(1);
+	chainlock = 0;
+}
+
+int tempo1(int p){ Map(&p, p); Dim(&p, 3); p[0] = 0; ActKey(p[2] | KEYON); }
+int tempoproc(alias v, int p)
+{
+	int i = p+1 & 0xffff;
+	v[i+2] = v[i+2] | (p & PULSE);
+	if(p & KEYON) { v[i] = 1 | PostEvent(EV_USR+100+i, &tempo1, &&v[i], v[i+3]); }
+	else 
+	{
+		RemoveEvent(EV_USR+100+i);
+		if(v[i]) ActKey(v[i+1] | KEYON | PULSE);
+		else ActKey(v[i+2]);
+	}
+}
+
+int rexecproc(alias v, int p)
+{ 
+	int i = p+2 & 0xffff; 
+	if(p & KEYON) AutoRepeat(v[i], v[i+1], &execute, v[i+2]); 
+	else if(v[i+3]) StopAutoRepeat(v[i]);
+}
+
+int axis1(int p){ Map(&p, p); Dim(&p, 2); DXAxis(p[0], clip(Axis[p[0]].pos + p[1], -AMAX, AMAX)); }
+int axisproc(alias v, int p)
+{
+	int i = p+2 & 0xffff;
+	StopAutoRepeat(v[i]+32768+8);
+	if(p & KEYON) AutoRepeat(v[i]+32768+8, v[i+2], &axis1, &&v[i]);
+}
+
+char ledcmd[16]={3,3,3,2,3,0,1,0,3,3,3,3,3,1,3,3};
+int ledproc(alias v, int p)
+{
+	int k, j, i = p+2 & 0xffff;
+	if(p & KEYON)
+		if(v[i+1] == LED_INTENSITY) GameOutput(v[i], OUT_ID_LED_INTENSITY, v[i+2]);
+		else if(v[i+1] == LED_ONOFF)
+		{
+			k = v[i+2] & 0xffffff ^ 0x555555; while(k)
+			{
+				p = ledcmd[k & 0xf];
+				if(p < 3) GameOutput(v[i], OUT_ID_LED_BACKLIGHT+j, p);
+				k = k >> 4;
+				j = j+1;
+			}
+		}
+}
+
+int X(int list, int x)
+{
+	if(!(list & PROC)) return 0;
+	list = list+1 & 0xffff;
+	int n = keyalloc[list] - list;
+	if(x < 0) return n;		// returns elements number
+	if(x >= n) return 0;
+	return keyalloc[list+x+1];
+}
+
+//x=-1..1, lower=0..1, center=0..1, upper=0..1, trim=-1..1, curve=-32..32
+float fcurve(float x, float lower, float center, float upper, float trim, int curve)
+{
+	float m, M, cM, cm;
+	m = lower+lower - 1;
+	M = 1 - upper-upper;
+	cM = center;
+	cm = -cM;
+	if(x < m) x = -1;
+	else if(x < cm) 
+		if(!curve) x = (x-cm)/(cm-m);
+		else x = (1 - exp((cm-x)*curve))/(exp((cm-m)*curve) - 1);
+ 	else if(x < cM) x = 0;
+ 	else if(x < M)
+		if(abs(curve) < 0.01) x = (x-cM)/(M-cM);
+		else x =(exp((x-cM)*curve) - 1)/(exp((M-cM)*curve) - 1); 
+	else x = 1;
+	x = x + trim;
+ 	if(x < -1) x = -1;
+	else if(x > 1) x = 1;
+	return x;
+}
+float P2Curve(float x, float a, float b, float c){ return a*x*x + b*x + c; }
+
+float LI(float x, float y, float X, float Y, float v) { return ((Y-y)*v + X*y - x*Y) / (X-x); } // linear interpolate
+
+int clip(int i, int down, int up)
+{
+	if(i<down) return down;
+	else if(i>up) return up;
+	else return i;
+}
+
+int hatstatus, hatlkup[16]={POVCENTER, POVU, POVR, POVUR, POVD, POVCENTER, POVDR, POVCENTER, POVL, POVUL, POVCENTER, POVCENTER, POVDL, POVCENTER, POVCENTER, POVCENTER};
+int HatUp(int p){ hatstatus = hatstatus & (p ^ 0xffffffff); VirtualOutput(OUT_TYPE_GAME, OUT_ID_HAT, hatlkup[hatstatus]); }
+int _key(int c, int mode, int delay=0)
+{
+	if(c >= MOUSE_LEFT) VirtualOutput(OUT_TYPE_MOUSE, c-MOUSE_LEFT, mode, delay);
+	else if(c >= DX1) // DX key
+		if(c < DXHATUP) VirtualOutput(OUT_TYPE_GAME, c-DX1, mode, delay);
+		else 
+		{	
+			c = h2blookup[c-DXHATUP+1];
+			if(mode) hatstatus = hatstatus | c;
+			else hatstatus = hatstatus & (c ^ 0xffffffff);
+			VirtualOutput(OUT_TYPE_GAME, OUT_ID_HAT, hatlkup[hatstatus]);
+			if(mode == OUT_VALUE_BUTTON_PRESS_RELEASE) DeferCall(delay, &HatUp, c);
+		}
+	else if(c)
+	{
+		if(c<256) return _key(ASC[c], mode, delay);
+		if(mode != OUT_VALUE_BUTTON_RELEASE) 
+			if(c > 2500) _key(RALT, mode, delay+1);
+			else if(c > 2000) _key(SHF, mode, delay+1);
+		VirtualOutput(OUT_TYPE_KEYBOARD, c%500, mode, delay);
+		if(mode == OUT_VALUE_BUTTON_RELEASE) 
+			if(c > 2500) _key(RALT, OUT_VALUE_BUTTON_RELEASE);
+			else if(c > 2000) _key(SHF, OUT_VALUE_BUTTON_RELEASE);
+	}
+}
+
+
+int RPT(int key, byte n, int delay) // repeat <key> <n> times, with <delay> in miliseconds between
+{
+	int ch;
+	while(1)
+	{
+		if(n & 1) 
+			if(ch) ch = CHAIN(key, D(delay), ch);
+			else ch = key;
+		n = n >> 1;
+		if(!n) return ch;
+		key = CHAIN(key, D(delay), key);
+		delay = delay << 1;
+	}
+}
+
+// ------------------------------------------- Axis functions -----------------------------
+struct DXAxisStatus
+{
+	int pos, trim;
+	char coupling;
+	char lock;
+	float cos, sin;
+}
+DXAxisStatus Axis[12]; 
+
+int DXAxis(int index, int value)
+{
+	if(index < DX_X_AXIS | index > MOUSE_Z_AXIS) return 0;
+	if(index == MOUSE_Z_AXIS) return DXSetAxis(index, value); // MOUSE_Z_AXIS is relative
+	Axis[index].pos = value;
+	value = Axis[index].coupling;
+	if(value)
+	{
+		DXSetAxis(index,  Axis[index].pos*Axis[index].cos + Axis[value].pos*Axis[index].sin + Axis[index].trim);
+		DXSetAxis(value, -Axis[index].pos*Axis[index].sin + Axis[value].pos*Axis[index].cos + Axis[value].trim);
+	}
+	else DXSetAxis(index, Axis[index].pos + Axis[index].trim);
+}
+
+int DXSetAxis(int index, int value)
+{	
+	value = clip(value, -AMAX, AMAX);
+	if(!Axis[index].lock)
+		if(index < MOUSE_X_AXIS) DX(index-1+OUT_ID_AXIS, value);
+		else VirtualOutput(OUT_TYPE_MOUSE, index-MOUSE_X_AXIS+OUT_ID_AXIS, value);
+}
+
+int RotateDXAxis(int XAxis, int YAxis, float angle) // clockwise angle, in degrees
+{
+	angle = angle * 3.1415926 / 180;
+	Axis[XAxis].coupling = YAxis;
+	Axis[XAxis].cos = cos(angle);
+	Axis[XAxis].sin = -sin(angle);
+	Axis[YAxis].coupling = XAxis;
+	Axis[YAxis].cos = cos(angle);
+	Axis[YAxis].sin = sin(angle);
+}
+
+define CURRENT	0x20000
+int SET(int i){ return i & 0xffff | 0x10000; }
+int TrimDXAxis(int index, int value) // 1024 values
+{
+	short t = value;
+	if(abs(value) < 0x3ff) Axis[index].trim = Axis[index].trim + (t << 5);
+	else if(value > 0)
+		if(value & 0x10000) Axis[index].trim = t << 5;
+		else if(value & CURRENT) Axis[index].trim = Axis[index].pos + Axis[index].trim;
+	Axis[index].trim = clip(Axis[index].trim, -AMAX, AMAX);
+	DXAxis(index, Axis[index].pos);
+}
+
+int LockDXAxis(int index, char lock)
+{ 
+	Axis[index].lock = lock; 
+	if(!lock) DXAxis(index, Axis[index].pos);
+}
+
+int GetAxisData(alias o, int x) // maps the global <axdata>
+{
+	if(x >= IN_POSITION_AXES & x < IN_POSITION_HAT)
+	{
+		GetDeviceData(&o);
+		Map(&axdata, &&devdata.axmap + (x-IN_POSITION_AXES)*AXDATASIZE);
+		return 1;
+	}
+}
+
+int MapAxis(alias o, int x, int dx=0, int dir=AXIS_NORMAL, int relative=MAP_ABSOLUTE)
+{ 
+	if(!GetAxisData(&o, x)) return 0;
+	if(!!axdata.dxmap & axdata.relative) StopAutoRepeat(32767+axdata.dxmap);
+	axdata.dxmap = dx; 
+	axdata.dir = dir - 1;
+	axdata.relative = relative;
+//	axdata.relpos = 0;
+	if(!!dx & relative) AutoRepeat(32767+dx, 20, &RJLoop, &&axdata);
+}
+
+int SetSCurve(alias o, int x, int lower=0, int center=0, int upper=0, int curve=0, float zoom=0) // all percents, curve = -32..32
+{
+	if(!GetAxisData(&o, x)) return 0;
+	axdata.curvemode = 1;
+	axdata.lower = lower;
+	axdata.center = center;
+	axdata.upper = upper;
+	axdata.curve = curve;
+	axdata.ab = zoom;
+	axdata.val = AxisVal(o[x], &axdata);
+}
+
+int SetJCurve(alias o, int x, float in, float out) // in, out = percents
+{
+	if(!GetAxisData(&o, x)) return 0;
+	axdata.curvemode = 2;
+	axdata.ab = 50*(in - out) / (in*(in - 100));
+	axdata.val = AxisVal(o[x], &axdata);
+}
+
+int SetCustomCurve(alias o, int x, int list)
+{
+	if(!GetAxisData(&o, x)) return 0;
+	if(list & PROC) axdata.curvemode = list;
+	else axdata.curvemode = 0;
+	axdata.val = AxisVal(o[x], &axdata);
+}
+
+float GetCustomCurveValue(int p, float v)
+{
+	p = p + 1 & 0xffff;
+	int n = keyalloc[p];	// list end
+	int i = p+1;
+	if(i>=n) return v;
+	while(i<n)
+		if(keyalloc[i] < v) i=i+2;
+		else if(i == p+1) return LI(0, 0, keyalloc[i], keyalloc[i+1], v);
+		else return LI(keyalloc[i-2], keyalloc[i-1], keyalloc[i], keyalloc[i+1], v);
+	return LI(keyalloc[i-2], keyalloc[i-1], 100, 100, v);
+}
+
+int LockAxis(alias o, int x, int lock){ if(GetAxisData(&o, x)) axdata.locked = lock; }
+
+int AxisVal(int v, alias d)
+{
+	if(d.curvemode == 0);		// no curve, keeps v unchanged
+	else if(d.curvemode == 1) v = AMAX*pow(1.41, d.ab)*fcurve(v/AMAXF, d.lower*0.01, d.center*0.01, d.upper*0.01, 0, d.curve);  
+	else if(d.curvemode == 2) v = AMAX*P2Curve(v/AMAXF, -d.ab, 1, d.ab);
+	else v = AMAX*GetCustomCurveValue(d.curvemode, v*50/AMAXF + 50)/50 - AMAX; 	// custom curve
+	return v*(1 + axdata.dir);
+}
+
+int RJLoop(int p)
+{
+	Map(&axdata, p);
+	p = axdata.val * !axdata.locked;
+	axdata.relpos = clip(axdata.relpos + p, -AMAX*10, AMAX*10);
+	if(p) DXAxis(axdata.dxmap, axdata.relpos/10);
+}
+
+char gllk[32] = {0x3f, 3, 0xc, 0xf, 0x30, 0x33, 0x3c, 0x3f, 0x2a, 2, 8, 0xa, 0x20, 0x22, 0x28, 0x2a, 0x15, 1, 4, 5, 0x10, 0x11, 0x14, 0x15, 0x3f, 3, 0xc, 0xf, 0x30, 0x33, 0x3c, 0x3f};
+int GetLayerBits(int layer) // layer is a word constant, containing i,o,u,m,d, like 'i', or 'iu'
+{
+	layer = layer & 0x7fffffff;
+	char c, mask = 0;
+	do
+	{	
+		c = layer & 0xff;
+		mask = mask | (1 << strchr("dmuoir", c));
+		layer = layer >> 8;
+	} 
+	while(layer);
+	return gllk[mask & 0x1f] | ((mask & 0x20) << 1);	
+}
+
+int KeyAxis(alias o, int x, int layer, int mode)
+{
+	if(!GetAxisData(&o, x)) return 0;
+	layer = GetLayerBits(layer) & 0x3f;		// ignore 'r' bit
+	Map(&x, &&axdata.key + 20);
+	while(layer)
+	{
+		if(layer & 1) x = mode;
+		layer = layer >> 1;
+		Map(&x, &&x-4);
+	}
+}
+
+int AXMAP1(int n, int u, int d, int c=-1){ Dim(&n, 4); n[1]=u; n[2]=d; n[3]=c; return ASMAlloc(4, &&n, &axmap1proc); }
+int axmap1proc(alias v, int p, int x)
+{
+	Map(&p, &&v[p + 1 & 0xffff]); Dim(&p, 5);
+	int n = p[1], center=p[4]>=0;
+	if(n & PROC) 
+	{
+		n = n + 1 & 0xffff;
+		n = v[n] - n - 1;	// list size - 1
+		center = center & n;
+		x = GetListPos(&v, p[1], (x+AMAX)*100 / (AMAX+AMAX+1)) - 1;
+	}
+	else 
+	{
+		center = center & (n + 1);
+		n = n + center;
+		x = ((x + AMAX)*(n + 1) + AMAX) / (AMAX+AMAX+1) - 1;
+	}
+	int y = -p[0] >> 1;	// last position
+	int up = p[0] & 1;
+	if(center) center = n >> 1;
+	else center = -1;
+	while(y != x) 
+	{
+		if(y>=0 & y<n)
+			if(y==center) ActKey(p[4]); 
+			else ActKey(p[3-up]);
+		if(x < -1) break;
+		up = y < x;
+		if(y < -1) y = x;		
+		else y = y + (up << 1) - 1;
+		if(y>=0 & y<n)
+			if(y==center) ActKey(p[4] | KEYON); 
+			else ActKey(p[3-up] | KEYON); 
+	}
+	p[0] = -((x << 1) + up);
+}
+
+define LIST AXMAP2
+int AXMAP2(){ Map(&AXMAP2, MakeProcInstance(&_AXMAP2), MAP_IPTR_VPN); }
+int _AXMAP2(int i, int np, int p){ return ASMAlloc(np, p, &axmap2proc); }
+int axmap2proc(alias v, int p, int x)
+{
+	int i = p + 1 & 0xffff;
+	Map(&p, &&v[i]); Dim(&p, v[i+1]+2);
+	if(p[1] & PROC) x = GetListPos(&v, p[1], (x+AMAX)*100 / (AMAX+AMAX+1)) - 1;
+	else x = (x + AMAX) * p[1] / (AMAX+AMAX+1);
+	int y = -v[p[0]+1];
+	while(y != x)
+	{
+		if(y>=0 & 1+y<p[0]-i) ActKey(p[2+y]);
+		if(x < -1) break;
+		if(y < -1) y = x;
+		else y = y + ((y<x) << 1) - 1;
+		if(y>=0 & 1+y<p[0]-i) ActKey(p[2+y] | KEYON);
+	}
+	v[p[0]+1] = -x;
+}
+
+int GetListPos(alias v, int p, short x)
+{
+	p = (p & 0xffff) + 2;
+	if(x < 0) return -1;
+	int pos; while(v[p+pos] <= x) pos = pos+1;
+	return pos;
+}
+
+// ------------------------------------------- Default button mapping  -----------------------------
+int JoystickMap[]={TG1,DX1, S2,DX2, S3,DX3, S4,DX4, S1,DX5, TG2,DX6, H2U,DX7, H2R,DX8, H2D,DX9, H2L,DX10, H3U,DX11, H3R,DX12, H3D,DX13, H3L,DX14,
+				   H4U,DX15, H4R,DX16, H4D,DX17, H4L,DX18, H4P,DX19, H1U,DXHATUP, H1R,DXHATRIGHT, H1D,DXHATDOWN, H1L,DXHATLEFT};
+int ThrottleMap[]={LTB,DX20, SC,DX21, CSU,DX22, CSR,DX23, CSD,DX24, CSL,DX25, MSP,DX26, MSU,DX27, MSR,DX28, MSD,DX29, MSL,DX30, SPDF,DX31, SPDB,DX32};
+int HCougarMap[] ={T1,DX19, T3,DX20, T2,DX21, T4,DX22, T5,DX23, T6,DX24, T7,DX25, T8,DX26, T9,DX27, T10,DX28};
+int MFDMap[]	 ={OSB01,DX1, OSB02,DX2, OSB03,DX3, OSB04,DX4, OSB05,DX5, OSB06,DX6, OSB07,DX7, OSB08,DX8, OSB09,DX9, OSB10,DX10, OSB11,DX11, OSB12,DX12,
+				   OSB13,DX13, OSB14,DX14, OSB15,DX15, OSB16,DX16, OSB17,DX17, OSB18,DX18, OSB19,DX19, OSB20,DX20, SYMU,DX21, SYMD,DX22, CONU,DX23,
+				   COND,DX24, BRTU,DX25, BRTD,DX26, GAINU,DX27, GAIND,DX28};
+int T16000Map[]	 ={TS1,DX1, TS2,DX2, TS3,DX3, TS4,DX4, B5,DX5, B6,DX6, B7,DX7, B8,DX8, B9,DX9, B10,DX10, B11,DX11, B12,DX12, B13,DX13, B14,DX14, B15,DX15,
+				   B16,DX16};
+int TWCSThrottleMap[] = {TBTN1, DX1, TBTN2, DX2, TBTN3, DX3, TBTN4, DX4, TBTN5, DX5};
+int TFRPRudderMap[] = {0, DX1};
+int MapList(alias dev, alias list)
+{
+	int i, e = elements(&list); while(i<e)
+	{
+		MapKey(&dev, list[i], list[i+1]);
+		i = i+2;
+	}
+}

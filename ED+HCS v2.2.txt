@@ -1,0 +1,63 @@
+	2.2.1.2b 01/01/2017 (beta)
+
+	Support MFD (2), Rudders and T.Flight rudders
+	
+	Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction (if misaligned with game states S3 + Switch)
+
+	Easy Debug Msg OFF (Debugmode 0/1 In Settings File)
+
+	Supercruise On Throttle when boosting if throttle at 100%. Can be switched On or Off On The Fly
+
+	Game Menu Up on Idle Throttle states. (Setup In Settings File)
+	Throttle LED off on Idle Throttle states. (Setup In Settings File)
+	
+	Secure Retract Mode : Automatic Retract of Hardpoint Gear and cargo  when engaging Escape Fight Mode
+	
+	Dual stage trigger Combined Fire on Triger 1 to allow combined Primary & Secondary fire or for the trigger to be separated to Primary fire only. Can be switched On or Off On The Fly
+
+	LED:	
+	
+		Easy Led Configuration (Settings File)
+	
+		Throttle LED intensity On The Fly (S3 + Friction Control Axis)
+	
+		Throttle LED Off on Idle Throttle states. (Setup In Settings File)
+	
+	PIP:
+		
+		Automatic PIP Mode When Deploy or Retract Hardpoints (Setup In Settings File)
+
+		PIP Management Hat Switch offering 8 different presets depending how long you hold down the button.
+
+	PTT:
+		
+		Default PTT Mode (Toggle or Hold). Can be switched On or Off On The Fly
+	
+		Default PTT (Internal or External). Can be switched On or Off On The Fly
+
+	
+	HEAT SINK:
+
+		Automatic Heat Sink On Silent Runing (Setup In Settings File)
+
+		Automatic Silent Runing OFF/ON when Fire (if silent runing is up before fire)  (Setup In Settings File)
+
+
+	JOYSTICK & THROTTLE CURVE:
+
+		3 Joystick Curve Switchable On The Fly (slew stick is include in this function) (Setup In Settings File)
+	
+		2 Throttle Curve Switchable On The Fly (normal & precison). Can be switched On or Off On The Fly
+		
+		Enhanced Joystick Curves tailored for Flight Assist Off (Joystick Curve will return to previous state when FAON) (Setup In Settings File)
+
+	AUTOPILOT MODE:
+
+		3 Autopilot Mode : Easy Request and Cancel Docking procedure, Escape Fight and System Jump
+
+
+	
+	
+
+	
+	
