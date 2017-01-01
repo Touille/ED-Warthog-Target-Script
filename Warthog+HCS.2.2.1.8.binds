@@ -740,11 +740,11 @@
 		<ToggleOn Value="0" />
 	</VerticalThrustersButton>
 	<BuggyPrimaryFireButton>
-		<Primary Device="Mouse" Key="Mouse_1" />
+		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_1" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</BuggyPrimaryFireButton>
 	<BuggySecondaryFireButton>
-		<Primary Device="Mouse" Key="Mouse_2" />
+		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_2" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</BuggySecondaryFireButton>
 	<AutoBreakBuggyButton>
