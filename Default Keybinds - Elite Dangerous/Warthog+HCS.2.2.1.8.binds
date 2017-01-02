@@ -764,9 +764,9 @@
 		<Primary Device="Keyboard" Key="Key_T" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</SelectTarget_Buggy>
-	<MouseTurretXMode Value="Bindings_MouseYaw" />
+	<MouseTurretXMode Value="" />
 	<MouseTurretXDecay Value="1" />
-	<MouseTurretYMode Value="Bindings_MousePitch" />
+	<MouseTurretYMode Value="" />
 	<MouseTurretYDecay Value="1" />
 	<BuggyTurretYawAxisRaw>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_XAxis" />
@@ -895,7 +895,7 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</SystemMapOpen_Buggy>
 	<HeadLookToggle_Buggy>
-		<Primary Device="Mouse" Key="Mouse_3" />
+		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="{NoDevice}" Key="" />
 		<ToggleOn Value="1" />
 	</HeadLookToggle_Buggy>
