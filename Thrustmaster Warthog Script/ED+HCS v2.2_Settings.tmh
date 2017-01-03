@@ -18,8 +18,8 @@
 	define GameMenuOnIDLE 0						// Game Menu on Throttle IDLE State
 	define AfterburnerDetent 0					// Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
 
-	int HeatSinkOnSilentRuning = 0;				// [WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing 	Can be switched on the Fly Data Management Switch UP
-	define HeatSinkOnSilentRuningDelay 8000		// HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
+	int HeatSinkonSilentRuning = 0;				// [WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing 	Can be switched on the Fly Data Management Switch UP
+	define HeatSinkonSilentRuningDelay 8000		// HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	
 //	define VoiceAttack 1 						// (Not Used Yet) If VoiceAttack set to 1
 	
@@ -74,7 +74,7 @@
 	define ToggleVoicePTTLED 				LED5
 	define ToggleSilentRuningLED 			0
 	define ToggleSilentRuningonFireLED 		LED2
-	define ToggleHeatSinkOnSilentRuningLED 	0
+	define ToggleHeatSinkonSilentRuningLED 	0
 	define ToggleIDLEonThrottleLED 			0      	// Work only if ThrottleLEDOnIDLE != 0 
 	
 //--Throttle Backlight (Value 0-255)----------------------------------------------------------------------------------------------------------------------------//
@@ -135,7 +135,7 @@
 		printf("Game Menu On IDLE-----------%d\x0a", GameMenuOnIDLE);
 		printf("Throttle LED On IDLE--------%d\x0a", ThrottleLEDOnIDLE);
 		printf("Optimal PIP Mode------------%d\x0a", OptimalPIPMode);
-		printf("Heat Sink On SilentRuning---%d\x0a", HeatSinkOnSilentRuning);
+		printf("Heat Sink On SilentRuning---%d\x0a", HeatSinkonSilentRuning);
 		printf("Heat Sink OFF On Fire-------%d\x0a", SilentRuningOFFonFire);
 		printf("--------------------------------------------------------------------------\x0a");
 		printf("Rotation Correction---------%d\x0a", sRCorrection);

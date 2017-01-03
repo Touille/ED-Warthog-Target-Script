@@ -194,10 +194,10 @@
 	
 	// TOGGLE: HeatSink on Silent Runing
 	int initToggleHeatSinkonSilentRuning(){
-		HeatSinkOnSilentRuning=!HeatSinkOnSilentRuning; // reverse the flag status
-		if(DebugMode)printf("Heat Sink on Silent Runing is [%d]\x0a", HeatSinkOnSilentRuning);
-		if(HeatSinkOnSilentRuning)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkOnSilentRuningLED));					// ToggleSilentRuningLED ON
-		if(!HeatSinkOnSilentRuning)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleHeatSinkOnSilentRuningLED));					// ToggleSilentRuningLED ON
+		HeatSinkonSilentRuning=!HeatSinkonSilentRuning; // reverse the flag status
+		if(DebugMode)printf("Heat Sink on Silent Runing is [%d]\x0a", HeatSinkonSilentRuning);
+		if(HeatSinkonSilentRuning)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));					// ToggleSilentRuningLED ON
+		if(!HeatSinkonSilentRuning)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleHeatSinkonSilentRuningLED));					// ToggleSilentRuningLED ON
 	}	
 	
 	// TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)	
