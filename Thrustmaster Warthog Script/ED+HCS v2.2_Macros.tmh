@@ -2,7 +2,7 @@
 // MACRO VARIABLE INITALISATION 																																//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkOnSilentRuning;
+	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning;
 	int mPowerEngSys, mPowerEngWep, mPowerSysWep, mPowerSysEng, mPowerWepSys, mPowerWepEng, mSplitPowerEng, mSplitPowerSys, mSplitPowerWep, mPowerTank, mPowerOffensive;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -45,7 +45,7 @@
 			EXEC("initToggleSilentRuning();"));
 			
 		// MACRO: Heat Sink on Silence Runing
-		mHeatSinkOnSilentRuning = CHAIN(
+		mHeatSinkonSilentRuning = CHAIN(
 			EXEC("initToggleSilentRuning();"), D(HeatSinkonSilentRuningDelay),
 			PULSE+DeployHeatSink);
 	}

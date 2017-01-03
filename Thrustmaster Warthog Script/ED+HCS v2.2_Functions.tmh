@@ -169,8 +169,8 @@
 	int initToggleSilentRuning(){
 		sSilentRuning=!sSilentRuning; // reverse the flag status
 		if(sSilentRuning){
-			if(HeatSinkOnSilentRuning){
-				ActKey(KEYON+PULSE+mHeatSinkOnSilentRuning);
+			if(HeatSinkonSilentRuning){
+				ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);
 				if(DebugMode)printf("Heat Sink On Silent Runing Engaged [%d]\x0a", sSilentRuning);
 			}else{
 				ActKey(KEYON+PULSE+SilentRunning);
