@@ -46,7 +46,7 @@
 			
 		// MACRO: Heat Sink on Silence Runing
 		mHeatSinkOnSilentRuning = CHAIN(
-			EXEC("initToggleSilentRuning();"), D(HeatSinkOnSilentRuningDelay),
+			EXEC("initToggleSilentRuning();"), D(HeatSinkonSilentRuningDelay),
 			PULSE+DeployHeatSink);
 	}
 		
