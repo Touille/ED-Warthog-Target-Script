@@ -1,4 +1,4 @@
-	2.2.1.2b 01/01/2017 (beta)
+	2.2.1.3b 03/01/2017 (beta)
 
 	Support MFD (2), Rudders and T.Flight rudders
 	

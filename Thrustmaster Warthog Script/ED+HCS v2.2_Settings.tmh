@@ -18,7 +18,7 @@
 	define GameMenuOnIDLE 0						// Game Menu on Throttle IDLE State
 	define AfterburnerDetent 0					// Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
 
-	int HeatSinkOnSilentRuning = 0;				// [BUG NEED TO BE 0 FOR NOW] Automatic HeatSink On Silent Runing OFF [0] ON [1]
+	int HeatSinkOnSilentRuning = 0;				// [WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing 	Can be switched on the Fly Data Management Switch UP
 	define HeatSinkOnSilentRuningDelay 8000		// HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	
 //	define VoiceAttack 1 						// (Not Used Yet) If VoiceAttack set to 1
@@ -51,30 +51,31 @@
 // PRESS DELAY SETTINGS 																																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	define MiniPressDelay 150					// Shortest Delay 150
-	define ShortPressDelay 250					// Shorter Delay 250
+	define MiniPressDelay 	150					// Shortest Delay 150
+	define ShortPressDelay 	250					// Shorter Delay 250
 	define MediumPressDelay 350					// Medium Delay 350
-	define LongPressDelay 500					// Long Delay 500
-	define ExtraPressDelay 1500					// Longest Delay 1500
-	define PIPPressDelay 350					// PIP PressDelay 350
+	define LongPressDelay 	500					// Long Delay 500
+	define ExtraPressDelay 	1500				// Longest Delay 1500
+	define PIPPressDelay 	350					// PIP PressDelay 350
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // LED SETTINGS // LED1, LED2, LED3, LED4, LED5 // 5 LED's MAXIMUM 																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	define ToggleLandingGearLED 0
-	define ToggleCargoScoopLED LED4
-	define ToggleLightsLED 0
-	define ToggleHardpointsLED 0
-	define ToggleCombinedFireLED LED1
-	define ToggleRCorrectionLED LED3
-	define ToggleCameraLED 0
-	define ToggleSuperCruiseModeLED 0
-	define TogglePTTLED 0
-	define ToggleVoicePTTLED LED5
-	define ToggleSilentRuningLED 0
-	define ToggleSilentRuningonFireLED LED2
-	define ToggleIDLEonThrottleLED 0      			// Work only if ThrottleLEDOnIDLE != 0 
+	define ToggleLandingGearLED 			0
+	define ToggleCargoScoopLED 				LED4
+	define ToggleLightsLED 					0
+	define ToggleHardpointsLED 				0
+	define ToggleCombinedFireLED			LED1
+	define ToggleRCorrectionLED 			LED3
+	define ToggleCameraLED 					0
+	define ToggleSuperCruiseModeLED 		0
+	define TogglePTTLED 					0
+	define ToggleVoicePTTLED 				LED5
+	define ToggleSilentRuningLED 			0
+	define ToggleSilentRuningonFireLED 		LED2
+	define ToggleHeatSinkOnSilentRuningLED 	0
+	define ToggleIDLEonThrottleLED 			0      	// Work only if ThrottleLEDOnIDLE != 0 
 	
 //--Throttle Backlight (Value 0-255)----------------------------------------------------------------------------------------------------------------------------//
 
@@ -85,9 +86,9 @@
 	// 172 to 214 is level 4 
 	// 215 to 255 is level 5
 	
-	define ThrottleLight 255				// Base Throttle LED Intensity
-	define ThrottleLightHDM 85				// Base Throttle LED Intensity when HDM Use
-	define ThrottleLEDOnIDLE 0				// Throttle LED Intensity on Throttle IDLE State
+	define ThrottleLight 		255				// Base Throttle LED Intensity
+	define ThrottleLightHDM 	85				// Base Throttle LED Intensity when HDM Use
+	define ThrottleLEDOnIDLE	0				// Throttle LED Intensity on Throttle IDLE State
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // VARIABLES 																																					//
@@ -135,6 +136,7 @@
 		printf("Throttle LED On IDLE--------%d\x0a", ThrottleLEDOnIDLE);
 		printf("Optimal PIP Mode------------%d\x0a", OptimalPIPMode);
 		printf("Heat Sink On SilentRuning---%d\x0a", HeatSinkOnSilentRuning);
+		printf("Heat Sink OFF On Fire-------%d\x0a", SilentRuningOFFonFire);
 		printf("--------------------------------------------------------------------------\x0a");
 		printf("Rotation Correction---------%d\x0a", sRCorrection);
 		printf("Combine Pri+Sec Fire--------%d\x0a", sCombinedFire);

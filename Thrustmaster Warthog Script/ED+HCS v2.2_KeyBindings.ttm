@@ -3,138 +3,138 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	// WEAPON CONTROL //
-	define PrimaryFire DX1										// DX1
-	define SecondaryFire DX2									// DX2
-	define NextFireGroup USB[0x37]								// - . 				[HCS]
-	define PrevFireGroup USB[0x36]								// - ,  			[HCS]
-	define DeployHardpoints USB[0x18] 							// - U 				[HCS]
+	define PrimaryFire 				DX1						// DX1
+	define SecondaryFire 			DX2						// DX2
+	define NextFireGroup 			USB[0x37]				// - . 				[HCS]
+	define PrevFireGroup 			USB[0x36]				// - ,  			[HCS]
+	define DeployHardpoints 		USB[0x18] 				// - U 				[HCS]
 	
 	// TARGET CONTROL //
-	define SelectTargetAhead USB[0x17] 							// - T 				[HCS]
-	define SelectNextShip USB[0x0A] 							// - G 				[HCS]
-	define SelectPrevShip USB[0x05] 							// - B 				[HCS]
-	define SelectHighestThreat USB[0x1C] 						// - Y 				[HCS]
-	define SelectNextHostileShip USB[0x0B] 						// - H 				[HCS]
-	define SelectPrevHostileShip USB[0x11] 						// - N 				[HCS]
-	define SelectNextSubsystem USB[0x0C] 						// - I 				[HCS]
-	define SelectPrevSubsystem USB[0x0E]						// - K 				[HCS]
-	define SelectNextSystemInRoute USB[0x10] 					// - M 				[HCS]
+	define SelectTargetAhead 		USB[0x17] 				// - T 				[HCS]
+	define SelectNextShip 			USB[0x0A] 				// - G 				[HCS]
+	define SelectPrevShip 			USB[0x05] 				// - B 				[HCS]
+	define SelectHighestThreat 		USB[0x1C] 				// - Y 				[HCS]
+	define SelectNextHostileShip 	USB[0x0B] 				// - H 				[HCS]
+	define SelectPrevHostileShip 	USB[0x11] 				// - N 				[HCS]
+	define SelectNextSubsystem 		USB[0x0C] 				// - I 				[HCS]
+	define SelectPrevSubsystem 		USB[0x0E]				// - K 				[HCS]
+	define SelectNextSystemInRoute 	USB[0x10] 				// - M 				[HCS]
 
 	// FLIGHT CONTROL //
-	define RotationalCorrection USB[0x3D] 						// - F4
-	define FlightAssist USB[0x1D] 								// - Z 				[HCS]
-	define ThrustUp USB[0x15]									// - R 				[HCS]
-	define ThrustDown USB[0x09]									// - F 				[HCS]
-	define ThrustLeft USB[0x14]									// - Q 				[HCS]
-	define ThrustRight USB[0x08]								// - E 				[HCS]
-	define EngineBoost USB[0x2B] 								// - TAB 			[HCS]
-	define FrameShiftDrive USB[0x0D] 							// - J				[HCS]
-	define CancelFSD USB[0x0D] 									// J 
-	define Supercruise USB[0x54]								// - NUMPAD /		[HCS]
-	define SetSpeedNeg100 USB[0x56] 							// - NUMPAD - 		[HCS]
-	define SetSpeedNeg75 USB[0x61] 								// - NUMPAD 9 		[HCS]
-	define SetSpeedNeg50 USB[0x60] 								// - NUMPAD 8 		[HCS]
-	define SetSpeedNeg25 USB[0x5F] 								// - NUMPAD 7 		[HCS]
-	define SetSpeed0 USB[0x1B] 									// - X 				[HCS]
-	define SetSpeed25 USB[0x59] 								// - NUMPAD 1 		[HCS]
-	define SetSpeed50 USB[0x5A] 								// - NUMPAD 2 		[HCS]
-	define SetSpeed75 USB[0x5B] 								// - NUMPAD 3 		[HCS]
-	define SetSpeed100 USB[0x57] 								// - NUMPAD + 		[HCS]
-	define IncreaseThrottle USB[0x1A] 							// - W 				[HCS]
-	define DecreaseThrottle USB[0x16] 							// - S 				[HCS]
-	define ReverseThrottle L_CTL+USB[0x15]						// L_CTRL+R
+	define RotationalCorrection 	USB[0x3D] 				// - F4
+	define FlightAssist 			USB[0x1D] 				// - Z 				[HCS]
+	define ThrustUp 				USB[0x15]				// - R 				[HCS]
+	define ThrustDown 				USB[0x09]				// - F 				[HCS]
+	define ThrustLeft 				USB[0x14]				// - Q 				[HCS]
+	define ThrustRight 				USB[0x08]				// - E 				[HCS]
+	define EngineBoost 				USB[0x2B] 				// - TAB 			[HCS]
+	define FrameShiftDrive 			USB[0x0D] 				// - J				[HCS]
+	define CancelFSD 				USB[0x0D] 				// J 
+	define Supercruise 				USB[0x54]				// - NUMPAD /		[HCS]
+	define SetSpeedNeg100 			USB[0x56] 				// - NUMPAD - 		[HCS]
+	define SetSpeedNeg75 			USB[0x61] 				// - NUMPAD 9 		[HCS]
+	define SetSpeedNeg50 			USB[0x60] 				// - NUMPAD 8 		[HCS]
+	define SetSpeedNeg25 			USB[0x5F] 				// - NUMPAD 7 		[HCS]
+	define SetSpeed0 				USB[0x1B] 				// - X 				[HCS]
+	define SetSpeed25 				USB[0x59] 				// - NUMPAD 1 		[HCS]
+	define SetSpeed50				USB[0x5A] 				// - NUMPAD 2 		[HCS]
+	define SetSpeed75 				USB[0x5B] 				// - NUMPAD 3 		[HCS]
+	define SetSpeed100 				USB[0x57] 				// - NUMPAD + 		[HCS]
+	define IncreaseThrottle 		USB[0x1A] 				// - W 				[HCS]
+	define DecreaseThrottle 		USB[0x16] 				// - S 				[HCS]
+	define ReverseThrottle 			L_CTL+USB[0x15]			// L_CTRL+R
 
 	// SRV CONTROLS //
-	define SRVHandbrake USB[0x1B]								// - X				[HCS]									
-	define SRVTurret USB[0x18] 									// - U				[HCS]									
-	define SRVVerticalThrust USB[0x2C]							// - Space			[HCS]
-	define SRVRecallDismissShip	L_ALT+USB[0x1B]					// - L_ALT+X		[HCS]
+	define SRVHandbrake 			USB[0x1B]				// - X				[HCS]									
+	define SRVTurret 				USB[0x18] 				// - U				[HCS]									
+	define SRVVerticalThrust 		USB[0x2C]				// - Space			[HCS]
+	define SRVRecallDismissShip		L_ALT+USB[0x1B]			// - L_ALT+X		[HCS]
 
 	// WINGS & FIGHTERS //
-	define SelectWingman1 USB[0x25] 							// - 8 				[HCS]
-	define SelectWingman2 USB[0x26] 							// - 9 				[HCS]
-	define SelectWingman3 USB[0x27] 							// - 0 				[HCS]
-	define WingmanTarget USB[0xE4] 								// - R_CTRL			[HCS]
-	define WingmanNavlock USB[0xE5] 							// - R_SHIFT 		[HCS]
-	define FighterDock L_ALT+USB[0x05]							// - L_ALT+B		[HCS]
-	define FighterDefensive L_ALT+USB[0x07]						// - L_ALT+D		[HCS]
-	define FighterAggressive L_ALT+USB[0x04]					// - L_ALT+A		[HCS]
-	define FighterFocus	L_ALT+USB[0x17]							// - L_ALT+T		[HCS]
-	define FighterHoldFire L_ALT+USB[0x0B]						// - L_ALT+H		[HCS]
-	define FighterHoldPosition L_ALT+USB[0x16]					// - L_ALT+S		[HCS]
-	define FighterFollow L_ALT+USB[0x09]						// - L_ALT+F		[HCS]
-	define FighterOrders L_ALT+USB[0x12]						// L_ALT+O
+	define SelectWingman1 			USB[0x25] 				// - 8 				[HCS]
+	define SelectWingman2 			USB[0x26] 				// - 9 				[HCS]
+	define SelectWingman3 			USB[0x27] 				// - 0 				[HCS]
+	define WingmanTarget 			USB[0xE4] 				// - R_CTRL			[HCS]
+	define WingmanNavlock 			USB[0xE5] 				// - R_SHIFT 		[HCS]
+	define FighterDock 				L_ALT+USB[0x05]			// - L_ALT+B		[HCS]
+	define FighterDefensive 		L_ALT+USB[0x07]			// - L_ALT+D		[HCS]
+	define FighterAggressive 		L_ALT+USB[0x04]			// - L_ALT+A		[HCS]
+	define FighterFocus				L_ALT+USB[0x17]			// - L_ALT+T		[HCS]
+	define FighterHoldFire 			L_ALT+USB[0x0B]			// - L_ALT+H		[HCS]
+	define FighterHoldPosition 		L_ALT+USB[0x16]			// - L_ALT+S		[HCS]
+	define FighterFollow 			L_ALT+USB[0x09]			// - L_ALT+F		[HCS]
+	define FighterOrders 			L_ALT+USB[0x12]			// L_ALT+O
 
 	// SHIP SYSTEMS //
-	define CargoScoop USB[0x4A] 								// - HOME			[HCS]
-	define JettisonAllCargo USB[0x4D]							// - END 			[HCS]
-	define LandingGear USB[0x0F] 								// - L 				[HCS]
-	define ShipLights USB[0x49] 								// - INSERT		 	[HCS]
-	define IncreseSensorZoom USB[0x4B] 							// - PAGE UP 		[HCS]
-	define DecreaseSensorZoom USB[0x4E] 						// - PAGE DOWN 		[HCS]
-	define PowerEng USB[0x52] 									// - UP Arrow 		[HCS]
-	define PowerWep USB[0x4F] 									// - RIGHT Arrow 	[HCS]
-	define PowerSys USB[0x50] 									// - LEFT Arrow		[HCS]
-	define BalancePower USB[0x51] 								// - DOWN Arrow		[HCS]
+	define CargoScoop 				USB[0x4A] 				// - HOME			[HCS]
+	define JettisonAllCargo 		USB[0x4D]				// - END 			[HCS]
+	define LandingGear 				USB[0x0F] 				// - L 				[HCS]
+	define ShipLights 				USB[0x49] 				// - INSERT		 	[HCS]
+	define IncreseSensorZoom 		USB[0x4B] 				// - PAGE UP 		[HCS]
+	define DecreaseSensorZoom 		USB[0x4E] 				// - PAGE DOWN 		[HCS]
+	define PowerEng 				USB[0x52] 				// - UP Arrow 		[HCS]
+	define PowerWep 				USB[0x4F] 				// - RIGHT Arrow 	[HCS]
+	define PowerSys 				USB[0x50] 				// - LEFT Arrow		[HCS]
+	define BalancePower 			USB[0x51] 				// - DOWN Arrow		[HCS]
 	
 	// COOLING & ECM //
-	define SilentRunning USB[0x4C] 								// - DELETE 		[HCS]
-	define DeployHeatSink USB[0x19] 							// - V 				[HCS]
-	define UseShieldCell R_ALT+USB[0x34] 						// - # 				[HCS]
-	define FireChaffLauncher USB[0x06] 							// - C				[HCS]
-	define ChargeECM L_CTL+USB[0x08]							// - CTRL+E
+	define SilentRunning 			USB[0x4C] 				// - DELETE 		[HCS]
+	define DeployHeatSink 			USB[0x19] 				// - V 				[HCS]
+	define UseShieldCell 			R_ALT+USB[0x34] 		// - # 				[HCS]
+	define FireChaffLauncher 		USB[0x06] 				// - C				[HCS]
+	define ChargeECM 				L_CTL+USB[0x08]			// - CTRL+E
 	
 	// UI NAVIGATION //
-	define UIFocus L_SHIFT										// - L_SHIFT 		[HCS]
-	define UISelect USB[0x2C] 									// - Space			[HCS]
-	define UIBack USB[0x2A] 									// - Backspace		[HCS]
-	define UIUp USB[0x1A] 										// - W				[HCS]
-	define UIDown USB[0x16] 									// - S				[HCS]
-	define UILeft USB[0x04] 									// - A				[HCS]
-	define UIRight USB[0x07] 									// - D				[HCS]
-	define UINextPanel USB[0x08] 								// - E				[HCS]
-	define UIPrevPanel USB[0x14] 								// - Q				[HCS]
-	define TargetPanel USB[0x1E] 								// - 1				[HCS]
-	define SystemPanel USB[0x21] 								// - 4				[HCS]
-	define CommsPanel USB[0x1F] 								// - 2				[HCS]
-	define QuickCommsPanel USB[0x28] 							// - Enter			[HCS]
-	define RolePanel USB[0x20] 									// - 3				[HCS]
-	define UIEscape USB[0x29] 									// Escape
-	define SystemMap USB[0x33] 									// - :				[HCS]
-	define GalaxyMap USB[0x38] 									// - /				[HCS]
-	define GameMenu USB[0x13]									// - P				[HCS]
+	define UIFocus 					L_SHIFT					// - L_SHIFT 		[HCS]
+	define UISelect 				USB[0x2C] 				// - Space			[HCS]
+	define UIBack 					USB[0x2A] 				// - Backspace		[HCS]
+	define UIUp 					USB[0x1A] 				// - W				[HCS]
+	define UIDown 					USB[0x16] 				// - S				[HCS]
+	define UILeft 					USB[0x04] 				// - A				[HCS]
+	define UIRight 					USB[0x07] 				// - D				[HCS]
+	define UINextPanel 				USB[0x08] 				// - E				[HCS]
+	define UIPrevPanel 				USB[0x14] 				// - Q				[HCS]
+	define TargetPanel 				USB[0x1E] 				// - 1				[HCS]
+	define SystemPanel 				USB[0x21] 				// - 4				[HCS]
+	define CommsPanel 				USB[0x1F] 				// - 2				[HCS]
+	define QuickCommsPanel 			USB[0x28] 				// - Enter			[HCS]
+	define RolePanel 				USB[0x20] 				// - 3				[HCS]
+	define UIEscape 				USB[0x29] 				// Escape
+	define SystemMap 				USB[0x33] 				// - :				[HCS]
+	define GalaxyMap 				USB[0x38] 				// - /				[HCS]
+	define GameMenu 				USB[0x13]				// - P				[HCS]
 	
 	// MISCELLANEOUS //
-	define MicrophoneMute USB[0x31]								// - \				[HCS]
-	define InternalVoiceCommsPTT USB[0x54]						// NUMPAD /
-	define ClassifiedCamera USB[0x3A] 							// - F1			 	[HCS]
-	define OrbitalLines USB[0x2E] 								// - =			 	[HCS]
-	define HideShipGUI L_CTL+L_ALT+USB[0x0A] 					// CTRL+ALT+G
-	define ShowFramerate L_CTL+USB[0x09] 						// CTRL+F
-	define ShowConnectionStatus L_CTL+USB[0x05] 				// CTRL+B
-	define ShowCQCScoreboard L_CTL+USB[0x06]					// CTRL+C
-	define Screenshot USB[0x43]									// F10
-	define HighResScreenshot L_ALT+USB[0x43]					// ALT-F10
-	define ChangeWeaponColor L_ALT+USB[0x59]					// ALT+NUMPAD 1
-	define ChangeEngineColor L_ALT+USB[0x5A]					// ALT+NUMPAD 2
+	define MicrophoneMute 			USB[0x31]				// - \				[HCS]
+	define InternalVoiceCommsPTT 	USB[0x54]				// NUMPAD /
+	define ClassifiedCamera 		USB[0x3A] 				// - F1			 	[HCS]
+	define OrbitalLines 			USB[0x2E] 				// - =			 	[HCS]
+	define HideShipGUI 				L_CTL+L_ALT+USB[0x0A] 	// CTRL+ALT+G
+	define ShowFramerate 			L_CTL+USB[0x09] 		// CTRL+F
+	define ShowConnectionStatus 	L_CTL+USB[0x05] 		// CTRL+B
+	define ShowCQCScoreboard 		L_CTL+USB[0x06]			// CTRL+C
+	define Screenshot 				USB[0x43]				// F10
+	define HighResScreenshot 		L_ALT+USB[0x43]			// ALT-F10
+	define ChangeWeaponColor 		L_ALT+USB[0x59]			// ALT+NUMPAD 1
+	define ChangeEngineColor 		L_ALT+USB[0x5A]			// ALT+NUMPAD 2
 
 	// EXTERNAL BINDINGS //
-	define HDMCenter USB[0x45] 									// - F12 			[HCS]
-	define TrackIRCenter USB[0x4D] 								// END
-	define TrackIRPause USB[0x48] 								// PAUSE
-//	define TakeSteamScreenshot USB[0x45] 						// F12
-//	define ShowSteamOverlay L_SHIFT+USB[0x2B] 					// SHIFT+TAB
-//	define NVidiaCaptureVideoAuto L_ALT+USB[0x44] 				// ALT+F11		(Note: Default NVidia Capture of ALT+F10 conflicts with HiRes Screenshots - Needs to be updated in Shadowplay)
-//	define NVidiaCaptureManual L_ALT+USB[0x42]					// ALT+F9
-	define ExternalVoiceCommsPTT USB[0x35]						// ~			(Map this to your Ventrilo/Mumble/Skype PTT Key)
-//	define ToggleVoiceAttackGlobal L_ALT+USB[0x19]				// (ALT)+V
-	define ToggleVoiceAttackMic L_ALT+USB[0x3B]					// ALT+F2
+	define HDMCenter 				USB[0x45] 				// - F12 			[HCS]
+	define TrackIRCenter 			USB[0x4D] 				// END
+	define TrackIRPause 			USB[0x48] 				// PAUSE
+//	define TakeSteamScreenshot 		USB[0x45] 				// F12
+//	define ShowSteamOverlay 		L_SHIFT+USB[0x2B] 		// SHIFT+TAB
+//	define NVidiaCaptureVideoAuto 	L_ALT+USB[0x44] 		// ALT+F11		(Note: Default NVidia Capture of ALT+F10 conflicts with HiRes Screenshots - Needs to be updated in Shadowplay)
+//	define NVidiaCaptureManual 		L_ALT+USB[0x42]			// ALT+F9
+	define ExternalVoiceCommsPTT 	USB[0x35]				// ~			(Map this to your Ventrilo/Mumble/Skype PTT Key)
+//	define ToggleVoiceAttackGlobal 	L_ALT+USB[0x19]			// (ALT)+V
+	define ToggleVoiceAttackMic 	L_ALT+USB[0x3B]			// ALT+F2
 
 	// HEADLOOK //
-//	define LookUp DXHATUP										// <Disabled>
-//	define LookDown DXHATDOWN									// <Disabled>
-//	define LookLeft DXHATLEFT									// <Disabled>
-//	define LookRight DXHATRIGHT									// <Disabled>
+//	define LookUp 					DXHATUP					// <Disabled>
+//	define LookDown 				DXHATDOWN				// <Disabled>
+//	define LookLeft 				DXHATLEFT				// <Disabled>
+//	define LookRight 				DXHATRIGHT				// <Disabled>
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
