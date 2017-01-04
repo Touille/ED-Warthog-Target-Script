@@ -19,11 +19,8 @@ int main()
 	Configure(&TWCSThrottle, MODE_EXCLUDED);
 
 	//Rudders
-	if(Rudders < 2){
-        Configure(&TFRPRudder, MODE_EXCLUDED);
-    }else{
-        Configure(&TFRPRudder, MODE_FILTERED);
-    }
+	if(Rudders < 2)Configure(&TFRPRudder, MODE_EXCLUDED);
+    else Configure(&TFRPRudder, MODE_FILTERED);
 
 	//MFD
 	if(USEMFD == 0){
@@ -41,7 +38,7 @@ int main()
 	SetKBLayout(KBLayout);
 	
 	//Initiate Rudders
-	if(Rudders == 2) initRudders();
+	if(Rudders == 2)initRudders();
 
 	// Initiate Axis Mappings
 	initJoystickAxis();
@@ -50,19 +47,20 @@ int main()
 	initSetThrottleCurves();
 
 	//Initiate MFD
-	if(USEMFD > 0) initRightMFD();
-	if(USEMFD > 1) initLeftMFD();
+	if(USEMFD > 0)initRightMFD();
+	if(USEMFD > 1)initLeftMFD();
 
 	// Initiate Led State
 	initLEDStates();
 
-	// Initiate Custom & PIP Functions (See RIFT HCS_ED Macros_v2.2.tmh)
+	// Initiate Custom & PIP Functions (ED+HCS_Macros_v2.2.tmh)
 	initCustomCommands();
 	initPIPCommands();
+	
+	// Initiate Combined Fire
+	initToggleCombinedFire();
 		
 	if(DebugMode){initPrintState();}
-	
-	initToggleCombinedFire();
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // ;) 																																							//
@@ -139,7 +137,8 @@ int main()
 	MapKeyR(&Throttle, SC, EXEC("initHeadFocus();"));
 
 //	-------------------------Left Throttle Button (RED)
-	MapKeyIO(&Throttle, LTB, EXEC("initSetThrottleCurves();"), ReverseThrottle);
+	MapKey(&Throttle, LTB, EXEC("initReverseThrottle();"));
+	MapKeyR(&Throttle, LTB, EXEC("initReverseThrottle();"));
 
 //	-------------------------Mic Switch
 	MapKey(&Throttle, MSP, EXEC("initVoicePTT();"));
@@ -209,8 +208,8 @@ int main()
 //	MapKey(&Throttle, APALT, 0); 																					// Modifier DOWN 		(ALT)
 
 //	-------------------------Engine Fuel Flow Switches LEFT 
-//	MapKey(&Throttle, EFLNORM, 0); 																					// Switch UP  
-//	MapKey(&Throttle, EFLOVER, 0); 																					// Switch DOWN
+	MapKey(&Throttle, EFLNORM, EXEC("initSetThrottleCurves();"));													// Switch UP  
+	MapKey(&Throttle, EFLOVER, EXEC("initSetThrottleCurves();")); 													// Switch DOWN
 
 //	-------------------------Engine Fuel Flow Switches RIGHT
 	MapKey(&Throttle, EFRNORM, EXEC("initToggleLights();")); 														// Switch UP			[Ship Light]
@@ -262,9 +261,8 @@ int main()
 // HARDWARE MAPPINGS 																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	// TOGGLE: LED INIT
+	// ----------------------------------------------------------------------------------------------------------------------Set LED
 	int initLEDStates(){
-		
 		// Enable LED Backlight on Start (Value 0-255)
 		if(HDM){
 				vThrottleLight = ThrottleLightHDM;
@@ -303,37 +301,44 @@ int main()
 		if(DebugMode)printf("Initialising LED States\x0a");
 	}
 	
+	// ----------------------------------------------------------------------------------------------------------------------Set Joystick
 	// Set Default Joystick Axis
 	int initJoystickAxis(){	
-		MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
-		MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
+		MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// Set Joystick Control X Axis
+		MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// Set Joystick Control Y Axis
+		MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
+		MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
 		if(DebugMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");printf("Initialising Joystick Axis\x0a");
 	}
 
-	// Set Default Throttle Axis
-	int initThrottleAxis(){	
-		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
-		MapAxis(&Throttle, THR_LEFT, DX_ZROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Left Throttle
-		MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
-		MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
-		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling) 
-		SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100)); 			// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
-		if(DebugMode)printf("Initialising Throttle Axis\x0a");
-	}
-	
-	// Set joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
+	// Joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
 	int initSetJoystickCurves(){
 		if(Throttle[FLAPU]) vJoystickCurveProfile = 0;
 		if(!Throttle[FLAPU] & !Throttle[FLAPD]) vJoystickCurveProfile = 1;
 		if(Throttle[FLAPD]) vJoystickCurveProfile = 2;
+		ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
+	}
+	
+	// Joystick Curve Initialising
+	int initJoystickCurves(){
 		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Throttle, SCX, 0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Throttle, SCY, 0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
-		if(DebugMode){
+		if (DebugMode){
 			printf("----Joystick Curve Profile[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
 			printf("----Slew     Curve Profile[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		}
+	}
+	
+	// ----------------------------------------------------------------------------------------------------------------------Set Throttle
+	// Set Default Throttle Axis
+	int initThrottleAxis(){	
+		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
+		MapAxis(&Throttle, THR_LEFT, DX_ZROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Left Throttle
+		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling) 
+		SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100)); 			// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
+		if(DebugMode)printf("Initialising Throttle Axis\x0a");
 	}
 	
 	// Set Throttle Curve two different presets are selectable On The Fly (S3 + RED Button on Throttle Arm)
@@ -341,19 +346,16 @@ int main()
 		if(DebugMode)printf("Initialising Throttle Curve\x0a");
 		vThrottleCurveProfile=!vThrottleCurveProfile;
 		TrimDXAxis(DX_Z_AXIS, SET(0));
-		if(vThrottleCurveProfile){
-			SetJCurve(&Throttle, THR_RIGHT, 50, 50);
-		}else{
-			if(AfterburnerDetent){
-				SetJCurve(&Throttle, THR_RIGHT, 65, 95); //At 65% of the physical controller’s axis travel, the DirectX axis must have reached 95% of the axis value.	
-			}else{
-				SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 2, -2);
-			}
+		if(vThrottleCurveProfile)SetJCurve(&Throttle, THR_RIGHT, 50, 50);
+		else{
+			if(AfterburnerDetent)SetJCurve(&Throttle, THR_RIGHT, 65, 95); //At 65% of the physical controller’s axis travel, the DirectX axis must have reached 95% of the axis value.	
+			else SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 2, -2);
 		}
 		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
 		if(DebugMode)printf("----Throttle Curve Profile[%d}\x0a", vThrottleCurveProfile);
 	}
-	
+
+	// ----------------------------------------------------------------------------------------------------------------------Set Rudders	
 	// Set Rudders Axis
 	int initRudders(){
 		MapAxis(&TFRPRudder, TRUDDER, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
@@ -362,65 +364,66 @@ int main()
 		if(DebugMode)printf("Initialising Rudders Axis\x0a");
 	}
 	
-	// Set Right MFD 
+	// ----------------------------------------------------------------------------------------------------------------------Set MFD
+	//Set Right MFD 
 	int initRightMFD(){
-		MapKey(&RMFD, GAINU, 0);
-    	MapKey(&RMFD, GAIND, 0);
-	    MapKey(&RMFD, OSB01, 0);
-   		MapKey(&RMFD, OSB02, 0);
-   		MapKey(&RMFD, OSB03, 0);
- 		MapKey(&RMFD, OSB04, 0);
-   		MapKey(&RMFD, OSB05, 0);
-    	MapKey(&RMFD, OSB06, 0);
-	    MapKey(&RMFD, OSB07, 0);
-	    MapKey(&RMFD, OSB08, 0);
-	    MapKey(&RMFD, OSB09, 0);
- 	    MapKey(&RMFD, OSB10, 0);
- 	    MapKey(&RMFD, OSB11, 0);
- 		MapKey(&RMFD, OSB12, 0);
-	    MapKey(&RMFD, OSB13, 0);
-    	MapKey(&RMFD, OSB14, 0);
-    	MapKey(&RMFD, OSB15, 0);
-    	MapKey(&RMFD, OSB16, 0);
-    	MapKey(&RMFD, OSB17, 0);
-    	MapKey(&RMFD, OSB18, 0);
-    	MapKey(&RMFD, OSB19, 0);
-    	MapKey(&RMFD, OSB20, 0);
-    	MapKey(&RMFD, BRTU, 0);
-    	MapKey(&RMFD, BRTD, 0);
-    	MapKey(&RMFD, CONU, 0);
-    	MapKey(&RMFD, COND, 0);
+//		MapKey(&RMFD, GAINU, 0);
+//    	MapKey(&RMFD, GAIND, 0);
+//	    MapKey(&RMFD, OSB01, 0);
+// 		MapKey(&RMFD, OSB02, 0);
+// 		MapKey(&RMFD, OSB03, 0);
+//		MapKey(&RMFD, OSB04, 0);
+// 		MapKey(&RMFD, OSB05, 0);
+//    	MapKey(&RMFD, OSB06, 0);
+//	    MapKey(&RMFD, OSB07, 0);
+//	    MapKey(&RMFD, OSB08, 0);
+//	    MapKey(&RMFD, OSB09, 0);
+//	    MapKey(&RMFD, OSB10, 0);
+//	    MapKey(&RMFD, OSB11, 0);
+//		MapKey(&RMFD, OSB12, 0);
+//	    MapKey(&RMFD, OSB13, 0);
+//  	MapKey(&RMFD, OSB14, 0);
+//    	MapKey(&RMFD, OSB15, 0);
+//    	MapKey(&RMFD, OSB16, 0);
+//    	MapKey(&RMFD, OSB17, 0);
+//  	MapKey(&RMFD, OSB18, 0);
+//  	MapKey(&RMFD, OSB19, 0);
+//  	MapKey(&RMFD, OSB20, 0);
+//  	MapKey(&RMFD, BRTU, 0);
+//  	MapKey(&RMFD, BRTD, 0);
+//  	MapKey(&RMFD, CONU, 0);
+//  	MapKey(&RMFD, COND, 0);
 		if(DebugMode)printf("Initialising Right MFD\x0a");
 	}
 	
 	// Set Left MFD
 	int initLeftMFD(){
-		MapKey(&LMFD, GAINU, 0);
-    	MapKey(&LMFD, GAIND, 0);
-	    MapKey(&LMFD, OSB01, 0);
-   		MapKey(&LMFD, OSB02, 0);
-   		MapKey(&LMFD, OSB03, 0);
- 		MapKey(&LMFD, OSB04, 0);
-   		MapKey(&LMFD, OSB05, 0);
-    	MapKey(&LMFD, OSB06, 0);
-	    MapKey(&LMFD, OSB07, 0);
-	    MapKey(&LMFD, OSB08, 0);
-	    MapKey(&LMFD, OSB09, 0);
- 	    MapKey(&LMFD, OSB10, 0);
- 	    MapKey(&LMFD, OSB11, 0);
- 		MapKey(&LMFD, OSB12, 0);
-	    MapKey(&LMFD, OSB13, 0);
-    	MapKey(&LMFD, OSB14, 0);
-    	MapKey(&LMFD, OSB15, 0);
-    	MapKey(&LMFD, OSB16, 0);
-    	MapKey(&LMFD, OSB17, 0);
-    	MapKey(&LMFD, OSB18, 0);
-    	MapKey(&LMFD, OSB19, 0);
-    	MapKey(&LMFD, OSB20, 0);
-    	MapKey(&LMFD, BRTU, 0);
-    	MapKey(&LMFD, BRTD, 0);
-    	MapKey(&LMFD, CONU, 0);
-    	MapKey(&LMFD, COND, 0);
+//		MapKey(&LMFD, GAINU, 0);
+//  	MapKey(&LMFD, GAIND, 0);
+//	    MapKey(&LMFD, OSB01, 0);
+// 		MapKey(&LMFD, OSB02, 0);
+// 		MapKey(&LMFD, OSB03, 0);
+//		MapKey(&LMFD, OSB04, 0);
+// 		MapKey(&LMFD, OSB05, 0);
+//  	MapKey(&LMFD, OSB06, 0);
+//	    MapKey(&LMFD, OSB07, 0);
+//	    MapKey(&LMFD, OSB08, 0);
+//	    MapKey(&LMFD, OSB09, 0);
+//	    MapKey(&LMFD, OSB10, 0);
+//	    MapKey(&LMFD, OSB11, 0);
+//		MapKey(&LMFD, OSB12, 0);
+//	    MapKey(&LMFD, OSB13, 0);
+//  	MapKey(&LMFD, OSB14, 0);
+//  	MapKey(&LMFD, OSB15, 0);
+//  	MapKey(&LMFD, OSB16, 0);
+//  	MapKey(&LMFD, OSB17, 0);
+//  	MapKey(&LMFD, OSB18, 0);
+//  	MapKey(&LMFD, OSB19, 0);
+//  	MapKey(&LMFD, OSB20, 0);
+//  	MapKey(&LMFD, BRTU, 0);
+//  	MapKey(&LMFD, BRTD, 0);
+//  	MapKey(&LMFD, CONU, 0);
+//  	MapKey(&LMFD, COND, 0);
     	if(DebugMode)printf("Initialising Left MFD\x0a");
 	
 	}
