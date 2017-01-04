@@ -64,15 +64,14 @@
 			sHardPoints=!sHardPoints; // reverse the flag status
 			ActKey(KEYON+PULSE+DeployHardpoints);
 			if(sHardPoints){
-				if(DebugMode)printf("HardPoints: DEPLOYED [%d]\x0a", sHardPoints);
 				if(OptimalPIPMode){
 					vOptimalPIPBackup = vOptimalPIP;
 					ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepSys();"));
 					if(DebugMode)printf("HardPoints: Optimal PIP Mode Set\x0a");
 				}
+				if(DebugMode)printf("HardPoints: DEPLOYED [%d]\x0a", sHardPoints);
 				if(ToggleHardpointsLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardpointsLED)); 				// ToggleHardpointsLED ON
 			}else{
-				if(DebugMode)printf("HardPoints: RETRACTED [%d]\x0a", sHardPoints);
 				if(OptimalPIPMode){
 					if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngSys();")); 					//If no PIP Mode is switched after the game launch and before Toggle Hardpoints
 					if(vOptimalPIPBackup == 1)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngSys();"));
@@ -85,6 +84,7 @@
 					if(vOptimalPIPBackup == 8)ActKey(KEYON+PULSE+EXEC("initPIPmPowerOffensive();"));
 					if(DebugMode)printf("HardPoints: Optimal PIP Mode Reset [%d]\x0a", vOptimalPIPBackup);
 				}
+				if(DebugMode)printf("HardPoints: RETRACTED [%d]\x0a", sHardPoints);
 				if(ToggleHardpointsLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleHardpointsLED)); 					// ToggleHardpointsLED OFF
 			}
 		}
@@ -188,16 +188,16 @@
 	int initToggleSilentRuningOFFonFire(){
  		SilentRuningOFFonFire=!SilentRuningOFFonFire; // reverse the flag status
 		if(DebugMode)printf("Silent Runing On Fire is [%d]\x0a", SilentRuningOFFonFire);
-		if(SilentRuningOFFonFire)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningonFireLED));					// ToggleSilentRuningLED ON
-		if(!SilentRuningOFFonFire)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleSilentRuningonFireLED));					// ToggleSilentRuningLED ON
+		if(SilentRuningOFFonFire & ToggleSilentRuningonFireLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningonFireLED));				// ToggleSilentRuningLED ON
+		if(!SilentRuningOFFonFire & ToggleSilentRuningonFireLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleSilentRuningonFireLED));				// ToggleSilentRuningLED ON
 	}
 	
 	// TOGGLE: HeatSink on Silent Runing
 	int initToggleHeatSinkonSilentRuning(){
 		HeatSinkonSilentRuning=!HeatSinkonSilentRuning; // reverse the flag status
 		if(DebugMode)printf("Heat Sink on Silent Runing is [%d]\x0a", HeatSinkonSilentRuning);
-		if(HeatSinkonSilentRuning)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));					// ToggleSilentRuningLED ON
-		if(!HeatSinkonSilentRuning)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleHeatSinkonSilentRuningLED));					// ToggleSilentRuningLED ON
+		if(HeatSinkonSilentRuning & ToggleHeatSinkonSilentRuningLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));		// ToggleSilentRuningLED ON
+		if(!HeatSinkonSilentRuning & ToggleHeatSinkonSilentRuningLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleHeatSinkonSilentRuningLED));		// ToggleSilentRuningLED ON
 	}	
 	
 	// TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)	
