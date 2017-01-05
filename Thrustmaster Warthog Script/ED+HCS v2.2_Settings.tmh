@@ -1,107 +1,107 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// PERSONAL SETTINGS 																																			//
+//	PERSONAL SETTINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int DebugMode = 1;							// If 1 Target Script Editor Window will Display Debug Msg
+	int DebugMode	=1;						//If 1 Target Script Editor Window will Display Debug Msg
 
-	int HDM 	= 1;							// If HDM set to 1 and set TrackIR to 0
-	int TrackIR = 0;							// If TrackIR set to 1 and set HDM to 0
+	int HDM		=1;							//If HDM set to 1 and set TrackIR to 0
+	int TrackIR	=0;							//If TrackIR set to 1 and set HDM to 0
 	
-	define Rudders 0                            // 0 for no rudders, 1 for rudders, 2 for T.Flight rudders
-	define USEMFD 0								// If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)
+	define Rudders	0						//0 for no rudders, 1 for rudders, 2 for T.Flight rudders
+	define USEMFD	0						//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)
 
-	int OptimalPIPMode	 = 1;					// Automatic PIP Mode when Hardpoint is Up or Down (If you don't use weapon (explorer, transport) -> 0)
-	int SecureRetract	 = 1;					// Rectract Landing Gaer, Cargo Scoop and Hardpoints for Escaping Fight => Reset Switch States for Scoop and Gear(S3 + Switch)
+	int OptimalPIPMode	=1;					//Automatic PIP Mode when Hardpoint is Up or Down (If you don't use weapon (explorer, transport) -> 0)
+	int SecureRetract	=1;					//Rectract Landing Gaer, Cargo Scoop and Hardpoints for Escaping Fight => Reset Switch States for Scoop and Gear(S3 + Switch)
 
-	int SupecruiseOnThrottle 	= 1;			// Supercruise if Boost when Throttle > 99% 												Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
-	int GameMenuOnIDLE 			= 0;			// Game Menu on Throttle IDLE State
-	int AfterburnerDetent 		= 0;			// Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
+	int SupecruiseOnThrottle	=1;			//Supercruise if Boost when Throttle > 99% 												Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
+	int GameMenuOnIDLE			=0;			//Game Menu on Throttle IDLE State
+	int AfterburnerDetent		=0;			//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
 
-	int SilentRuningOFFonFire 	= 1;			// Silent Runing OFF when Fire [1] Stay ON When Fire {0]} 									Can be switched on the Fly Data Management Switch Down
+	int SilentRuningOFFonFire	=1;			//Silent Runing OFF when Fire [1] Stay ON When Fire {0]} 									Can be switched on the Fly Data Management Switch Down
 
-	int HeatSinkonSilentRuning 	= 0;			// [WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing 	Can be switched on the Fly Data Management Switch UP
-	define HeatSinkonSilentRuningDelay 8000		// HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
+	int HeatSinkonSilentRuning	=0;			//[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing 	Can be switched on the Fly Data Management Switch UP
+	define HeatSinkonSilentRuningDelay 8000	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	
-	int FlightAssistGameMode 		= 0;		// Flight Assist In Game Setting Mode 			: [HOLD:0, TOGGLE:1] 	CHECK BINDING STATE IN GAME
- 	int HardPointsonFireGameMode	= 1;		// HardPoints on Fire In Game Setting Mode 		: [NO:0, YES:1] 		CHECK BINDING STATE IN GAME
- 	int ReverseThrootleKeyGameMode 	= 0;		// Reverse Throttle Key In Game Setting Mode	: [HOLD:0, TOGGLE:1] 	CHECK BINDING STATE IN GAME
+	int FlightAssistGameMode		=0;		//Flight Assist In Game Setting Mode 			: [HOLD:0, TOGGLE:1] 	CHECK BINDING STATE IN GAME
+	int HardPointsonFireGameMode	=1;		//HardPoints on Fire In Game Setting Mode 		: [NO:0, YES:1] 		CHECK BINDING STATE IN GAME
+	int ReverseThrootleKeyGameMode	=0;		//Reverse Throttle Key In Game Setting Mode	: [HOLD:0, TOGGLE:1] 	CHECK BINDING STATE IN GAME
 
-//	define VoiceAttack 1 						// (Not Used Yet) If VoiceAttack set to 1
-	
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// TOGGLE STATES																																				//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-	
-	int sCameraMode;					// Classified Camera
-	int sHardPoints;					// HardPoints																			Can be switched on the Fly [S3 + Switch]
-	int sGears;							// Landing Gears 		 																Can be switched on the Fly [S3 + Switch]
-	int sCargo;							// Cargo Scoop  																		Can be switched on the Fly [S3 + Switch]
-	int sLights;						// Ship Lights  																		Can be switched on the Fly [S3 + Switch]
-	int sCombinedFire;					// Separate Primary & Secondary Fire on Trigger 2 (full depression of trigger) OFF		Can be switched on the Fly [S3 + Switch]
-	int sRCorrection = 1;				// Rotational Correction Default is ON													Can be switched on the Fly [S3 + Switch]
-	int sPPTMode = 0;					// PTT Or PTP Toggle [0] or PUSH [1]													Can be switched on the Fly [S3 + Switch]
-	int sPTTState;						// Internal / External Mic External [1] Or Internal [0]									Can be switched on the Fly [S3 + Switch]
-	int sSilentRuning;					// Silent Runing
-	int sIDLE;							// Throttle IDLE State
+//	define VoiceAttack 1						//(Not Used Yet) If VoiceAttack set to 1
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// BASE SETTINGS 																																				//
+//	TOGGLE STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	define PulseTime 25							// PULSE+ Delay time 25
-	define DelayTime 75							// D() Delay time 75
-	define KBLayout KB_ENG						// Default Keyboard Layout KB_ENG
-
+	int sCameraMode;					//Classified Camera
+	int sHardPoints;					//HardPoints																		Can be switched on the Fly [S3 + Switch]
+	int sGears;							//Landing Gears																		Can be switched on the Fly [S3 + Switch]
+	int sCargo;							//Cargo Scoop																		Can be switched on the Fly [S3 + Switch]
+	int sLights;						//ShipLights																		Can be switched on the Fly [S3 + Switch]
+	int sCombinedFire;					//Separate Primary & Secondary Fire on Trigger 2 (full depression of trigger) OFF	Can be switched on the Fly [S3 + Switch]
+	int sRCorrection	=1;				//Rotational Correction Default is ON												Can be switched on the Fly [S3 + Switch]
+	int sPPTMode		=0;				//PTT Or PTP Toggle [0] or PUSH [1]													Can be switched on the Fly [S3 + Switch]
+	int sPTTState;						//Internal / External Mic External [1] Or Internal [0]								Can be switched on the Fly [S3 + Switch]
+	int sSilentRuning;					//Silent Runing
+	int sIDLE;							//Throttle IDLE State
+	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// PRESS DELAY SETTINGS 																																		//
+//	BASE SETTINGS																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	define MiniPressDelay 	150					// Shortest Delay 150
-	define ShortPressDelay 	250					// Shorter Delay 250
-	define MediumPressDelay 350					// Medium Delay 350
-	define LongPressDelay 	500					// Long Delay 500
-	define ExtraPressDelay 	1500				// Longest Delay 1500
-	define PIPPressDelay 	350					// PIP PressDelay 350
+	define PulseTime 25							//PULSE+ Delay time 25
+	define DelayTime 75							//D() Delay time 75
+	define KBLayout KB_ENG						//Default Keyboard Layout KB_ENG
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// LED SETTINGS // LED1, LED2, LED3, LED4, LED5 // 5 LED's MAXIMUM 																								//
+//	PRESS DELAY SETTINGS																																		//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	
+	define MiniPressDelay 	150					//Shortest Delay 150
+	define ShortPressDelay 	250					//Shorter Delay 250
+	define MediumPressDelay 350					//Medium Delay 350
+	define LongPressDelay 	500					//Long Delay 500
+	define ExtraPressDelay 	1500				//Longest Delay 1500
+	define PIPPressDelay 	350					//PIP PressDelay 350
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	LED SETTINGS // LED1, LED2, LED3, LED4, LED5 // 5 LED's MAXIMUM																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	define ToggleLandingGearLED 			0
-	define ToggleCargoScoopLED 				LED4
-	define ToggleLightsLED 					0
-	define ToggleHardpointsLED 				0
+	define ToggleLandingGearLED				0
+	define ToggleCargoScoopLED				LED4
+	define ToggleLightsLED					0
+	define ToggleHardpointsLED				0
 	define ToggleCombinedFireLED			LED1
-	define ToggleRCorrectionLED 			LED3
-	define ToggleCameraLED 					0
-	define ToggleSuperCruiseModeLED 		0
-	define TogglePTTLED 					0
-	define ToggleVoicePTTLED 				LED5
-	define ToggleSilentRuningLED 			0
-	define ToggleSilentRuningonFireLED 		LED2
-	define ToggleHeatSinkonSilentRuningLED 	0
-	define ToggleIDLEonThrottleLED 			0      	// Work only if ThrottleLEDOnIDLE != 0 
+	define ToggleRCorrectionLED				LED3
+	define ToggleCameraLED					0
+	define ToggleSuperCruiseModeLED			0
+	define TogglePTTLED						0
+	define ToggleVoicePTTLED				LED5
+	define ToggleSilentRuningLED			0
+	define ToggleSilentRuningonFireLED		LED2
+	define ToggleHeatSinkonSilentRuningLED	0
+	define ToggleIDLEonThrottleLED			0	//Work only if ThrottleLEDOnIDLE != 0
 	
 //--Throttle Backlight (Value 0-255)----------------------------------------------------------------------------------------------------------------------------//
 
-	// 0 to 42    is OFF 
-	// 43 to 85   is level 1 
-	// 86 to 128  is level 2 
-	// 129 to 171 is level 3 
-	// 172 to 214 is level 4 
-	// 215 to 255 is level 5
+	// 0 to 42		is OFF
+	// 43 to 85		is level 1
+	// 86 to 128	is level 2
+	// 129 to 171	is level 3
+	// 172 to 214	is level 4
+	// 215 to 255	is level 5
 	
-	define ThrottleLight 		255				// Base Throttle LED Intensity
-	define ThrottleLightHDM 	85				// Base Throttle LED Intensity when HDM Use
-	define ThrottleLEDOnIDLE	0				// Throttle LED Intensity on Throttle IDLE State
+	define ThrottleLight 		255				//Base Throttle LED Intensity
+	define ThrottleLightHDM 	85				//Base Throttle LED Intensity when HDM Use
+	define ThrottleLEDOnIDLE	0				//Throttle LED Intensity on Throttle IDLE State
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// VARIABLES 																																					//
+//	VARIABLES																																					//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int vJoystickCurveProfile;					// Joystick Curve 							Can be switched on the Fly [FLAPS]
+	int vJoystickCurveProfile;					//Joystick Curve							Can be switched on the Fly [FLAPS]
 	int vJoystickCurveProfileBackup;
-	int vThrottleCurveProfile;					// Throttle Curve 							Can be switched on the Fly [S3 + THROTTLE ARM RED BUTTON]
+	int vThrottleCurveProfile;					//Throttle Curve							Can be switched on the Fly [S3 + THROTTLE ARM RED BUTTON]
 	int vThrottleLight;
 	int vThrottleLightBackup;
 	int vSecureEscapeFight;
@@ -109,31 +109,31 @@
 	int vOptimalPIPBackup;
 	int vVoicePTT;
 	int vSilentRuningBackup;
-	int vFA;									// Flight Assist [TOGGLE] Mode Ingame : initEnhancedFAOFF()
+	int vFA;									//Flight Assist [TOGGLE] Mode Ingame : initEnhancedFAOFF()
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// AXIS CURVES																																					//
+//	AXIS CURVES																																					//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	define FAOffCurve 0											// Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
+	define FAOffCurve 0											//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
 	
 //	Joystick
-//					 	Up, MVR, DN
-	short JS_CURVE[] = {0, 1, 2};								// Set via the FLAP switch (Up is most aggresive, down is least aggressive)
+//						Up, MVR, DN
+	short JS_CURVE[] = {0, 1, 2};								//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
 	short JS_ZOOM[]  = {1, 0, -1};
-	define JS_DEADZONE 1										// Set the JS Deadzone.. use the Device Analyzer to validate
+	define JS_DEADZONE 1										//Set the JS Deadzone.. use the Device Analyzer to validate
 
-// Slew
-//					  	Up, MVR, DN
-	short SL_CURVE[] = {0, 1, 2};								// Set via the FLAP switch (Up is most aggresive, down is least aggressive)
+//	Slew
+//						Up, MVR, DN
+	short SL_CURVE[] = {0, 1, 2};								//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
 	short SL_ZOOM[]  = {1, 0, -1};
-	define SL_DEADZONE 1										// Set the SL Deadzone.. use the Device Analyzer to validate
+	define SL_DEADZONE 1										//Set the SL Deadzone.. use the Device Analyzer to validate
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// REPORT STATES																																				//
+//	REPORT STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int initPrintState(){				// Display the status of the macro toggles in Target Script Editor on run.
+	int initPrintState(){				//Display the status of the macro toggles in Target Script Editor on run.
 		printf("------------------------------Current States------------------------------\x0a");
 		printf("Supecruise On Throttle------%d\x0a", SupecruiseOnThrottle);
 		printf("Secure Retract--------------%d\x0a", SecureRetract);
@@ -155,7 +155,7 @@
 		printf("--------------------------IN GAME SETTINGS--------------------------------\x0a");
 		printf("Flight Assist HOLD/TOGGLE---%d\x0a", FlightAssistGameMode);
 		printf("HardPoints on Fire NO/YES---%d\x0a", HardPointsonFireGameMode);
-//		printf("Rev.ThrottleKey HOLD/TOGGLE-%d\x0a", ReverseThrootleKeyGameMode);		
+		printf("Rev.ThrottleKey HOLD/TOGGLE-%d\x0a", ReverseThrootleKeyGameMode);		
 		printf("--------------------------------------------------------------------------\x0a");
 	}	
 
