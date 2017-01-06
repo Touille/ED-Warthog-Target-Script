@@ -248,20 +248,20 @@
 					sFA=!sFA;	//reverse the flag status
 					if(sFA){	//FA [TOGGLE] Mode First Pulse Engage
 						ActKey(KEYON+PULSE+FlightAssist);
+						if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));					//ToggleFALED ON
 						vJoystickCurveProfileBackup = vJoystickCurveProfile;
 						vJoystickCurveProfile = FAOffCurve;
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 							if(DebugMode)printf("EnhancedFAOFF [Toggle] Engaged\x0a");
-							if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));					//ToggleFALED ON
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 						}
 					}
 					if(!sFA){	//FA [TOGGLE] Mode Second Pulse DisEngage				
 						ActKey(KEYON+PULSE+FlightAssist);
+						if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleFALED));					//ToggleFALED OFF
 						vJoystickCurveProfile = vJoystickCurveProfileBackup;
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 							if(DebugMode)printf("EnhancedFAOFF [Toggle] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
-							if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleFALED));					//ToggleFALED OFF
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 						}
 					}
@@ -270,11 +270,11 @@
 				if(!sRCorrection)ActKey(KEYON+DOWN+FlightAssist);
 				else{
 					ActKey(KEYON+DOWN+FlightAssist);
+					if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));						//ToggleFALED ON
 					vJoystickCurveProfileBackup = vJoystickCurveProfile;
 					vJoystickCurveProfile = FAOffCurve;
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 						if(DebugMode)printf("EnhancedFAOFF [HOLD] Engaged\x0a");
-						if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));						//ToggleFALED ON
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 					}
 				}
@@ -285,10 +285,10 @@
 				if(!sRCorrection)ActKey(KEYON+UP+FlightAssist);	
 				else{
 					ActKey(KEYON+UP+FlightAssist);
+					if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleFALED));						//ToggleFALED OFF
 					vJoystickCurveProfile = vJoystickCurveProfileBackup;
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset					
 						if(DebugMode)printf("EnhancedFAOFF [HOLD] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
-						if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleFALED));						//ToggleFALED OFF
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 					}
 				}
