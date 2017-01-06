@@ -270,7 +270,7 @@
 	<ToggleFlightAssist>
 		<Primary Device="Keyboard" Key="Key_Z" />
 		<Secondary Device="{NoDevice}" Key="" />
-		<ToggleOn Value="1" />
+		<ToggleOn Value="0" />
 	</ToggleFlightAssist>
 	<YawToRollMode_FAOff Value="" />
 	<UseBoostJuice>
@@ -518,7 +518,7 @@
 		<ToggleOn Value="1" />
 	</ShowPGScoreSummaryInput>
 	<HeadLookToggle>
-		<Primary Device="Mouse" Key="Mouse_3" />
+		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="{NoDevice}" Key="" />
 		<ToggleOn Value="1" />
 	</HeadLookToggle>
@@ -686,7 +686,7 @@
 	<ToggleDriveAssist>
 		<Primary Device="Keyboard" Key="Key_Z" />
 		<Secondary Device="{NoDevice}" Key="" />
-		<ToggleOn Value="1" />
+		<ToggleOn Value="0" />
 	</ToggleDriveAssist>
 	<DriveAssistDefault Value="1" />
 	<MouseBuggySteeringXMode Value="" />
