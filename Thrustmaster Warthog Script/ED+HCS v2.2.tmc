@@ -137,11 +137,7 @@ int main()
 	MapKeyR(&Throttle, SC, EXEC("initHeadFocus();"));
 
 //	-------------------------Left Throttle Button (RED)
-<<<<<<< HEAD
 	MapKey(&Throttle, LTB, EXEC("initReverseThrottle();"));
-=======
-	MapKeyIO(&Throttle, LTB, EXEC("initReverseThrottle();"));
->>>>>>> origin/Beta
 //	MapKeyIO(&Throttle, LTB, EXEC("initSetThrottleCurves();"), EXEC("initReverseThrottle();"));
 	MapKeyR(&Throttle, LTB, EXEC("initReverseThrottle();"));
 

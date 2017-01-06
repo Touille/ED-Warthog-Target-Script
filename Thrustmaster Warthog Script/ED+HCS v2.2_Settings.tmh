@@ -21,7 +21,6 @@
 
 	int HeatSinkonSilentRuning	=0;			//[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing 	Can be switched on the Fly Data Management Switch UP
 	define HeatSinkonSilentRuningDelay 8000	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
-<<<<<<< HEAD
 
 //	define VoiceAttack 1						//(Not Used Yet) If VoiceAttack set to 1
 
@@ -38,15 +37,6 @@
 
 //	int HeadLookGameMode			=1;		/Driving Mode Switches & Mode Switches / HeadLock	: [HOLD:0, TOGGLE:1]
 
-=======
-	
-	int FlightAssistGameMode		=0;		//Flight Assist In Game Setting Mode 			: [HOLD:0, TOGGLE:1] 	CHECK BINDING STATE IN GAME
-	int HardPointsonFireGameMode	=1;		//HardPoints on Fire In Game Setting Mode 		: [NO:0, YES:1] 		CHECK BINDING STATE IN GAME
-	int ReverseThrootleKeyGameMode	=0;		//Reverse Throttle Key In Game Setting Mode	: [HOLD:0, TOGGLE:1] 	CHECK BINDING STATE IN GAME
-
-//	define VoiceAttack 1						//(Not Used Yet) If VoiceAttack set to 1
-	
->>>>>>> origin/Beta
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	TOGGLE STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -129,20 +119,13 @@
 	int vVoicePTT;
 	int vSilentRuningBackup;
 	int vFA;									//Flight Assist [TOGGLE] Mode Ingame : initEnhancedFAOFF()
-<<<<<<< HEAD
 //	int vSL;									//Silent Runing [TOGGLE] Mode Ingame : initToggleSilentRuning()
-=======
->>>>>>> origin/Beta
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	AXIS CURVES																																					//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-<<<<<<< HEAD
 	define FAOffCurve 2											//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
-=======
-	define FAOffCurve 0											//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
->>>>>>> origin/Beta
 	
 //	Joystick
 //						Up, MVR, DN
@@ -182,13 +165,9 @@
 		printf("--------------------------IN GAME SETTINGS--------------------------------\x0a");
 		printf("Flight Assist HOLD/TOGGLE---%d\x0a", FlightAssistGameMode);
 		printf("HardPoints on Fire NO/YES---%d\x0a", HardPointsonFireGameMode);
-<<<<<<< HEAD
 		printf("R.Throttle Flight HOLD/TOGGLE%d\x0a", RFlightThrootleGameMode);
 //		printf("R.Throttle Drive HOLD/TOGGLE%d\x0a", RDriveThrootleGameMode);
 //		printf("Silent Runing HOLD/TOGGLE---%d\x0a", SilentRuningGameMode);
-=======
-		printf("Rev.ThrottleKey HOLD/TOGGLE-%d\x0a", ReverseThrootleKeyGameMode);		
->>>>>>> origin/Beta
 		printf("--------------------------------------------------------------------------\x0a");
 	}	
 
