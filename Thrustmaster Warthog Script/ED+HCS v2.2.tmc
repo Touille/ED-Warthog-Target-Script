@@ -96,8 +96,8 @@ int main()
 
 //	MapKey(&Joystick, S3, 0);																						// Modifier S3 don't touch this
 	
-	MapKey(&Joystick, S4, EXEC("initEnhancedFAOFF();"));
-	MapKeyR(&Joystick, S4, EXEC("initEnhancedFAOFF();"));
+	MapKey(&Joystick, S4, EXEC(" initToggleEnhancedFAOFF();"));
+	MapKeyR(&Joystick, S4, EXEC(" initToggleEnhancedFAOFF();"));
 
 //--HAT---------------------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -114,10 +114,11 @@ int main()
 	MapKey(&Joystick, H2R, TEMPO(PULSE+SelectNextShip, TEMPO(PULSE+SelectNextHostileShip, PULSE+SelectNextSubsystem, LongPressDelay), LongPressDelay));	// RIGHT
 	
 //	-------------------------Data Management Switch (DMS)
-	MapKeyIO(&Joystick, H3U, TEMPO(0, PULSE+CommsPanel, ShortPressDelay), TEMPO(0, EXEC("initToggleHeatSinkonSilentRuning();"), ExtraPressDelay));										// UP
-	MapKeyIO(&Joystick, H3D, TEMPO(0, PULSE+RolePanel, ShortPressDelay), TEMPO(EXEC("initToggleSilentRuningOFFonFire();"), EXEC("initToggleSilentRuning();"), LongPressDelay));			// DOWN
-	MapKeyIO(&Joystick, H3L, TEMPO(0, PULSE+TargetPanel, ShortPressDelay), TEMPO(0, PULSE+PrevFireGroup, ShortPressDelay)); 															// LEFT
-	MapKeyIO(&Joystick, H3R, TEMPO(0, PULSE+SystemPanel, ShortPressDelay), TEMPO(0, PULSE+NextFireGroup, ShortPressDelay)); 															// RIGHT
+	MapKeyIO(&Joystick, H3U, TEMPO(0, PULSE+CommsPanel, ShortPressDelay), TEMPO(EXEC("initToggleSilentRuningOFFonFire();"), EXEC("initToggleHeatSinkonSilentRuning();"), ExtraPressDelay));	// UP
+	MapKeyIO(&Joystick, H3D, TEMPO(0, PULSE+RolePanel, ShortPressDelay), TEMPO(0, EXEC("initToggleSilentRuning();"), LongPressDelay));														// DOWN
+	MapKeyR(&Joystick, H3D, EXEC("initToggleSilentRuning();"));																																// DOWN RELEASE
+	MapKeyIO(&Joystick, H3L, TEMPO(0, PULSE+TargetPanel, ShortPressDelay), TEMPO(0, PULSE+PrevFireGroup, ShortPressDelay)); 																// LEFT
+	MapKeyIO(&Joystick, H3R, TEMPO(0, PULSE+SystemPanel, ShortPressDelay), TEMPO(0, PULSE+NextFireGroup, ShortPressDelay)); 																// RIGHT
 
 //	-------------------------Countermeasures Management Switch (CMS)
 	MapKey(&Joystick, H4U, UIUp);													// UP		UI UP
@@ -137,9 +138,8 @@ int main()
 	MapKeyR(&Throttle, SC, EXEC("initHeadFocus();"));
 
 //	-------------------------Left Throttle Button (RED)
-	MapKey(&Throttle, LTB, EXEC("initReverseThrottle();"));
-//	MapKeyIO(&Throttle, LTB, EXEC("initSetThrottleCurves();"), EXEC("initReverseThrottle();"));
-	MapKeyR(&Throttle, LTB, EXEC("initReverseThrottle();"));
+	MapKeyIO(&Throttle, LTB, EXEC("initSetThrottleCurves();"), EXEC("initToggleReverseThrottle();"));
+	MapKeyR(&Throttle, LTB, EXEC("initToggleReverseThrottle();"));
 
 //	-------------------------Mic Switch
 	MapKey(&Throttle, MSP, EXEC("initVoicePTT();"));
@@ -209,8 +209,8 @@ int main()
 //	MapKey(&Throttle, APALT, 0);																					// Modifier DOWN		(ALT)
 
 //	-------------------------Engine Fuel Flow Switches LEFT 
-	MapKey(&Throttle, EFLNORM, EXEC("initSetThrottleCurves();"));													// Switch UP
-	MapKey(&Throttle, EFLOVER, EXEC("initSetThrottleCurves();"));													// Switch DOWN
+//	MapKey(&Throttle, EFLNORM, 0);																					// Switch UP
+//	MapKey(&Throttle, EFLOVER, 0);																					// Switch DOWN
 
 //	-------------------------Engine Fuel Flow Switches RIGHT
 	MapKey(&Throttle, EFRNORM, EXEC("initToggleLights();"));														// Switch UP			[Ship Light]
@@ -268,12 +268,12 @@ int main()
 		if(HDM){
 				vThrottleLight = ThrottleLightHDM;
 				vThrottleLightBackup = ThrottleLightHDM;
-				if(DebugMode)printf("HDM -> Backlight Throttle LED Set to Off\x0a");
+				if(DebugMode)printf("HDM -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHDM);
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightHDM));			//LED Backlight on Start If HDM
 		}else{
 				vThrottleLight = ThrottleLight;
 				vThrottleLightBackup = ThrottleLight;
-				if(DebugMode)printf("No HDM Or TrackIR -> Backlight Throttle LED Set to %d\x0a", vThrottleLight);
+				if(DebugMode)printf("No HDM Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLight));				//LED Backlight on Start
 		}
 	
@@ -292,13 +292,14 @@ int main()
 		if(ToggleLightsLED!=0 & sLights){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleLightsLED));}
 		if(ToggleHardpointsLED!=0 & sHardPoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardpointsLED));}
 		if(ToggleCombinedFireLED!=0 & sCombinedFire){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCombinedFireLED));}
-		if(ToggleCameraLED!=0 & sCameraMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCameraLED));}
+//		if(ToggleCameraLED!=0 & sCameraMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCameraLED));}
 		if(TogglePTTLED!=0 & sPTTState){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTLED));}
 		if(ToggleVoicePTTLED!=0 & vVoicePTT){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleVoicePTTLED));}
-		if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
+//		if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
 		if(ToggleSilentRuningonFireLED!=0 & SilentRuningOFFonFire){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningonFireLED));}
 		if(ToggleHeatSinkonSilentRuningLED!=0 & HeatSinkonSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));}
 		if(ToggleIDLEonThrottleLED!=0 & sIDLE){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleIDLEonThrottleLED));}
+//		if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
 		if(DebugMode)printf("Initialising LED States\x0a");
 	}
 	

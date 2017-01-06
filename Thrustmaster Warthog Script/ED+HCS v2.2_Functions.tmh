@@ -167,25 +167,43 @@
 	
 	//TOGGLE: Silent Runing
 	int initToggleSilentRuning(){
-//		if(SilentRuningGameMode){	// Silent Runing Toggle Mode
-			sSilentRuning=!sSilentRuning; // reverse the flag status
-			if(sSilentRuning){
-				if(HeatSinkonSilentRuning){
-					ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);
-					if(DebugMode)printf("Heat Sink On Silent Runing Engaged [%d]\x0a", sSilentRuning);
-				}else{
-					ActKey(KEYON+PULSE+SilentRunning);
-					if(DebugMode)printf("Silent Runing Engaged [%d]\x0a", sSilentRuning);
+		if(Joystick[H3D]){
+			if(SilentRuningGameMode){	// Silent Runing [TOGGLE] Mode Ingame
+				sSL=!sSL;
+				if(sSL){	//Silent Runing [TOGGLE] Mode First Pulse Engage
+					sSilentRuning=!sSilentRuning; // reverse the flag status
+					if(sSilentRuning){
+						if(HeatSinkonSilentRuning){
+							ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);
+							if(DebugMode)printf("Heat Sink On Silent Runing Engaged [%d]\x0a", sSilentRuning);
+						}else{
+							ActKey(KEYON+PULSE+SilentRunning);
+							if(DebugMode)printf("Silent Runing [Toggle] Engaged [%d]\x0a", sSilentRuning);
+						}
+						if(ToggleSilentRuningLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));				// ToggleSilentRuningLED ON
+					}
 				}
-				if(ToggleSilentRuningLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));							// ToggleSilentRuningLED ON
-			}else{
-				ActKey(KEYON+PULSE+SilentRunning);
-				if(DebugMode)printf("Silent Runing DisEngaged [%d]\x0a", sSilentRuning);
-				if(ToggleSilentRuningLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleSilentRuningLED));							// ToggleSilentRuningLED OFF
+				if(!sSL){	//Silent Runing [TOGGLE] Mode Second Pulse DisEngage
+					sSilentRuning=!sSilentRuning;
+					ActKey(KEYON+PULSE+SilentRunning);
+					if(DebugMode)printf("Silent Runing [Toggle] DisEngaged [%d]\x0a", sSilentRuning);
+					if(ToggleSilentRuningLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleSilentRuningLED));					// ToggleSilentRuningLED OFF
+				}
+			}else{	//Silent Runing [HOLD] Mode Engage
+				sSilentRuning=!sSilentRuning; // reverse the flag status
+				ActKey(KEYON+DOWN+SilentRunning);
+				if(DebugMode)printf("Silent Runing [HOLD] Engaged [%d]\x0a", sSilentRuning);
+				if(ToggleSilentRuningLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));						// ToggleSilentRuningLED ON
 			}
-//		}
+		}
+		else if(!SilentRuningGameMode & sSilentRuning){		//Silent Runing [HOLD] Mode DisEngage
+			sSilentRuning=!sSilentRuning; // reverse the flag status
+			ActKey(KEYON+UP+SilentRunning);
+			if(DebugMode)printf("Silent Runing [HOLD] DisEngaged [%d]\x0a", sSilentRuning);
+			if(ToggleSilentRuningLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleSilentRuningLED));							// ToggleSilentRuningLED OFF
+		}
 	}
-	
+
 	//TOGGLE: Silent Runing OFF/ON on Fire
 	int initToggleSilentRuningOFFonFire(){
 		SilentRuningOFFonFire=!SilentRuningOFFonFire; // reverse the flag status
@@ -193,7 +211,7 @@
 		if(SilentRuningOFFonFire & ToggleSilentRuningonFireLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningonFireLED));				// ToggleSilentRuningLED ON
 		if(!SilentRuningOFFonFire & ToggleSilentRuningonFireLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleSilentRuningonFireLED));				// ToggleSilentRuningLED OFF
 	}
-	
+
 	//TOGGLE: HeatSink on Silent Runing
 	int initToggleHeatSinkonSilentRuning(){
 		HeatSinkonSilentRuning=!HeatSinkonSilentRuning; // reverse the flag status
@@ -217,6 +235,78 @@
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
 				if(DebugMode)printf("IDLE On Throttle : Active Mode [%d]\x0a", sIDLE);
 				if(ToggleIDLEonThrottleLED!=0 & ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleIDLEonThrottleLED));				// ToggleIDLEonThrottleLED OFF
+			}
+		}
+	}
+
+	//TOGGLE: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
+	int initToggleEnhancedFAOFF(){																	
+		if(Joystick[S4]){
+			if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
+				if(!sRCorrection)ActKey(KEYON+PULSE+FlightAssist);
+				else{
+					sFA=!sFA;	//reverse the flag status
+					if(sFA){	//FA [TOGGLE] Mode First Pulse Engage
+						ActKey(KEYON+PULSE+FlightAssist);
+						vJoystickCurveProfileBackup = vJoystickCurveProfile;
+						vJoystickCurveProfile = FAOffCurve;
+						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
+							if(DebugMode)printf("EnhancedFAOFF [Toggle] Engaged\x0a");
+							if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));					//ToggleFALED ON
+							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
+						}
+					}
+					if(!sFA){	//FA [TOGGLE] Mode Second Pulse DisEngage				
+						ActKey(KEYON+PULSE+FlightAssist);
+						vJoystickCurveProfile = vJoystickCurveProfileBackup;
+						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
+							if(DebugMode)printf("EnhancedFAOFF [Toggle] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
+							if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleFALED));					//ToggleFALED OFF
+							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
+						}
+					}
+				}
+			}else{	//FA [HOLD] Mode Ingame Engage
+				if(!sRCorrection)ActKey(KEYON+DOWN+FlightAssist);
+				else{
+					ActKey(KEYON+DOWN+FlightAssist);
+					vJoystickCurveProfileBackup = vJoystickCurveProfile;
+					vJoystickCurveProfile = FAOffCurve;
+					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
+						if(DebugMode)printf("EnhancedFAOFF [HOLD] Engaged\x0a");
+						if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));						//ToggleFALED ON
+						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
+					}
+				}
+			}
+		}
+		if(!Joystick[S4]){
+			if(!FlightAssistGameMode){	//FA [HOLD] Mode Ingame DisEngage
+				if(!sRCorrection)ActKey(KEYON+UP+FlightAssist);	
+				else{
+					ActKey(KEYON+UP+FlightAssist);
+					vJoystickCurveProfile = vJoystickCurveProfileBackup;
+					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset					
+						if(DebugMode)printf("EnhancedFAOFF [HOLD] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
+						if(ToggleFALED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleFALED));						//ToggleFALED OFF
+						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
+					}
+				}
+			}
+		}
+	}
+	
+	//TOGGLE: Reverse Throttle
+	int initToggleReverseThrottle(){
+		if(Throttle[LTB]){
+			sRT=!sRT;
+			if(RFlightThrootleGameMode){ActKey(KEYON+PULSE+ReverseThrottle);if(DebugMode)printf("Reverse Throttle Toggle\x0a");}
+			else{ActKey(KEYON+DOWN+ReverseThrottle);if(DebugMode)printf("Reverse Throttle Hold on\x0a");}
+		}else{
+			if(!RFlightThrootleGameMode & sRT){
+				sRT=!sRT;
+				ActKey(KEYON+UP+ReverseThrottle);
+				if(DebugMode)printf("Reverse Throttle Hold off\x0a");
 			}
 		}
 	}
@@ -303,6 +393,7 @@
 	int initPrimaryFire(){
 		if(Joystick[TG1]){	//PRESS THE TG1 BUTTON	
 			if(SilentRuningOFFonFire & sSilentRuning){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
+//			if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
 			if(HardPointsonFireGameMode){
 				if(sHardPoints == 0){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
 			}
@@ -316,7 +407,8 @@
 	//FUNCTION: Init Secondary Fire
 	int initSecondaryFire(){
 		if(Joystick[S2]){	//PRESS THE S2 BUTTON
-			if(SilentRuningOFFonFire & sSilentRuning){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}				
+			if(SilentRuningOFFonFire & sSilentRuning){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
+//			if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}			
 			if(HardPointsonFireGameMode){
 				if(sHardPoints == 0){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
 			}
@@ -324,66 +416,6 @@
 		}else{				//RELEASE THE S2 BUTTON
 			ActKey(KEYON+UP+SecondaryFire);
 			if(vSilentRuningBackup!=0){vSilentRuningBackup = 0;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
-		}
-	}
-	
-	//FUNCTION: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
-	int initEnhancedFAOFF(){																	
-		if(Joystick[S4]){
-			if(FlightAssistGameMode){								//FA [TOGGLE] Mode Ingame
-				if(!sRCorrection)ActKey(KEYON+PULSE+FlightAssist);
-				else{
-					vFA=!vFA;	//reverse the flag status
-					if(vFA){	//FA [TOGGLE] Mode First Pulse Engage
-						vJoystickCurveProfileBackup = vJoystickCurveProfile;
-						vJoystickCurveProfile = FAOffCurve;
-						ActKey(KEYON+PULSE+FlightAssist);
-						if(DebugMode)printf("EnhancedFAOFF Engaged\x0a");
-					}
-					if(!vFA){	//FA [TOGGLE] Mode Second Pulse DisEngage				
-						vJoystickCurveProfile = vJoystickCurveProfileBackup;
-						ActKey(KEYON+PULSE+FlightAssist);
-						if(DebugMode)printf("EnhancedFAOFF Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
-					}
-					ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
-				}
-			}else{													//FA [HOLD] Mode Ingame Engage
-				if(!sRCorrection)ActKey(KEYON+DOWN+FlightAssist);
-				else{
-					vJoystickCurveProfileBackup = vJoystickCurveProfile;
-					vJoystickCurveProfile = FAOffCurve;
-					ActKey(KEYON+DOWN+FlightAssist);
-					if(DebugMode)printf("EnhancedFAOFF Engaged\x0a");
-					ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
-				}
-			}
-		}
-		if(!Joystick[S4]){
-			if(!FlightAssistGameMode){								//FA [HOLD] Mode Ingame DisEngage
-				if(!sRCorrection)ActKey(KEYON+UP+FlightAssist);	
-				else{
-					vJoystickCurveProfile = vJoystickCurveProfileBackup;
-					ActKey(KEYON+UP+FlightAssist);
-					if(DebugMode)printf("EnhancedFAOFF Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
-					ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
-				}
-			}
-		}
-	}
-	
-	//FUNCTION: Reverse Throttle
-	int initReverseThrottle(){
-		if(Throttle[LTB]){
-			if(RFlightThrootleGameMode){ActKey(KEYON+PULSE+ReverseThrottle); if(DebugMode)printf("Reverse Throttle Toggle\x0a");}
-			else{
-				ActKey(KEYON+DOWN+ReverseThrottle);
-				if(DebugMode)printf("Reverse Throttle Hold on\x0a");
-			}
-		}else{
-			if(!RFlightThrootleGameMode){
-				ActKey(KEYON+UP+ReverseThrottle);
-				if(DebugMode)printf("Reverse Throttle Hold off\x0a");
-			}
 		}
 	}
 	
