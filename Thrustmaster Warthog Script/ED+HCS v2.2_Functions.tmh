@@ -80,7 +80,6 @@
 			if(sHardPoints){
 				if(OptimalPIPMode){
 					vOptimalPIPBackup = vOptimalPIP;
-					//ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepSys();"));
 					ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));
 					if(DebugMode)printf("HardPoints: Optimal PIP Mode Set\x0a");
 				}
@@ -182,7 +181,7 @@
 	
 	//TOGGLE: Silent Runing
 	int initToggleSilentRuning(){
-		if(Joystick[H3D] | Throttle[APAH]){
+		if(Joystick[H3D] | Joystick[TG1] | Joystick[S2] | !Joystick[TG1] | !Joystick[S2]){
 			if(SilentRuningGameMode){	// Silent Runing [TOGGLE] Mode Ingame
 				sSL=!sSL;
 				if(sSL){	//Silent Runing [TOGGLE] Mode First Pulse Engage
