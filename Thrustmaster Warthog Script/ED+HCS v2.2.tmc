@@ -114,11 +114,11 @@ int main()
 	MapKey(&Joystick, H2R, TEMPO(PULSE+SelectNextShip, TEMPO(PULSE+SelectNextHostileShip, PULSE+SelectNextSubsystem, LongPressDelay), LongPressDelay));	// RIGHT
 	
 //	-------------------------Data Management Switch (DMS)
-	MapKeyIO(&Joystick, H3U, CommsPanel, TEMPO(EXEC("initToggleSilentRuningOFFonFire();"), EXEC("initToggleHeatSinkonSilentRuning();"), ExtraPressDelay));	// UP
+	MapKeyIO(&Joystick, H3U, PULSE+CommsPanel, TEMPO(EXEC("initToggleSilentRuningOFFonFire();"), EXEC("initToggleHeatSinkonSilentRuning();"), ExtraPressDelay));	// UP
 	MapKeyIO(&Joystick, H3D, PULSE+RolePanel, EXEC("initToggleSilentRuning();"));																			// DOWN
 	MapKeyR(&Joystick, H3D, EXEC("initToggleSilentRuning();"));																								// DOWN RELEASE
-	MapKeyIO(&Joystick, H3L, TargetPanel, PrevFireGroup); 																									// LEFT
-	MapKeyIO(&Joystick, H3R, SystemPanel, NextFireGroup); 																									// RIGHT
+	MapKeyIO(&Joystick, H3L, PULSE+TargetPanel, PrevFireGroup); 																									// /LEFT
+	MapKeyIO(&Joystick, H3R, PULSE+SystemPanel, NextFireGroup); 																								// RIGHT
 
 //	-------------------------Countermeasures Management Switch (CMS)
 	MapKey(&Joystick, H4U, UIUp);													// UP		UI UP

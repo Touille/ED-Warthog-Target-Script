@@ -5,16 +5,23 @@
 	//TOGGLE: Landing Gear	
 	int initToggleLandingGear(){
 		if(!Joystick[S3]){																								//Reset On The FLY S3 + SWITCH
-//			if(DebugMode)printf("Landing Gear SecureEscapeFightState [%d]\x0a", SecureEscapeFightState);
+			if(vSecureEscapeFight){
+				if(DebugMode)printf("Landing Gear SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+			}
 			if(!vSecureEscapeFight){if (Throttle[EACON]) sGears = 1; else sGears = 0;}
 			else sGears=!sGears;	//reverse the flag status
-			ActKey(KEYON+PULSE+LandingGear);
-			if(sGears){																							
+			if(sGears & vLG){
+				vLG=!vLG;	//Reset On The FLY : Just switch
+				ActKey(KEYON+PULSE+LandingGear);			
 				if(DebugMode)printf("Landing Gear: DEPLOYED [%d]\x0a", sGears);
 				if(ToggleLandingGearLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleLandingGearLED)); 					// ToggleLandingGearLED ON
-			}else{
+			}else if (!sGears & !vLG){
+				vLG=!vLG;	//Reset On The FLY : Just switch
+				ActKey(KEYON+PULSE+LandingGear);
 				if(DebugMode)printf("Landing Gear: RETRACTED [%d]\x0a",  sGears);
 				if(ToggleLandingGearLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleLandingGearLED)); 					// ToggleLandingGearLED OFF
+			}else{
+				if(DebugMode)printf("Landing Gear Reset On The Fly\x0a");
 			}
 		}
 	}
@@ -22,16 +29,23 @@
 	//TOGGLE: Cargo Scoop	
 	int initToggleCargoScoop() {																
 		if(!Joystick[S3]){																								//Reset On The FLY S3 + SWITCH
-//			if(DebugMode)printf("Cargo Scoop SecureEscapeFightState [%d]\x0a", SecureEscapeFightState);
+			if(vSecureEscapeFight){
+				if(DebugMode)printf("Cargo Scoop SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+			}
 			if(!vSecureEscapeFight){if (Throttle[RDRNRM]) sCargo = 1; else sCargo = 0;}
 			else sCargo=!sCargo;	//reverse the flag status
-			ActKey(KEYON+PULSE+CargoScoop);
-			if(sCargo){																								
+			if(sCargo & vCS){
+				vCS=!vCS;	//Reset On The FLY : Just switch
+				ActKey(KEYON+PULSE+CargoScoop);				
 				if(DebugMode)printf("Cargo Scoop: DEPLOYED [%d]\x0a", sCargo);
 				if(ToggleCargoScoopLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCargoScoopLED)); 						// ToggleCargoScoopLED ON
-			}else{
+			}else if(!sCargo & !vCS){
+				vCS=!vCS;	//Reset On The FLY : Just switch
+				ActKey(KEYON+PULSE+CargoScoop);
 				if(DebugMode)printf("Cargo Scoop: RETRACTED [%d]\x0a", sCargo);
 				if(ToggleCargoScoopLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleCargoScoopLED)); 						// ToggleCargoScoopLED OFF
+			}else{
+				if(DebugMode)printf("Cargo Scoop Reset On The Fly\x0a");
 			}
 		}
 	}
@@ -59,7 +73,7 @@
 		}		
 		if(!Joystick[S3]){																								//Reset On The FLY S3 + SWITCH
 			if(vSecureEscapeFight){
-				if(DebugMode)printf("HardPoints SecureEscapeFightState [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode)printf("HardPoints SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}
 			sHardPoints=!sHardPoints;	//reverse the flag status
 			ActKey(KEYON+PULSE+DeployHardpoints);
@@ -431,43 +445,42 @@
 			}
 		}
 	}
-	
+
+	//FUNCTION: Init Secure Retract
+	int initSecureRectract(){
+		vSecureEscapeFight=!vSecureEscapeFight;
+		if(sHardPoints){
+//			if(DebugMode)printf("SecureRetract Mode HardPoints\x0a");
+			ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
+		}
+		if(sGears){
+//			if(DebugMode)printf("SecureRetract Mode Gears\x0a");
+			ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
+		}
+		if(sCargo){
+//			if(DebugMode)printf("SecureRetract Mode CargoScoop\x0a");
+			ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
+		}
+		vSecureEscapeFight=!vSecureEscapeFight;
+	}
+
 	//FUNCTION: Init Supercruise
 	int initSuperCruise(){
-//		if(SecureRetract & sHardPoints){
-//			if(DebugMode)printf("SuperCruise Mode HardPoints\x0a");
-//			ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//		}
+		if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 		ActKey(KEYON+PULSE+Supercruise);
 		if(DebugMode)printf("SuperCruise Engaged\x0a");
 	}
 	
 	//FUNCTION: Init FrameShiftDrive
 	int initFrameShiftDrive(){
-//		if(SecureRetract & sHardPoints){
-//			if(DebugMode)printf("FrameShiftDrive Mode HardPoints\x0a");
-//			ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//		}
+		if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 		ActKey(KEYON+PULSE+FrameShiftDrive);
 		if(DebugMode)printf("FrameShiftDrive Engaged\x0a");
 	}
 	
 	//FUNCTION: SystemJump
 	int initSystemJump(){
-//		if(SecureRetract){
-//			if(sHardPoints){
-//				if(DebugMode)printf("SystemJump Mode HardPoints\x0a");
-//				ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//			}
-//			if(Gears){
-//				if(DebugMode)printf("mSystemJump Mode Gears\x0a");
-//				ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
-//			}
-//			if(Cargo){
-//				if(DebugMode)printf("mSystemJump Mode CargoScoop\x0a");
-//				ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
-//			}
-//		}
+		if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 		ActKey(KEYON+PULSE+mSystemJump);
 		if(DebugMode)printf("SystemJump Engaged\x0a");
 	}
@@ -476,10 +489,7 @@
 	int initThrottleBoost(){
 		if(SupecruiseOnThrottle){
 			if(AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){
-//				if(SecureRetract & sHardPoints){
-//					if(DebugMode)printf("Escape Fight Mode HardPoints\x0a");
-//					ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//				}
+				if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 				ActKey(KEYON+PULSE+Supercruise);
 				if(DebugMode)printf("SupecruiseOnThrottle Engaged\x0a");
 			}else{
@@ -494,22 +504,8 @@
 	
 	//FUNCTION: Escape Fight
 	int initEscapeFight(){
-		if(SecureRetract){
-			vSecureEscapeFight=!vSecureEscapeFight;
+		if(SecureRetract){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 //			if(DebugMode)printf("Escape Mode BEGIN SecureEscapeFightState [%d]\x0a", SecureEscapeFightState);
-			if(sHardPoints){
-				ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-				if(DebugMode)printf("Escape Fight Mode HardPoints\x0a");
-			}
-			if(sGears){
-				ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
-				if(DebugMode)printf("Escape Fight Mode Gears\x0a");
-			}
-			if(sCargo){
-				ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
-				if(DebugMode)printf("Escape Fight Mode CargoScoop\x0a");
-			}
-			vSecureEscapeFight=!vSecureEscapeFight;
 		}
 		ActKey(KEYON+PULSE+mEscapeFight);
 		if(DebugMode)printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH WITH S3)\x0a");
@@ -518,10 +514,7 @@
 	
 	//FUNCTION: Request Docking
 	int initRCDocking(){
-//		if(SecureRetract & sHardPoints){
-//			if(DebugMode)printf("Request Docking Mode HardPoints\x0a");
-//			ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//		}
+		if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 		ActKey(KEYON+PULSE+mRequestCancelDock);
 		if(DebugMode)printf("Docking Initialisation\x0a");
 	}
