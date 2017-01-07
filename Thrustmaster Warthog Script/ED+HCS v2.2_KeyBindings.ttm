@@ -106,7 +106,7 @@
 	
 	//MISCELLANEOUS//
 	define MicrophoneMute			USB[0x31]				// \			[HCS]
-	define InternalVoiceCommsPTT	USB[0x54]				// NUMPAD /
+	define InternalVoiceCommsPTT	USB[0x38]				// /
 	define ClassifiedCamera			USB[0x3A]				// F1			[HCS]
 	define OrbitalLines				USB[0x2E]				// =			[HCS]
 	define HideShipGUI				L_CTL+L_ALT+USB[0x0A]	// CTRL+ALT+G

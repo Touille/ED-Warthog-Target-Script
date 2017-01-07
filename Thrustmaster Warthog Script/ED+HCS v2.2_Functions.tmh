@@ -5,35 +5,49 @@
 	//TOGGLE: Landing Gear	
 	int initToggleLandingGear(){
 		if(!Joystick[S3]){																								//Reset On The FLY S3 + SWITCH
-//			if(DebugMode)printf("Landing Gear SecureEscapeFightState [%d]\x0a", SecureEscapeFightState);
+			if(vSecureEscapeFight){
+				if(DebugMode)printf("Landing Gear SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+			}
 			if(!vSecureEscapeFight){if (Throttle[EACON]) sGears = 1; else sGears = 0;}
 			else sGears=!sGears;	//reverse the flag status
-			ActKey(KEYON+PULSE+LandingGear);
-			if(sGears){																							
+			if(sGears & vLG){
+				vLG=!vLG;	//Reset On The FLY : Just switch
+				ActKey(KEYON+PULSE+LandingGear);			
 				if(DebugMode)printf("Landing Gear: DEPLOYED [%d]\x0a", sGears);
 				if(ToggleLandingGearLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleLandingGearLED)); 					// ToggleLandingGearLED ON
-			}else{
+			}else if (!sGears & !vLG){
+				vLG=!vLG;	//Reset On The FLY : Just switch
+				ActKey(KEYON+PULSE+LandingGear);
 				if(DebugMode)printf("Landing Gear: RETRACTED [%d]\x0a",  sGears);
 				if(ToggleLandingGearLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleLandingGearLED)); 					// ToggleLandingGearLED OFF
+			}else{
+				if(DebugMode)printf("Landing Gear Reset On The Fly\x0a");
 			}
-		}
+		}else{vLG=!vLG;}
 	}
 	
 	//TOGGLE: Cargo Scoop	
 	int initToggleCargoScoop() {																
 		if(!Joystick[S3]){																								//Reset On The FLY S3 + SWITCH
-//			if(DebugMode)printf("Cargo Scoop SecureEscapeFightState [%d]\x0a", SecureEscapeFightState);
+			if(vSecureEscapeFight){
+				if(DebugMode)printf("Cargo Scoop SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+			}
 			if(!vSecureEscapeFight){if (Throttle[RDRNRM]) sCargo = 1; else sCargo = 0;}
 			else sCargo=!sCargo;	//reverse the flag status
-			ActKey(KEYON+PULSE+CargoScoop);
-			if(sCargo){																								
+			if(sCargo & vCS){
+				vCS=!vCS;	//Reset On The FLY : Just switch
+				ActKey(KEYON+PULSE+CargoScoop);				
 				if(DebugMode)printf("Cargo Scoop: DEPLOYED [%d]\x0a", sCargo);
 				if(ToggleCargoScoopLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCargoScoopLED)); 						// ToggleCargoScoopLED ON
-			}else{
+			}else if(!sCargo & !vCS){
+				vCS=!vCS;	//Reset On The FLY : Just switch
+				ActKey(KEYON+PULSE+CargoScoop);
 				if(DebugMode)printf("Cargo Scoop: RETRACTED [%d]\x0a", sCargo);
 				if(ToggleCargoScoopLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleCargoScoopLED)); 						// ToggleCargoScoopLED OFF
+			}else{
+				if(DebugMode)printf("Cargo Scoop Reset On The Fly\x0a");
 			}
-		}
+		}else{vCS=!vCS;}
 	}
 
 	//TOGGLE: Light	
@@ -59,29 +73,30 @@
 		}		
 		if(!Joystick[S3]){																								//Reset On The FLY S3 + SWITCH
 			if(vSecureEscapeFight){
-				if(DebugMode)printf("HardPoints SecureEscapeFightState [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode)printf("HardPoints SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}
 			sHardPoints=!sHardPoints;	//reverse the flag status
 			ActKey(KEYON+PULSE+DeployHardpoints);
 			if(sHardPoints){
 				if(OptimalPIPMode){
 					vOptimalPIPBackup = vOptimalPIP;
-					ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepSys();"));
+					//ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepSys();"));
+					ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));
 					if(DebugMode)printf("HardPoints: Optimal PIP Mode Set\x0a");
 				}
 				if(DebugMode)printf("HardPoints: DEPLOYED [%d]\x0a", sHardPoints);
 				if(ToggleHardpointsLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardpointsLED));					// ToggleHardpointsLED ON
 			}else{
 				if(OptimalPIPMode){
-					if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngSys();"));		//If no PIP Mode is switched after the game launch and before Toggle Hardpoints
-					if(vOptimalPIPBackup == 1)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngSys();"));
-					if(vOptimalPIPBackup == 2)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngWep();"));
-					if(vOptimalPIPBackup == 3)ActKey(KEYON+PULSE+EXEC("initPIPmPowerSysEng();"));
-					if(vOptimalPIPBackup == 4)ActKey(KEYON+PULSE+EXEC("initPIPmPowerSysWep();"));
-					if(vOptimalPIPBackup == 5)ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepEng();"));
-					if(vOptimalPIPBackup == 6)ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepSys();"));
-					if(vOptimalPIPBackup == 7)ActKey(KEYON+PULSE+EXEC("initPIPmPowerTank();"));
-					if(vOptimalPIPBackup == 8)ActKey(KEYON+PULSE+EXEC("initPIPmPowerOffensive();"));
+					if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));		//If no PIP Mode is switched after the game launch and before Toggle Hardpoints
+					if(vOptimalPIPBackup == 1)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));
+					if(vOptimalPIPBackup == 2)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP);"));
+					if(vOptimalPIPBackup == 3)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG);"));
+					if(vOptimalPIPBackup == 4)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP);"));
+					if(vOptimalPIPBackup == 5)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG);"));
+					if(vOptimalPIPBackup == 6)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));
+					if(vOptimalPIPBackup == 7)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS,MID);"));
+					if(vOptimalPIPBackup == 8)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG,MID);"));
 					if(DebugMode)printf("HardPoints: Optimal PIP Mode Reset [%d]\x0a", vOptimalPIPBackup);
 				}
 				if(DebugMode)printf("HardPoints: RETRACTED [%d]\x0a", sHardPoints);
@@ -167,7 +182,7 @@
 	
 	//TOGGLE: Silent Runing
 	int initToggleSilentRuning(){
-		if(Joystick[H3D]){
+		if(Joystick[H3D] | Throttle[APAH]){
 			if(SilentRuningGameMode){	// Silent Runing [TOGGLE] Mode Ingame
 				sSL=!sSL;
 				if(sSL){	//Silent Runing [TOGGLE] Mode First Pulse Engage
@@ -430,43 +445,33 @@
 			}
 		}
 	}
-	
+
+	//FUNCTION: Init Secure Retract
+	int initSecureRectract(){
+		vSecureEscapeFight=!vSecureEscapeFight;
+		if(sHardPoints)ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
+		if(sGears)ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
+		if(sCargo)ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
+		vSecureEscapeFight=!vSecureEscapeFight;
+	}
+
 	//FUNCTION: Init Supercruise
 	int initSuperCruise(){
-//		if(SecureRetract & sHardPoints){
-//			if(DebugMode)printf("SuperCruise Mode HardPoints\x0a");
-//			ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//		}
+		if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 		ActKey(KEYON+PULSE+Supercruise);
 		if(DebugMode)printf("SuperCruise Engaged\x0a");
 	}
 	
 	//FUNCTION: Init FrameShiftDrive
 	int initFrameShiftDrive(){
-//		if(SecureRetract & sHardPoints){
-//			if(DebugMode)printf("FrameShiftDrive Mode HardPoints\x0a");
-//			ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//		}
+		if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 		ActKey(KEYON+PULSE+FrameShiftDrive);
 		if(DebugMode)printf("FrameShiftDrive Engaged\x0a");
 	}
 	
 	//FUNCTION: SystemJump
 	int initSystemJump(){
-//		if(SecureRetract){
-//			if(sHardPoints){
-//				if(DebugMode)printf("SystemJump Mode HardPoints\x0a");
-//				ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//			}
-//			if(Gears){
-//				if(DebugMode)printf("mSystemJump Mode Gears\x0a");
-//				ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
-//			}
-//			if(Cargo){
-//				if(DebugMode)printf("mSystemJump Mode CargoScoop\x0a");
-//				ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
-//			}
-//		}
+		if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 		ActKey(KEYON+PULSE+mSystemJump);
 		if(DebugMode)printf("SystemJump Engaged\x0a");
 	}
@@ -475,10 +480,7 @@
 	int initThrottleBoost(){
 		if(SupecruiseOnThrottle){
 			if(AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){
-//				if(SecureRetract & sHardPoints){
-//					if(DebugMode)printf("Escape Fight Mode HardPoints\x0a");
-//					ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//				}
+				if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 				ActKey(KEYON+PULSE+Supercruise);
 				if(DebugMode)printf("SupecruiseOnThrottle Engaged\x0a");
 			}else{
@@ -493,86 +495,61 @@
 	
 	//FUNCTION: Escape Fight
 	int initEscapeFight(){
-		if(SecureRetract){
-			vSecureEscapeFight=!vSecureEscapeFight;
-//			if(DebugMode)printf("Escape Mode BEGIN SecureEscapeFightState [%d]\x0a", SecureEscapeFightState);
-			if(sHardPoints){
-				ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-				if(DebugMode)printf("Escape Fight Mode HardPoints\x0a");
-			}
-			if(sGears){
-				ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
-				if(DebugMode)printf("Escape Fight Mode Gears\x0a");
-			}
-			if(sCargo){
-				ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
-				if(DebugMode)printf("Escape Fight Mode CargoScoop\x0a");
-			}
-			vSecureEscapeFight=!vSecureEscapeFight;
+		if(SecureRetract){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 		}
 		ActKey(KEYON+PULSE+mEscapeFight);
-		if(DebugMode)printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH WITH S3)\x0a");
-//		if(DebugMode)printf("Escape Mode END SecureEscapeFightState [%d]\x0a", SecureEscapeFightState);
+		if(DebugMode)printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG)\x0a");
 	}
 	
 	//FUNCTION: Request Docking
 	int initRCDocking(){
-//		if(SecureRetract & sHardPoints){
-//			if(DebugMode)printf("Request Docking Mode HardPoints\x0a");
-//			ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-//		}
+		if(SecureRetract)ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
 		ActKey(KEYON+PULSE+mRequestCancelDock);
 		if(DebugMode)printf("Docking Initialisation\x0a");
 	}
+
+	//FUNCTION: Autopilot Engage / Disengage Key
+	int initEngageAPkey(){
+		if (Throttle[APPAT]) ActKey(KEYON+PULSE+EXEC("initRCDocking();"));
+		if (Throttle[APAH]) ActKey(KEYON+PULSE+EXEC("initEscapeFight();"));
+		if (Throttle[APALT] & !Joystick[S3]) ActKey(KEYON+PULSE+EXEC("initSystemJump();"));
+		if (Throttle[APALT] & Joystick[S3]) ActKey(KEYON+PULSE+CancelFSD);
+	}
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	PIP MANAGEMENT FUNCTIONS																																	//
+//	PIP MANAGEMENT FUNCTIONS CREDIT TO DarKcyde0																																	//
+// 		initPIPPower sets PIPs as requested, Params = SYS, ENG, WEP, MID
+//		1st Param gets 4 PIPs, 2nd gets 2 PIPs, 3eme get 50/50 of 1st and 2nd Param if [MID]
+// 		If no 2nd param, balanced 1 PIP on each 2ndary power
+// 		If no params, balances power.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int initPIPmPowerEngSys(){//Advanced PIP Management: 4xENG, 2xSYS	
-		ActKey(KEYON+PULSE+mPowerEngSys);
-		if(vOptimalPIP != 1) vOptimalPIP = 1;
-		if(DebugMode)printf("Initialising PIP Commands 1? [%d]\x0a", vOptimalPIP);
-	}
+	int initPIPPower(int x=0, int y=0, int z=0){
 
-	int initPIPmPowerEngWep(){//Advanced PIP Management: 4xENG, 2xWEP	
-		ActKey(KEYON+PULSE+mPowerEngWep);
-		if(vOptimalPIP != 2) vOptimalPIP = 2;
-		if(DebugMode)printf("Initialising PIP Commands 2? [%d]\x0a", vOptimalPIP);
-	}
+		// Map out PIPs
+		if (x == 0) PIPfull = 0;
+		else if (x == SYS) PIPfull = PULSE+ PowerSys;
+		else if (x == ENG) PIPfull = PULSE+ PowerEng;
+		else if (x == WEP) PIPfull = PULSE+ PowerWep;
+	
+		if (y == 0) PIPhalf = 0;
+		else if (y == SYS) PIPhalf = PULSE+ PowerSys;
+		else if (y == ENG) PIPhalf = PULSE+ PowerEng;
+		else if (y == WEP) PIPhalf = PULSE+ PowerWep;
 
-	int initPIPmPowerSysEng(){//Advanced PIP Management: 4xSYS, 2xENG
-		ActKey(KEYON+PULSE+mPowerSysEng);
-		if(vOptimalPIP != 3) vOptimalPIP = 3;
-		if(DebugMode)printf("Initialising PIP Commands 3? [%d]\x0a", vOptimalPIP);
-	}
-
-	int initPIPmPowerSysWep(){//Advanced PIP Management: 4xSYS, 2xWEP
-		ActKey(KEYON+PULSE+mPowerSysWep);
-		if(vOptimalPIP != 4) vOptimalPIP = 4;
-		if(DebugMode)printf("Initialising PIP Commands 4? [%d]\x0a", vOptimalPIP);
-	}
-
-	int initPIPmPowerWepEng(){//Advanced PIP Management: 4xWEP, 2xENG
-		ActKey(KEYON+PULSE+mPowerWepEng);
-		if(vOptimalPIP != 5) vOptimalPIP = 5;
-		if(DebugMode)printf("Initialising PIP Commands 5? [%d]\x0a", vOptimalPIP);
-	}
-
-	int initPIPmPowerWepSys(){//Advanced PIP Management: 4xWEP, 2xSYS			
-		ActKey(KEYON+PULSE+mPowerWepSys);
-		if(vOptimalPIP != 6) vOptimalPIP = 6;
-		if(DebugMode)printf("Initialising PIP Commands 6? [%d]\x0a", vOptimalPIP);
-	}
-
-	int initPIPmPowerTank(){//Advanced PIP Management: 3xWEP, 3xSYS	
-		ActKey(KEYON+PULSE+mPowerTank);
-		if(vOptimalPIP != 7) vOptimalPIP = 7;
-		if(DebugMode)printf("Initialising PIP Commands 7? [%d]\x0a", vOptimalPIP);
-	}
-
-	int initPIPmPowerOffensive(){//Advanced PIP Management: 3xWEP, 3xENG
-		ActKey(KEYON+PULSE+mPowerOffensive);
-		if(vOptimalPIP != 8) vOptimalPIP = 8;
-		if(DebugMode)printf("Initialising PIP Commands 8? [%d]\x0a", vOptimalPIP);
+		if (z == 0) PIPMid = 0;
+		else if (z == MID) PIPMid = PIPfull;
+		
+		// Send PIPS
+		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(),PIPfull, D(),PIPhalf, D(),PIPfull, D(),PIPMid, D(),PIPfull));
+		
+		// Save the PIPS for Automatique PIP MOD RESET (OptimalPIPMode in Settings File)
+		if		(x == ENG & y == SYS & z != MID){if(vOptimalPIP != 1) vOptimalPIP = 1;if(DebugMode)printf("Initialising PIP Commands 1? [%d]\x0a", vOptimalPIP);}
+		else if	(x == ENG & y == WEP & z != MID){if(vOptimalPIP != 2) vOptimalPIP = 2;if(DebugMode)printf("Initialising PIP Commands 2? [%d]\x0a", vOptimalPIP);}
+		else if	(x == SYS & y == ENG & z != MID){if(vOptimalPIP != 3) vOptimalPIP = 3;if(DebugMode)printf("Initialising PIP Commands 3? [%d]\x0a", vOptimalPIP);}
+		else if	(x == SYS & y == WEP & z != MID){if(vOptimalPIP != 4) vOptimalPIP = 4;if(DebugMode)printf("Initialising PIP Commands 4? [%d]\x0a", vOptimalPIP);}
+		else if	(x == WEP & y == ENG & z != MID){if(vOptimalPIP != 5) vOptimalPIP = 5;if(DebugMode)printf("Initialising PIP Commands 5? [%d]\x0a", vOptimalPIP);}
+		else if	(x == WEP & y == SYS & z != MID){if(vOptimalPIP != 6) vOptimalPIP = 6;if(DebugMode)printf("Initialising PIP Commands 6? [%d]\x0a", vOptimalPIP);}
+		else if	(x == WEP & y == SYS & z == MID){if(vOptimalPIP != 7) vOptimalPIP = 7;if(DebugMode)printf("Initialising PIP Commands 7? [%d]\x0a", vOptimalPIP);}
+		else if	(x == WEP & y == ENG & z == MID){if(vOptimalPIP != 8) vOptimalPIP = 8;if(DebugMode)printf("Initialising PIP Commands 8? [%d]\x0a", vOptimalPIP);}
 	}
