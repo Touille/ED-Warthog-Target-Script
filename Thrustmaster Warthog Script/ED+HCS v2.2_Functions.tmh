@@ -179,7 +179,7 @@
 	
 	//TOGGLE: Silent Runing
 	int initToggleSilentRuning(){
-		if(Joystick[H3D]){
+		if(Joystick[H3D] | Throttle[APAH]){
 			if(SilentRuningGameMode){	// Silent Runing [TOGGLE] Mode Ingame
 				sSL=!sSL;
 				if(sSL){	//Silent Runing [TOGGLE] Mode First Pulse Engage
@@ -536,20 +536,24 @@
 		ActKey(KEYON+PULSE+mRequestCancelDock);
 		if(DebugMode)printf("Docking Initialisation\x0a");
 	}
-	
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	PIP MANAGEMENT FUNCTIONS																																	//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-	
-	// =========================CREDIT TO DarKcyde0===========================================
-	// initPIPPower sets PIPs as requested, Params = SYS, ENG, WEP, MID
-	// 1st Param gets 4 PIPs, 2nd gets 2 PIPs, 3eme get 50/50 of 1st and 2nd Param if [MID]
-	// If no 2nd param, balanced 1 PIP on each 2ndary power
-	// If no params, balances power.
-	// =======================================================================================
-	int initPIPPower(int x=0, int y=0, int z=0){
 
-//		int PIPfull, PIPhalf, PIPMid;
+	//FUNCTION: Autopilot Engage / Disengage Key
+	int initEngageAPkey(){
+		if (Throttle[APPAT]) ActKey(KEYON+PULSE+EXEC("initRCDocking();"));
+		if (Throttle[APAH]) ActKey(KEYON+PULSE+EXEC("initEscapeFight();"));
+		if (Throttle[APALT] & !Joystick[S3]) ActKey(KEYON+PULSE+EXEC("initSystemJump();"));
+		if (Throttle[APALT] & Joystick[S3]) ActKey(KEYON+PULSE+CancelFSD);
+	}
+	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	PIP MANAGEMENT FUNCTIONS CREDIT TO DarKcyde0																																	//
+// 		initPIPPower sets PIPs as requested, Params = SYS, ENG, WEP, MID
+//		1st Param gets 4 PIPs, 2nd gets 2 PIPs, 3eme get 50/50 of 1st and 2nd Param if [MID]
+// 		If no 2nd param, balanced 1 PIP on each 2ndary power
+// 		If no params, balances power.
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	
+	int initPIPPower(int x=0, int y=0, int z=0){
 
 		// Map out PIPs
 		if (x == 0) PIPfull = 0;

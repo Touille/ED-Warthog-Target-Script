@@ -197,7 +197,8 @@ int main()
 	MapKeyIO(&Throttle, LDGH, PULSE+TrackIRPause, TEMPO(PULSE+EXEC("initHeadCenter();"), TEMPO(PULSE+Screenshot, PULSE+HighResScreenshot, LongPressDelay), LongPressDelay));			// PUSH
 
 //	-------------------------Autopilot Engage Button Same As Autopilot Disengage Button
-	MapKeyIOUMD(&Throttle, APENG, EXEC("initRCDocking();"), EXEC("initRCDocking();"), EXEC("initEscapeFight();"), EXEC("initEscapeFight();"), CancelFSD, EXEC("initSystemJump();"));	// PUSH
+//	MapKeyIOUMD(&Throttle, APENG, EXEC("initRCDocking();"), EXEC("initRCDocking();"), EXEC("initEscapeFight();"), EXEC("initEscapeFight();"), CancelFSD, EXEC("initSystemJump();"));	// PUSH
+	MapKey(&Throttle, APENG, EXEC("initEngageAPkey();"));
 
 //	-------------------------Autopilot Disengage Button Same As Autopilot Engage Button
 //	MapKey(&Throttle, APDIS, 0);																																						// <Unmapped> PUSH
@@ -441,9 +442,29 @@ int main()
 
 int EventHandle(int type, alias o, int x)
 {
-	DefaultMapping(&o, x);
-	if(&o == &Throttle & x == THR_FC & Joystick[S3]) {										// Throttle: LED On-The-FLy Backlight Control
-		vThrottleLightBackup = (AxisVal(Throttle[THR_FC], &axdata) - 32766) / 256 * -1;		// HOLD S3 on Joystick & Move Friction Control Axis
+	int TRPCOMBO;
+	
+	// Throttle: LED On-The-FLy Backlight Control
+	if(&o == &Throttle & x == THR_FC & Joystick[S3]){
+		vThrottleLightBackup = (AxisVal(Throttle[THR_FC], &axdata) - 32766) / 256 * -1;	//HOLD S3 on Joystick & Move Friction Control Axis
 		ActKey(PULSE+KEYON+LED (&Throttle, LED_INTENSITY, vThrottleLightBackup));
 	}
+	
+	// Combine rudder toe brakes into new axis, mapped to DX_THROTTLE_AXIS
+	if (&o == &TFRPRudder & (x == TRPLEFT | x == TRPRIGHT)) {
+		if (TFRPRudder[TRPLEFT] < TFRPRudder[TRPRIGHT]) TRPCOMBO = TFRPRudder[TRPRIGHT];
+		else TRPCOMBO = TFRPRudder[TRPLEFT];
+		DXAxis (DX_THROTTLE_AXIS, -TRPCOMBO);
+	}
+	
+	//Map the MODE_FILTERED TFRP through Target; we can Trim, set deadzones, J/Scurves, etc.
+	if (&o == &TFRPRudder) {  
+		GetAxisData(&o, x);
+		axdata.val = AxisVal(o[x], &axdata);
+		if(x == TRPLEFT | x == TRPRIGHT) axdata.val = -axdata.val;  //Reverse the Toe Brakes, TM why u do dis??
+		//axdata.locked = 1;                                        //Uncomment to disable pedals but keep TRPCOMBO axis
+		if(!axdata.locked & !axdata.relative) GameOutput(&o, x, axdata.val);
+		
+	}
+	else DefaultMapping(&o, x);
 }
