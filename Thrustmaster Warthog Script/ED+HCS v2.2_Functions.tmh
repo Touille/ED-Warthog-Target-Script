@@ -66,22 +66,34 @@
 			if(sHardPoints){
 				if(OptimalPIPMode){
 					vOptimalPIPBackup = vOptimalPIP;
-					ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepSys();"));
+					//ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepSys();"));
+					ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));
 					if(DebugMode)printf("HardPoints: Optimal PIP Mode Set\x0a");
 				}
 				if(DebugMode)printf("HardPoints: DEPLOYED [%d]\x0a", sHardPoints);
 				if(ToggleHardpointsLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardpointsLED));					// ToggleHardpointsLED ON
 			}else{
 				if(OptimalPIPMode){
-					if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngSys();"));		//If no PIP Mode is switched after the game launch and before Toggle Hardpoints
-					if(vOptimalPIPBackup == 1)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngSys();"));
-					if(vOptimalPIPBackup == 2)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngWep();"));
-					if(vOptimalPIPBackup == 3)ActKey(KEYON+PULSE+EXEC("initPIPmPowerSysEng();"));
-					if(vOptimalPIPBackup == 4)ActKey(KEYON+PULSE+EXEC("initPIPmPowerSysWep();"));
-					if(vOptimalPIPBackup == 5)ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepEng();"));
-					if(vOptimalPIPBackup == 6)ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepSys();"));
-					if(vOptimalPIPBackup == 7)ActKey(KEYON+PULSE+EXEC("initPIPmPowerTank();"));
-					if(vOptimalPIPBackup == 8)ActKey(KEYON+PULSE+EXEC("initPIPmPowerOffensive();"));
+//					if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngSys();"));		//If no PIP Mode is switched after the game launch and before Toggle Hardpoints
+//					if(vOptimalPIPBackup == 1)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngSys();"));
+//					if(vOptimalPIPBackup == 2)ActKey(KEYON+PULSE+EXEC("initPIPmPowerEngWep();"));
+//					if(vOptimalPIPBackup == 3)ActKey(KEYON+PULSE+EXEC("initPIPmPowerSysEng();"));
+//					if(vOptimalPIPBackup == 4)ActKey(KEYON+PULSE+EXEC("initPIPmPowerSysWep();"));
+//					if(vOptimalPIPBackup == 5)ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepEng();"));
+//					if(vOptimalPIPBackup == 6)ActKey(KEYON+PULSE+EXEC("initPIPmPowerWepSys();"));
+//					if(vOptimalPIPBackup == 7)ActKey(KEYON+PULSE+EXEC("initPIPmPowerTank();"));
+//					if(vOptimalPIPBackup == 8)ActKey(KEYON+PULSE+EXEC("initPIPmPowerOffensive();"));
+
+					if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));		//If no PIP Mode is switched after the game launch and before Toggle Hardpoints
+					if(vOptimalPIPBackup == 1)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));
+					if(vOptimalPIPBackup == 2)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP);"));
+					if(vOptimalPIPBackup == 3)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG);"));
+					if(vOptimalPIPBackup == 4)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP);"));
+					if(vOptimalPIPBackup == 5)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG);"));
+					if(vOptimalPIPBackup == 6)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));
+					if(vOptimalPIPBackup == 7)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS,MID);"));
+					if(vOptimalPIPBackup == 8)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG,MID);"));
+
 					if(DebugMode)printf("HardPoints: Optimal PIP Mode Reset [%d]\x0a", vOptimalPIPBackup);
 				}
 				if(DebugMode)printf("HardPoints: RETRACTED [%d]\x0a", sHardPoints);
@@ -529,50 +541,90 @@
 //	PIP MANAGEMENT FUNCTIONS																																	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int initPIPmPowerEngSys(){//Advanced PIP Management: 4xENG, 2xSYS	
-		ActKey(KEYON+PULSE+mPowerEngSys);
-		if(vOptimalPIP != 1) vOptimalPIP = 1;
-		if(DebugMode)printf("Initialising PIP Commands 1? [%d]\x0a", vOptimalPIP);
-	}
+	// =========================CREDIT TO DarKcyde0===========================================
+	// initPIPPower sets PIPs as requested, Params = SYS, ENG, WEP, MID
+	// 1st Param gets 4 PIPs, 2nd gets 2 PIPs, 3eme get 50/50 of 1st and 2nd Param if [MID]
+	// If no 2nd param, balanced 1 PIP on each 2ndary power
+	// If no params, balances power.
+	// =======================================================================================
+	int initPIPPower(int x=0, int y=0, int z=0){
 
-	int initPIPmPowerEngWep(){//Advanced PIP Management: 4xENG, 2xWEP	
-		ActKey(KEYON+PULSE+mPowerEngWep);
-		if(vOptimalPIP != 2) vOptimalPIP = 2;
-		if(DebugMode)printf("Initialising PIP Commands 2? [%d]\x0a", vOptimalPIP);
-	}
+//		int PIPfull, PIPhalf, PIPMid;
 
-	int initPIPmPowerSysEng(){//Advanced PIP Management: 4xSYS, 2xENG
-		ActKey(KEYON+PULSE+mPowerSysEng);
-		if(vOptimalPIP != 3) vOptimalPIP = 3;
-		if(DebugMode)printf("Initialising PIP Commands 3? [%d]\x0a", vOptimalPIP);
-	}
+		// Map out PIPs
+		if (x == 0) PIPfull = 0;
+		else if (x == SYS) PIPfull = PULSE+ PowerSys;
+		else if (x == ENG) PIPfull = PULSE+ PowerEng;
+		else if (x == WEP) PIPfull = PULSE+ PowerWep;
+	
+		if (y == 0) PIPhalf = 0;
+		else if (y == SYS) PIPhalf = PULSE+ PowerSys;
+		else if (y == ENG) PIPhalf = PULSE+ PowerEng;
+		else if (y == WEP) PIPhalf = PULSE+ PowerWep;
 
-	int initPIPmPowerSysWep(){//Advanced PIP Management: 4xSYS, 2xWEP
-		ActKey(KEYON+PULSE+mPowerSysWep);
-		if(vOptimalPIP != 4) vOptimalPIP = 4;
-		if(DebugMode)printf("Initialising PIP Commands 4? [%d]\x0a", vOptimalPIP);
-	}
+		if (z == 0) PIPMid = 0;
+		else if (z == MID) PIPMid = PIPfull;
+		
+		// Send PIPS
+		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(),PIPfull, D(),PIPhalf, D(),PIPfull, D(),PIPMid, D(),PIPfull));
+		
+		// Save the PIPS for Automatique PIP MOD RESET (OptimalPIPMode in Settings File)
+		if(x == ENG & y == SYS & z != MID){if(vOptimalPIP != 1) vOptimalPIP = 1;if(DebugMode)printf("Initialising PIP Commands 1? [%d]\x0a", vOptimalPIP);}
+		else if(x == ENG & y == WEP & z != MID){if(vOptimalPIP != 2) vOptimalPIP = 2;if(DebugMode)printf("Initialising PIP Commands 2? [%d]\x0a", vOptimalPIP);}
+		else if(x == SYS & y == ENG & z != MID){if(vOptimalPIP != 3) vOptimalPIP = 3;if(DebugMode)printf("Initialising PIP Commands 3? [%d]\x0a", vOptimalPIP);}
+		else if(x == SYS & y == WEP & z != MID){if(vOptimalPIP != 4) vOptimalPIP = 4;if(DebugMode)printf("Initialising PIP Commands 4? [%d]\x0a", vOptimalPIP);}
+		else if(x == WEP & y == ENG & z != MID){if(vOptimalPIP != 5) vOptimalPIP = 5;if(DebugMode)printf("Initialising PIP Commands 5? [%d]\x0a", vOptimalPIP);}
+		else if(x == WEP & y == SYS & z != MID){if(vOptimalPIP != 6) vOptimalPIP = 6;if(DebugMode)printf("Initialising PIP Commands 6? [%d]\x0a", vOptimalPIP);}
+		else if(x == WEP & y == SYS & z == MID){if(vOptimalPIP != 7) vOptimalPIP = 7;if(DebugMode)printf("Initialising PIP Commands 7? [%d]\x0a", vOptimalPIP);}
+		else if(x == WEP & y == ENG & z == MID){if(vOptimalPIP != 8) vOptimalPIP = 8;if(DebugMode)printf("Initialising PIP Commands 8? [%d]\x0a", vOptimalPIP);}
 
-	int initPIPmPowerWepEng(){//Advanced PIP Management: 4xWEP, 2xENG
-		ActKey(KEYON+PULSE+mPowerWepEng);
-		if(vOptimalPIP != 5) vOptimalPIP = 5;
-		if(DebugMode)printf("Initialising PIP Commands 5? [%d]\x0a", vOptimalPIP);
 	}
+	
+	
+//	int initPIPmPowerEngSys(){//Advanced PIP Management: 4xENG, 2xSYS	
+//		ActKey(KEYON+PULSE+mPowerEngSys);
+//		if(vOptimalPIP != 1) vOptimalPIP = 1;
+//		if(DebugMode)printf("Initialising PIP Commands 1? [%d]\x0a", vOptimalPIP);
+//	}
 
-	int initPIPmPowerWepSys(){//Advanced PIP Management: 4xWEP, 2xSYS			
-		ActKey(KEYON+PULSE+mPowerWepSys);
-		if(vOptimalPIP != 6) vOptimalPIP = 6;
-		if(DebugMode)printf("Initialising PIP Commands 6? [%d]\x0a", vOptimalPIP);
-	}
+//	int initPIPmPowerEngWep(){//Advanced PIP Management: 4xENG, 2xWEP	
+//		ActKey(KEYON+PULSE+mPowerEngWep);
+//		if(vOptimalPIP != 2) vOptimalPIP = 2;
+//		if(DebugMode)printf("Initialising PIP Commands 2? [%d]\x0a", vOptimalPIP);
+//	}
 
-	int initPIPmPowerTank(){//Advanced PIP Management: 3xWEP, 3xSYS	
-		ActKey(KEYON+PULSE+mPowerTank);
-		if(vOptimalPIP != 7) vOptimalPIP = 7;
-		if(DebugMode)printf("Initialising PIP Commands 7? [%d]\x0a", vOptimalPIP);
-	}
+//	int initPIPmPowerSysEng(){//Advanced PIP Management: 4xSYS, 2xENG
+//		ActKey(KEYON+PULSE+mPowerSysEng);
+//		if(vOptimalPIP != 3) vOptimalPIP = 3;
+//		if(DebugMode)printf("Initialising PIP Commands 3? [%d]\x0a", vOptimalPIP);
+//	}
 
-	int initPIPmPowerOffensive(){//Advanced PIP Management: 3xWEP, 3xENG
-		ActKey(KEYON+PULSE+mPowerOffensive);
-		if(vOptimalPIP != 8) vOptimalPIP = 8;
-		if(DebugMode)printf("Initialising PIP Commands 8? [%d]\x0a", vOptimalPIP);
-	}
+//	int initPIPmPowerSysWep(){//Advanced PIP Management: 4xSYS, 2xWEP
+//		ActKey(KEYON+PULSE+mPowerSysWep);
+//		if(vOptimalPIP != 4) vOptimalPIP = 4;
+//		if(DebugMode)printf("Initialising PIP Commands 4? [%d]\x0a", vOptimalPIP);
+//	}
+
+//	int initPIPmPowerWepEng(){//Advanced PIP Management: 4xWEP, 2xENG
+//		ActKey(KEYON+PULSE+mPowerWepEng);
+//		if(vOptimalPIP != 5) vOptimalPIP = 5;
+//		if(DebugMode)printf("Initialising PIP Commands 5? [%d]\x0a", vOptimalPIP);
+//	}
+
+//	int initPIPmPowerWepSys(){//Advanced PIP Management: 4xWEP, 2xSYS			
+//		ActKey(KEYON+PULSE+mPowerWepSys);
+//		if(vOptimalPIP != 6) vOptimalPIP = 6;
+//		if(DebugMode)printf("Initialising PIP Commands 6? [%d]\x0a", vOptimalPIP);
+//	}
+
+//	int initPIPmPowerTank(){//Advanced PIP Management: 3xWEP, 3xSYS	
+//		ActKey(KEYON+PULSE+mPowerTank);
+//		if(vOptimalPIP != 7) vOptimalPIP = 7;
+//		if(DebugMode)printf("Initialising PIP Commands 7? [%d]\x0a", vOptimalPIP);
+//	}
+
+//	int initPIPmPowerOffensive(){//Advanced PIP Management: 3xWEP, 3xENG
+//		ActKey(KEYON+PULSE+mPowerOffensive);
+//		if(vOptimalPIP != 8) vOptimalPIP = 8;
+//		if(DebugMode)printf("Initialising PIP Commands 8? [%d]\x0a", vOptimalPIP);
+//	}
