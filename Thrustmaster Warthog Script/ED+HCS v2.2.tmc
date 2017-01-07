@@ -55,7 +55,6 @@ int main()
 
 	// Initiate Custom & PIP Functions (ED+HCS_Macros_v2.2.tmh)
 	initCustomCommands();
-//	initPIPCommands();
 	
 	// Initiate Combined Fire
 	initToggleCombinedFire();
@@ -102,11 +101,6 @@ int main()
 //--HAT---------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 //	-------------------------Trim Switch
-//	MapKey(&Joystick, H1U, TEMPO(PowerEng, TEMPO(EXEC("initPIPmPowerEngSys();"), EXEC("initPIPmPowerEngWep();"), PIPPressDelay), PIPPressDelay));		// UP		PIPS[Short: 1xENG,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP]
-//	MapKey(&Joystick, H1D, TEMPO(BalancePower, TEMPO(EXEC("initPIPmPowerTank();"), EXEC("initPIPmPowerOffensive();"), PIPPressDelay), PIPPressDelay));	// DOWN		PIPS[Short: Balance,Med: Tank,			Long: Offensive]
-//	MapKey(&Joystick, H1L, TEMPO(PowerSys, TEMPO(EXEC("initPIPmPowerSysEng();"), EXEC("initPIPmPowerSysWep();"), PIPPressDelay), PIPPressDelay));		// LEFT		PIPS[Short: 1xSYS,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP]
-//	MapKey(&Joystick, H1R, TEMPO(PowerWep, TEMPO(EXEC("initPIPmPowerWepEng();"), EXEC("initPIPmPowerWepSys();"), PIPPressDelay), PIPPressDelay));		// RIGHT	PIPS[Short: 1xWEP,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS]
-
 	MapKey(&Joystick, H1U, TEMPO(PowerEng, TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));				// UP		PIPS[Short: 1xENG,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP]
 	MapKey(&Joystick, H1D, TEMPO(BalancePower, TEMPO(EXEC("initPIPPower(WEP,SYS,MID);"), EXEC("initPIPPower(WEP,ENG,MID);"), PIPPressDelay), PIPPressDelay));	// DOWN		PIPS[Short: Balance,Med: Tank,			Long: Offensive]
 	MapKey(&Joystick, H1L, TEMPO(PowerSys, TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));				// LEFT		PIPS[Short: 1xSYS,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP]
@@ -197,8 +191,7 @@ int main()
 	MapKeyIO(&Throttle, LDGH, PULSE+TrackIRPause, TEMPO(PULSE+EXEC("initHeadCenter();"), TEMPO(PULSE+Screenshot, PULSE+HighResScreenshot, LongPressDelay), LongPressDelay));			// PUSH
 
 //	-------------------------Autopilot Engage Button Same As Autopilot Disengage Button
-//	MapKeyIOUMD(&Throttle, APENG, EXEC("initRCDocking();"), EXEC("initRCDocking();"), EXEC("initEscapeFight();"), EXEC("initEscapeFight();"), CancelFSD, EXEC("initSystemJump();"));	// PUSH
-	MapKey(&Throttle, APENG, EXEC("initEngageAPkey();"));
+	MapKey(&Throttle, APENG, EXEC("initEngageAPkey();"));																																// PUSH
 
 //	-------------------------Autopilot Disengage Button Same As Autopilot Engage Button
 //	MapKey(&Throttle, APDIS, 0);																																						// <Unmapped> PUSH
