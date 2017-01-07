@@ -23,7 +23,7 @@
 			}else{
 				if(DebugMode)printf("Landing Gear Reset On The Fly\x0a");
 			}
-		}
+		}else{vLG=!vLG;}
 	}
 	
 	//TOGGLE: Cargo Scoop	
@@ -47,7 +47,7 @@
 			}else{
 				if(DebugMode)printf("Cargo Scoop Reset On The Fly\x0a");
 			}
-		}
+		}else{vCS=!vCS;}
 	}
 
 	//TOGGLE: Light	
@@ -449,18 +449,9 @@
 	//FUNCTION: Init Secure Retract
 	int initSecureRectract(){
 		vSecureEscapeFight=!vSecureEscapeFight;
-		if(sHardPoints){
-//			if(DebugMode)printf("SecureRetract Mode HardPoints\x0a");
-			ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-		}
-		if(sGears){
-//			if(DebugMode)printf("SecureRetract Mode Gears\x0a");
-			ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
-		}
-		if(sCargo){
-//			if(DebugMode)printf("SecureRetract Mode CargoScoop\x0a");
-			ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
-		}
+		if(sHardPoints)ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
+		if(sGears)ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
+		if(sCargo)ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
 		vSecureEscapeFight=!vSecureEscapeFight;
 	}
 
@@ -505,11 +496,9 @@
 	//FUNCTION: Escape Fight
 	int initEscapeFight(){
 		if(SecureRetract){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));
-//			if(DebugMode)printf("Escape Mode BEGIN SecureEscapeFightState [%d]\x0a", SecureEscapeFightState);
 		}
 		ActKey(KEYON+PULSE+mEscapeFight);
-		if(DebugMode)printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH WITH S3)\x0a");
-//		if(DebugMode)printf("Escape Mode END SecureEscapeFightState [%d]\x0a", SecureEscapeFightState);
+		if(DebugMode)printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG)\x0a");
 	}
 	
 	//FUNCTION: Request Docking
@@ -555,12 +544,12 @@
 		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(),PIPfull, D(),PIPhalf, D(),PIPfull, D(),PIPMid, D(),PIPfull));
 		
 		// Save the PIPS for Automatique PIP MOD RESET (OptimalPIPMode in Settings File)
-		if(x == ENG & y == SYS & z != MID){if(vOptimalPIP != 1) vOptimalPIP = 1;if(DebugMode)printf("Initialising PIP Commands 1? [%d]\x0a", vOptimalPIP);}
-		else if(x == ENG & y == WEP & z != MID){if(vOptimalPIP != 2) vOptimalPIP = 2;if(DebugMode)printf("Initialising PIP Commands 2? [%d]\x0a", vOptimalPIP);}
-		else if(x == SYS & y == ENG & z != MID){if(vOptimalPIP != 3) vOptimalPIP = 3;if(DebugMode)printf("Initialising PIP Commands 3? [%d]\x0a", vOptimalPIP);}
-		else if(x == SYS & y == WEP & z != MID){if(vOptimalPIP != 4) vOptimalPIP = 4;if(DebugMode)printf("Initialising PIP Commands 4? [%d]\x0a", vOptimalPIP);}
-		else if(x == WEP & y == ENG & z != MID){if(vOptimalPIP != 5) vOptimalPIP = 5;if(DebugMode)printf("Initialising PIP Commands 5? [%d]\x0a", vOptimalPIP);}
-		else if(x == WEP & y == SYS & z != MID){if(vOptimalPIP != 6) vOptimalPIP = 6;if(DebugMode)printf("Initialising PIP Commands 6? [%d]\x0a", vOptimalPIP);}
-		else if(x == WEP & y == SYS & z == MID){if(vOptimalPIP != 7) vOptimalPIP = 7;if(DebugMode)printf("Initialising PIP Commands 7? [%d]\x0a", vOptimalPIP);}
-		else if(x == WEP & y == ENG & z == MID){if(vOptimalPIP != 8) vOptimalPIP = 8;if(DebugMode)printf("Initialising PIP Commands 8? [%d]\x0a", vOptimalPIP);}
+		if		(x == ENG & y == SYS & z != MID){if(vOptimalPIP != 1) vOptimalPIP = 1;if(DebugMode)printf("Initialising PIP Commands 1? [%d]\x0a", vOptimalPIP);}
+		else if	(x == ENG & y == WEP & z != MID){if(vOptimalPIP != 2) vOptimalPIP = 2;if(DebugMode)printf("Initialising PIP Commands 2? [%d]\x0a", vOptimalPIP);}
+		else if	(x == SYS & y == ENG & z != MID){if(vOptimalPIP != 3) vOptimalPIP = 3;if(DebugMode)printf("Initialising PIP Commands 3? [%d]\x0a", vOptimalPIP);}
+		else if	(x == SYS & y == WEP & z != MID){if(vOptimalPIP != 4) vOptimalPIP = 4;if(DebugMode)printf("Initialising PIP Commands 4? [%d]\x0a", vOptimalPIP);}
+		else if	(x == WEP & y == ENG & z != MID){if(vOptimalPIP != 5) vOptimalPIP = 5;if(DebugMode)printf("Initialising PIP Commands 5? [%d]\x0a", vOptimalPIP);}
+		else if	(x == WEP & y == SYS & z != MID){if(vOptimalPIP != 6) vOptimalPIP = 6;if(DebugMode)printf("Initialising PIP Commands 6? [%d]\x0a", vOptimalPIP);}
+		else if	(x == WEP & y == SYS & z == MID){if(vOptimalPIP != 7) vOptimalPIP = 7;if(DebugMode)printf("Initialising PIP Commands 7? [%d]\x0a", vOptimalPIP);}
+		else if	(x == WEP & y == ENG & z == MID){if(vOptimalPIP != 8) vOptimalPIP = 8;if(DebugMode)printf("Initialising PIP Commands 8? [%d]\x0a", vOptimalPIP);}
 	}

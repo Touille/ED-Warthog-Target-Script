@@ -451,11 +451,11 @@ int EventHandle(int type, alias o, int x)
 	}
 	
 	//Map the MODE_FILTERED TFRP through Target; we can Trim, set deadzones, J/Scurves, etc.
-	if (&o == &TFRPRudder) {  
+	if (&o == &TFRPRudder) {
 		GetAxisData(&o, x);
 		axdata.val = AxisVal(o[x], &axdata);
-		if(x == TRPLEFT | x == TRPRIGHT) axdata.val = -axdata.val;  //Reverse the Toe Brakes, TM why u do dis??
-		//axdata.locked = 1;                                        //Uncomment to disable pedals but keep TRPCOMBO axis
+		if(x == TRPLEFT | x == TRPRIGHT) axdata.val = -axdata.val;	//Reverse the Toe Brakes, TM why u do dis??
+		//axdata.locked = 1;										//Uncomment to disable pedals but keep TRPCOMBO axis
 		if(!axdata.locked & !axdata.relative) GameOutput(&o, x, axdata.val);
 		
 	}
