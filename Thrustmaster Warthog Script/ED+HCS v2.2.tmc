@@ -62,10 +62,6 @@ int main()
 	// Initiate Custom & PIP Functions (ED+HCS_Macros_v2.2.tmh)
 	initCustomCommands();
 	
-	// Initiate Combined Fire
-//	if(DebugMode)printf("Initialising Combined Fire\x0a");
-//	initToggleCombinedFire();
-		
 	if(DebugMode){initPrintState();}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -343,7 +339,6 @@ int main()
 	//----------------------------------------------------------------------------------------------------------------------Set Throttle
 	//Set Default Throttle Axis
 	int initThrottleAxis(){	
-		//if(DebugMode)printf("Initialising Throttle Axis\x0a");
 		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
 		MapAxis(&Throttle, THR_LEFT, DX_ZROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Left Throttle
 		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling) 
@@ -352,7 +347,6 @@ int main()
 	
 	//Set Throttle Curve two different presets are selectable On The Fly (S3 + RED Button on Throttle Arm)
 	int initSetThrottleCurves(){
-		//if(DebugMode)printf("Initialising Throttle Curve\x0a");
 		vThrottleCurveProfile=!vThrottleCurveProfile;
 		TrimDXAxis(DX_Z_AXIS, SET(0));
 		if(vThrottleCurveProfile)SetJCurve(&Throttle, THR_RIGHT, 50, 50);
