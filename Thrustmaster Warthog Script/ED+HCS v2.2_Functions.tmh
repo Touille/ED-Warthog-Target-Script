@@ -154,16 +154,24 @@
 	int initTogglePTT(){
 		if(!Joystick[S3]){																								
 			sPPTMode=!sPPTMode;	//reverse the flag status
-			if(DebugMode)printf("PTTMode Change [%d]\x0a", sPPTMode);
+			if(sPPTMode){
+				//if(DebugMode)printf("Mic Change  [Internal:[0] External:[1][%d]\x0a", sPTTState);
+				if(TogglePTTModeLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTModeLED));								// ToggleMicLED ON
+			}else{
+				//if(DebugMode)printf("Mic Change  [Internal:[0] External:[1][%d]\x0a", sPTTState);
+				if(TogglePTTModeLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-TogglePTTModeLED));								// ToggleMicLED OFF
+			}
+			if(DebugMode)printf("PTTMode Change [Toggle:[0] PUSH:[1]] [%d]\x0a", sPPTMode);
 		}else{
 			sPTTState=!sPTTState;	//reverse the flag status
 			if(sPTTState){
-				if(DebugMode)printf("Mic State External PTT[%d]\x0a", sPTTState);
+				//if(DebugMode)printf("Mic Change  [Internal:[0] External:[1][%d]\x0a", sPTTState);
 				if(TogglePTTLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTLED));								// ToggleMicLED ON
 			}else{
-				if(DebugMode)printf("Mic State Internal PTT[%d]\x0a", sPTTState);
+				//if(DebugMode)printf("Mic Change  [Internal:[0] External:[1][%d]\x0a", sPTTState);
 				if(TogglePTTLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-TogglePTTLED));								// ToggleMicLED OFF
 			}
+			if(DebugMode)printf("Mic Change [Internal:[0] External:[1][%d]\x0a", sPTTState);
 		}
 	}
 
@@ -370,32 +378,32 @@
 	
 	//FUNCTION: Voice PTT
 	int initVoicePTT(){
-		vVoicePTT=!vVoicePTT;
-		if(sPTTState){
-			if(vVoicePTT){
-				if(!sPPTMode)ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);
-				else ActKey(KEYON+DOWN+ExternalVoiceCommsPTT);
-				if(DebugMode)printf("External Mic Actived [%d] PTT State [%d] Mode [%d]\x0a", vVoicePTT, sPTTState, sPPTMode);
+		if(sPTTState)vPTT	= ExternalVoiceCommsPTT;	//External Mic
+		if(!sPTTState)vPTT	= InternalVoiceCommsPTT;	//Internal Mic
+		if(Throttle[MSP]){
+			vVoicePTT=!vVoicePTT;
+			if(!sPPTMode){
+				vVoice=!vVoice;
+				if(vVoice){	//Talk [Toggle]
+					ActKey(KEYON+PULSE+vPTT);
+					if(DebugMode)printf("Mic Toggle Actived [%d] PTT [Internal:[0] External:[1]] [%d] Mode [Toggle:[0] PUSH:[1]] [%d]\x0a", vVoicePTT, sPTTState, sPPTMode);
+					if(ToggleVoicePTTLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleVoicePTTLED));							// ToggleVoiceLED ON
+				}else{	//Silence [Toggle}	
+					ActKey(KEYON+PULSE+vPTT);
+					if(DebugMode)printf("Mic Toggle DesActived [%d] PTT [Internal:[0] External:[1]] [%d] Mode [Toggle:[0] PUSH:[1]] [%d]\x0a", vVoicePTT, sPTTState, sPPTMode);
+					if(ToggleVoicePTTLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleVoicePTTLED));						// ToggleVoiceLED OFF
+				}
+			}else{	//Talk [HOLD]
+				ActKey(KEYON+DOWN+vPTT);
+				if(DebugMode)printf("Mic Hold Actived [%d] PTT [Internal:[0] External:[1]] [%d] Mode [Toggle:[0] PUSH:[1]] [%d]\x0a", vVoicePTT, sPTTState, sPPTMode);
 				if(ToggleVoicePTTLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleVoicePTTLED));								// ToggleVoiceLED ON
-			}else{
-				if(!sPPTMode)ActKey(KEYON+PULSE+ExternalVoiceCommsPTT);
-				else ActKey(KEYON+UP+ExternalVoiceCommsPTT);
-				if(DebugMode)printf("External Mic DesActived [%d] PTT State [%d] Mode [%d]\x0a", vVoicePTT, sPTTState, sPPTMode);
-				if(ToggleVoicePTTLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleVoicePTTLED));								// ToggleVoiceLED ON
 			}
 		}
-		else{
-			if(vVoicePTT){
-				if(!sPPTMode)ActKey(KEYON+PULSE+InternalVoiceCommsPTT);
-				else ActKey(KEYON+DOWN+InternalVoiceCommsPTT);
-				if(DebugMode)printf("Internal Mic Actived [%d] PTT State [%d] Mode [%d]\x0a", vVoicePTT, sPTTState, sPPTMode);
-				if(ToggleVoicePTTLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleVoicePTTLED));								// ToggleVoiceLED ON
-			}else{
-				if(!sPPTMode)ActKey(KEYON+PULSE+InternalVoiceCommsPTT);
-				else ActKey(KEYON+UP+InternalVoiceCommsPTT);
-				if(DebugMode)printf("Internal Mic DesActived [%d] PTT State [%d] Mode [%d]\x0a", vVoicePTT, sPTTState, sPPTMode);
-				if(ToggleVoicePTTLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleVoicePTTLED));								// ToggleVoiceLED ON
-			}
+		if(!Throttle[MSP] & sPPTMode){	//Silence [HOLD]
+			vVoicePTT=!vVoicePTT;
+			ActKey(KEYON+UP+vPTT);
+			if(DebugMode)printf("Mic Hold DesActived [%d] PTT [Internal:[0] External:[1]] [%d] Mode [Toggle:[0] PUSH:[1]] [%d]\x0a", vVoicePTT, sPTTState, sPPTMode);
+			if(ToggleVoicePTTLED!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-ToggleVoicePTTLED));									// ToggleVoiceLED OFF
 		}
 	}
 	

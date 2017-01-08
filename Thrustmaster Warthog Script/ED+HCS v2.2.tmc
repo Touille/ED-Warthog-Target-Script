@@ -65,7 +65,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V.2.2.1.4b----07/01/2017------------------------\x0a");
+	printf("--------------------------V.2.2.1.5b----08/01/2017------------------------\x0a");
 	printf("-----------Enhanced Elite Dangerous Warthog Profile by CMDR Touille-------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/--o/--WraithMG11235-Aussiedroid-Synkc-Solarfly--o/--o/--o/--o/-\x0a");
@@ -143,6 +143,7 @@ int main()
 
 //	-------------------------Mic Switch
 	MapKey(&Throttle, MSP, EXEC("initVoicePTT();"));
+	MapKeyR(&Throttle, MSP, EXEC("initVoicePTT();"));
 
 //--HAT---------------------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -295,6 +296,7 @@ int main()
 //		if(ToggleCameraLED!=0 & sCameraMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCameraLED));}
 		if(TogglePTTLED!=0 & sPTTState){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTLED));}
 		if(ToggleVoicePTTLED!=0 & vVoicePTT){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleVoicePTTLED));}
+		if(TogglePTTModeLED!=0 & sPPTMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTModeLED));}
 //		if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
 		if(ToggleSilentRuningonFireLED!=0 & SilentRuningOFFonFire){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningonFireLED));}
 		if(ToggleHeatSinkonSilentRuningLED!=0 & HeatSinkonSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));}
