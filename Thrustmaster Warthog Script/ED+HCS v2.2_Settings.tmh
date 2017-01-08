@@ -17,8 +17,8 @@
 	int GameMenuOnIDLE			=0;			//Game Menu on Throttle IDLE State
 	int AfterburnerDetent		=0;			//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
 
-	int SilentRuningOFFonFire	=1;			//Silent Runing OFF when Fire [1] Stay ON When Fire {0]}									IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Data Management Switch Down
-	int HeatSinkonSilentRuning	=0;			//[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing		IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Data Management Switch UP
+	int SilentRuningOFFonFire	=1;			//Silent Runing OFF when Fire [1] Stay ON When Fire {0]}									IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Short Data Management Switch UP
+	int HeatSinkonSilentRuning	=0;			//[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing		IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Long Data Management Switch UP
 	define HeatSinkonSilentRuningDelay 8000	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 
 //	define VoiceAttack 1					//(Not Used Yet) If VoiceAttack set to 1
