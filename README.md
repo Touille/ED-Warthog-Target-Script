@@ -1,4 +1,4 @@
-## 2.2.1.5r 08/01/2017 (1rst Release)
+# 2.2.1.5r 08/01/2017 (1rst Release)
 
 * Support MFD (2), Rudders and T.Flight rudders (NOT TESTED YET
 * HDM / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity
@@ -10,34 +10,34 @@
 * Dual stage trigger Combined Fire on Triger 1 to allow combined Primary & Secondary fire or for the trigger to be separated to Primary fire only. Can be switched On or Off On The Fly
 * Support [Toggle] & [Hold] mode for Game Settings : Reverse Throttle, Flight Assist & Silent Runing (option in Settings File Default is Reverse Throttle [HOLD],  Flight Assist [HOLD], Silent Runing [TOGGLE]. If you want to change modify in ED AND in the setting file xxxGameMode)
 
-# LED:
+## LED:
 	
 * Easy Led Configuration you can chose what you want to be assigned (Settings File)
 * Throttle LED intensity On The Fly (S3 + Friction Control Axis)
 * Throttle LED Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in setting file))
 	
-# PIP:
+## PIP:
 
 * Automatic PIP Mode When Deploy or Retract Hardpoints (Setup In Settings File ON or OFF)
 * PIP Management Hat Switch offering 8 different presets depending how long you hold down the button.
 
-# PTT:
+## PTT:
 
 * Default PTT Mode (Toggle or Hold). Can be switched On or Off On The Fly (Long Press Engine Operate Ign/Norm RIGHT)
 * efault PTT (Internal or External). Can be switched On or Off On The Fly (S3 (Joystick Nosewhell Steering Button) + Long Press Engine Operate Ign/Norm RIGHT)
 	
-# HEAT SINK:
+## HEAT SINK:
 
 Automatic Heat Sink On Silent Runing (Setup In Settings File & Long Data Management Switch UP)
 Automatic Silent Runing OFF/ON when Fire (if silent runing is up before fire)  (Setup In Settings File & Short Data Management Switch UP)
 
-# JOYSTICK & THROTTLE CURVE:
+## JOYSTICK & THROTTLE CURVE:
 
 * 3 Joystick Curve Switchable On The Fly (slew stick is include in this function) (Setup the Curve In Settings File. Switch In Game With Throttle FLAPS)
 * 2 Throttle Curve Switchable On The Fly (normal & precison). Can be switched On or Off On The Fly (S3 (Joystick Nosewhell Steering Button) + Press RED Button on Throttle Arm)
 * Enhanced Joystick Curves tailored for Flight Assist Off (Joystick Curve will return to previous state when FAON) (Setup In Settings File)
 
-# AUTOPILOT MODE:
+## AUTOPILOT MODE:
 
 * 3 Autopilot Mode : Easy Request and Cancel Docking procedure, Escape Fight and System Jump
 
