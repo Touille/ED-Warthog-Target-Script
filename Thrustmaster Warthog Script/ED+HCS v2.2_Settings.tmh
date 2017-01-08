@@ -17,24 +17,24 @@
 	int GameMenuOnIDLE			=0;			//Game Menu on Throttle IDLE State
 	int AfterburnerDetent		=0;			//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
 
-	int SilentRuningOFFonFire	=1;			//Silent Runing OFF when Fire [1] Stay ON When Fire {0]}									IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Data Management Switch Down
-	int HeatSinkonSilentRuning	=0;			//[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing		IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Data Management Switch UP
+	int SilentRuningOFFonFire	=1;			//Silent Runing OFF when Fire [1] Stay ON When Fire {0]}									IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Short Data Management Switch UP
+	int HeatSinkonSilentRuning	=0;			//[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing		IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Long Data Management Switch UP
 	define HeatSinkonSilentRuningDelay 8000	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 
-//	define VoiceAttack 1						//(Not Used Yet) If VoiceAttack set to 1
+//	define VoiceAttack 1					//(Not Used Yet) If VoiceAttack set to 1
 
 
 //	-------------------------Match This with ED Key binding Ingame (Left if you use Unmodified ED KeyBinding File include with this script)
-	int FlightAssistGameMode		=0;		//Flight Miscellaneous / Toggle Flight Assist		: [HOLD:0, TOGGLE:1]
-//	int DriveAssistGameMode			=0;		//Driving / Drive Assist							: [HOLD:0, TOGGLE:1]
+	int FlightAssistGameMode		=0;		//Flight Miscellaneous / Toggle Flight Assist		[HOLD:0, TOGGLE:1]
+//	int DriveAssistGameMode			=0;		//Driving / Drive Assist							[HOLD:0, TOGGLE:1]
 
-	int HardPointsonFireGameMode	=1;		//Weapons / Firing Deploys Hardpoints 				: [OFF:0, ON:1]
-	int SilentRuningGameMode		=1;		//Cooling / Silent Runing							: [HOLD:0, TOGGLE:1]
+	int HardPointsonFireGameMode	=1;		//Weapons / Firing Deploys Hardpoints 				[OFF:0, ON:1]
+	int SilentRuningGameMode		=1;		//Cooling / Silent Runing							[HOLD:0, TOGGLE:1]
 
-	int RFlightThrootleGameMode		=0;		//Flight Throttle / Forward Only Throttle Reverse	: [HOLD:0, TOGGLE:1]
-//	int RDriveThrootleGameMode		=0;		//Drive Throttle / Forward Only Throttle Reverse	: [HOLD:0, TOGGLE:1]
+	int RFlightThrootleGameMode		=0;		//Flight Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
+//	int RDriveThrootleGameMode		=0;		//Drive Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
 
-//	int HeadLookGameMode			=1;		/Driving Mode Switches & Mode Switches / HeadLock	: [HOLD:0, TOGGLE:1]
+//	int HeadLookGameMode			=1;		/Driving Mode Switches & Mode Switches / HeadLock	[HOLD:0, TOGGLE:1]
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	TOGGLE STATES																																				//
@@ -46,54 +46,55 @@
 	int sCargo;							//Cargo Scoop																		Can be switched on the Fly [S3 + Switch]
 	int sLights;						//ShipLights																		Can be switched on the Fly [S3 + Switch]
 	int sCombinedFire;					//Separate Primary & Secondary Fire on Trigger 2 (full depression of trigger) OFF	Can be switched on the Fly [S3 + Switch]
-	int sRCorrection	=1;				//Rotational Correction Default is ON												Can be switched on the Fly [S3 + Switch]
-	int sPPTMode		=0;				//PTT Or PTP Toggle [0] or PUSH [1]													Can be switched on the Fly [S3 + Switch]
-	int sPTTState;						//Internal / External Mic External [1] Or Internal [0]								Can be switched on the Fly [S3 + Switch]
+	int sRCorrection	=1;				//Rotational Correction						[OFF:0, ON:1]							Can be switched on the Fly [S3 + Switch]
+	int sPPTMode		=1;				//PTT Or PTP 								[Toggle:[0] PUSH:[1]]					Can be switched on the Fly
+	int sPTTState		=1;				//Internal / External Mic 					[Internal:[0] External:[1]}				Can be switched on the Fly [S3 + Switch]
 	int sSilentRuning;					//Silent Runing
 	int sIDLE;							//Throttle IDLE
 	int sFA;							//Flight Assist [TOGGLE] Mode Ingame : initToggleEnhancedFAOFF()
 	int sSL;							//Silent Runing [TOGGLE] Mode Ingame : initToggleSilentRuning()
 	int sRT;							//Reverse Throttle
+	int sVoice;							//Voice [TOGGLE] Mode
 
-	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	BASE SETTINGS																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	define PulseTime 25							//PULSE+ Delay time 25
-	define DelayTime 75							//D() Delay time 75
-	define KBLayout KB_ENG						//Default Keyboard Layout KB_ENG
+	define PulseTime 25					//PULSE+ Delay time 25
+	define DelayTime 75					//D() Delay time 75
+	define KBLayout KB_ENG				//Default Keyboard Layout KB_ENG
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PRESS DELAY SETTINGS																																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	define MiniPressDelay 	150					//Shortest Delay 150
-	define ShortPressDelay 	250					//Shorter Delay 250
-	define MediumPressDelay 350					//Medium Delay 350
-	define LongPressDelay 	500					//Long Delay 500
-	define ExtraPressDelay 	1500				//Longest Delay 1500
-	define PIPPressDelay 	350					//PIP PressDelay 350
+	define MiniPressDelay 	150			//Shortest Delay 150
+	define ShortPressDelay 	250			//Shorter Delay 250
+	define MediumPressDelay 350			//Medium Delay 350
+	define LongPressDelay 	500			//Long Delay 500
+	define ExtraPressDelay 	1500		//Longest Delay 1500
+	define PIPPressDelay 	350			//PIP PressDelay 350
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	LED SETTINGS // LED1, LED2, LED3, LED4, LED5 // 5 LED's MAXIMUM																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	define ToggleLandingGearLED				0
-	define ToggleCargoScoopLED				LED4
+	define ToggleCargoScoopLED				0
 	define ToggleLightsLED					0
 	define ToggleHardpointsLED				0
-	define ToggleCombinedFireLED			LED1
-	define ToggleRCorrectionLED				LED3
+	define ToggleCombinedFireLED			LED4
+	define ToggleRCorrectionLED				0
 	define ToggleCameraLED					0
-	define ToggleSuperCruiseModeLED			0
+	define ToggleSuperCruiseModeLED			LED5
 	define TogglePTTLED						0
-	define ToggleVoicePTTLED				LED5
-	define ToggleSilentRuningLED			0
+	define ToggleVoicePTTLED				0
+	define TogglePTTModeLED					0
+	define ToggleSilentRuningLED			LED1
 	define ToggleSilentRuningonFireLED		LED2
-	define ToggleHeatSinkonSilentRuningLED	0
-	define ToggleIDLEonThrottleLED			0	//Work only if ThrottleLEDOnIDLE != 0
-	define ToggleFALED						0	//Flight Assist LED
+	define ToggleHeatSinkonSilentRuningLED	LED3
+	define ToggleIDLEonThrottleLED			0		//Work only if ThrottleLEDOnIDLE != 0
+	define ToggleFALED						0		//Flight Assist LED
 	
 //--Throttle Backlight (Value 0-255)----------------------------------------------------------------------------------------------------------------------------//
 
@@ -120,7 +121,9 @@
 	int vSecureEscapeFight;
 	int vOptimalPIP;
 	int vOptimalPIPBackup;
-	int vVoicePTT;
+	int vVoicePTT;								//initVoicePTT()
+	int vPTT;									//initVoicePTT()
+	int vVoice;
 	int vSilentRuningBackup;
 	int vLG =1;
 	int vCS =1;
@@ -135,8 +138,7 @@
 	define WEP 3
 	define MID 4
 	int PIPfull, PIPhalf, PIPMid;
-
-
+	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	AXIS CURVES																																					//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -176,8 +178,8 @@
 		printf("Landing Gears-----------------%d\x0a", sGears);
 		printf("Cargo Scoop-------------------%d\x0a", sCargo);
 		printf("Ship Lights-------------------%d\x0a", sLights);
-		printf("PPT Mode ---------------------%d\x0a", sPPTMode);
-		printf("PPT State---------------------%d\x0a", sPTTState);
+		printf("PPT [Toggle:[0] PUSH:[1]------%d\x0a", sPPTMode);
+		printf("PPT Internal:[0] External:[1]-%d\x0a", sPTTState);
 		printf("--------------------------IN GAME SETTINGS--------------------------------\x0a");
 		printf("Flight Assist HOLD/TOGGLE-----%d\x0a", FlightAssistGameMode);
 //		printf("Drive Assist HOLD/TOGGLE-_----%d\x0a", DriveAssistGameMode);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Root PresetName="Warthog+HCS.2.2" MajorVersion="1" MinorVersion="8">
+<Root PresetName="ED+HCS v2.2.5" MajorVersion="1" MinorVersion="8">
 	<KeyboardLayout>en-GB</KeyboardLayout>
 	<LockedDevice>{NoDevice}</LockedDevice>
 	<MouseXMode Value="" />
