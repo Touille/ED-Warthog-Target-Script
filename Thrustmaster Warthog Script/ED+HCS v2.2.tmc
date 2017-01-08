@@ -41,9 +41,14 @@ int main()
 	if(Rudders == 2)initRudders();
 
 	// Initiate Axis Mappings
+	if(DebugMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");
+	if(DebugMode)printf("Initialising Joystick Axis\x0a");
 	initJoystickAxis();
+	if(DebugMode)printf("Initialising Throttle Axis\x0a");
 	initThrottleAxis();
+	if(DebugMode)printf("Initialising Joystick Curve\x0a");
 	initSetJoystickCurves();
+	if(DebugMode)printf("Initialising Throttle Curve\x0a");
 	initSetThrottleCurves();
 
 	//Initiate MFD
@@ -51,13 +56,15 @@ int main()
 	if(USEMFD > 1)initLeftMFD();
 
 	// Initiate Led State
+	if(DebugMode)printf("Initialising LED States\x0a");
 	initLEDStates();
 
 	// Initiate Custom & PIP Functions (ED+HCS_Macros_v2.2.tmh)
 	initCustomCommands();
 	
 	// Initiate Combined Fire
-	initToggleCombinedFire();
+//	if(DebugMode)printf("Initialising Combined Fire\x0a");
+//	initToggleCombinedFire();
 		
 	if(DebugMode){initPrintState();}
 
@@ -86,7 +93,7 @@ int main()
 	MapKey(&Joystick, TG1, EXEC("initPrimaryFire();"));
 	MapKeyR(&Joystick, TG1, EXEC("initPrimaryFire();"));
 
-//	MapKey(&Joystick, TG2, 0);																						// Reseved for Macro initCombinedFire
+	MapKey(&Joystick, TG2, 0);																						// Reseved for Macro initCombinedFire
 
 	MapKey(&Joystick, S1, TEMPO(EXEC("initToggleCombinedFire();"), EXEC("initToggleHardpoints();"), LongPressDelay));
 
@@ -139,7 +146,7 @@ int main()
 
 //	-------------------------Left Throttle Button (RED)
 	MapKeyIO(&Throttle, LTB, EXEC("initSetThrottleCurves();"), EXEC("initToggleReverseThrottle();"));
-	MapKeyR(&Throttle, LTB, EXEC("initToggleReverseThrottle();"));
+	MapKeyRIO(&Throttle, LTB, 0, EXEC("initToggleReverseThrottle();"));
 
 //	-------------------------Mic Switch
 	MapKey(&Throttle, MSP, EXEC("initVoicePTT();"));
@@ -302,7 +309,6 @@ int main()
 		if(ToggleHeatSinkonSilentRuningLED!=0 & HeatSinkonSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));}
 		if(ToggleIDLEonThrottleLED!=0 & sIDLE){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleIDLEonThrottleLED));}
 //		if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
-		if(DebugMode)printf("Initialising LED States\x0a");
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------Set Joystick
@@ -312,7 +318,6 @@ int main()
 		MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// Set Joystick Control Y Axis
 		MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
 		MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
-		if(DebugMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");printf("Initialising Joystick Axis\x0a");
 	}
 
 	//Joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
@@ -330,24 +335,24 @@ int main()
 		SetSCurve(&Throttle, SCX, 0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Throttle, SCY, 0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		if (DebugMode){
-			printf("----Joystick Curve Profile[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
-			printf("----Slew     Curve Profile[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
+			printf("Set	Joystick	Curve Profile	[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
+			printf("Set	Slew		Curve Profile	[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		}
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------Set Throttle
 	//Set Default Throttle Axis
 	int initThrottleAxis(){	
+		//if(DebugMode)printf("Initialising Throttle Axis\x0a");
 		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
 		MapAxis(&Throttle, THR_LEFT, DX_ZROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Left Throttle
 		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling) 
 		SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));				// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
-		if(DebugMode)printf("Initialising Throttle Axis\x0a");
 	}
 	
 	//Set Throttle Curve two different presets are selectable On The Fly (S3 + RED Button on Throttle Arm)
 	int initSetThrottleCurves(){
-		if(DebugMode)printf("Initialising Throttle Curve\x0a");
+		//if(DebugMode)printf("Initialising Throttle Curve\x0a");
 		vThrottleCurveProfile=!vThrottleCurveProfile;
 		TrimDXAxis(DX_Z_AXIS, SET(0));
 		if(vThrottleCurveProfile)SetJCurve(&Throttle, THR_RIGHT, 50, 50);
@@ -356,7 +361,7 @@ int main()
 			else SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 2, -2);
 		}
 		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
-		if(DebugMode)printf("----Throttle Curve Profile[%d}\x0a", vThrottleCurveProfile);
+		if(DebugMode)printf("Set	Throttle	Curve Profile[%d}\x0a", vThrottleCurveProfile);
 	}
 
 	//----------------------------------------------------------------------------------------------------------------------Set Rudders	
