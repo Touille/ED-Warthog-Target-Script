@@ -2,7 +2,7 @@
 //	MACRO VARIABLE INITALISATION																																//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning;
+	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning, mClassifiedCamera;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MACRO FUNCTIONS																																				//
@@ -34,16 +34,23 @@
 		//MACRO: Escape Fight //
 		mEscapeFight = CHAIN(																	
 			EXEC("initPIPPower(ENG,SYS);"), D(350),
-			PULSE+SetSpeed100, D(250),
-			PULSE+EngineBoost, D(2000),
-			EXEC("initToggleSilentRuning();"), D(350),
+			PULSE+SetSpeed100, D(350),
+			PULSE+EngineBoost, D(350),
+			//EXEC("initToggleSilentRuning();"), D(350),
 			EXEC("initPIPPower(SYS,ENG);"), D(350),
 			PULSE+EngineBoost, D(250),
-			EXEC("initSuperCruise();"), D(3000),
-			EXEC("initToggleSilentRuning();"));
+			EXEC("initSuperCruise();"), D(2000)
+			//,EXEC("initToggleSilentRuning();")
+			);
 			
 		//MACRO: Heat Sink on Silence Runing
 		mHeatSinkonSilentRuning = CHAIN(
 			PULSE+SilentRunning, D(HeatSinkonSilentRuningDelay),
 			PULSE+DeployHeatSink);
+	
+		//MACRO: Classified (External) 'Debug' Camera
+		mClassifiedCamera = CHAIN(
+			PULSE+SetSpeed0, D(500),
+			PULSE+SPC);
+	
 	}

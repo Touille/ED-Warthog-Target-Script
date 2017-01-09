@@ -13,12 +13,12 @@
 	int OptimalPIPMode	=1;					//Automatic PIP Mode when Hardpoint is Up or Down (If you don't use weapon (explorer, transport) -> 0)
 	int SecureRetract	=1;					//Rectract Landing Gaer, Cargo Scoop and Hardpoints for Escaping Fight => Reset Switch States for Scoop and Gear(S3 + Switch)
 
-	int SupecruiseOnThrottle	=1;			//Supercruise if Boost when Throttle > 99% 														Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
-	int GameMenuOnIDLE			=0;			//Game Menu on Throttle IDLE State
+	int SupecruiseOnThrottle	=1;			//initToggleSuperCruiseMode()	Supercruise if Boost when Throttle > 99%					Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
+	int GameMenuOnIDLE			=0;			//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
 	int AfterburnerDetent		=0;			//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
 
-	int SilentRuningOFFonFire	=1;			//Silent Runing OFF when Fire [1] Stay ON When Fire {0]}									IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Short Data Management Switch UP
-	int HeatSinkonSilentRuning	=0;			//[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing		IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Long Data Management Switch UP
+	int SilentRuningOFFonFire	=1;			//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}										IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Short Data Management Switch UP
+	int HeatSinkonSilentRuning	=0;			//initToggleHeatSinkonSilentRuning()	[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing	IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Long Data Management Switch UP
 	define HeatSinkonSilentRuningDelay 8000	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 
 //	define VoiceAttack 1					//(Not Used Yet) If VoiceAttack set to 1
@@ -40,21 +40,21 @@
 //	TOGGLE STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int sCameraMode;					//Classified Camera
-	int sHardPoints;					//HardPoints																		Can be switched on the Fly [S3 + Switch]
-	int sGears;							//Landing Gears																		Can be switched on the Fly [S3 + Switch]
-	int sCargo;							//Cargo Scoop																		Can be switched on the Fly [S3 + Switch]
-	int sLights;						//ShipLights																		Can be switched on the Fly [S3 + Switch]
-	int sCombinedFire;					//Separate Primary & Secondary Fire on Trigger 2 (full depression of trigger) OFF	Can be switched on the Fly [S3 + Switch]
-	int sRCorrection	=1;				//Rotational Correction						[OFF:0, ON:1]							Can be switched on the Fly [S3 + Switch]
-	int sPPTMode		=1;				//PTT Or PTP 								[Toggle:[0] PUSH:[1]]					Can be switched on the Fly
-	int sPTTState		=1;				//Internal / External Mic 					[Internal:[0] External:[1]}				Can be switched on the Fly [S3 + Switch]
-	int sSilentRuning;					//Silent Runing
-	int sIDLE;							//Throttle IDLE
-	int sFA;							//Flight Assist [TOGGLE] Mode Ingame : initToggleEnhancedFAOFF()
-	int sSL;							//Silent Runing [TOGGLE] Mode Ingame : initToggleSilentRuning()
-	int sRT;							//Reverse Throttle
-	int sVoice;							//Voice [TOGGLE] Mode
+	int sCameraMode;					//initToggleCamera()				Classified Camera
+	int sHardPoints;					//initToggleHardpoints()			HardPoints													Can be switched on the Fly [S3 + Switch]
+	int sGears;							//initToggleLandingGear()			Landing Gears												Can be switched on the Fly [S3 + Switch]
+	int sCargo;							//initToggleCargoScoop()			Cargo Scoop													Can be switched on the Fly [S3 + Switch]
+	int sLights;						//initToggleLights()				ShipLights													Can be switched on the Fly [S3 + Switch]
+	int sCombinedFire;					//initToggleCombinedFire()			Combined Fire on Trigger 2 (full depression of trigger)		Can be switched on the Fly [S3 + Switch]
+	int sRCorrection	=1;				//initToggleRotationCorrection()	Rotational Correction	[OFF:0, ON:1]						Can be switched on the Fly [S3 + Switch]
+	int sPPTMode		=1;				//initTogglePTT()/initVoicePTT()	PTT Or PTP 				[Toggle:[0] PUSH:[1]]				Can be switched on the Fly
+	int sPTTState		=1;				//initTogglePTT()					Internal / External Mic	[Internal:[0] External:[1]}			Can be switched on the Fly [S3 + Switch]
+	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
+	int sIDLE;							//initToggleIDLEonThrottle()		Throttle IDLE
+	int sFA;							//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
+	int sSL;							//initToggleSilentRuning()			Silent Runing [TOGGLE] Mode Ingame
+	int sRT;							//initToggleReverseThrottle()		Reverse Throttle
+//	int sVoice;							//Voice [TOGGLE] Mode
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	BASE SETTINGS																																				//
@@ -110,7 +110,7 @@
 	define ThrottleLEDOnIDLE	0				//Throttle LED Intensity on Throttle IDLE State
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	VARIABLES																																					//
+//	VARIABLES USED IN FUNCTION																																	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int vJoystickCurveProfile;					//Joystick Curve							Can be switched on the Fly [FLAPS]
@@ -123,14 +123,10 @@
 	int vOptimalPIPBackup;
 	int vVoicePTT;								//initVoicePTT()
 	int vPTT;									//initVoicePTT()
-	int vVoice;
+	int vVoice;									//initVoicePTT()
 	int vSilentRuningBackup;
-	int vLG =1;
-	int vCS =1;
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	USED IN FUNCTION																																					//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	int vLG =1;									//initToggleLandingGear()
+	int vCS =1;									//initToggleCargoScoop()
 
 	//initPIPPower()
 	define SYS 1
