@@ -62,7 +62,6 @@
 			ActKey(KEYON+PULSE+DeployHardpoints);
 			if(sHardPoints){
 				if(OptimalPIPMode){
-//					if(DebugMode) printf("HardPoints: Backup PIP Mode	[%d]\x0a", vOptimalPIP);
 					vOptimalPIPBackup = vOptimalPIP;	//Backup PIP Mode
 					ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));	//PIP Mode 4xWEP 2xSYS
 				}
@@ -119,21 +118,6 @@
 		if(DebugMode) printf("Classified Camera	[%d]	[ON:[1] OFF:[0]]\x0a", sCameraMode);
 	}
 	
-	//TOGGLE: PTT/PTP & External/Internal Voice
-	int initTogglePTT(){
-		if(!Joystick[S3]){	//Without S3 Change betwen Push To Talk and Push Talk Push																								
-			sPPTMode=!sPPTMode;	//reverse the flag status
-			if(sPPTMode)ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTModeLED, 1);"));
-			else ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTModeLED, 0);"));
-			if(DebugMode) printf("PTTMode Change	[%d]	[PUSH:[1] Toggle:[0]]\x0a", sPPTMode);
-		}else{	//With S3 Change betwen External and Internzl Voice	
-			sPTTState=!sPTTState;	//reverse the flag status
-			if(sPTTState)ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTLED, 1);"));
-			else ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTLED, 0);"));
-			if(DebugMode) printf("Mic Change		[%d]	[External:[1]Internal:[0]]\x0a", sPTTState);
-		}
-	}
-
 	//TOGGLE: Supecruise On Throttle Mode
 	int initToggleSuperCruiseMode(){
 		SupecruiseOnThrottle=!SupecruiseOnThrottle; // reverse the flag status
@@ -201,10 +185,10 @@
 			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+GameMenu);
 			if(sIDLE){
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLEDOnIDLE));
-				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 1);"));
+				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 1);"));	//Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
 			}else{
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
-				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 0);"));
+				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 0);"));	//Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
 			}
 			if(DebugMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);
 		}
@@ -219,35 +203,35 @@
 					sFA=!sFA;	//reverse the flag status
 					if(sFA){	//FA [TOGGLE] Mode First Pulse Engage
 						ActKey(KEYON+PULSE+FlightAssist);
-						ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 1);"));
 						vJoystickCurveProfileBackup = vJoystickCurveProfile;
 						vJoystickCurveProfile = FAOffCurve;
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 							if(DebugMode) printf("EnhancedFAOFF [Toggle] Engaged\x0a");
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 						}
+						ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 1);"));
 					}
 					if(!sFA){	//FA [TOGGLE] Mode Second Pulse DisEngage				
 						ActKey(KEYON+PULSE+FlightAssist);
-						ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 0);"));
 						vJoystickCurveProfile = vJoystickCurveProfileBackup;
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 							if(DebugMode) printf("EnhancedFAOFF [Toggle] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 						}
+						ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 0);"));
 					}
 				}
 			}else{	//FA [HOLD] Mode Ingame Engage
 				if(!sRCorrection)ActKey(KEYON+DOWN+FlightAssist);
 				else{
 					ActKey(KEYON+DOWN+FlightAssist);
-					ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 1);"));
 					vJoystickCurveProfileBackup = vJoystickCurveProfile;
 					vJoystickCurveProfile = FAOffCurve;
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 						if(DebugMode) printf("EnhancedFAOFF [HOLD] Engaged\x0a");
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 					}
+					ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 1);"));
 				}
 			}
 		}
@@ -276,13 +260,30 @@
 				if(DebugMode) printf("Reverse Throttle Toggle\x0a");
 			}
 			else ActKey(KEYON+DOWN+ReverseThrottle);
+			ActKey(KEYON+PULSE+EXEC("initLED(ToggleReverseThrottleLED, 1);"));
 		}else{
 			if(!RFlightThrootleGameMode & sRT){
 				sRT=!sRT;
 				ActKey(KEYON+UP+ReverseThrottle);
+				ActKey(KEYON+PULSE+EXEC("initLED(ToggleReverseThrottleLED, 0);"));
 			}
 		}
 		if(DebugMode) printf("Reverse Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRT );
+	}
+	
+	//TOGGLE: PTT/PTP & External/Internal Voice
+	int initTogglePTT(){
+		if(!Joystick[S3]){	//Without S3 Change betwen Push To Talk and Push Talk Push																								
+			sPTTMode=!sPTTMode;	//reverse the flag status
+			if(sPTTMode)ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTModeLED, 1);"));
+			else ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTModeLED, 0);"));
+			if(DebugMode) printf("PTTMode Change	[%d]	[HOLD:[0] TOGGLE:[1]]\x0a", sPTTMode);
+		}else{	//With S3 Change betwen External and Internel Voice	
+			sPTTState=!sPTTState;	//reverse the flag status
+			if(sPTTState)ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTLED, 1);"));
+			else ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTLED, 0);"));
+			if(DebugMode) printf("Mic Change		[%d]	[External:[0]Internal:[1]]\x0a", sPTTState);
+		}
 	}
 	
 	//TOGGLE Voice Attack Mic
@@ -341,30 +342,31 @@
 	
 	//FUNCTION: Voice PTT
 	int initVoicePTT(){
-		if(sPTTState)vPTT = ExternalVoiceCommsPTT;	//External Mic
-		if(!sPTTState)vPTT = InternalVoiceCommsPTT;	//Internal Mic
+		if(sPTTState)vPTT = InternalVoiceCommsPTT;	//External Mic
+		if(!sPTTState)vPTT = ExternalVoiceCommsPTT;	//Internal Mic
 		if(Throttle[MSP]){
 			vVoicePTT=!vVoicePTT;
-			if(!sPPTMode){
+			if(sPTTMode){	//TOGGLE
 				vVoice=!vVoice;
-				if(vVoice){	//Talk [Toggle]
-					ActKey(KEYON+PULSE+vPTT);
+				ActKey(KEYON+PULSE+vPTT);
+				if(vVoice){	//Talk [TOGGLE]
 					ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 1);"));
-				}else{	//Silence [Toggle}	
-					ActKey(KEYON+PULSE+vPTT);
+				}else{	//Silence [TOGGLE}	
 					ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 0);"));
 				}
+				if(DebugMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] [HOLD:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
 			}else{	//Talk [HOLD]
 				ActKey(KEYON+DOWN+vPTT);
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 1);"));
 			}
 		}
-		if(!Throttle[MSP] & sPPTMode){	//Silence [HOLD]
+		if(!Throttle[MSP] & !sPTTMode){	//Silence [HOLD]
 			vVoicePTT=!vVoicePTT;
 			ActKey(KEYON+UP+vPTT);
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 0);"));
+	
 		}
-		if(DebugMode) printf("Mic Toggle	[%d]	[Actived[1] DesActived[0];	PTT	[%d]	[Internal:[0] External:[1]];	Mode	[%d]	[Toggle:[0] PUSH:[1]] [%d]\x0a", vVoicePTT, sPTTState, sPPTMode);
+		if(DebugMode & !sPTTMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] PUSH:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
 	}
 	
 	//FUNCTION: Toggle LED	requested, Params = Toggle Name LED, ON[1] or OFF[0] (ex:	initLED(ToggleLandingGearLED, 1)	Will up the LG LED if ToggleLandingGearLED is Define in setting (!=0))
@@ -382,7 +384,7 @@
 	int initPrimaryFire(){
 		if(Joystick[TG1]){	//PRESS THE TG1 BUTTON	
 			if(SilentRuningOFFonFire & sSilentRuning){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
-//			if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
+			//if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
 			if(HardPointsonFireGameMode & !sHardPoints){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
 			ActKey(KEYON+DOWN+PrimaryFire);
 		}else{				//RELEASE THE TG1 BUTTON
@@ -395,7 +397,7 @@
 	int initSecondaryFire(){
 		if(Joystick[S2]){	//PRESS THE S2 BUTTON
 			if(SilentRuningOFFonFire & sSilentRuning){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
-//			if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}			
+			//if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}			
 			if(HardPointsonFireGameMode & !sHardPoints){
 				ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
 			}
@@ -451,7 +453,7 @@
 	//FUNCTION: Use Supercruise while boosting if Throttle is 100%
 	int initThrottleBoost(){
 		if(SupecruiseOnThrottle){
-			if(AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){
+			if(AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){	//Throttle All the Way Up ?
 				if(SecureRetract){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}
 				ActKey(KEYON+PULSE+Supercruise);
 				if(DebugMode) printf("	SUPERCRUISE On Throttle Engaged\x0a");
@@ -474,12 +476,7 @@
 			ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG, SYS);"));	//PIP Mode 4xSYS 2xENG
 		}
 		ActKey(KEYON+PULSE+mEscapeFight);
-		if(OptimalPIPMode){
-			vOptimalPIPBackup = vOptimalPIP;	//Backup PIP Mode
-			//ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
-			DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));
-		}
-		if(sSilentRuning){DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
+		if(sSilentRuning){DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));}	//You can Modify delay : 4000 is default (4sec)
 		if(DebugMode) printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG)\x0a");
 	}
 	
@@ -525,7 +522,6 @@
 		
 		// Send PIPS
 		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(),PIPfull, D(),PIPhalf, D(),PIPfull, D(),PIPMid, D(),PIPfull));
-		//ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(),PIPfull, D(),PIPhalf, D(),PIPfull, D(),PIPMid, D(),PIPfull));
 		
 		// Save the PIPS for Automatique PIP MOD RESET (OptimalPIPMode in Settings File)
 		if(x == 0 & y == 0 & z == 0){if(vOptimalPIP != 0) vOptimalPIP = 0;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
@@ -537,13 +533,17 @@
 		else if (x == WEP & y == SYS & z != MID){if(vOptimalPIP != 6) vOptimalPIP = 6;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
 		else if (x == WEP & y == SYS & z == MID){if(vOptimalPIP != 7) vOptimalPIP = 7;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
 		else if (x == WEP & y == ENG & z == MID){if(vOptimalPIP != 8) vOptimalPIP = 8;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
-		//if(DebugMode)printf("Set PIP Mode	to [%d]\x0a", vOptimalPIPBackup);
+		else if (x == SYS & y == WEP & z == MID){if(vOptimalPIP != 9) vOptimalPIP = 9;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
+		else if (x == SYS & y == ENG & z == MID){if(vOptimalPIP != 10) vOptimalPIP = 10;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
+		else if (x == ENG & y == WEP & z == MID){if(vOptimalPIP != 11) vOptimalPIP = 11;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
+		else if (x == ENG & y == SYS & z == MID){if(vOptimalPIP != 12) vOptimalPIP = 12;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
+
 	}
 
-	//PIP Restore Function
+	//PIP Restore Management
 	int initRestorePIPPower(){
 		if(DebugMode)printf("Reset PIP Mode--------------->\x0a");
-		if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPPower();"));			//If no PIP Mode is switched ; Balance Power
+		if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPPower();"));			//If no Previous PIP Mode selected Balance Power
 		if(vOptimalPIPBackup == 1)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));
 		if(vOptimalPIPBackup == 2)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP);"));
 		if(vOptimalPIPBackup == 3)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG);"));
@@ -552,4 +552,8 @@
 		if(vOptimalPIPBackup == 6)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));
 		if(vOptimalPIPBackup == 7)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS,MID);"));
 		if(vOptimalPIPBackup == 8)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG,MID);"));
+		if(vOptimalPIPBackup == 9)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP,MID);"));	
+		if(vOptimalPIPBackup == 10)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG,MID);"));
+		if(vOptimalPIPBackup == 11)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP,MID);"));
+		if(vOptimalPIPBackup == 12)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS,MID);"));
 	}
