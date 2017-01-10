@@ -10,7 +10,7 @@
 	define Rudders	0						//0 for no rudders, 1 for rudders, 2 for T.Flight rudders
 	define USEMFD	0						//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)
 
-	int OptimalPIPMode	=1;					//Automatic PIP Mode when Hardpoint is Up or Down (If you don't use weapon (explorer, transport) -> 0)
+	int OptimalPIPMode	=1;					//Automatic PIP Mode: When Hardpoint is Up or Down / When Classified Camera is ON or Off / Escape Fight
 	int SecureRetract	=1;					//Rectract Landing Gaer, Cargo Scoop and Hardpoints for Escaping Fight => Reset Switch States for Scoop and Gear(S3 + Switch)
 
 	int SupecruiseOnThrottle	=1;			//initToggleSuperCruiseMode()	Supercruise if Boost when Throttle > 99%					Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
