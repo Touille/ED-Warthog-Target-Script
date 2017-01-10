@@ -1,6 +1,6 @@
 # 2.2.1.5r 08/01/2017 (1rst Release)
 
-* Support MFD (2), Rudders and T.Flight rudders (NOT TESTED YET
+* Support MFD (2), Rudders and T.Flight rudders (NOT TESTED YET)
 * HDM / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity
 * Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction (if misaligned with game states just switch (it's should work))
 * Easy Debug Msg OFF (Debugmode 0/1 In Settings File)
