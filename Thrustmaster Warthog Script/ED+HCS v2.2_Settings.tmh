@@ -10,7 +10,7 @@
 	define Rudders	0						//0 for no rudders, 1 for rudders, 2 for T.Flight rudders
 	define USEMFD	0						//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)
 
-	int OptimalPIPMode	=1;					//Automatic PIP Mode: When Hardpoint is Up or Down / When Classified Camera is ON or Off / When Escape Fight / When Request Docking
+	int OptimalPIPMode	=1;					//Automatic PIP Mode: When Hardpoint is Up or Down / When Classified Camera is ON or Off / When Escape Fight / When Request Docking / Game Menu /...
 	int SecureRetract	=1;					//Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump => Reset Switch States for Scoop and Gear(Switch)
 
 	int SupecruiseOnThrottle	=1;			//initToggleSuperCruiseMode()	Supercruise if Boost when Throttle > 99%					Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
@@ -73,7 +73,7 @@
 	define MediumPressDelay 350			//Medium Delay 350
 	define LongPressDelay 	500			//Long Delay 500
 	define ExtraPressDelay 	1500		//Longest Delay 1500
-	define PIPPressDelay 	350			//PIP PressDelay 350
+	define PIPPressDelay 	100			//PIP PressDelay 100
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	LED SETTINGS // LED1, LED2, LED3, LED4, LED5 // 5 LED's MAXIMUM																								//
@@ -129,6 +129,7 @@
 	int vSilentRuningBackup;
 	int vLG;									//initToggleLandingGear()
 	int vCS;									//initToggleCargoScoop()
+	int vGameMenu;								//initGameMenu()
 
 	//initPIPPower()
 	define SYS 1

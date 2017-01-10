@@ -128,11 +128,11 @@ int main()
 	MapKeyIO(&Joystick, H3R, PULSE+SystemPanel, NextFireGroup); 																									// RIGHT
 
 //	-------------------------Countermeasures Management Switch (CMS)
-	MapKey(&Joystick, H4U, UIUp);													// UP		UI UP
-	MapKey(&Joystick, H4D, UIDown);													// DOWN		UI DOWN
-	MapKeyIO(&Joystick, H4L, UIPrevPanel, UILeft);									// LEFT		UI LEFT,	S3+ Previous Panel
-	MapKeyIO(&Joystick, H4R, UINextPanel, UIRight);									// RIGHT	UI RIGHT,	S3+ Next Panel
-	MapKeyIO(&Joystick, H4P, TEMPO(UIBack, GameMenu, ExtraPressDelay), UISelect);	// PUSH		UI SELECT,	S3+[S] UI BACK	S3+[EL] Game Menu
+	MapKey(&Joystick, H4U, UIUp);																	// UP		UI UP
+	MapKeyIO(&Joystick, H4D, EXEC("initGameMenu();"),UIDown);										// DOWN		UI DOWN		S3+ Game Menu
+	MapKeyIO(&Joystick, H4L, UIPrevPanel, UILeft);													// LEFT		UI LEFT,	S3+ Previous Panel
+	MapKeyIO(&Joystick, H4R, UINextPanel, UIRight);													// RIGHT	UI RIGHT,	S3+ Next Panel
+	MapKeyIO(&Joystick, H4P, UIBack, UISelect);														// PUSH		UI SELECT,	S3+[S] UI BACK
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MAP THROTTLE ARM CONTROLS																																	//
