@@ -33,11 +33,9 @@
 			
 		//MACRO: Escape Fight //
 		mEscapeFight = CHAIN(																	
-			EXEC("initPIPPower(ENG,SYS);"), D(350),
 			PULSE+SetSpeed100, D(350),
-			PULSE+EngineBoost, D(350),
-			EXEC("initPIPPower(SYS,ENG);"), D(350),
-			PULSE+EngineBoost, D(250),
+			PULSE+EngineBoost, D(500),
+			PULSE+EngineBoost, D(500),
 			EXEC("initSuperCruise();"));
 			
 		//MACRO: Heat Sink on Silence Runing
