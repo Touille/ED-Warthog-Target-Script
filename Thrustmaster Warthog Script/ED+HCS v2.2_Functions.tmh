@@ -182,7 +182,7 @@
 	int initToggleIDLEonThrottle(){
 		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
 			if(Throttle[IDLELON]) sIDLE = 1; else sIDLE = 0;
-			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+GameMenu);
+			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+EXEC("initGameMenu();"));
 			if(sIDLE){
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLEDOnIDLE));
 				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 1);"));	//Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
@@ -496,7 +496,24 @@
 		if (Throttle[APALT] & !Joystick[S3]) ActKey(KEYON+PULSE+EXEC("initSystemJump();"));
 		if (Throttle[APALT] & Joystick[S3]) ActKey(KEYON+PULSE+CancelFSD);
 	}
-	
+
+	//FUNCTION: GameMenu
+	int initGameMenu(){
+		vGameMenu=!vGameMenu;
+		ActKey(KEYON+PULSE+SetSpeed0);
+		if(sSilentRuning){ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
+		if(OptimalPIPMode){
+			if(vGameMenu){
+				vOptimalPIPBackup = vOptimalPIP;	//Backup PIP Mode
+				ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG, SYS);"));	//PIP Mode 4xSYS 2xENG
+			}else{
+				DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower();"));	//Restore Previous PIP Mode
+			}		
+		}
+		DeferCall(2000, &ActKey, KEYON+PULSE+GameMenu);
+		if(DebugMode) printf("Game Menu	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", vGameMenu);
+	}
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PIP MANAGEMENT FUNCTIONS																																	//
 //		initPIPPower(x,y,z)	Params = SYS, ENG, WEP, MID																											//
@@ -523,7 +540,7 @@
 		else if (z == MID) PIPMid = PIPfull;
 		
 		// Send PIPS
-		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(),PIPfull, D(),PIPhalf, D(),PIPfull, D(),PIPMid, D(),PIPfull));
+		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(PIPPressDelay),PIPfull, D(PIPPressDelay),PIPhalf, D(PIPPressDelay),PIPfull, D(PIPPressDelay),PIPMid, D(PIPPressDelay),PIPfull));
 		
 		// Save the PIPS for Automatique PIP MOD RESET (OptimalPIPMode in Settings File)
 		if(x == 0 & y == 0 & z == 0){if(vOptimalPIP != 0) vOptimalPIP = 0;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
