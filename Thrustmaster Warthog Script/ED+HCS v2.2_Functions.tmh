@@ -240,12 +240,12 @@
 				if(!sRCorrection)ActKey(KEYON+UP+FlightAssist);	
 				else{
 					ActKey(KEYON+UP+FlightAssist);
-					ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 0);"));
 					vJoystickCurveProfile = vJoystickCurveProfileBackup;
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset					
 						if(DebugMode) printf("EnhancedFAOFF [HOLD] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 					}
+					ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 0);"));
 				}
 			}
 		}
@@ -474,6 +474,8 @@
 		if(OptimalPIPMode){
 			vOptimalPIPBackup = vOptimalPIP;	//Backup PIP Mode
 			ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG, SYS);"));	//PIP Mode 4xSYS 2xENG
+			DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//You can Modify delay : 1500 is default (1.5sec)
+			DeferCall(10000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower();"));	//You can Modify delay : 10000 is default (10sec)
 		}
 		ActKey(KEYON+PULSE+mEscapeFight);
 		if(sSilentRuning){DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));}	//You can Modify delay : 4000 is default (4sec)
