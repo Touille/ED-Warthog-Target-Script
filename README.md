@@ -1,7 +1,7 @@
-# 2.2.1.5r 08/01/2017 (1rst Release)
+# 2.2.1.5r 10/01/2017 (Pre Release)
 
 * Support MFD (2), Rudders and T.Flight rudders (NOT TESTED YET)
-* HDM / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity
+* HMD / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity
 * Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction (if misaligned with game states just switch (it's should work))
 * Easy Debug Msg OFF (Debugmode 0/1 In Settings File)
 * Supercruise On Throttle when boosting if throttle at 100%. Can be switched On or Off On The Fly
@@ -23,13 +23,13 @@
 
 ## PTT:
 
-* Default PTT Mode (Toggle or Hold). Can be switched On or Off On The Fly (Long Press Engine Operate Ign/Norm RIGHT)
-* efault PTT (Internal or External). Can be switched On or Off On The Fly (S3 (Joystick Nosewhell Steering Button) + Long Press Engine Operate Ign/Norm RIGHT)
+* Default PTT Mode (Toggle or Hold). Can be switched  On The Fly (Long Press Engine Operate Ign/Norm RIGHT)
+* Default PTT (Internal or External). Can be switched On The Fly (S3 (Joystick Nosewhell Steering Button) + Long Press Engine Operate Ign/Norm RIGHT)
 	
 ## HEAT SINK:
 
-Automatic Heat Sink On Silent Runing (Setup In Settings File & Long Data Management Switch UP)
-Automatic Silent Runing OFF/ON when Fire (if silent runing is up before fire)  (Setup In Settings File & Short Data Management Switch UP)
+Automatic Heat Sink On Silent Runing Can be switched  On The Fly (Long Data Management Switch UP)
+Automatic Silent Runing OFF/ON when Fire (if silent runing is up before fire)  Can be switched  On The Fly (Short Data Management Switch UP)
 
 ## JOYSTICK & THROTTLE CURVE:
 
