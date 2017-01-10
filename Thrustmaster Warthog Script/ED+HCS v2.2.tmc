@@ -141,7 +141,7 @@ int main()
 //--BUTTON------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 //	-------------------------Slew Control Push
-	MapKey(&Throttle, SC, EXEC("initHeadFocus();"));							//IF HDM : 0, IF TRACKIR : TrackIR Pause, IF !HDM & !TRACKIR : UI FOCUS		
+	MapKey(&Throttle, SC, EXEC("initHeadFocus();"));							//IF HMD : 0, IF TRACKIR : TrackIR Pause, IF !HMD & !TRACKIR : UI FOCUS		
 	MapKeyR(&Throttle, SC, EXEC("initHeadFocus();"));
 
 //	-------------------------Left Throttle Button (RED)
@@ -216,14 +216,13 @@ int main()
 //	MapKey(&Throttle, APAH, 0);																						// Modifier MIDDLE		(ALT/HDG)
 //	MapKey(&Throttle, APALT, 0);																					// Modifier DOWN		(ALT)
 
-//	-------------------------Engine Fuel Flow Switches LEFT 
-//	MapKey(&Throttle, EFLNORM, 0);																					// Switch UP
-//	MapKey(&Throttle, EFLOVER, 0);																					// Switch DOWN
+//	-------------------------Engine Fuel Flow Switches LEFT
+	MapKey(&Throttle, EFLNORM, EXEC("initToggleLights();"));														// Switch UP
+	MapKey(&Throttle, EFLOVER, EXEC("initToggleLights();"));														// Switch DOWN
 
 //	-------------------------Engine Fuel Flow Switches RIGHT
-	MapKey(&Throttle, EFRNORM, EXEC("initToggleLights();"));														// Switch UP			[Ship Light]
-	MapKeyR(&Throttle, EFRNORM, EXEC("initToggleLights();"));														// Switch UP RELEASE
-//	MapKey(&Throttle, EFROVER, 0);																					// Switch DOWN
+	MapKey(&Throttle, EFRNORM, EXEC("initToggleVoiceAttackMic();"));												// Switch UP			[Ship Light]
+	MapKey(&Throttle, EFROVER, EXEC("initToggleVoiceAttackMic();"));												// Switch DOWN
 
 //	-------------------------Engine Operate Ign/Norm LEFT
 	MapKey(&Throttle, EOLIGN, TEMPO(EXEC("initFPSCONNECTION();"), EXEC("initToggleRotationCorrection();"), ExtraPressDelay));		// UP
@@ -273,15 +272,15 @@ int main()
 	//----------------------------------------------------------------------------------------------------------------------Set LED
 	int initLEDStates(){
 		//Enable LED Backlight on Start (Value 0-255)
-		if(HDM){
-				vThrottleLight = ThrottleLightHDM;
-				vThrottleLightBackup = ThrottleLightHDM;
-				if(DebugMode)printf("HDM -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHDM);
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightHDM));			//LED Backlight on Start If HDM
+		if(HMD){
+				vThrottleLight = ThrottleLightHMD;
+				vThrottleLightBackup = ThrottleLightHMD;
+				if(DebugMode)printf("HMD -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHMD);
+				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightHMD));			//LED Backlight on Start If HMD
 		}else{
 				vThrottleLight = ThrottleLight;
 				vThrottleLightBackup = ThrottleLight;
-				if(DebugMode)printf("No HDM Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
+				if(DebugMode)printf("No HMD Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLight));				//LED Backlight on Start
 		}
 	

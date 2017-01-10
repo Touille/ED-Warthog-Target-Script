@@ -4,8 +4,8 @@
 	
 	int DebugMode	=1;						//If 1 Target Script Editor Window will Display Debug Msg
 
-	int HDM		=1;							//If HDM set to 1 and set TrackIR to 0
-	int TrackIR	=0;							//If TrackIR set to 1 and set HDM to 0
+	int HMD		=1;							//If HMD set to 1 and set TrackIR to 0
+	int TrackIR	=0;							//If TrackIR set to 1 and set HMD to 0
 	
 	define Rudders	0						//0 for no rudders, 1 for rudders, 2 for T.Flight rudders
 	define USEMFD	0						//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)
@@ -21,7 +21,7 @@
 	int HeatSinkonSilentRuning	=0;			//initToggleHeatSinkonSilentRuning()	[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing	IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Long Data Management Switch UP
 	define HeatSinkonSilentRuningDelay 8000	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 
-//	define VoiceAttack 1					//(Not Used Yet) If VoiceAttack set to 1
+	define VoiceAttack 1					//If VoiceAttack set to 1 : Engine Fuel Flow Switches RIGHT Mute / Unmute Voice Attack
 
 
 //	-------------------------Match This with ED Key binding Ingame (Left if you use Unmodified ED KeyBinding File include with this script)
@@ -54,7 +54,7 @@
 	int sFA;							//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
 	int sSL;							//initToggleSilentRuning()			Silent Runing [TOGGLE] Mode Ingame
 	int sRT;							//initToggleReverseThrottle()		Reverse Throttle
-//	int sVoice;							//Voice [TOGGLE] Mode
+	int sVoiceAttack;					//initToggleVoiceAttackMic()		Voice Attack Mic
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	BASE SETTINGS																																				//
@@ -95,6 +95,7 @@
 	define ToggleHeatSinkonSilentRuningLED	LED3
 	define ToggleIDLEonThrottleLED			0		//Work only if ThrottleLEDOnIDLE != 0
 	define ToggleFALED						0		//Flight Assist LED
+	define ToggleVALED						0	//Voice Attack Mic LED
 	
 //--Throttle Backlight (Value 0-255)----------------------------------------------------------------------------------------------------------------------------//
 
@@ -106,7 +107,7 @@
 	// 215 to 255	is level 5
 	
 	define ThrottleLight 		255				//Base Throttle LED Intensity
-	define ThrottleLightHDM 	85				//Base Throttle LED Intensity when HDM Use
+	define ThrottleLightHMD 	85				//Base Throttle LED Intensity when HMD Use
 	define ThrottleLEDOnIDLE	0				//Throttle LED Intensity on Throttle IDLE State
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -125,8 +126,8 @@
 	int vPTT;									//initVoicePTT()
 	int vVoice;									//initVoicePTT()
 	int vSilentRuningBackup;
-	int vLG =1;									//initToggleLandingGear()
-	int vCS =1;									//initToggleCargoScoop()
+	int vLG;									//initToggleLandingGear()
+	int vCS;									//initToggleCargoScoop()
 
 	//initPIPPower()
 	define SYS 1

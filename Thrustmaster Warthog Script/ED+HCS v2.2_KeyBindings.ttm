@@ -119,7 +119,7 @@
 	define ChangeEngineColor		L_ALT+USB[0x5A]			// ALT+NUMPAD 2
 
 	//EXTERNAL BINDINGS//
-	define HDMCenter				USB[0x45]				// F12			[HCS]
+	define HMDCenter				USB[0x45]				// F12			[HCS]
 	define TrackIRCenter			USB[0x4D]				// END
 	define TrackIRPause				USB[0x48]				// PAUSE
 //	define TakeSteamScreenshot		USB[0x45]				// F12

@@ -10,7 +10,7 @@
 	
 	int initCustomCommands(){
 
-		//MACRO: Auto-Docking Request //
+		//MACRO: Auto-Docking Request
 		mRequestCancelDock = CHAIN(
 			LOCK+PULSE+SetSpeed0, D(),
 			PULSE+TargetPanel, D(350),
@@ -24,7 +24,7 @@
 			PULSE+UIBack, 
 			LOCK);
 
-		//MACRO: System Jump //
+		//MACRO: System Jump
 		mSystemJump = CHAIN(																	
 			PULSE+SelectNextSystemInRoute, D(250),
 			PULSE+SetSpeed100, D(2000),
@@ -36,12 +36,9 @@
 			EXEC("initPIPPower(ENG,SYS);"), D(350),
 			PULSE+SetSpeed100, D(350),
 			PULSE+EngineBoost, D(350),
-			//EXEC("initToggleSilentRuning();"), D(350),
 			EXEC("initPIPPower(SYS,ENG);"), D(350),
 			PULSE+EngineBoost, D(250),
-			EXEC("initSuperCruise();"), D(2000)
-			//,EXEC("initToggleSilentRuning();")
-			);
+			EXEC("initSuperCruise();"));
 			
 		//MACRO: Heat Sink on Silence Runing
 		mHeatSinkonSilentRuning = CHAIN(
@@ -50,7 +47,8 @@
 	
 		//MACRO: Classified (External) 'Debug' Camera
 		mClassifiedCamera = CHAIN(
-			PULSE+SetSpeed0, D(500),
+			PULSE+SetSpeed0, D(250),
+			PULSE+ClassifiedCamera, D(250),
 			PULSE+SPC);
 	
 	}
