@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Root PresetName="ED+HCS v2.2.5" MajorVersion="1" MinorVersion="8">
+<Root PresetName="ED+HCS 2.2.1.5r" MajorVersion="1" MinorVersion="8">
 	<KeyboardLayout>en-GB</KeyboardLayout>
 	<LockedDevice>{NoDevice}</LockedDevice>
 	<MouseXMode Value="" />
@@ -536,11 +536,11 @@
 	</UI_Down>
 	<UI_Left>
 		<Primary Device="Keyboard" Key="Key_A" />
-		<Secondary Device="Keyboard" Key="Key_LeftArrow" />
+		<Secondary Device="Keyboard" Key="Key_Comma" />
 	</UI_Left>
 	<UI_Right>
 		<Primary Device="Keyboard" Key="Key_D" />
-		<Secondary Device="Keyboard" Key="Key_RightArrow" />
+		<Secondary Device="Keyboard" Key="Key_Period" />
 	</UI_Right>
 	<UI_Select>
 		<Primary Device="Keyboard" Key="Key_Space" />
@@ -548,7 +548,7 @@
 	</UI_Select>
 	<UI_Back>
 		<Primary Device="Keyboard" Key="Key_Backspace" />
-		<Secondary Device="ThrustMasterWarthogCombined" Key="Joy_21" />
+		<Secondary Device="{NoDevice}" Key="" />
 	</UI_Back>
 	<UI_Toggle>
 		<Primary Device="{NoDevice}" Key="" />
@@ -679,7 +679,7 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</CamZoomOut>
 	<CamTranslateZHold>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_3" />
 		<Secondary Device="{NoDevice}" Key="" />
 		<ToggleOn Value="0" />
 	</CamTranslateZHold>
