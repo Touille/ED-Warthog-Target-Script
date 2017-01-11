@@ -6,36 +6,42 @@
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MACRO FUNCTIONS																																				//
+//	D()					75			//Default Delay 75																											//
+//	MiniPulseDelay		150			//Shortest Delay 150																										//
+//	ShortPulseDelay		250			//Shorter Delay 250																											//
+//	MediumPulseDelay	350			//Medium Delay 350																											//
+//	LongPulseDelay		500			//Long Delay 500																											//
+//	ExtraPulseDelay		2000		//Longest Delay 2000																										//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	int initCustomCommands(){
 
 		//MACRO: Auto-Docking Request
 		mRequestCancelDock = CHAIN(
-			LOCK+PULSE+SetSpeed0, D(),
-			PULSE+TargetPanel, D(350),
-			PULSE+UINextPanel, D(350),
-			PULSE+UINextPanel, D(350),
-			PULSE+UISelect, D(350),
-			PULSE+UIDown, D(350),
-			PULSE+UISelect, D(350),
-			PULSE+UIPrevPanel, D(350),
-			PULSE+UIPrevPanel, D(350),
+			LOCK+PULSE+SetSpeed0, D(ShortPulseDelay),
+			PULSE+TargetPanel, D(MediumPulseDelay),
+			PULSE+UINextPanel, D(MediumPulseDelay),
+			PULSE+UINextPanel, D(MediumPulseDelay),
+			PULSE+UISelect, D(MediumPulseDelay),
+			PULSE+UIDown, D(MediumPulseDelay),
+			PULSE+UISelect, D(MediumPulseDelay),
+			PULSE+UIPrevPanel, D(MediumPulseDelay),
+			PULSE+UIPrevPanel, D(MediumPulseDelay),
 			PULSE+UIBack, 
 			LOCK);
 
 		//MACRO: System Jump
 		mSystemJump = CHAIN(																	
-			PULSE+SelectNextSystemInRoute, D(250),
-			PULSE+SetSpeed100, D(2000),
-			EXEC("initFrameShiftDrive();"), D(25000),
+			PULSE+SelectNextSystemInRoute, D(ShortPulseDelay),
+			PULSE+SetSpeed100, D(ExtraPulseDelay),
+			EXEC("initFrameShiftDrive();"), D(FSDOFFDelay),
 			PULSE+SetSpeed0);
 			
 		//MACRO: Escape Fight //
 		mEscapeFight = CHAIN(																	
-			PULSE+SetSpeed100, D(350),
-			PULSE+EngineBoost, D(500),
-			PULSE+EngineBoost, D(500),
+			PULSE+SetSpeed100, D(MediumPulseDelay),
+			PULSE+EngineBoost, D(LongPulseDelay),
+			PULSE+EngineBoost, D(LongPulseDelay),
 			EXEC("initSuperCruise();"));
 			
 		//MACRO: Heat Sink on Silence Runing
@@ -45,8 +51,8 @@
 	
 		//MACRO: Classified (External) 'Debug' Camera
 		mClassifiedCamera = CHAIN(
-			PULSE+SetSpeed0, D(250),
-			PULSE+ClassifiedCamera, D(250),
+			PULSE+SetSpeed0, D(ShortPulseDelay),
+			PULSE+ClassifiedCamera, D(MediumPulseDelay),
 			PULSE+SPC);
 	
 	}

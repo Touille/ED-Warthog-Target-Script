@@ -19,8 +19,7 @@
 
 	int SilentRuningOFFonFire	=1;			//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}										IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Short Data Management Switch UP
 	int HeatSinkonSilentRuning	=0;			//initToggleHeatSinkonSilentRuning()	[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing	IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Long Data Management Switch UP
-	define HeatSinkonSilentRuningDelay 8000	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
-
+	
 	define VoiceAttack 1					//If VoiceAttack set to 1 : Engine Fuel Flow Switches RIGHT Mute / Unmute Voice Attack
 
 
@@ -65,15 +64,32 @@
 	define KBLayout KB_ENG				//Default Keyboard Layout KB_ENG
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	PRESS DELAY SETTINGS																																		//
+//	PRESS & PULSE DELAY SETTINGS																																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	define MiniPressDelay 	150			//Shortest Delay 150
-	define ShortPressDelay 	250			//Shorter Delay 250
-	define MediumPressDelay 350			//Medium Delay 350
-	define LongPressDelay 	500			//Long Delay 500
-	define ExtraPressDelay 	1500		//Longest Delay 1500
-	define PIPPressDelay 	100			//PIP PressDelay 100
+	//PRESS DELAY
+	define MiniPressDelay	150			//Shortest Delay 150
+	define ShortPressDelay	250			//Shorter Delay 250
+	define MediumPressDelay	350			//Medium Delay 350
+	define LongPressDelay	500			//Long Delay 500
+	define ExtraPressDelay	1500		//Longest Delay 1500
+	
+	//PULSE DELAY
+	define MiniPulseDelay	150			//Shortest Delay 150
+	define ShortPulseDelay	250			//Shorter Delay 250
+	define MediumPulseDelay	350			//Medium Delay 350
+	define LongPulseDelay	500			//Long Delay 500
+	define ExtraPulseDelay	2000		//Longest Delay 2000
+
+	//FSD OFF DELAY MACRO: System Jump
+	define FSDOFFDelay		25000		//Longest Delay 25000
+	
+	//PIP DELAY
+	define PIPPressDelay	350			//PIP PressDelay 350
+	define PIPPulseDelay	100			//PIP PulseDelay 100 initPIPPower()
+	
+	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
+	define HeatSinkonSilentRuningDelay 8000
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	LED SETTINGS // LED1, LED2, LED3, LED4, LED5 // 5 LED's MAXIMUM																								//
@@ -97,6 +113,7 @@
 	define ToggleFALED						0		//Flight Assist LED
 	define ToggleVALED						0		//Voice Attack Mic LED
 	define ToggleReverseThrottleLED			0		//Reverse Throttle LED
+	define ToggleGameMenuLED				0		//Game Menu LED
 	
 //--Throttle Backlight (Value 0-255)----------------------------------------------------------------------------------------------------------------------------//
 
@@ -130,6 +147,8 @@
 	int vLG;									//initToggleLandingGear()
 	int vCS;									//initToggleCargoScoop()
 	int vGameMenu;								//initGameMenu()
+	int vSLPF;
+	int vSLSF;
 
 	//initPIPPower()
 	define SYS 1

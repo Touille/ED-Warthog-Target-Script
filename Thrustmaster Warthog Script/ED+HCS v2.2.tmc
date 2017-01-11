@@ -129,7 +129,8 @@ int main()
 
 //	-------------------------Countermeasures Management Switch (CMS)
 	MapKey(&Joystick, H4U, UIUp);																	// UP		UI UP
-	MapKeyIO(&Joystick, H4D, EXEC("initGameMenu();"),UIDown);										// DOWN		UI DOWN		S3+ Game Menu
+//	MapKeyIO(&Joystick, H4D, EXEC("initToggleGameMenu();"),UIDown);									// DOWN		UI DOWN		S3+ Game Menu
+	MapKey(&Joystick, H4D, UIDown);																	// DOWN		UI DOWN
 	MapKeyIO(&Joystick, H4L, UIPrevPanel, UILeft);													// LEFT		UI LEFT,	S3+ Previous Panel
 	MapKeyIO(&Joystick, H4R, UINextPanel, UIRight);													// RIGHT	UI RIGHT,	S3+ Next Panel
 	MapKeyIO(&Joystick, H4P, UIBack, UISelect);														// PUSH		UI SELECT,	S3+[S] UI BACK
@@ -232,8 +233,9 @@ int main()
 //	-------------------------Engine Operate Ign/Norm RIGHT
 	MapKey(&Throttle, EORIGN, TEMPO(EXEC("initToggleCamera();"), EXEC("initTogglePTT();"), ExtraPressDelay));		// UP
 //	MapKey(&Throttle, EORNORM, 0);																					// OFF
-//	MapKey(&Throttle, EORMOTOR, 0);																					// DOWN
-
+	MapKey(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));														// DOWN
+	MapKeyR(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));													// DOWN RELEASE
+	
 //	-------------------------APU Start
 	MapKey(&Throttle, APUON, EXEC("initJettisonCargo();"));															// Switch UP
 //	MapKey(&Throttle, APUOFF, 0);																					// Switch DOWN (OFF)
