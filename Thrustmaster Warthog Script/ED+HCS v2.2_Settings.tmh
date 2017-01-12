@@ -1,4 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
+//	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
 //	of this software and associated documentation files (the "Software"), to deal
@@ -105,7 +106,7 @@
 	
 	//PIP DELAY
 	define PIPPressDelay	350			//PIP PressDelay 350
-	define PIPPulseDelay	100			//PIP PulseDelay 100 initPIPPower()
+	define PIPPulseDelay	75			//PIP PulseDelay 100 initPIPPower()
 	
 	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	define HeatSinkonSilentRuningDelay 8000
@@ -166,8 +167,9 @@
 	int vLG;									//initToggleLandingGear()
 	int vCS;									//initToggleCargoScoop()
 	int vGameMenu;								//initGameMenu()
-	int vSLPF;
-	int vSLSF;
+//	int vSLPF;
+//	int vSLSF;
+	int vSLonFire;
 
 	//initPIPPower()
 	define SYS 1
@@ -182,14 +184,12 @@
 
 	define FAOffCurve 2											//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
 	
-//	Joystick
-//						Up, MVR, DN
+//	Joystick			Up,M,Down
 	short JS_CURVE[] = {0, 1, 2};								//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
 	short JS_ZOOM[]  = {1, 0, -1};
 	define JS_DEADZONE 1										//Set the JS Deadzone.. use the Device Analyzer to validate
 
-//	Slew
-//						Up, MVR, DN
+//	Slew				Up,M,Down
 	short SL_CURVE[] = {0, 1, 2};								//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
 	short SL_ZOOM[]  = {1, 0, -1};
 	define SL_DEADZONE 1										//Set the SL Deadzone.. use the Device Analyzer to validate

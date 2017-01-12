@@ -1,4 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
+//	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
 //	of this software and associated documentation files (the "Software"), to deal
@@ -91,7 +92,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V.2.2.1.5r----12/01/2017------------------------\x0a");
+	printf("--------------------------V.2.2.1.6r----12/01/2017------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -109,15 +110,19 @@ int main()
 
 //--BUTTON------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	MapKey(&Joystick, TG1, EXEC("initPrimaryFire();"));
-	MapKeyR(&Joystick, TG1, EXEC("initPrimaryFire();"));
+//	MapKey(&Joystick, TG1, EXEC("initPrimaryFire();"));
+//	MapKeyR(&Joystick, TG1, EXEC("initPrimaryFire();"));
+	MapKey(&Joystick, TG1, EXEC("initFire();"));
+	MapKeyR(&Joystick, TG1, EXEC("initFire();"));
 
 	MapKey(&Joystick, TG2, 0);																						// Reseved for Macro initCombinedFire
 
 	MapKey(&Joystick, S1, TEMPO(EXEC("initToggleCombinedFire();"), EXEC("initToggleHardpoints();"), LongPressDelay));
 
-	MapKey(&Joystick, S2, EXEC("initSecondaryFire();"));
-	MapKeyR(&Joystick, S2, EXEC("initSecondaryFire();"));
+//	MapKey(&Joystick, S2, EXEC("initSecondaryFire();"));
+//	MapKeyR(&Joystick, S2, EXEC("initSecondaryFire();"));
+	MapKey(&Joystick, S2, EXEC("initFire();"));
+	MapKeyR(&Joystick, S2, EXEC("initFire();"));
 
 //	MapKey(&Joystick, S3, 0);																						// Modifier S3 don't touch this
 	
@@ -252,9 +257,12 @@ int main()
 //	-------------------------Engine Operate Ign/Norm RIGHT
 	MapKey(&Throttle, EORIGN, TEMPO(EXEC("initToggleCamera();"), EXEC("initTogglePTT();"), ExtraPressDelay));		// UP
 //	MapKey(&Throttle, EORNORM, 0);																					// OFF
+
 	MapKey(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));														// DOWN
 	MapKeyR(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));													// DOWN RELEASE
-	
+//	MapKey(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN					Use this one If the previous cause BUG
+//	MapKeyR(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN RELEASE			(Client delay to open Game Menu vary)
+
 //	-------------------------APU Start
 	MapKey(&Throttle, APUON, EXEC("initJettisonCargo();"));															// Switch UP
 //	MapKey(&Throttle, APUOFF, 0);																					// Switch DOWN (OFF)
