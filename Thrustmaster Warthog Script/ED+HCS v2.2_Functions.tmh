@@ -183,7 +183,7 @@
 		if(sSilentRuning)ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//If Silent Runing is Engaged, Disengade it
 		if(vGameMenu){	//Open The Game Menu
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				vOptimalPIPGameMenuBackup = vOptimalPIP;	//Backup Actual PIP Mode			
+				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode			
 				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
 					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
 				}
@@ -192,7 +192,7 @@
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 1);"));	//Put The LED ON
 		}else{	//Close The Game Menu
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				if(vOptimalPIPGameMenuBackup != vOptimalPIP){
+				if(vOptimalPIPGMBackup != vOptimalPIP){
 					DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(GM);"));	//Restore Previous PIP Mode After 3s
 				}
 			}
@@ -483,7 +483,6 @@
 					ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));
 				}
 			}
-			//if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
 			if(HardPointsonFireGameMode & !sHardPoints){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
 				vOptimalPIPFireBackup = vOptimalPIP;	//Backup Actual PIP Mode
@@ -617,7 +616,7 @@
 //			If no 2nd param, balanced 1 PIP on each 2ndary power																								//
 //			If no params, balances power.																														//
 //																																								//
-//		initRestorePIPPower(j)	Params = HP (Hardpoints) OR FIRE (Fire)																							//
+//		initRestorePIPPower(j)	Params = HarPoints (HP) Or FIRE (Fire) OR EF (Escape Fight) OR GM (Game Menu) OR CC (Classified Camera)							//
 //																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
@@ -662,9 +661,9 @@
 	//PIP Restore Management
 	int initRestorePIPPower(int j=0){
 		
-		//Check What PIP to Restore, HarPoints (HP) Or Fire (Fire) OR EF (Escape Fight) OR GM (Game Menu) OR CC (Classified Camera)
+		//Check What PIP to Restore, HarPoints (HP) Or FIRE (Fire) OR EF (Escape Fight) OR GM (Game Menu) OR CC (Classified Camera)
 		if(j == FIRE) PIPRestore = vOptimalPIPFireBackup;	//Weapon Fire
-		else if(j == HP) PIPRestore = vOptimalPIPHPBackup; //HardPoints
+		else if(j == HP) PIPRestore = vOptimalPIPHPBackup;	//HardPoints
 		else if(j == EF) PIPRestore = vOptimalPIPEFBackup;	//Escape Fight
 		else if(j == GM) PIPRestore = vOptimalPIPGMBackup;	//Game Menu
 		else if(j == CC) PIPRestore = vOptimalPIPCCBackup;	//Classified Camera
