@@ -171,7 +171,6 @@
 
 	//PIP Management Backup
 	int vOptimalPIP;							//initPIPPower()	initFire()	initToggleHardpoints()
-//	int vOptimalPIPBackup;
 	int vOptimalPIPHPBackup;					//initToggleHardpoints()
 	int vOptimalPIPFireBackup;					//initFire()
 	int vOptimalPIPEFBackup;					//initEscapeFight()
