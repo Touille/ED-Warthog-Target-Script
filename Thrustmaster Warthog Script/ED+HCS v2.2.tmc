@@ -250,9 +250,11 @@ int main()
 	MapKey(&Throttle, EFROVER, EXEC("initToggleVoiceAttackMic();"));												// Switch DOWN
 
 //	-------------------------Engine Operate Ign/Norm LEFT
-	MapKey(&Throttle, EOLIGN, TEMPO(EXEC("initFPSCONNECTION();"), EXEC("initToggleRotationCorrection();"), ExtraPressDelay));		// UP
-//	MapKey(&Throttle, EOLNORM, 0);																									// OFF
-//	MapKey(&Throttle, EOLMOTOR, 0);																									// DOWN
+	MapKey(&Throttle, EOLIGN, TEMPO(EXEC("initToggleOptimalPIPMode();"), EXEC("initToggleRotationCorrection();"), ExtraPressDelay));		// UP
+//	MapKey(&Throttle, EOLNORM, 0);																											// OFF
+
+//	MapKey(&Throttle, EOLMOTOR, 0)																											// DOWN
+	MapKey(&Throttle, EOLMOTOR, EXEC("initFPSCONNECTION();"));																				// DOWN
 
 //	-------------------------Engine Operate Ign/Norm RIGHT
 	MapKey(&Throttle, EORIGN, TEMPO(EXEC("initToggleCamera();"), EXEC("initTogglePTT();"), ExtraPressDelay));		// UP
@@ -337,6 +339,7 @@ int main()
 		if(ToggleHeatSinkonSilentRuningLED!=0 & HeatSinkonSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));}
 		if(ToggleIDLEonThrottleLED!=0 & sIDLE){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleIDLEonThrottleLED));}
 //		if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
+		if(ToggleOptimalPIPModeLED!=0 & OptimalPIPMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleOptimalPIPModeLED));}
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------Set Joystick

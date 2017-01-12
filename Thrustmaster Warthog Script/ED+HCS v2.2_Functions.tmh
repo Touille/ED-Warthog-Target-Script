@@ -98,13 +98,17 @@
 			ActKey(KEYON+PULSE+DeployHardpoints);
 			if(sHardPoints){
 				if(OptimalPIPMode){	//If Optimal Mode is Enable
-					vOptimalPIPBackup = vOptimalPIP;	//Backup Actual PIP Mode
-					ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));	//PIP Mode 4xWEP 2xSYS
+					vOptimalPIPHPBackup = vOptimalPIP;	//Backup Actual PIP Mode
+					if(vOptimalPIP != 6){	// Already 4xWEP 2xSYS?
+						ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));	//PIP Mode 4xWEP 2xSYS
+					}
 				}
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleHardpointsLED, 1);"));	//Put The LED ON
 			}else{
 				if(OptimalPIPMode){	//If Optimal Mode is Enable
-					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower();"));	//Restore Previous PIP Mode
+					if(vOptimalPIPHPBackup != vOptimalPIP){
+						ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(HP);"));	//Restore Previous PIP Mode
+					}
 				}
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleHardpointsLED, 0);"));	//Put The LED OFF
 			}
@@ -146,8 +150,11 @@
 		if(sSilentRuning){ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}	//If Silent Runing is Engaged, Disengade it
 		if(sCameraMode){	//Open The Camera Mode
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				vOptimalPIPBackup = vOptimalPIP;	//Backup Actual PIP Mode
-				ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
+//				vOptimalPIPBackup = vOptimalPIP;	//Backup Actual PIP Mode
+				vOptimalPIPBCCackup = vOptimalPIP;	//Backup Actual PIP Mode				
+				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
+					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
+				}
 			}
 			ActKey(KEYON+PULSE+mClassifiedCamera);	//Call The Camera Mode Macro
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 1);"));	//Put The LED ON
@@ -155,7 +162,10 @@
 			ActKey(KEYON+PULSE+ClassifiedCamera);	//Push The Camera Mode Key
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 0);"));	//Put The LED OFF
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				ActKey(KEYON+PULSE+EXEC("initRestorePIPPower();"));	//Restore Previous PIP Mode
+				if(vOptimalPIPBCCackup != vOptimalPIP){
+//					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower();"));	//Restore Previous PIP Mode
+					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(CC);"));	//Restore Previous PIP Mode
+				}
 			}
 		}
 		if(DebugMode) printf("Classified Camera	[%d]	[ON:[1] OFF:[0]]\x0a", sCameraMode);
@@ -175,14 +185,20 @@
 		if(sSilentRuning)ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//If Silent Runing is Engaged, Disengade it
 		if(vGameMenu){	//Open The Game Menu
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				vOptimalPIPBackup = vOptimalPIP;	//Backup Actual PIP Mode
-				ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG, SYS);"));	//PIP Mode 4xSYS 2xENG
+//				vOptimalPIPBackup = vOptimalPIP;	//Backup Actual PIP Mode
+				vOptimalPIPGameMenuBackup = vOptimalPIP;	//Backup Actual PIP Mode			
+				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
+					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
+				}
 			}
 			ActKey(KEYON+PULSE+SetSpeed0);	//Push Set Speed To 0 Key
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 1);"));	//Put The LED ON
 		}else{	//Close The Game Menu
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower();"));	//Restore Previous PIP Mode After 3s
+				if(vOptimalPIPGameMenuBackup != vOptimalPIP){
+//					DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower();"));	//Restore Previous PIP Mode After 3s
+					DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(GM);"));	//Restore Previous PIP Mode After 3s
+				}
 			}
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 0);"));	//Put The LED OFF
 		}		
@@ -194,6 +210,7 @@
 	int initToggleSilentRuning(){
 //		if(Joystick[H3D] | Joystick[TG1] | Joystick[S2] | !vSLPF | !vSLSF){
 		if(Joystick[H3D] | Joystick[TG1] | Joystick[S2] | !vSLonFire){
+//		if(Joystick[H3D] | !vSLonFire){
 			if(SilentRuningGameMode){	//Silent Runing [TOGGLE] Mode Ingame
 				sSL=!sSL;	//reverse the [TOGGLE] flag status
 				if(sSL){	//Silent Runing [TOGGLE] Mode First Pulse Engage
@@ -204,28 +221,32 @@
 							if(DebugMode) printf("Heat Sink On Silent Runing	[%d]	[ON:[1] OFF:[0]]\x0a", sSilentRuning);
 						}else{	//If Heat Sink on Silent Runing is Disable
 							ActKey(KEYON+PULSE+SilentRunning);	//Push The Silent Running Key
-							if(DebugMode)printf("SL sSL\x0a");
 						}
+						if(DebugMode)printf("SL sSL\x0a");
 						ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 1);"));	//Put The LED ON
 					}
+					if(DebugMode) printf("Silent Runing	Toggle 1rst Push [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 				}
-				else if(!sSL){	//Silent Runing [TOGGLE] Mode Second Pulse DisEngage
+				if(!sSL){	//Silent Runing [TOGGLE] Mode Second Pulse DisEngage
 					sSilentRuning=!sSilentRuning;	//reverse the silent runing flag status
 					ActKey(KEYON+PULSE+SilentRunning);	//Push The Silent Running Key
 					ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 0);"));	//Put The LED OFF
 					if(DebugMode)printf("SL !sSL\x0a");
+					if(DebugMode) printf("Silent Runing	Toggle 2nd Push [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 				}
 			}else{	//Silent Runing [HOLD] Mode Engage
 				sSilentRuning=!sSilentRuning; //reverse the flag status
 				ActKey(KEYON+DOWN+SilentRunning);	//Push DOWN The Silent Running Key
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 1);"));	//Put The LED ON
+				if(DebugMode) printf("Silent Runing	Hold Push [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 			}
-			if(DebugMode) printf("Silent Runing	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
-		}else if(!SilentRuningGameMode & sSilentRuning){		//Silent Runing [HOLD] Mode DisEngage
-			sSilentRuning=!sSilentRuning;	//reverse the flag status
-			ActKey(KEYON+UP+SilentRunning);	//Push UP The Silent Running Key
-			ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 0);"));	//Put The LED OFF
-			if(DebugMode) printf("Silent Runing	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
+		}else{
+			if(!SilentRuningGameMode & sSilentRuning){		//Silent Runing [HOLD] Mode DisEngage
+				sSilentRuning=!sSilentRuning;	//reverse the flag status
+				ActKey(KEYON+UP+SilentRunning);	//Push UP The Silent Running Key
+				ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 0);"));	//Put The LED OFF
+				if(DebugMode) printf("Silent Runing	Hold Released [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
+			}
 		}
 	}
 
@@ -243,6 +264,14 @@
 		if(DebugMode) printf("Heat Sink on Silent Runing	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", HeatSinkonSilentRuning);
 		if(HeatSinkonSilentRuning)ActKey(KEYON+PULSE+EXEC("initLED(ToggleHeatSinkonSilentRuningLED, 1);"));	//Put The LED ON
 		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleHeatSinkonSilentRuningLED, 0);"));	//Put The LED OFF
+	}	
+	
+	//TOGGLE: Optimal PIP Mode
+	int initToggleOptimalPIPMode(){
+		OptimalPIPMode=!OptimalPIPMode;	//reverse the flag status
+		if(DebugMode) printf("Optimal PIPMode	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", OptimalPIPMode);
+		if(OptimalPIPMode)ActKey(KEYON+PULSE+EXEC("initLED(ToggleOptimalPIPModeLED, 1);"));	//Put The LED ON
+		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleOptimalPIPModeLED, 0);"));	//Put The LED OFF
 	}	
 	
 	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)	
@@ -460,12 +489,26 @@
 			}
 			//if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
 			if(HardPointsonFireGameMode & !sHardPoints){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
+			if(OptimalPIPMode){	//If Optimal Mode is Enable
+//				vOptimalPIPBackup = vOptimalPIP;	//Backup Actual PIP Mode
+				vOptimalPIPFireBackup = vOptimalPIP;	//Backup Actual PIP Mode
+				if(vOptimalPIP != 6){	// Already 4xWEP 2xSYS?
+					ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));	//PIP Mode 4xWEP 2xSYS
+				}
+			}			
 			if(Joystick[TG1]){ActKey(KEYON+DOWN+PrimaryFire);}
 			if(Joystick[S2]){ActKey(KEYON+DOWN+SecondaryFire);}
 		}else{				//RELEASE THE TG1 or S2 BUTTON
 			if(!Joystick[TG1]){ActKey(KEYON+UP+PrimaryFire);}
 			if(!Joystick[S2]){ActKey(KEYON+UP+SecondaryFire);}
-			if(HardPointsonFireGameMode & sHardPoints & !Joystick[S2] & !Joystick[TG1]){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
+			if(OptimalPIPMode & !Joystick[TG1] & !Joystick[S2]){	//If Optimal Mode is Enable
+//				if(vOptimalPIPBackup != vOptimalPIP){
+				if(vOptimalPIPFireBackup != vOptimalPIP){
+//					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower();"));	//Restore Previous PIP Mode
+					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(FIRE);"));	//Restore Previous PIP Mode				
+				}
+			}			
+			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !Joystick[S2] & !Joystick[TG1]){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
 			if(vSilentRuningBackup!=0 & !Joystick[S2] & !Joystick[TG1]){
 				vSLonFire=!vSLonFire;
 				vSilentRuningBackup = 0;
@@ -582,10 +625,16 @@
 		if(SecureRetract){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}
 		if(!sSilentRuning){ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
 		if(OptimalPIPMode){	//If Optimal Mode is Enable
-			vOptimalPIPBackup = vOptimalPIP;	//Backup Actual PIP Mode
-			ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG, SYS);"));	//PIP Mode 4xSYS 2xENG
+//			vOptimalPIPBackup = vOptimalPIP;	//Backup Actual PIP Mode
+			vOptimalPIPEFBackup = vOptimalPIP;	//Backup Actual PIP Mode
+			if(vOptimalPIP != 1){	// Already 4xENG 2xSYS?			
+				ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG, SYS);"));	//PIP Mode 4xSYS 2xENG
+			}
 			DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//You can Modify delay : 1500 is default (1.5sec)
-			DeferCall(10000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower();"));	//You can Modify delay : 10000 is default (10sec)
+//			DeferCall(10000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower();"));	//You can Modify delay : 10000 is default (10sec)
+			if(vOptimalPIPEFBackup != vOptimalPIP){
+				DeferCall(10000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(EF);"));	//You can Modify delay : 10000 is default (10sec)
+			}
 		}
 		ActKey(KEYON+PULSE+mEscapeFight);
 		if(sSilentRuning){DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));}	//You can Modify delay : 4000 is default (4sec)
@@ -597,6 +646,9 @@
 		if(SecureRetract){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}
 		ActKey(KEYON+PULSE+mRequestCancelDock);
 		if(DebugMode) printf("Docking Initialisation\x0a");
+		if(OptimalPIPMode){	//If Optimal Mode is Enable
+			DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//You can Modify delay : 3000 is default (3sec)
+		}
 	}
 
 	//FUNCTION: Autopilot Engage / Disengage Key
@@ -613,6 +665,9 @@
 //			1st Param gets 4 PIPs, 2nd gets 2 PIPs, 3eme get 50/50 of 1st and 2nd Param if [MID]																//
 //			If no 2nd param, balanced 1 PIP on each 2ndary power																								//
 //			If no params, balances power.																														//
+//																																								//
+//		initRestorePIPPower(j)	Params = HP (Hardpoints) OR FIRE (Fire)																							//
+//																																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//PIP Management
@@ -634,6 +689,7 @@
 		
 		// Send PIPS
 		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPhalf, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPMid, D(PIPPulseDelay),PIPfull));
+//		ActKey(KEYON+ CHAIN(LOCK+PULSE+ BalancePower, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPhalf, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPMid, D(PIPPulseDelay),PIPfull, LOCK));
 		
 		// Save the PIPS for Automatique PIP MOD RESET (OptimalPIPMode in Settings File)
 		if(x == 0 & y == 0 & z == 0){if(vOptimalPIP != 0) vOptimalPIP = 0;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}
@@ -653,19 +709,46 @@
 	}
 
 	//PIP Restore Management
-	int initRestorePIPPower(){
+//	int initRestorePIPPower(){
+//		if(DebugMode)printf("Reset PIP Mode--------------->\x0a");
+//		if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPPower();"));			//If no Previous PIP Mode selected Balance Power
+//		if(vOptimalPIPBackup == 1)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));
+//		if(vOptimalPIPBackup == 2)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP);"));
+//		if(vOptimalPIPBackup == 3)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG);"));
+//		if(vOptimalPIPBackup == 4)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP);"));
+//		if(vOptimalPIPBackup == 5)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG);"));
+//		if(vOptimalPIPBackup == 6)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));
+//		if(vOptimalPIPBackup == 7)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS,MID);"));
+//		if(vOptimalPIPBackup == 8)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG,MID);"));
+//		if(vOptimalPIPBackup == 9)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP,MID);"));	
+//		if(vOptimalPIPBackup == 10)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG,MID);"));
+//		if(vOptimalPIPBackup == 11)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP,MID);"));
+//		if(vOptimalPIPBackup == 12)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS,MID);"));
+//	}
+	
+	//PIP Restore Management
+	int initRestorePIPPower(int j=0){
+		
+		//Check What PIP to Restore, HarPoints (HP) Or Fire (Fire) OR EF (Escape Fight) OR GM (Game Menu) OR CC (Classified Camera)
+		if(j == FIRE) PIPRestore = vOptimalPIPFireBackup;	//Weapon Fire
+		else if(j == HP) PIPRestore = vOptimalPIPHPBackup; //HardPoints
+		else if(j == EF) PIPRestore = vOptimalPIPEFBackup;	//Escape Fight
+		else if(j == GM) PIPRestore = vOptimalPIPGMBackup;	//Game Menu
+		else if(j == CC) PIPRestore = vOptimalPIPCCBackup;	//Classified Camera
+
+		// Send Good Backup PIPS
 		if(DebugMode)printf("Reset PIP Mode--------------->\x0a");
-		if(vOptimalPIPBackup == 0)ActKey(KEYON+PULSE+EXEC("initPIPPower();"));			//If no Previous PIP Mode selected Balance Power
-		if(vOptimalPIPBackup == 1)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));
-		if(vOptimalPIPBackup == 2)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP);"));
-		if(vOptimalPIPBackup == 3)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG);"));
-		if(vOptimalPIPBackup == 4)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP);"));
-		if(vOptimalPIPBackup == 5)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG);"));
-		if(vOptimalPIPBackup == 6)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));
-		if(vOptimalPIPBackup == 7)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS,MID);"));
-		if(vOptimalPIPBackup == 8)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG,MID);"));
-		if(vOptimalPIPBackup == 9)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP,MID);"));	
-		if(vOptimalPIPBackup == 10)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG,MID);"));
-		if(vOptimalPIPBackup == 11)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP,MID);"));
-		if(vOptimalPIPBackup == 12)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS,MID);"));
+		if(PIPRestore == 0)ActKey(KEYON+PULSE+EXEC("initPIPPower();"));			//If no Previous PIP Mode selected Balance Power
+		if(PIPRestore == 1)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));
+		if(PIPRestore == 2)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP);"));
+		if(PIPRestore == 3)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG);"));
+		if(PIPRestore == 4)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP);"));
+		if(PIPRestore == 5)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG);"));
+		if(PIPRestore == 6)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));
+		if(PIPRestore == 7)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS,MID);"));
+		if(PIPRestore == 8)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG,MID);"));
+		if(PIPRestore == 9)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP,MID);"));	
+		if(PIPRestore == 10)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG,MID);"));
+		if(PIPRestore == 11)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP,MID);"));
+		if(PIPRestore == 12)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS,MID);"));
 	}
