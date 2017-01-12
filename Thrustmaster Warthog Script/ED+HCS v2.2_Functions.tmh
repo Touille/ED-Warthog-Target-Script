@@ -1,3 +1,17 @@
+//	Copyright (C) 2017  CMDR Touille
+//
+//	This program is free software: you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation, either version 3 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	TOGGLE FUNCTIONS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -24,7 +38,7 @@
 				if(DebugMode) printf("Landing Gear Reset On The Fly\x0a");
 			}
 		}else{
-			vLG=!vLG;	//Reset On vLG
+			vLG=!vLG;	//Reset vLG
 		}
 		if(DebugMode)printf("Landing Gear	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sGears);
 	}
@@ -51,7 +65,7 @@
 				if(DebugMode) printf("Cargo Scoop Reset On The Fly\x0a");
 			}
 		}else{
-			vCS=!vCS;	//Reset On vCS
+			vCS=!vCS;	//Reset vCS
 		}
 		if(DebugMode)printf("Cargo Scoop	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sCargo);
 	}
@@ -221,13 +235,13 @@
 	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)	
 	int initToggleIDLEonThrottle(){
 		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
-			if(Throttle[IDLELON]) sIDLE = 1;
-			else sIDLE = 0;
-			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+EXEC("initGameMenu();"));
-			if(sIDLE){
+			if(Throttle[IDLELON]) sIDLE = 1;	//Throttle position is IDLE State =1
+			else sIDLE = 0;	//Throttle position is !IDLE State =0
+			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+EXEC("initGameMenu();"));	//If GameMenu on IDLE Option is 1, Launch Game Menu
+			if(sIDLE){	//If Throttle position is IDLE State =1
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLEDOnIDLE));
 				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 1);"));	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
-			}else{
+			}else{	//Throttle position is !IDLE State =0
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
 				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 0);"));	//Put The LED OFF Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
 			}
@@ -237,15 +251,15 @@
 
 	//TOGGLE: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
 	int initToggleEnhancedFAOFF(){																	
-		if(Joystick[S4]){
+		if(Joystick[S4]){	//If Button Is Pushed
 			if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
-				if(!sRCorrection)ActKey(KEYON+PULSE+FlightAssist);
-				else{
+				if(!sRCorrection)ActKey(KEYON+PULSE+FlightAssist);	//If Rotational Correction is OFF, Just Flight
+				else{	//If Rotational Correction is ON, Adjust Curves
 					sFA=!sFA;	//reverse the flag status
 					if(sFA){	//FA [TOGGLE] Mode First Pulse Engage
 						ActKey(KEYON+PULSE+FlightAssist);
-						vJoystickCurveProfileBackup = vJoystickCurveProfile;
-						vJoystickCurveProfile = FAOffCurve;
+						vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
+						vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 							if(DebugMode) printf("EnhancedFAOFF [Toggle] Engaged\x0a");
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
@@ -254,7 +268,7 @@
 					}
 					if(!sFA){	//FA [TOGGLE] Mode Second Pulse DisEngage				
 						ActKey(KEYON+PULSE+FlightAssist);
-						vJoystickCurveProfile = vJoystickCurveProfileBackup;
+						vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 							if(DebugMode) printf("EnhancedFAOFF [Toggle] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
@@ -263,11 +277,11 @@
 					}
 				}
 			}else{	//FA [HOLD] Mode Ingame Engage
-				if(!sRCorrection)ActKey(KEYON+DOWN+FlightAssist);
+				if(!sRCorrection)ActKey(KEYON+DOWN+FlightAssist);	//If Rotational Correction is OFF, Just Flight
 				else{
 					ActKey(KEYON+DOWN+FlightAssist);
-					vJoystickCurveProfileBackup = vJoystickCurveProfile;
-					vJoystickCurveProfile = FAOffCurve;
+					vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
+					vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 						if(DebugMode)printf("EnhancedFAOFF [HOLD] Engaged\x0a");
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
@@ -275,13 +289,12 @@
 					ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 1);"));	//Put The LED ON
 				}
 			}
-		}
-		if(!Joystick[S4]){
+		}else{	//If Button Is Released
 			if(!FlightAssistGameMode){	//FA [HOLD] Mode Ingame DisEngage
-				if(!sRCorrection)ActKey(KEYON+UP+FlightAssist);	
-				else{
+				if(!sRCorrection)ActKey(KEYON+UP+FlightAssist);	//If Rotational Correction is OFF, Just Flight	
+				else{	//If Rotational Correction is ON, Adjust Curves
 					ActKey(KEYON+UP+FlightAssist);
-					vJoystickCurveProfile = vJoystickCurveProfileBackup;
+					vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset					
 						if(DebugMode)printf("EnhancedFAOFF [HOLD] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
@@ -294,16 +307,16 @@
 	
 	//TOGGLE: Reverse Throttle
 	int initToggleReverseThrottle(){
-		if(Throttle[LTB]){
-			sRT=!sRT;
-			if(RFlightThrootleGameMode){
+		if(Throttle[LTB]){	//If Button Is Pushed
+			sRT=!sRT;	//reverse the flag status
+			if(RFlightThrootleGameMode){	//TOGGLE
 				ActKey(KEYON+PULSE+ReverseThrottle);
 				if(DebugMode) printf("Reverse Throttle Toggle\x0a");
-			}else ActKey(KEYON+DOWN+ReverseThrottle);
+			}else ActKey(KEYON+DOWN+ReverseThrottle);	//HOLD Key Down
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleReverseThrottleLED, 1);"));	//Put The LED ON
-		}else{
-			if(!RFlightThrootleGameMode & sRT){
-				sRT=!sRT;
+		}else{	//If Button Is Released
+			if(!RFlightThrootleGameMode & sRT){	//HOLD Key Up
+				sRT=!sRT;	//reverse the flag status
 				ActKey(KEYON+UP+ReverseThrottle);
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleReverseThrottleLED, 0);"));	//Put The LED OFF
 			}
@@ -329,7 +342,7 @@
 	//TOGGLE Voice Attack Mic
 	int initToggleVoiceAttackMic(){
 		if(VoiceAttack){
-			sVoiceAttack=!sVoiceAttack;
+			sVoiceAttack=!sVoiceAttack;	//reverse the flag status
 			ActKey(KEYON+PULSE+ToggleVoiceAttackMic);
 			if(DebugMode) printf("Voice Attack Mic	[%d]	[MUTE:[1] UNMUTE:[0]]\x0a", sVoiceAttack);
 			if(sVoiceAttack)ActKey(KEYON+PULSE+EXEC("initLED(ToggleVALED, 1);"));	//Put The LED ON
@@ -385,9 +398,9 @@
 		if(sPTTState)vPTT = InternalVoiceCommsPTT;	//External Mic
 		if(!sPTTState)vPTT = ExternalVoiceCommsPTT;	//Internal Mic
 		if(Throttle[MSP]){
-			vVoicePTT=!vVoicePTT;
+			vVoicePTT=!vVoicePTT;	//reverse the flag status
 			if(sPTTMode){	//TOGGLE
-				vVoice=!vVoice;
+				vVoice=!vVoice;	//reverse the flag status
 				ActKey(KEYON+PULSE+vPTT);
 				if(vVoice){	//Talk [TOGGLE]
 					ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 1);"));	//Put The LED ON
@@ -401,7 +414,7 @@
 			}
 		}
 		if(!Throttle[MSP] & !sPTTMode){	//Silence [HOLD]
-			vVoicePTT=!vVoicePTT;
+			vVoicePTT=!vVoicePTT;	//reverse the flag status
 			ActKey(KEYON+UP+vPTT);
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 0);"));	//Put The LED OFF
 		}
@@ -422,16 +435,16 @@
 	//FUNCTION: Init Primary Fire
 	int initPrimaryFire(){
 		if(Joystick[TG1]){	//PRESS THE TG1 BUTTON	
-			vSLPF=!vSLPF;
+			vSLPF=!vSLPF;	//reverse the flag status
 			if(SilentRuningOFFonFire & sSilentRuning){
-				vSilentRuningBackup = sSilentRuning;
+				vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
 				ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));
 			}
 			//if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}
 			if(HardPointsonFireGameMode & !sHardPoints){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
 			ActKey(KEYON+DOWN+PrimaryFire);
 		}else{				//RELEASE THE TG1 BUTTON
-			vSLPF=!vSLPF;
+			vSLPF=!vSLPF;	//reverse the flag status
 			ActKey(KEYON+UP+PrimaryFire);
 			if(vSilentRuningBackup!=0){
 				vSilentRuningBackup = 0;
@@ -443,9 +456,9 @@
 	//FUNCTION: Init Secondary Fire
 	int initSecondaryFire(){
 		if(Joystick[S2]){	//PRESS THE S2 BUTTON
-			vSLSF=!vSLSF;
+			vSLSF=!vSLSF;	//reverse the flag status
 			if(SilentRuningOFFonFire & sSilentRuning){
-				vSilentRuningBackup = sSilentRuning;
+				vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
 				ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));
 			}
 			//if(SilentRuningOFFonFire & sSilentRuning & SilentRuningGameMode){vSilentRuningBackup = sSilentRuning;	ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}			
@@ -454,7 +467,7 @@
 			}
 			ActKey(KEYON+DOWN+SecondaryFire);
 		}else{				//RELEASE THE S2 BUTTON
-			vSLSF=!vSLSF;
+			vSLSF=!vSLSF;	//reverse the flag status
 			ActKey(KEYON+UP+SecondaryFire);
 			if(vSilentRuningBackup!=0){
 				vSilentRuningBackup = 0;
@@ -477,7 +490,7 @@
 
 	//FUNCTION: Init Secure Retract
 	int initSecureRectract(){
-		vSecureEscapeFight=!vSecureEscapeFight;
+		vSecureEscapeFight=!vSecureEscapeFight;	//reverse the flag status
 		if(sHardPoints) ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
 		if(sGears) ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
 		if(sCargo) ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
