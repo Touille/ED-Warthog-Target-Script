@@ -92,7 +92,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V.2.2.1.6r----12/01/2017------------------------\x0a");
+	printf("--------------------------V.2.2.1.7r----13/01/2017------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -110,8 +110,6 @@ int main()
 
 //--BUTTON------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//	MapKey(&Joystick, TG1, EXEC("initPrimaryFire();"));
-//	MapKeyR(&Joystick, TG1, EXEC("initPrimaryFire();"));
 	MapKey(&Joystick, TG1, EXEC("initFire();"));
 	MapKeyR(&Joystick, TG1, EXEC("initFire();"));
 
@@ -119,8 +117,6 @@ int main()
 
 	MapKey(&Joystick, S1, TEMPO(EXEC("initToggleCombinedFire();"), EXEC("initToggleHardpoints();"), LongPressDelay));
 
-//	MapKey(&Joystick, S2, EXEC("initSecondaryFire();"));
-//	MapKeyR(&Joystick, S2, EXEC("initSecondaryFire();"));
 	MapKey(&Joystick, S2, EXEC("initFire();"));
 	MapKeyR(&Joystick, S2, EXEC("initFire();"));
 
@@ -147,13 +143,12 @@ int main()
 //	-------------------------Data Management Switch (DMS)
 	MapKeyIO(&Joystick, H3U, PULSE+CommsPanel, TEMPO(EXEC("initToggleSilentRuningOFFonFire();"), EXEC("initToggleHeatSinkonSilentRuning();"), ExtraPressDelay));	// UP
 	MapKeyIO(&Joystick, H3D, PULSE+RolePanel, TEMPO(0,EXEC("initToggleSilentRuning();"), LongPressDelay));															// DOWN
-	MapKeyRIO(&Joystick, H3D, 0,EXEC("initToggleSilentRuning();"));																										// DOWN RELEASE
+	MapKeyRIO(&Joystick, H3D, 0,EXEC("initToggleSilentRuning();"));																									// DOWN RELEASE
 	MapKeyIO(&Joystick, H3L, PULSE+TargetPanel, PrevFireGroup); 																									// /LEFT
 	MapKeyIO(&Joystick, H3R, PULSE+SystemPanel, NextFireGroup); 																									// RIGHT
 
 //	-------------------------Countermeasures Management Switch (CMS)
 	MapKey(&Joystick, H4U, UIUp);																	// UP		UI UP
-//	MapKeyIO(&Joystick, H4D, EXEC("initToggleGameMenu();"),UIDown);									// DOWN		UI DOWN		S3+ Game Menu
 	MapKey(&Joystick, H4D, UIDown);																	// DOWN		UI DOWN
 	MapKeyIO(&Joystick, H4L, UIPrevPanel, UILeft);													// LEFT		UI LEFT,	S3+ Previous Panel
 	MapKeyIO(&Joystick, H4R, UINextPanel, UIRight);													// RIGHT	UI RIGHT,	S3+ Next Panel
@@ -252,18 +247,16 @@ int main()
 //	-------------------------Engine Operate Ign/Norm LEFT
 	MapKey(&Throttle, EOLIGN, TEMPO(EXEC("initToggleOptimalPIPMode();"), EXEC("initToggleRotationCorrection();"), ExtraPressDelay));		// UP
 //	MapKey(&Throttle, EOLNORM, 0);																											// OFF
-
-//	MapKey(&Throttle, EOLMOTOR, 0)																											// DOWN
 	MapKey(&Throttle, EOLMOTOR, EXEC("initFPSCONNECTION();"));																				// DOWN
 
 //	-------------------------Engine Operate Ign/Norm RIGHT
 	MapKey(&Throttle, EORIGN, TEMPO(EXEC("initToggleCamera();"), EXEC("initTogglePTT();"), ExtraPressDelay));		// UP
 //	MapKey(&Throttle, EORNORM, 0);																					// OFF
-
 	MapKey(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));														// DOWN
 	MapKeyR(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));													// DOWN RELEASE
-//	MapKey(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN					Use this one If the previous cause BUG
-//	MapKeyR(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN RELEASE			(Client delay to open Game Menu vary)
+
+	//MapKey(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN					Use this one If the previous cause BUG
+	//MapKeyR(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN RELEASE			(Client delay to open Game Menu vary)
 
 //	-------------------------APU Start
 	MapKey(&Throttle, APUON, EXEC("initJettisonCargo();"));															// Switch UP
@@ -330,16 +323,16 @@ int main()
 		if(ToggleLightsLED!=0 & sLights){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleLightsLED));}
 		if(ToggleHardpointsLED!=0 & sHardPoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardpointsLED));}
 		if(ToggleCombinedFireLED!=0 & sCombinedFire){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCombinedFireLED));}
-//		if(ToggleCameraLED!=0 & sCameraMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCameraLED));}
 		if(TogglePTTLED!=0 & sPTTState){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTLED));}
 		if(ToggleVoicePTTLED!=0 & vVoicePTT){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleVoicePTTLED));}
 		if(TogglePTTModeLED!=0 & sPTTMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTModeLED));}
-//		if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
 		if(ToggleSilentRuningonFireLED!=0 & SilentRuningOFFonFire){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningonFireLED));}
 		if(ToggleHeatSinkonSilentRuningLED!=0 & HeatSinkonSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));}
 		if(ToggleIDLEonThrottleLED!=0 & sIDLE){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleIDLEonThrottleLED));}
-//		if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
 		if(ToggleOptimalPIPModeLED!=0 & OptimalPIPMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleOptimalPIPModeLED));}
+//		if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
+//		if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
+//		if(ToggleCameraLED!=0 & sCameraMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCameraLED));}
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------Set Joystick

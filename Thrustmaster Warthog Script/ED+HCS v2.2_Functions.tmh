@@ -19,7 +19,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	TOGGLE FUNCTIONS																																			//
+//	TOGGLE GAMES FUNCTIONS																																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//TOGGLE: Landing Gear	
@@ -117,90 +117,6 @@
 		}
 		if(DebugMode) printf("HardPoints	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sHardPoints);
 	}
-	
-	//TOGGLE: Combined Fire	
-	int initToggleCombinedFire(){
-		sCombinedFire=!sCombinedFire;	//reverse the flag status
-		if(sCombinedFire){	//Combined Fire ON
-			MapKey(&Joystick, TG2, CHAIN(PrimaryFire, SecondaryFire));	//Combine Primary & Secondary Fire on TG2
-			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCombinedFireLED, 1);"));	//Put The LED ON
-		}else{	//Combined Fire OFF
-			MapKey(&Joystick, TG2, 0);	//Separate Primary & Secondary Fire
-			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCombinedFireLED, 0);"));	//Put The LED OFF
-		}
-		if(DebugMode) printf("Primary & Secondary Fire	[%d]	[COMBINED:[1] SEPARATE[0]]\x0a", sCombinedFire);
-	}
-
-	//TOGGLE: Rotational Correction
-	int initToggleRotationCorrection(){	
-		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
-			sRCorrection=!sRCorrection;	//reverse the flag status
-			ActKey(KEYON+PULSE+RotationalCorrection);	//Push Rotational Correction Key
-			if(sRCorrection) ActKey(KEYON+PULSE+EXEC("initLED(ToggleRCorrectionLED, 1);"));	//Rotational Correction is UP? Put The LED ON
-			else ActKey(KEYON+PULSE+EXEC("initLED(ToggleRCorrectionLED, 0);"));	//Rotational Correction is DOWN? Put The LED OFF
-		}else{	//Reset On The FLY S3 + SWITCH
-			sRCorrection=!sRCorrection;	//reverse the flag status
-		}
-		if(DebugMode) printf("Rotation Correction	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRCorrection);	
-	}
-
-	//TOGGLE: Classified (External) 'Debug' Camera
-	int initToggleCamera(){
-		sCameraMode=!sCameraMode;	//reverse the flag status
-		if(sSilentRuning){ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}	//If Silent Runing is Engaged, Disengade it
-		if(sCameraMode){	//Open The Camera Mode
-			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				vOptimalPIPBCCackup = vOptimalPIP;	//Backup Actual PIP Mode				
-				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
-					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
-				}
-			}
-			ActKey(KEYON+PULSE+mClassifiedCamera);	//Call The Camera Mode Macro
-			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 1);"));	//Put The LED ON
-		}else{	//Close The Camera Mode
-			ActKey(KEYON+PULSE+ClassifiedCamera);	//Push The Camera Mode Key
-			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 0);"));	//Put The LED OFF
-			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				if(vOptimalPIPBCCackup != vOptimalPIP){
-					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(CC);"));	//Restore Previous PIP Mode
-				}
-			}
-		}
-		if(DebugMode) printf("Classified Camera	[%d]	[ON:[1] OFF:[0]]\x0a", sCameraMode);
-	}
-	
-	//TOGGLE: Supecruise On Throttle Mode
-	int initToggleSuperCruiseMode(){
-		SupecruiseOnThrottle=!SupecruiseOnThrottle;	//reverse the flag status
-		if(SupecruiseOnThrottle)ActKey(KEYON+PULSE+EXEC("initLED(ToggleSuperCruiseModeLED, 1);"));	//SuperCruise On Throttle is ON? Put The LED ON
-		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleSuperCruiseModeLED, 0);"));	//SuperCruise On Throttle is OFF? Put The LED OFF
-		if(DebugMode) printf("Supecruise On Throttle	[%d]	[ON:[1] OFF:[0]]\x0a", SupecruiseOnThrottle);
-	}
-
-	//TOGGLE: GameMenu
-	int initToggleGameMenu(){
-		vGameMenu=!vGameMenu;	//reverse the flag status
-		if(sSilentRuning)ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//If Silent Runing is Engaged, Disengade it
-		if(vGameMenu){	//Open The Game Menu
-			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode			
-				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
-					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
-				}
-			}
-			ActKey(KEYON+PULSE+SetSpeed0);	//Push Set Speed To 0 Key
-			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 1);"));	//Put The LED ON
-		}else{	//Close The Game Menu
-			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				if(vOptimalPIPGMBackup != vOptimalPIP){
-					DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(GM);"));	//Restore Previous PIP Mode After 3s
-				}
-			}
-			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 0);"));	//Put The LED OFF
-		}		
-		DeferCall(3000, &ActKey, KEYON+PULSE+GameMenu);	//Push Game Menu Key After 2s
-		if(DebugMode) printf("Game Menu	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", vGameMenu);
-	}
 
 	//TOGGLE: Silent Runing
 	int initToggleSilentRuning(){
@@ -241,48 +157,6 @@
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 0);"));	//Put The LED OFF
 				if(DebugMode) printf("Silent Runing	Hold Released [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 			}
-		}
-	}
-
-	//TOGGLE: Silent Runing OFF/ON on Fire
-	int initToggleSilentRuningOFFonFire(){
-		SilentRuningOFFonFire=!SilentRuningOFFonFire;	//reverse the flag status
-		if(DebugMode) printf("Silent Runing On Fire	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SilentRuningOFFonFire);
-		if(SilentRuningOFFonFire)ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningonFireLED, 1);"));	//Put The LED ON
-		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningonFireLED, 0);"));	//Put The LED OFF
-	}
-
-	//TOGGLE: HeatSink on Silent Runing
-	int initToggleHeatSinkonSilentRuning(){
-		HeatSinkonSilentRuning=!HeatSinkonSilentRuning;	//reverse the flag status
-		if(DebugMode) printf("Heat Sink on Silent Runing	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", HeatSinkonSilentRuning);
-		if(HeatSinkonSilentRuning)ActKey(KEYON+PULSE+EXEC("initLED(ToggleHeatSinkonSilentRuningLED, 1);"));	//Put The LED ON
-		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleHeatSinkonSilentRuningLED, 0);"));	//Put The LED OFF
-	}	
-	
-	//TOGGLE: Optimal PIP Mode
-	int initToggleOptimalPIPMode(){
-		OptimalPIPMode=!OptimalPIPMode;	//reverse the flag status
-		if(DebugMode) printf("Optimal PIPMode	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", OptimalPIPMode);
-		if(OptimalPIPMode)ActKey(KEYON+PULSE+EXEC("initLED(ToggleOptimalPIPModeLED, 1);"));	//Put The LED ON
-		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleOptimalPIPModeLED, 0);"));	//Put The LED OFF
-	}	
-	
-	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)	
-	int initToggleIDLEonThrottle(){
-		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
-			if(Throttle[IDLELON]) sIDLE = 1;	//Throttle position is IDLE State =1
-			else sIDLE = 0;	//Throttle position is !IDLE State =0
-			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+EXEC("initGameMenu();"));	//If GameMenu on IDLE Option is 1, Launch Game Menu
-			//if(GameMenuOnIDLE)ActKey(KEYON+PULSE+GameMenu);				//If GameMenu on IDLE Option is 1, Launch Game Menu use this one If the previous cause BUG (Client delay to open Game Menu vary)
-			if(sIDLE){	//If Throttle position is IDLE State =1
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLEDOnIDLE));
-				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 1);"));	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
-			}else{	//Throttle position is !IDLE State =0
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
-				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 0);"));	//Put The LED OFF Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
-			}
-			if(DebugMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);
 		}
 	}
 
@@ -348,21 +222,147 @@
 			sRT=!sRT;	//reverse the flag status
 			if(RFlightThrootleGameMode){	//TOGGLE
 				ActKey(KEYON+PULSE+ReverseThrottle);
-				//if(DebugMode) printf("Reverse Throttle Toggle\x0a");
 			}else{
 				ActKey(KEYON+DOWN+ReverseThrottle);	//HOLD Key Down
-				//if(DebugMode) printf("Reverse Throttle HOLD Push The Key\x0a");
 			}
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleReverseThrottleLED, 1);"));	//Put The LED ON
 		}else{	//If Button Is Released
 			if(!RFlightThrootleGameMode & sRT){	//HOLD Key Up
 				sRT=!sRT;	//reverse the flag status
 				ActKey(KEYON+UP+ReverseThrottle);
-				//if(DebugMode) printf("Reverse Throttle HOLD Release The Key\x0a");
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleReverseThrottleLED, 0);"));	//Put The LED OFF
 			}
 		}
 		if(DebugMode) printf("Reverse Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRT );
+	}
+	
+	//TOGGLE: Rotational Correction
+	int initToggleRotationCorrection(){	
+		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
+			sRCorrection=!sRCorrection;	//reverse the flag status
+			ActKey(KEYON+PULSE+RotationalCorrection);	//Push Rotational Correction Key
+			if(sRCorrection) ActKey(KEYON+PULSE+EXEC("initLED(ToggleRCorrectionLED, 1);"));	//Rotational Correction is UP? Put The LED ON
+			else ActKey(KEYON+PULSE+EXEC("initLED(ToggleRCorrectionLED, 0);"));	//Rotational Correction is DOWN? Put The LED OFF
+		}else{	//Reset On The FLY S3 + SWITCH
+			sRCorrection=!sRCorrection;	//reverse the flag status
+		}
+		if(DebugMode) printf("Rotation Correction	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRCorrection);	
+	}
+	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	//TOGGLE: Silent Runing OFF/ON on Fire
+	int initToggleSilentRuningOFFonFire(){
+		SilentRuningOFFonFire=!SilentRuningOFFonFire;	//reverse the flag status
+		if(DebugMode) printf("Silent Runing On Fire	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SilentRuningOFFonFire);
+		if(SilentRuningOFFonFire)ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningonFireLED, 1);"));	//Put The LED ON
+		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningonFireLED, 0);"));	//Put The LED OFF
+	}
+
+	//TOGGLE: HeatSink on Silent Runing
+	int initToggleHeatSinkonSilentRuning(){
+		HeatSinkonSilentRuning=!HeatSinkonSilentRuning;	//reverse the flag status
+		if(DebugMode) printf("Heat Sink on Silent Runing	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", HeatSinkonSilentRuning);
+		if(HeatSinkonSilentRuning)ActKey(KEYON+PULSE+EXEC("initLED(ToggleHeatSinkonSilentRuningLED, 1);"));	//Put The LED ON
+		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleHeatSinkonSilentRuningLED, 0);"));	//Put The LED OFF
+	}	
+	
+	//TOGGLE: Optimal PIP Mode
+	int initToggleOptimalPIPMode(){
+		OptimalPIPMode=!OptimalPIPMode;	//reverse the flag status
+		if(DebugMode) printf("Optimal PIPMode	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", OptimalPIPMode);
+		if(OptimalPIPMode)ActKey(KEYON+PULSE+EXEC("initLED(ToggleOptimalPIPModeLED, 1);"));	//Put The LED ON
+		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleOptimalPIPModeLED, 0);"));	//Put The LED OFF
+	}
+	
+	//TOGGLE: Supecruise On Throttle Mode
+	int initToggleSuperCruiseMode(){
+		SupecruiseOnThrottle=!SupecruiseOnThrottle;	//reverse the flag status
+		if(SupecruiseOnThrottle)ActKey(KEYON+PULSE+EXEC("initLED(ToggleSuperCruiseModeLED, 1);"));	//SuperCruise On Throttle is ON? Put The LED ON
+		else ActKey(KEYON+PULSE+EXEC("initLED(ToggleSuperCruiseModeLED, 0);"));	//SuperCruise On Throttle is OFF? Put The LED OFF
+		if(DebugMode) printf("Supecruise On Throttle	[%d]	[ON:[1] OFF:[0]]\x0a", SupecruiseOnThrottle);
+	}
+	//TOGGLE: Combined Fire	
+	int initToggleCombinedFire(){
+		sCombinedFire=!sCombinedFire;	//reverse the flag status
+		if(sCombinedFire){	//Combined Fire ON
+			MapKey(&Joystick, TG2, CHAIN(PrimaryFire, SecondaryFire));	//Combine Primary & Secondary Fire on TG2
+			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCombinedFireLED, 1);"));	//Put The LED ON
+		}else{	//Combined Fire OFF
+			MapKey(&Joystick, TG2, 0);	//Separate Primary & Secondary Fire
+			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCombinedFireLED, 0);"));	//Put The LED OFF
+		}
+		if(DebugMode) printf("Primary & Secondary Fire	[%d]	[COMBINED:[1] SEPARATE[0]]\x0a", sCombinedFire);
+	}
+	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	//TOGGLE: Classified (External) 'Debug' Camera
+	int initToggleCamera(){
+		sCameraMode=!sCameraMode;	//reverse the flag status
+		if(sSilentRuning){ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}	//If Silent Runing is Engaged, Disengade it
+		if(sCameraMode){	//Open The Camera Mode
+			if(OptimalPIPMode){	//If Optimal Mode is Enable
+				vOptimalPIPBCCackup = vOptimalPIP;	//Backup Actual PIP Mode				
+				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
+					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
+				}
+			}
+			ActKey(KEYON+PULSE+mClassifiedCamera);	//Call The Camera Mode Macro
+			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 1);"));	//Put The LED ON
+		}else{	//Close The Camera Mode
+			ActKey(KEYON+PULSE+ClassifiedCamera);	//Push The Camera Mode Key
+			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 0);"));	//Put The LED OFF
+			if(OptimalPIPMode){	//If Optimal Mode is Enable
+				if(vOptimalPIPBCCackup != vOptimalPIP){
+					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(CC);"));	//Restore Previous PIP Mode
+				}
+			}
+		}
+		if(DebugMode) printf("Classified Camera	[%d]	[ON:[1] OFF:[0]]\x0a", sCameraMode);
+	}
+	
+	//TOGGLE: GameMenu
+	int initToggleGameMenu(){
+		vGameMenu=!vGameMenu;	//reverse the flag status
+		if(sSilentRuning)ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//If Silent Runing is Engaged, Disengade it
+		if(vGameMenu){	//Open The Game Menu
+			if(OptimalPIPMode){	//If Optimal Mode is Enable
+				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode			
+				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
+					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
+				}
+			}
+			ActKey(KEYON+PULSE+SetSpeed0);	//Push Set Speed To 0 Key
+			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 1);"));	//Put The LED ON
+		}else{	//Close The Game Menu
+			if(OptimalPIPMode){	//If Optimal Mode is Enable
+				if(vOptimalPIPGMBackup != vOptimalPIP){
+					DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(GM);"));	//Restore Previous PIP Mode After 3s
+				}
+			}
+			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 0);"));	//Put The LED OFF
+		}		
+		DeferCall(3000, &ActKey, KEYON+PULSE+GameMenu);	//Push Game Menu Key After 2s
+		if(DebugMode) printf("Game Menu	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", vGameMenu);
+	}	
+	
+	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)	
+	int initToggleIDLEonThrottle(){
+		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
+			if(Throttle[IDLELON]) sIDLE = 1;	//Throttle position is IDLE State =1
+			else sIDLE = 0;	//Throttle position is !IDLE State =0
+			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+EXEC("initGameMenu();"));	//If GameMenu on IDLE Option is 1, Launch Game Menu
+			//if(GameMenuOnIDLE)ActKey(KEYON+PULSE+GameMenu);				//If GameMenu on IDLE Option is 1, Launch Game Menu Use this one If the previous cause BUG (Client delay to open Game Menu vary)
+			if(sIDLE){	//If Throttle position is IDLE State =1
+				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLEDOnIDLE));
+				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 1);"));	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
+			}else{	//Throttle position is !IDLE State =0
+				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
+				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 0);"));	//Put The LED OFF Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
+			}
+			if(DebugMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);
+		}
 	}
 	
 	//TOGGLE: PTT/PTP & External/Internal Voice
@@ -399,6 +399,7 @@
 	int initFPSCONNECTION(){
 		ActKey(KEYON+PULSE+ShowFramerate);
 		ActKey(KEYON+PULSE+ShowConnectionStatus);
+		if(DebugMode)printf("FPS & CONNECTION STATUS\x0a");
 	}
 	
 	//FUNCTION: Head Center
@@ -467,7 +468,6 @@
 		if(LEDONOFF == 1 & l!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+l));	//LED ON
 		if(LEDONOFF == 0 & l!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-l));	//LED OFF
 	}
-	
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	GAMES FUNCTIONS																																				//
@@ -611,6 +611,7 @@
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PIP MANAGEMENT FUNCTIONS																																	//
+//																																								//
 //		initPIPPower(x,y,z)	Params = SYS, ENG, WEP, MID																											//
 //			1st Param gets 4 PIPs, 2nd gets 2 PIPs, 3eme get 50/50 of 1st and 2nd Param if [MID]																//
 //			If no 2nd param, balanced 1 PIP on each 2ndary power																								//
@@ -639,7 +640,7 @@
 		
 		// Send PIPS
 		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPhalf, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPMid, D(PIPPulseDelay),PIPfull));
-//		ActKey(KEYON+ CHAIN(LOCK+PULSE+ BalancePower, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPhalf, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPMid, D(PIPPulseDelay),PIPfull, LOCK));
+		//ActKey(KEYON+ CHAIN(LOCK+PULSE+ BalancePower, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPhalf, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPMid, D(PIPPulseDelay),PIPfull, LOCK));
 		
 		// Save the PIPS for Automatique PIP MOD RESET (OptimalPIPMode in Settings File)
 		if(x == 0 & y == 0 & z == 0){if(vOptimalPIP != 0) vOptimalPIP = 0;	if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);}

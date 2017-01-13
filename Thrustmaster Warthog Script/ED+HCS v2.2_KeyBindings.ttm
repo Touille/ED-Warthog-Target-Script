@@ -142,13 +142,13 @@
 	define HMDCenter				USB[0x45]				// F12			[HCS]
 	define TrackIRCenter			USB[0x4D]				// END
 	define TrackIRPause				USB[0x48]				// PAUSE
-//	define TakeSteamScreenshot		USB[0x45]				// F12
-//	define ShowSteamOverlay			L_SHIFT+USB[0x2B]		// SHIFT+TAB
-//	define NVidiaCaptureVideoAuto	L_ALT+USB[0x44]			// ALT+F11		(Note: Default NVidia Capture of ALT+F10 conflicts with HiRes Screenshots - Needs to be updated in Shadowplay)
-//	define NVidiaCaptureManual		L_ALT+USB[0x42]			// ALT+F9
-	define ExternalVoiceCommsPTT	USB[0x35]				// ~			(Map this to your Ventrilo/Mumble/Skype PTT Key)
-//	define ToggleVoiceAttackGlobal	L_ALT+USB[0x19]			// (ALT)+V
+	define ExternalVoiceCommsPTT	USB[0x35]				// ~						(Map this to your Ventrilo/Mumble/Skype/TS3/... PTT Key)
 	define ToggleVoiceAttackMic		L_ALT+USB[0x3B]			// ALT+F2
+//	define ToggleVoiceAttackGlobal	L_ALT+USB[0x19]			// <Disabled> (ALT)+V
+//	define TakeSteamScreenshot		USB[0x45]				// <Disabled> F12
+//	define ShowSteamOverlay			L_SHIFT+USB[0x2B]		// <Disabled> SHIFT+TAB
+//	define NVidiaCaptureVideoAuto	L_ALT+USB[0x44]			// <Disabled> ALT+F11		(Note: Default NVidia Capture of ALT+F10 conflicts with HiRes Screenshots - Needs to be updated in Shadowplay)
+//	define NVidiaCaptureManual		L_ALT+USB[0x42]			// <Disabled> ALT+F9
 
 	//HEADLOOK//
 //	define LookUp					DXHATUP					// <Disabled>

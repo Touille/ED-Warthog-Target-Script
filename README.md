@@ -1,4 +1,4 @@
-# 2.2.1.6r 11/01/2017 (Pre Release)
+# 2.2.1.7r 13/01/2017 (Pre Release)
 
 - [x] Complete
 - [ ] Work but Incomplete / Need More Test
@@ -13,8 +13,8 @@
 - [x] Game Menu Up on Idle Throttle states. (Setup In Settings File)
 - [x] Secure Retract Mode : Automatic Retract of Hardpoint Gear and cargo  when engaging Escape Fight Mode, Supercruise, FrameshiftDrive,...
 - [x] Dual stage trigger Combined Fire on Triger 1 to allow combined Primary & Secondary fire or for the trigger to be separated to Primary fire only. Can be switched On or Off On The Fly
-- [ ] Support [Toggle] & [Hold] mode for Game Settings : Reverse Throttle, Flight Assist & Silent Runing (option in Settings File Default is Reverse Throttle [HOLD],  Flight Assist [HOLD], Silent Runing [TOGGLE]. If you want to change modify in ED AND in the setting file xxxGameMode)
-- [ ] Enhanced Functions Like Game Menu (Set Speed to 0, put silence runing off, PIP to tank then open game menu...when game menu is closed, restore previous PIP Mode...), System jump (target next system in route, Retract hardpoint if needed, Frameshift drive, then in Warp, set speed to 0 (safe next system entrance) ...More advanced functions will come later
+- [x] Support [Toggle] & [Hold] mode for Game Settings : Reverse Throttle, Flight Assist & Silent Runing (option in Settings File Default is Reverse Throttle [HOLD],  Flight Assist [HOLD], Silent Runing [TOGGLE]. If you want to change modify in ED AND in the setting file xxxGameMode)
+- [x] Enhanced Functions Like Game Menu (Set Speed to 0, put silence runing off, PIP to tank then open game menu...when game menu is closed, restore previous PIP Mode...), System jump (target next system in route, Retract hardpoint if needed, Frameshift drive, then in Warp, set speed to 0 (safe next system entrance) ...More advanced functions will come later
 
 
 ### LED:
@@ -25,7 +25,7 @@
 	
 ### PIP:
 
-- [ ] Automatic PIP Mode When Deploy or Retract Hardpoints, Escape Fight, Fire, Game Menu, ... (Setup In Settings File ON or OFF)
+- [x] Automatic PIP Mode When Deploy or Retract Hardpoints, Escape Fight, Fire, Game Menu, ... (Setup In Settings File ON or OFF)
 - [x] PIP Management Hat Switch offering 8 different presets depending how long you hold down the button.
 
 ### PTT:

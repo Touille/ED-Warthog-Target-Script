@@ -33,10 +33,10 @@
 	int OptimalPIPMode	=1;					//Automatic PIP Mode: When Hardpoint is Up or Down / When Classified Camera is ON or Off / When Escape Fight / Game Menu / When Fire...
 	int SecureRetract	=1;					//Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump => Reset Switch States for Scoop and Gear(Switch)
 
-	int SupecruiseOnThrottle		=1;		//initToggleSuperCruiseMode()	Supercruise if Boost when Throttle > 99%					Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
+	int SupecruiseOnThrottle		=0;		//initToggleSuperCruiseMode()	Supercruise if Boost when Throttle > 99%					Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
 	int GameMenuOnIDLE				=0;		//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
 	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
-	int StopFireRetractHardpoints	=1;		//Weapons / Stop Firing Retract Hardpoints Work Only if HardPointsonFireGameMode is Set to 1		[OFF:0, ON:1]
+	int StopFireRetractHardpoints	=1;		//Weapons / Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1		[OFF:0, ON:1]		Can be switched on the Fly
 
 	int SilentRuningOFFonFire	=1;			//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}										IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Short Data Management Switch UP
 	int HeatSinkonSilentRuning	=0;			//initToggleHeatSinkonSilentRuning()	[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing	IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Long Data Management Switch UP
@@ -44,11 +44,12 @@
 	define VoiceAttack 1					//If VoiceAttack set to 1 : Engine Fuel Flow Switches RIGHT Mute / Unmute Voice Attack
 
 
-//	-------------------------Match This with ED Key binding Ingame (Left if you use Unmodified ED KeyBinding File include with this script)
+//	-------------------------Match This with ED Key binding Ingame (Left if you use Unmodified ED KeyBinding File include with this script)---------------------//
+
 	int FlightAssistGameMode		=0;		//Flight Miscellaneous / Toggle Flight Assist		[HOLD:0, TOGGLE:1]
 //	int DriveAssistGameMode			=0;		//Driving / Drive Assist							[HOLD:0, TOGGLE:1]
 
-	int HardPointsonFireGameMode	=1;		//Weapons / Firing Deploys Hardpoints 				[OFF:0, ON:1]
+	int HardPointsonFireGameMode	=1;		//Weapons / Firing Deploys Hardpoints 				[OFF:0, ON:1]		Can be switched on the Fly
 	int SilentRuningGameMode		=1;		//Cooling / Silent Runing							[HOLD:0, TOGGLE:1]
 
 	int RFlightThrootleGameMode		=0;		//Flight Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
@@ -88,26 +89,26 @@
 //	PRESS & PULSE DELAY SETTINGS																																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	//PRESS DELAY
+	//PRESS DELAY (Keys)
 	define MiniPressDelay	150			//Shortest Delay 150
 	define ShortPressDelay	250			//Shorter Delay 250
 	define MediumPressDelay	350			//Medium Delay 350
 	define LongPressDelay	500			//Long Delay 500
 	define ExtraPressDelay	1500		//Longest Delay 1500
 	
-	//PULSE DELAY
+	//PULSE DELAY (Macro/Other)
 	define MiniPulseDelay	150			//Shortest Delay 150
 	define ShortPulseDelay	250			//Shorter Delay 250
 	define MediumPulseDelay	350			//Medium Delay 350
 	define LongPulseDelay	500			//Long Delay 500
 	define ExtraPulseDelay	2000		//Longest Delay 2000
 
-	//FSD OFF DELAY MACRO: System Jump
-	define FSDOFFDelay		25000		//Longest Delay 25000
+	//FSD OFF DELAY MACRO: Safe System Jump
+	define FSDOFFDelay		25000		//When to Press 0 Speed Key after Engaging FSD (Safe System Jump)Longest Delay 25000
 	
 	//PIP DELAY
-	define PIPPressDelay	350			//PIP PressDelay 350
-	define PIPPulseDelay	75			//PIP PulseDelay 100 initPIPPower()
+	define PIPPressDelay	350			//PIP Press Key Delay 350
+	define PIPPulseDelay	75			//PIP Pulse Delay PIP Initialisation 75 initPIPPower()
 	
 	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	define HeatSinkonSilentRuningDelay 8000
@@ -127,7 +128,7 @@
 	define TogglePTTLED						0
 	define ToggleVoicePTTLED				0
 	define TogglePTTModeLED					0
-	define ToggleSilentRuningLED			LED1
+	define ToggleSilentRuningLED			0
 	define ToggleSilentRuningonFireLED		LED2
 	define ToggleHeatSinkonSilentRuningLED	LED3
 	define ToggleIDLEonThrottleLED			0		//IDLE LED Work only if ThrottleLEDOnIDLE != 0
@@ -135,7 +136,7 @@
 	define ToggleVALED						0		//Voice Attack Mic LED
 	define ToggleReverseThrottleLED			0		//Reverse Throttle LED
 	define ToggleGameMenuLED				0		//Game Menu LED
-	define ToggleOptimalPIPModeLED			0		//OptimalPIPMode LED
+	define ToggleOptimalPIPModeLED			LED1	//OptimalPIPMode LED
 	
 //--Throttle Backlight (Value 0-255)----------------------------------------------------------------------------------------------------------------------------//
 
@@ -169,6 +170,8 @@
 	int vGameMenu;								//initGameMenu()
 	int vSLonFire;								//initFire()	initToggleSilentRuning()
 
+//--PIP Management---------------------------------------------------------------------------------------------------------------------------------------------//
+	
 	//PIP Management Backup
 	int vOptimalPIP;							//initPIPPower()	initFire()	initToggleHardpoints()
 	int vOptimalPIPHPBackup;					//initToggleHardpoints()
@@ -212,7 +215,7 @@
 //	REPORT STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int initPrintState(){				//Display the status of the macro toggles in Target Script Editor on run.
+	int initPrintState(){	//Display the status of the macro toggles in Target Script Editor on run.
 		printf("------------------------------Current States------------------------------\x0a");
 		printf("		Supecruise On Throttle--------------------%d\x0a", SupecruiseOnThrottle);
 		printf("		Secure Retract----------------------------%d\x0a", SecureRetract);
