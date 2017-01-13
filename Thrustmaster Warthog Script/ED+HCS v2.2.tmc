@@ -150,9 +150,9 @@ int main()
 //	-------------------------Countermeasures Management Switch (CMS)
 	MapKey(&Joystick, H4U, UIUp);																	// UP		UI UP
 	MapKey(&Joystick, H4D, UIDown);																	// DOWN		UI DOWN
-	MapKeyIO(&Joystick, H4L, UIPrevPanel, UILeft);													// LEFT		UI LEFT,	S3+ Previous Panel
-	MapKeyIO(&Joystick, H4R, UINextPanel, UIRight);													// RIGHT	UI RIGHT,	S3+ Next Panel
-	MapKeyIO(&Joystick, H4P, UIBack, UISelect);														// PUSH		UI SELECT,	S3+[S] UI BACK
+	MapKeyIO(&Joystick, H4L, UIPrevPanel, UILeft);													// LEFT		UI LEFT,	[S3]+ Previous Panel
+	MapKeyIO(&Joystick, H4R, UINextPanel, UIRight);													// RIGHT	UI RIGHT,	[S3]+ Next Panel
+	MapKeyIO(&Joystick, H4P, UIBack, UISelect);														// PUSH		UI SELECT,	[S3]+[S] UI BACK
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MAP THROTTLE ARM CONTROLS																																	//
@@ -246,13 +246,13 @@ int main()
 
 //	-------------------------Engine Operate Ign/Norm LEFT
 	MapKey(&Throttle, EOLIGN, TEMPO(EXEC("initToggleOptimalPIPMode();"), EXEC("initToggleRotationCorrection();"), LongPressDelay));			// UP
-//	MapKey(&Throttle, EOLNORM, 0);																											// OFF
-//	MapKey(&Throttle, EOLMOTOR, 0);																											// DOWN
+//	MapKey(&Throttle, EOLNORM, 0);																											// <Unmapped> OFF
+//	MapKey(&Throttle, EOLMOTOR, 0);																											// <Unmapped> DOWN
 
 //	-------------------------Engine Operate Ign/Norm RIGHT		initTogglePTTPTP()		initTogglePTTMode()
 	MapKeyIO(&Throttle, EORIGN, TEMPO(EXEC("initTogglePTTPTP();"), EXEC("initTogglePTTMode();"), LongPressDelay), 
 								TEMPO(EXEC("initToggleCamera();"), EXEC("initFPSCONNECTION();"), LongPressDelay));	// UP
-//	MapKey(&Throttle, EORNORM, 0);																					// OFF
+//	MapKey(&Throttle, EORNORM, 0);																					// <Unmapped> OFF
 	MapKey(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));														// DOWN
 	MapKeyR(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));													// DOWN RELEASE
 
@@ -266,12 +266,12 @@ int main()
 //	-------------------------EAC
 	MapKey(&Throttle, EACON, EXEC("initToggleLandingGear();"));														// Switch UP 			(ARM)
 	MapKeyR(&Throttle, EACON, EXEC("initToggleLandingGear();"));													// Switch UP RELEASE
-//	MapKey(&Throttle, EACOFF, 0);																					// Switch DOWN			(OFF)
+//	MapKey(&Throttle, EACOFF, 0);																					// <Unmapped> Switch DOWN			(OFF)
 
 //	-------------------------RDR ALTM
 	MapKey(&Throttle, RDRNRM, EXEC("initToggleCargoScoop();"));														// Switch UP			(NRM)
 	MapKeyR(&Throttle, RDRNRM, EXEC("initToggleCargoScoop();"));													// Switch UP RELEASE
-//	MapKey(&Throttle, RDRDIS, 0);																					// Switch DOWN			(DIS)
+//	MapKey(&Throttle, RDRDIS, 0);																					// <Unmapped> Switch DOWN			(DIS)
 
 
 //--TRHOTTLE-----------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -279,7 +279,7 @@ int main()
 //	-------------------------Throttle Idle Detents LEFT
 	MapKey(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));												// ON	[Locking (Down): Stationary]
 	MapKeyR(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));												// ON RELEASE
-//	MapKey(&Throttle, IDLELOFF, 0);																					// OFF
+//	MapKey(&Throttle, IDLELOFF, 0);																					// <Unmapped> OFF
 
 //	-------------------------Throttle Idle Detents RIGHT
 //	MapKey(&Throttle, IDLERON, 0);																					// ON
