@@ -30,7 +30,7 @@
 	define Rudders	0						//0 for no rudders, 1 for rudders, 2 for T.Flight rudders
 	define USEMFD	0						//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)
 
-	int OptimalPIPMode	=1;					//Automatic PIP Mode: When Hardpoint is Up or Down / When Classified Camera is ON or Off / When Escape Fight / Game Menu / When Fire...
+	int OptimalPIPMode	=1;					//Automatic PIP Mode: When Hardpoint is Up or Down / When Escape Fight / When Fire...		Can be switched on the Fly [S3 + [S]EOLIGN]
 	int SecureRetract	=1;					//Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump => Reset Switch States for Scoop and Gear(Switch)
 
 	int SupecruiseOnThrottle		=0;		//initToggleSuperCruiseMode()	Supercruise if Boost when Throttle > 99%					Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
@@ -43,7 +43,6 @@
 	
 	define VoiceAttack 1					//If VoiceAttack set to 1 : Engine Fuel Flow Switches RIGHT Mute / Unmute Voice Attack
 
-
 //	-------------------------Match This with ED Key binding Ingame (Left if you use Unmodified ED KeyBinding File include with this script)---------------------//
 
 	int FlightAssistGameMode		=0;		//Flight Miscellaneous / Toggle Flight Assist		[HOLD:0, TOGGLE:1]
@@ -51,25 +50,27 @@
 
 	int HardPointsonFireGameMode	=1;		//Weapons / Firing Deploys Hardpoints 				[OFF:0, ON:1]		Can be switched on the Fly
 	int SilentRuningGameMode		=1;		//Cooling / Silent Runing							[HOLD:0, TOGGLE:1]
-
+	
 	int RFlightThrootleGameMode		=0;		//Flight Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
 //	int RDriveThrootleGameMode		=0;		//Drive Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
 
-//	int HeadLookGameMode			=1;		/Driving Mode Switches & Mode Switches / HeadLock	[HOLD:0, TOGGLE:1]
+	int ThrottleAxisRange			=0;		//Flight Throttle / Throttle Axis Range				[Forward only:0, Full Range:1]
+	
+	int HeadLookGameMode			=1;		//Driving Mode Switches & Mode Switches / HeadLock	[HOLD:0, TOGGLE:1]
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	TOGGLE STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	int sCameraMode;					//initToggleCamera()				Classified Camera
-	int sHardPoints;					//initToggleHardpoints()			HardPoints													Can be switched on the Fly [S3 + Switch]
-	int sGears;							//initToggleLandingGear()			Landing Gears												Can be switched on the Fly [S3 + Switch]
-	int sCargo;							//initToggleCargoScoop()			Cargo Scoop													Can be switched on the Fly [S3 + Switch]
-	int sLights;						//initToggleLights()				ShipLights													Can be switched on the Fly [S3 + Switch]
-	int sCombinedFire;					//initToggleCombinedFire()			Combined Fire on Trigger 2 (full depression of trigger)		Can be switched on the Fly [S3 + Switch]
-	int sRCorrection	=1;				//initToggleRotationCorrection()	Rotational Correction	[OFF:0, ON:1]						Can be switched on the Fly [S3 + Switch]
-	int sPTTMode;						//initTogglePTT()/initVoicePTT()	PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]				Can be switched on the Fly
-	int sPTTState;						//initTogglePTT()					Internal / External Mic	[External:[0] Internal:[1]}			Can be switched on the Fly [S3 + Switch]
+	int sHardPoints;					//initToggleHardpoints()			HardPoints												Can be switched on the Fly [S3 + Switch]
+	int sGears;							//initToggleLandingGear()			Landing Gears											Can be switched on the Fly [S3 + Switch]
+	int sCargo;							//initToggleCargoScoop()			Cargo Scoop												Can be switched on the Fly [S3 + Switch]
+	int sLights;						//initToggleLights()				ShipLights												Can be switched on the Fly [S3 + Switch]
+	int sCombinedFire	=0;				//initToggleCombinedFire()			Combined Fire on TG2	[OFF:0, ON:1]					Can be switched on the Fly [[S]S1]
+	int sRCorrection	=1;				//initToggleRotationCorrection()	Rotational Correction	[OFF:0, ON:1]					Can be switched on the Fly [S3 + [L]EOLIGN]
+	int sPTTState		=0;				//initTogglePTTMode()				Internal / External Mic	[External:[0] Internal:[1]}		Can be switched on the Fly [S3 + [S]EORIGN]
+	int sPTTMode		=1;				//initTogglePTTPTP()				PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]			Can be switched on the Fly [S3 + [L]EORIGN]
 	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
 	int sIDLE;							//initToggleIDLEonThrottle()		Throttle IDLE
 	int sFA;							//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
@@ -137,6 +138,7 @@
 	define ToggleReverseThrottleLED			0		//Reverse Throttle LED
 	define ToggleGameMenuLED				0		//Game Menu LED
 	define ToggleOptimalPIPModeLED			LED1	//OptimalPIPMode LED
+	define ToogleHeadLookLED				0		//Head Look
 	
 //--Throttle Backlight (Value 0-255)----------------------------------------------------------------------------------------------------------------------------//
 
@@ -155,12 +157,12 @@
 //	VARIABLES USED IN FUNCTION																																	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int vJoystickCurveProfile;					//Joystick Curve							Can be switched on the Fly [FLAPS]
-	int vJoystickCurveProfileBackup;
-	int vThrottleCurveProfile;					//Throttle Curve							Can be switched on the Fly [S3 + THROTTLE ARM RED BUTTON]
-	int vThrottleLight;
-	int vThrottleLightBackup;
-	int vSecureEscapeFight;
+	int vJoystickCurveProfile;					//initSetJoystickCurves()	initJoystickCurves()	initToggleEnhancedFAOFF()	Can be switched on the Fly [FLAPS]
+	int vJoystickCurveProfileBackup;			//initToggleEnhancedFAOFF()
+	int vThrottleCurveProfile;					//initSetThrottleCurves()														Can be switched on the Fly [S3 + THROTTLE ARM RED BUTTON]
+	int vThrottleLight;							//initLEDStates()
+	int vThrottleLightBackup;					//initToggleIDLEonThrottle()	initLEDStates()	EventHandle()
+	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
 	int vVoicePTT;								//initVoicePTT()
 	int vPTT;									//initVoicePTT()
 	int vVoice;									//initVoicePTT()
@@ -169,6 +171,7 @@
 	int vCS;									//initToggleCargoScoop()
 	int vGameMenu;								//initGameMenu()
 	int vSLonFire;								//initFire()	initToggleSilentRuning()
+	int vHL;									//initToogleHeadLook()
 
 //--PIP Management---------------------------------------------------------------------------------------------------------------------------------------------//
 	
@@ -178,7 +181,7 @@
 	int vOptimalPIPFireBackup;					//initFire()
 	int vOptimalPIPEFBackup;					//initEscapeFight()
 	int vOptimalPIPGMBackup;					//initToggleGameMenu()
-	int vOptimalPIPBCCackup;					//initToggleCamera()
+	int vOptimalPIPCCBackup;					//initToggleCamera()
 
 	//initPIPPower()
 	define SYS 1
@@ -223,7 +226,7 @@
 		printf("		Throttle LED Value On IDLE----------------%d\x0a", ThrottleLEDOnIDLE);
 		printf("		Optimal PIP Mode--------------------------%d\x0a", OptimalPIPMode);
 		printf("		Heat Sink On SilentRuning-----------------%d\x0a", HeatSinkonSilentRuning);
-		printf("		Heat Sink OFF On Fire---------------------%d\x0a", SilentRuningOFFonFire);
+		printf("		Silent Runing OFF On Fire-----------------%d\x0a", SilentRuningOFFonFire);
 //		printf("--------------------------------------------------------------------------\x0a");
 		printf("		Rotation Correction-----------------------%d\x0a", sRCorrection);
 		printf("		Combine Pri+Sec Fire----------------------%d\x0a", sCombinedFire);
@@ -241,6 +244,8 @@
 		printf("		R.Throttle Flight----------HOLD/TOGGLE----%d\x0a", RFlightThrootleGameMode);
 //		printf("		R.Throttle Drive-----------HOLD/TOGGLE----%d\x0a", RDriveThrootleGameMode);
 		printf("		Silent Runing--------------HOLD/TOGGLE----%d\x0a", SilentRuningGameMode);
+		printf("		Head Look------------------HOLD/TOGGLE----%d\x0a", HeadLookGameMode);
+		printf("		Flight Throttle------------FWD/FULL Range-%d\x0a", ThrottleAxisRange);
 		printf("--------------------------------------------------------------------------\x0a");
 	}	
 

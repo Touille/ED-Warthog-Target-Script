@@ -43,7 +43,7 @@
 			}else{
 				if(DebugMode) printf("Landing Gear Reset On The Fly\x0a");
 			}
-		}else{	//Reset On The FLY S3 + SWITCH
+		}else{	//Reset The Flag On The FLY S3 + SWITCH
 			vLG=!vLG;	//Reset vLG
 		}
 		if(DebugMode)printf("Landing Gear	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sGears);
@@ -70,7 +70,7 @@
 			}else{
 				if(DebugMode) printf("Cargo Scoop Reset On The Fly\x0a");
 			}
-		}else{	//Reset On The FLY S3 + SWITCH
+		}else{	//Reset The Flag On The FLY S3 + SWITCH
 			vCS=!vCS;	//Reset vCS
 		}
 		if(DebugMode)printf("Cargo Scoop	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sCargo);
@@ -112,7 +112,7 @@
 				}
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleHardpointsLED, 0);"));	//Put The LED OFF
 			}
-		}else{	//Reset On The FLY S3 + SWITCH
+		}else{	//Reset The Flag On The FLY S3 + SWITCH
 			sHardPoints=!sHardPoints;	//reverse the flag status
 		}
 		if(DebugMode) printf("HardPoints	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sHardPoints);
@@ -132,7 +132,6 @@
 						}else{	//If Heat Sink on Silent Runing is Disable
 							ActKey(KEYON+PULSE+SilentRunning);	//Push The Silent Running Key
 						}
-						if(DebugMode)printf("SL sSL\x0a");
 						ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 1);"));	//Put The LED ON
 					}
 					if(DebugMode) printf("Silent Runing	Toggle 1rst Push [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
@@ -141,7 +140,6 @@
 					sSilentRuning=!sSilentRuning;	//reverse the silent runing flag status
 					ActKey(KEYON+PULSE+SilentRunning);	//Push The Silent Running Key
 					ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 0);"));	//Put The LED OFF
-					if(DebugMode)printf("SL !sSL\x0a");
 					if(DebugMode) printf("Silent Runing	Toggle 2nd Push [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 				}
 			}else{	//Silent Runing [HOLD] Mode Engage
@@ -303,7 +301,7 @@
 		if(sSilentRuning){ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}	//If Silent Runing is Engaged, Disengade it
 		if(sCameraMode){	//Open The Camera Mode
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				vOptimalPIPBCCackup = vOptimalPIP;	//Backup Actual PIP Mode				
+				vOptimalPIPCCBackup = vOptimalPIP;	//Backup Actual PIP Mode				
 				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
 					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//PIP Mode 4xSYS 2xENG
 				}
@@ -314,14 +312,45 @@
 			ActKey(KEYON+PULSE+ClassifiedCamera);	//Push The Camera Mode Key
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 0);"));	//Put The LED OFF
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				if(vOptimalPIPBCCackup != vOptimalPIP){
+				if(vOptimalPIPCCBackup != vOptimalPIP){
 					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(CC);"));	//Restore Previous PIP Mode
 				}
 			}
 		}
 		if(DebugMode) printf("Classified Camera	[%d]	[ON:[1] OFF:[0]]\x0a", sCameraMode);
 	}
-	
+
+	//TOGGLE: Head Look
+	int initToogleHeadLook(){																	
+		if(!HMD & !TrackIR){	//Only IF No HMD & No Trackir
+			if(Throttle[SC]){
+				if(HeadLookGameMode){	//HeadLook [TOGGLE] Mode Ingame
+					vHL=!vHL;	//reverse the flag status
+					if(vHL){	//HeadLook [TOGGLE] Mode First Pulse Engage
+						if(DebugMode) printf("HeadLook [Toggle] Engaged\x0a");
+						ActKey(KEYON+PULSE+HeadLook);						
+						ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 1);"));	//Put The LED ON
+					}
+					if(!vHL){	//HeadLook [TOGGLE] Mode Second Pulse DisEngage				
+						if(DebugMode) printf("HeadLook [Toggle] Disengaged\x0a");
+						ActKey(KEYON+PULSE+HeadLook);
+						ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 0);"));	//Put The LED OFF
+					}
+				}else{	//HeadLook [HOLD] Mode Ingame Engage
+					if(DebugMode)printf("HeadLook [HOLD] Engaged\x0a");
+					ActKey(KEYON+DOWN+HeadLook);
+					ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 1);"));	//Put The LED ON
+				}
+			}else{	//If Button Is Released
+				if(!HeadLookGameMode){	//HeadLook [HOLD] Mode Ingame DisEngage
+					if(DebugMode)printf("HeadLook [HOLD] DisEngaged\x0a");
+					ActKey(KEYON+UP+HeadLook);
+					ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 0);"));	//Put The LED OFF
+				}
+			}
+		}
+	}
+
 	//TOGGLE: GameMenu
 	int initToggleGameMenu(){
 		vGameMenu=!vGameMenu;	//reverse the flag status
@@ -365,19 +394,20 @@
 		}
 	}
 	
-	//TOGGLE: PTT/PTP & External/Internal Voice
-	int initTogglePTT(){
-		if(!Joystick[S3]){	//Without S3 Change betwen Push To Talk and Push Talk Push																								
-			sPTTMode=!sPTTMode;	//reverse the flag status
-			if(sPTTMode)ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTModeLED, 1);"));	//Put The LED ON
-			else ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTModeLED, 0);"));	//Put The LED OFF
-			if(DebugMode) printf("PTTMode Change	[%d]	[HOLD:[0] TOGGLE:[1]]\x0a", sPTTMode);
-		}else{	//With S3 Change betwen External and Internel Voice	
-			sPTTState=!sPTTState;	//reverse the flag status
-			if(sPTTState)ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTLED, 1);"));	//Put The LED ON
-			else ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTLED, 0);"));	//Put The LED OFF
-			if(DebugMode) printf("Mic Change		[%d]	[External:[0]Internal:[1]]\x0a", sPTTState);
-		}
+	//TOGGLE: PTT/PTP
+	int initTogglePTTPTP(){
+		sPTTMode=!sPTTMode;	//reverse the flag status
+		if(sPTTMode)ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTModeLED, 1);"));	//Put The LED ON
+		else ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTModeLED, 0);"));	//Put The LED OFF
+		if(DebugMode) printf("PTTMode Change	[%d]	[HOLD:[0] TOGGLE:[1]]\x0a", sPTTMode);
+	}
+	
+	//TOGGLE: External/Internal Voice
+	int initTogglePTTMode(){
+		sPTTState=!sPTTState;	//reverse the flag status
+		if(sPTTState)ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTLED, 1);"));	//Put The LED ON
+		else ActKey(KEYON+PULSE+EXEC("initLED(TogglePTTLED, 0);"));	//Put The LED OFF
+		if(DebugMode) printf("Mic Change		[%d]	[External:[0]Internal:[1]]\x0a", sPTTState);
 	}
 	
 	//TOGGLE Voice Attack Mic
@@ -411,27 +441,6 @@
 		if(TrackIR){
 			ActKey(KEYON+PULSE+TrackIRCenter);
 			if(DebugMode)printf("TrackIR Center\x0a");
-		}
-	}
-	
-	//FUNCTION: Head Focus
-	int initHeadFocus(){
-		if(TrackIR){
-			if(Throttle[SC]){
-				ActKey(KEYON+PULSE+TrackIRPause);
-				if(DebugMode)printf("TrackIR Pause\x0a");
-			}
-		}
-		if(HMD){if(DebugMode)printf("HMD This Key do Nothing\x0a");}
-		if(!HMD & !TrackIR){
-			if(Throttle[SC]){			
-				ActKey(KEYON+DOWN+UIFocus);
-				if(DebugMode)printf("UIFocus ON\x0a");
-			}
-			else{
-				ActKey(KEYON+UP+UIFocus);
-				if(DebugMode)printf("UIFocus OFF\x0a");
-			}			
 		}
 	}
 	
@@ -492,7 +501,7 @@
 			}			
 			if(Joystick[TG1]){ActKey(KEYON+DOWN+PrimaryFire);}
 			if(Joystick[S2]){ActKey(KEYON+DOWN+SecondaryFire);}
-			if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
+			//if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
 		}else{				//RELEASE THE TG1 or S2 BUTTON
 			if(!Joystick[TG1]){ActKey(KEYON+UP+PrimaryFire);}
 			if(!Joystick[S2]){ActKey(KEYON+UP+SecondaryFire);}
@@ -509,7 +518,7 @@
 			if(SilentRuningOFFonFire & sSilentRuning & vSLonFire & !Joystick[S2] & !Joystick[TG1]){
 				vSLonFire=!vSLonFire;	//reverse the flag status
 			}
-			if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
+			//if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
 		}
 	}
 	
@@ -593,9 +602,9 @@
 	
 	//FUNCTION: Request Docking
 	int initRCDocking(){
+		if(DebugMode) printf("Docking Initialisation\x0a");
 		if(SecureRetract){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}
 		ActKey(KEYON+PULSE+mRequestCancelDock);
-		if(DebugMode) printf("Docking Initialisation\x0a");
 		if(OptimalPIPMode){	//If Optimal Mode is Enable
 			DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//You can Modify delay : 3000 is default (3sec)
 		}

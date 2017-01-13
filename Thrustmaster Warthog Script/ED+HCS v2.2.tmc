@@ -113,14 +113,14 @@ int main()
 	MapKey(&Joystick, TG1, EXEC("initFire();"));
 	MapKeyR(&Joystick, TG1, EXEC("initFire();"));
 
-	MapKey(&Joystick, TG2, 0);																						// Reseved for Macro initCombinedFire
+	MapKey(&Joystick, TG2, 0);	// Reseved for initCombinedFire()
 
 	MapKey(&Joystick, S1, TEMPO(EXEC("initToggleCombinedFire();"), EXEC("initToggleHardpoints();"), LongPressDelay));
 
 	MapKey(&Joystick, S2, EXEC("initFire();"));
 	MapKeyR(&Joystick, S2, EXEC("initFire();"));
 
-//	MapKey(&Joystick, S3, 0);																						// Modifier S3 don't touch this
+//	MapKey(&Joystick, S3, 0);	// Modifier S3 don't touch this
 	
 	MapKey(&Joystick, S4, EXEC(" initToggleEnhancedFAOFF();"));
 	MapKeyR(&Joystick, S4, EXEC(" initToggleEnhancedFAOFF();"));
@@ -161,8 +161,8 @@ int main()
 //--BUTTON------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 //	-------------------------Slew Control Push
-	MapKey(&Throttle, SC, EXEC("initHeadFocus();"));							//IF HMD : 0, IF TRACKIR : TrackIR Pause, IF !HMD & !TRACKIR : UI FOCUS		
-	MapKeyR(&Throttle, SC, EXEC("initHeadFocus();"));
+	MapKey(&Throttle, SC, EXEC("initToogleHeadLook();"));	//ONLY IF !HMD & !TRACKIR : Head Look		
+	MapKeyR(&Throttle, SC, EXEC("initToogleHeadLook();"));
 
 //	-------------------------Left Throttle Button (RED)
 	MapKeyIO(&Throttle, LTB, EXEC("initSetThrottleCurves();"), EXEC("initToggleReverseThrottle();"));
@@ -245,12 +245,13 @@ int main()
 	MapKey(&Throttle, EFROVER, EXEC("initToggleVoiceAttackMic();"));												// Switch DOWN
 
 //	-------------------------Engine Operate Ign/Norm LEFT
-	MapKey(&Throttle, EOLIGN, TEMPO(EXEC("initToggleOptimalPIPMode();"), EXEC("initToggleRotationCorrection();"), ExtraPressDelay));		// UP
+	MapKey(&Throttle, EOLIGN, TEMPO(EXEC("initToggleOptimalPIPMode();"), EXEC("initToggleRotationCorrection();"), LongPressDelay));			// UP
 //	MapKey(&Throttle, EOLNORM, 0);																											// OFF
-	MapKey(&Throttle, EOLMOTOR, EXEC("initFPSCONNECTION();"));																				// DOWN
+//	MapKey(&Throttle, EOLMOTOR, 0);																											// DOWN
 
-//	-------------------------Engine Operate Ign/Norm RIGHT
-	MapKey(&Throttle, EORIGN, TEMPO(EXEC("initToggleCamera();"), EXEC("initTogglePTT();"), ExtraPressDelay));		// UP
+//	-------------------------Engine Operate Ign/Norm RIGHT		initTogglePTTPTP()		initTogglePTTMode()
+	MapKeyIO(&Throttle, EORIGN, TEMPO(EXEC("initTogglePTTPTP();"), EXEC("initTogglePTTMode();"), LongPressDelay), 
+								TEMPO(EXEC("initToggleCamera();"), EXEC("initFPSCONNECTION();"), LongPressDelay));	// UP
 //	MapKey(&Throttle, EORNORM, 0);																					// OFF
 	MapKey(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));														// DOWN
 	MapKeyR(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));													// DOWN RELEASE
@@ -368,7 +369,7 @@ int main()
 	//Set Default Throttle Axis
 	int initThrottleAxis(){	
 		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
-		MapAxis(&Throttle, THR_LEFT, DX_ZROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Left Throttle
+		MapAxis(&Throttle, THR_LEFT, 0, AXIS_NORMAL, MAP_ABSOLUTE);								// Set Left Throttle / DX_ZROT_AXIS / We don't Use It Yet In ED
 		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling) 
 		SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));				// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
 	}
@@ -376,11 +377,12 @@ int main()
 	//Set Throttle Curve two different presets are selectable On The Fly (S3 + RED Button on Throttle Arm)
 	int initSetThrottleCurves(){
 		vThrottleCurveProfile=!vThrottleCurveProfile;
-		TrimDXAxis(DX_Z_AXIS, SET(0));
-		if(vThrottleCurveProfile)SetJCurve(&Throttle, THR_RIGHT, 50, 50);
-		else{
-			if(AfterburnerDetent)SetJCurve(&Throttle, THR_RIGHT, 65, 95); //At 65% of the physical controller’s axis travel, the DirectX axis must have reached 95% of the axis value.	
-			else SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 2, -2);
+		if(vThrottleCurveProfile){
+			if(!AfterburnerDetent)SetJCurve(&Throttle, THR_RIGHT, 50, 50);	//Without Warthog Physical Afterburner Detent
+			else SetJCurve(&Throttle, THR_RIGHT, 65, 95); //At 65% of the physical controller’s axis travel, the DirectX axis must have reached 95% of the axis value.
+		}else{
+			if(ThrottleAxisRange)SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 2, -3);	//Full Range Precision
+			else SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 3, -3);	//Forward only Precision
 		}
 		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
 		if(DebugMode)printf("Set	Throttle	Curve Profile[%d}\x0a", vThrottleCurveProfile);

@@ -151,6 +151,7 @@
 //	define NVidiaCaptureManual		L_ALT+USB[0x42]			// <Disabled> ALT+F9
 
 	//HEADLOOK//
+	define HeadLook					USB[0x5D]				// NUMPAD 5			
 //	define LookUp					DXHATUP					// <Disabled>
 //	define LookDown					DXHATDOWN				// <Disabled>
 //	define LookLeft					DXHATLEFT				// <Disabled>
