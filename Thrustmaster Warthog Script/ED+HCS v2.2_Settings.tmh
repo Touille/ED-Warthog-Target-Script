@@ -1,4 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
+//	V2.2.03.1R	14/01/2017
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,36 +20,58 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	BASE SETTINGS																																				//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	
+	define PulseTime 25					//PULSE+ Delay time 25
+	define DelayTime 75					//D() Delay time 75
+	define KBLayout KB_ENG				//Default Keyboard Layout KB_ENG
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PERSONAL SETTINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int DebugMode	=1;						//If 1 Target Script Editor Window will Display Debug Msg
+	int DebugMode					=1;		//If 1 Target Script Editor Window will Display Debug Msg
 
-	int HMD		=1;							//If HMD set to 1 and set TrackIR to 0
-	int TrackIR	=0;							//If TrackIR set to 1 and set HMD to 0
-	
 	define Rudders	0						//0 for no rudders, 1 for rudders, 2 for T.Flight rudders
 	define USEMFD	0						//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)
+	
+	int HMD							=1;		//If HMD set to 1 and set TrackIR to 0
+	int TrackIR						=0;		//If TrackIR set to 1 and set HMD to 0
+	int VoiceAttack					=1;		//If VoiceAttack Used set to 1 : Engine Operate Ign/Norm LEFT Down Toggle VA Mic	
 
-	int OptimalPIPMode	=1;					//Automatic PIP Mode: When Hardpoint is Up or Down / When Escape Fight / When Fire...		Can be switched on the Fly [S3 + [S]EOLIGN]
-	int SecureRetract	=1;					//Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump => Reset Switch States for Scoop and Gear(Switch)
-
-	int SupecruiseOnThrottle		=0;		//initToggleSuperCruiseMode()	Supercruise if Boost when Throttle > 99%					Can be switched on the Fly [Long Press S3 + Speedbrake BACK]
 	int GameMenuOnIDLE				=0;		//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
 	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
-	int StopFireRetractHardpoints	=1;		//Weapons / Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1		[OFF:0, ON:1]		Can be switched on the Fly
-
-	int SilentRuningOFFonFire	=1;			//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}										IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Short Data Management Switch UP
-	int HeatSinkonSilentRuning	=0;			//initToggleHeatSinkonSilentRuning()	[WARNING : Heat Sink Is limited Use with Caution] Automatic HeatSink On Silent Runing	IF SilentRuningGameMode is Set to [1]	Can be switched on the Fly Long Data Management Switch UP
 	
-	define VoiceAttack 1					//If VoiceAttack set to 1 : Engine Fuel Flow Switches RIGHT Mute / Unmute Voice Attack
+//	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
+
+	//Throttle Engine Operate Ign/Norm Right UP
+	int OptimalPIPMode				=1;		//Automatic PIP Mode: When Hardpoint is Up or Down / When Escape Fight / When Fire...			[S]
+	int StopFireRetractHardpoints	=1;		//Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1					[L]
+	int SecureRetract				=1;		//Automatic Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump		[S3]+[S]
+	int sRCorrection				=1;		//Rotational Correction	[OFF:0, ON:1]															[S3]+[L]
+	
+	//Throttle Engine Operate Ign/Norm Left UP
+	int sPTTState					=0;		//Internal / External Mic	[External:[0] Internal:[1]}		[S3]+[S]
+	int sPTTMode					=1;		//PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]			[S3]+[L]
+	
+	//Throttle Arm Speedbrake BACK
+	int SupecruiseOnThrottle		=0;		//Supercruise if Boost when Throttle > 99%														[S]														
+
+	//Joystick Data Management Switch UP (DMS) Effect Apply only if SilentRuningGameMode is Set to [1]
+	int SilentRuningOFFonFire		=1;		//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}		[S]
+	int HeatSinkonSilentRuning		=0;		//initToggleHeatSinkonSilentRuning()	Automatic HeatSink On Silent Runing						[EL]
+	
+	//Joystick Master Mode Control Button
+	int sCombinedFire				=0;		//Combined Fire on TG2		[OFF:0, ON:1]					[S]
+
 
 //	-------------------------Match This with ED Key binding Ingame (Left if you use Unmodified ED KeyBinding File include with this script)---------------------//
 
 	int FlightAssistGameMode		=0;		//Flight Miscellaneous / Toggle Flight Assist		[HOLD:0, TOGGLE:1]
 //	int DriveAssistGameMode			=0;		//Driving / Drive Assist							[HOLD:0, TOGGLE:1]
 
-	int HardPointsonFireGameMode	=1;		//Weapons / Firing Deploys Hardpoints 				[OFF:0, ON:1]		Can be switched on the Fly
+	int HardPointsonFireGameMode	=1;		//Weapons / Firing Deploys Hardpoints 				[OFF:0, ON:1]
 	int SilentRuningGameMode		=1;		//Cooling / Silent Runing							[HOLD:0, TOGGLE:1]
 	
 	int RFlightThrootleGameMode		=0;		//Flight Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
@@ -59,32 +82,81 @@
 	int HeadLookGameMode			=1;		//Driving Mode Switches & Mode Switches / HeadLock	[HOLD:0, TOGGLE:1]
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	TOGGLE STATES																																				//
+//	AXIS CURVES																																					//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	define FAOffCurve 2						//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
 	
-	int sCameraMode;					//initToggleCamera()				Classified Camera
-	int sHardPoints;					//initToggleHardpoints()			HardPoints												Can be switched on the Fly [S3 + Switch]
-	int sGears;							//initToggleLandingGear()			Landing Gears											Can be switched on the Fly [S3 + Switch]
-	int sCargo;							//initToggleCargoScoop()			Cargo Scoop												Can be switched on the Fly [S3 + Switch]
-	int sLights;						//initToggleLights()				ShipLights												Can be switched on the Fly [S3 + Switch]
-	int sCombinedFire	=0;				//initToggleCombinedFire()			Combined Fire on TG2	[OFF:0, ON:1]					Can be switched on the Fly [[S]S1]
-	int sRCorrection	=1;				//initToggleRotationCorrection()	Rotational Correction	[OFF:0, ON:1]					Can be switched on the Fly [S3 + [L]EOLIGN]
-	int sPTTState		=0;				//initTogglePTTMode()				Internal / External Mic	[External:[0] Internal:[1]}		Can be switched on the Fly [S3 + [S]EORIGN]
-	int sPTTMode		=1;				//initTogglePTTPTP()				PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]			Can be switched on the Fly [S3 + [L]EORIGN]
-	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
-	int sIDLE;							//initToggleIDLEonThrottle()		Throttle IDLE
-	int sFA;							//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
-	int sSL;							//initToggleSilentRuning()			Silent Runing [TOGGLE] Mode Ingame
-	int sRT;							//initToggleReverseThrottle()		Reverse Throttle
-	int sVoiceAttack;					//initToggleVoiceAttackMic()		Voice Attack Mic
+	//Joystick			Up,M,Down
+	short JS_CURVE[] = {0, 1, 2};			//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
+	short JS_ZOOM[]  = {1, 0, -1};
+	define JS_DEADZONE 1					//Set the JS Deadzone.. use the Device Analyzer to validate
+
+	//Slew				Up,M,Down
+	short SL_CURVE[] = {0, 1, 2};			//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
+	short SL_ZOOM[]  = {1, 0, -1};
+	define SL_DEADZONE 1					//Set the SL Deadzone.. use the Device Analyzer to validate
+	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	LED SETTINGS // Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 // 5 LED's MAXIMUM																								//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	define ToggleOptimalPIPModeLED				LED1
+	define ToggleSecureRetractLED				LED2
+	define ToggleSuperCruiseModeLED				LED3
+	define ToggleSilentRuningonFireLED			LED4
+	define ToggleStopFireRetractHardpointsLED	LED5		//Retract HardPoints When Fire OFF LED
+	define ToggleHeatSinkonSilentRuningLED		0
+	define ToggleLandingGearLED					0
+	define ToggleCargoScoopLED					0
+	define ToggleLightsLED						0
+	define ToggleHardpointsLED					0
+	define ToggleCombinedFireLED				0	
+	define ToggleRCorrectionLED					0
+	define ToggleCameraLED						0
+	define TogglePTTLED							0
+	define ToggleVoicePTTLED					0
+	define TogglePTTModeLED						0
+	define ToggleSilentRuningLED				0
+	define ToggleIDLEonThrottleLED				0		//IDLE LED Work only if ThrottleLEDOnIDLE != 0
+	define ToggleFALED							0		//Flight Assist LED
+	define ToggleVALED							0		//Voice Attack Mic LED
+	define ToggleReverseThrottleLED				0
+	define ToggleGameMenuLED					0
+	define ToogleHeadLookLED					0
+	
+		
+//	--Throttle Backlight (Value 0-255)--------------------------------------------------------------------------------------------------------------------------//
+
+	// 0 to 42		is OFF
+	// 43 to 85		is level 1
+	// 86 to 128	is level 2
+	// 129 to 171	is level 3
+	// 172 to 214	is level 4
+	// 215 to 255	is level 5
+	
+	define ThrottleLight 		255				//Base Throttle LED Intensity
+	define ThrottleLightHMD 	85				//Base Throttle LED Intensity when HMD Use
+	define ThrottleLEDOnIDLE	0				//Throttle LED Intensity on Throttle IDLE State
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	BASE SETTINGS																																				//
+//	TOGGLE STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int sIDLE;							//initToggleIDLEonThrottle()		Throttle IDLE
+	int sVoiceAttack;					//initToggleVoiceAttackMic()		Voice Attack Mic
+	int sRT;							//initToggleReverseThrottle()		Reverse Throttle
 	
-	define PulseTime 25					//PULSE+ Delay time 25
-	define DelayTime 75					//D() Delay time 75
-	define KBLayout KB_ENG				//Default Keyboard Layout KB_ENG
+//	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
+	
+	int sCameraMode;					//initToggleCamera()				Classified Camera	
+	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
+	
+	//If Misaligned With Game [S3]+Toggle The Switch
+	int sHardPoints;					//initToggleHardpoints()			HardPoints												
+	int sGears;							//initToggleLandingGear()			Landing Gears											
+	int sCargo;							//initToggleCargoScoop()			Cargo Scoop
+	int sLights;						//initToggleLights()				ShipLights
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PRESS & PULSE DELAY SETTINGS																																		//
@@ -105,7 +177,7 @@
 	define ExtraPulseDelay	2000		//Longest Delay 2000
 
 	//FSD OFF DELAY MACRO: Safe System Jump
-	define FSDOFFDelay		25000		//When to Press 0 Speed Key after Engaging FSD (Safe System Jump)Longest Delay 25000
+	define FSDOFFDelay		25000		//When to Press 0 Speed Key after Engaging FSD (Safe System Jump) Delay 25000
 	
 	//PIP DELAY
 	define PIPPressDelay	350			//PIP Press Key Delay 350
@@ -113,45 +185,6 @@
 	
 	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	define HeatSinkonSilentRuningDelay 8000
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	LED SETTINGS // LED1, LED2, LED3, LED4, LED5 // 5 LED's MAXIMUM																								//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	define ToggleLandingGearLED				0
-	define ToggleCargoScoopLED				0
-	define ToggleLightsLED					0
-	define ToggleHardpointsLED				0
-	define ToggleCombinedFireLED			LED4
-	define ToggleRCorrectionLED				0
-	define ToggleCameraLED					0
-	define ToggleSuperCruiseModeLED			LED5
-	define TogglePTTLED						0
-	define ToggleVoicePTTLED				0
-	define TogglePTTModeLED					0
-	define ToggleSilentRuningLED			0
-	define ToggleSilentRuningonFireLED		LED2
-	define ToggleHeatSinkonSilentRuningLED	LED3
-	define ToggleIDLEonThrottleLED			0		//IDLE LED Work only if ThrottleLEDOnIDLE != 0
-	define ToggleFALED						0		//Flight Assist LED
-	define ToggleVALED						0		//Voice Attack Mic LED
-	define ToggleReverseThrottleLED			0		//Reverse Throttle LED
-	define ToggleGameMenuLED				0		//Game Menu LED
-	define ToggleOptimalPIPModeLED			LED1	//OptimalPIPMode LED
-	define ToogleHeadLookLED				0		//Head Look
-	
-//--Throttle Backlight (Value 0-255)----------------------------------------------------------------------------------------------------------------------------//
-
-	// 0 to 42		is OFF
-	// 43 to 85		is level 1
-	// 86 to 128	is level 2
-	// 129 to 171	is level 3
-	// 172 to 214	is level 4
-	// 215 to 255	is level 5
-	
-	define ThrottleLight 		255				//Base Throttle LED Intensity
-	define ThrottleLightHMD 	85				//Base Throttle LED Intensity when HMD Use
-	define ThrottleLEDOnIDLE	0				//Throttle LED Intensity on Throttle IDLE State
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	VARIABLES USED IN FUNCTION																																	//
@@ -172,8 +205,10 @@
 	int vGameMenu;								//initGameMenu()
 	int vSLonFire;								//initFire()	initToggleSilentRuning()
 	int vHL;									//initToogleHeadLook()
-
-//--PIP Management---------------------------------------------------------------------------------------------------------------------------------------------//
+	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
+	int vSL;									//initToggleSilentRuning()			Silent Runing [TOGGLE] Mode Ingame
+	
+//	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//PIP Management Backup
 	int vOptimalPIP;							//initPIPPower()	initFire()	initToggleHardpoints()
@@ -197,23 +232,7 @@
 	define GM 4
 	define CC 5
 	int PIPRestore;
-	
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	AXIS CURVES																																					//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	define FAOffCurve 2											//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
-	
-//	Joystick			Up,M,Down
-	short JS_CURVE[] = {0, 1, 2};								//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
-	short JS_ZOOM[]  = {1, 0, -1};
-	define JS_DEADZONE 1										//Set the JS Deadzone.. use the Device Analyzer to validate
-
-//	Slew				Up,M,Down
-	short SL_CURVE[] = {0, 1, 2};								//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
-	short SL_ZOOM[]  = {1, 0, -1};
-	define SL_DEADZONE 1										//Set the SL Deadzone.. use the Device Analyzer to validate
-	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	REPORT STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

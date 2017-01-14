@@ -1,14 +1,14 @@
-# 2.2.1.7r 13/01/2017 (Pre Release)
+# 2.2.03.1R 14/01/2017
 
 - [x] Complete
-- [ ] Work but Incomplete / Need More Test
+- [ ] Implemented / Need More Test
 
 ### FEATURES:
 
 - [ ] Support MFD (2), Rudders and T.Flight rudders (NOT TESTED YET)
 - [x] HMD / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity
-- [ ] Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction (if misaligned with game states just switch (it's should work))
-- [x] Easy Debug Msg OFF (Debugmode 0/1 In Settings File)
+- [ ] Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction (if misaligned with game states just switch (it's should work) Or Press S3 + Switch)
+- [x] Easy Debug Msg OFF (Debugmode OFF (0) Or ON (1) In Settings File)
 - [x] Supercruise On Throttle when boosting if throttle at 100%. Can be switched On or Off On The Fly
 - [x] Game Menu Up on Idle Throttle states. (Setup In Settings File)
 - [x] Secure Retract Mode : Automatic Retract of Hardpoint Gear and cargo  when engaging Escape Fight Mode, Supercruise, FrameshiftDrive,...
@@ -25,23 +25,23 @@
 	
 ### PIP:
 
-- [x] Automatic PIP Mode When Deploy or Retract Hardpoints, Escape Fight, Fire, Game Menu, ... (Setup In Settings File ON or OFF)
+- [x] Automatic PIP Mode (Backup & Restrore previous PIP Mode) When Deploy or Retract Hardpoints, Escape Fight, Fire, Game Menu, ... (Setup In Settings File ON or OFF). Can be switched On or Off On The Fly
 - [x] PIP Management Hat Switch offering 8 different presets depending how long you hold down the button.
 
 ### PTT:
 
-- [x] Default PTT Mode (Toggle or Hold). Can be switched  On The Fly (Long Press Engine Operate Ign/Norm RIGHT)
+- [x] Default PTT Mode (Toggle or Hold). Can be switched  On The Fly (S3 (Joystick Nosewhell Steering Button) + Short Press Engine Operate Ign/Norm RIGHT)
 - [x] Default PTT (Internal or External). Can be switched On The Fly (S3 (Joystick Nosewhell Steering Button) + Long Press Engine Operate Ign/Norm RIGHT)
 	
 ### HEAT SINK:
 
 - [ ] Automatic Heat Sink On Silent Runing Can be switched  On The Fly (Long Data Management Switch UP)
-- [x] Automatic Silent Runing OFF/ON when Fire (if silent runing is up before fire)  Can be switched  On The Fly (Short Data Management Switch UP)
+- [x] Automatic Silent Runing Off & On when Fire (if silent runing is up before fire) and for other functions. Can be switched  On The Fly (Short Data Management Switch UP)
 
 ### JOYSTICK & THROTTLE CURVE:
 
 - [x] 3 Joystick Curve Switchable On The Fly (slew stick is include in this function) (Setup the Curve In Settings File. Switch In Game With Throttle FLAPS)
-- [x] 2 Throttle Curve Switchable On The Fly (normal & precison). Can be switched On or Off On The Fly (S3 (Joystick Nosewhell Steering Button) + Press RED Button on Throttle Arm)
+- [x] 2 Throttle Curve Switchable On The Fly (normal & precison). Can be switched On & Off On The Fly (S3 (Joystick Nosewhell Steering Button) + Press RED Button on Throttle Arm)
 - [x] Enhanced Joystick Curves tailored for Flight Assist Off (Joystick Curve will return to previous state when FAON) (Setup In Settings File)
 
 ### AUTOPILOT MODE:

@@ -1,4 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
+//	V2.2.03.1R	14/01/2017
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -92,7 +93,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V.2.2.1.7r----13/01/2017------------------------\x0a");
+	printf("--------------------------V2.2.03.1R----14/01/2017------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -108,7 +109,7 @@ int main()
 //	MAP JOYSTICK CONTROLS																																		//																						
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//--BUTTON------------------------------------------------------------------------------------------------------------------------------------------------------//
+//--JOYSTICK BUTTON---------------------------------------------------------------------------------------------------------------------------------------------//
 
 	MapKey(&Joystick, TG1, EXEC("initFire();"));
 	MapKeyR(&Joystick, TG1, EXEC("initFire();"));
@@ -120,34 +121,34 @@ int main()
 	MapKey(&Joystick, S2, EXEC("initFire();"));
 	MapKeyR(&Joystick, S2, EXEC("initFire();"));
 
-//	MapKey(&Joystick, S3, 0);	// Modifier S3 don't touch this
+	//MapKey(&Joystick, S3, 0);	// Modifier S3 don't touch this
 	
 	MapKey(&Joystick, S4, EXEC(" initToggleEnhancedFAOFF();"));
 	MapKeyR(&Joystick, S4, EXEC(" initToggleEnhancedFAOFF();"));
 
-//--HAT---------------------------------------------------------------------------------------------------------------------------------------------------------//
+//--JOYSTICK HAT------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//	-------------------------Trim Switch
+	//	-------------------------Trim Switch
 	MapKey(&Joystick, H1U, TEMPO(PowerEng, TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));				// UP		PIPS[Short: 1xENG,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP]
 	MapKey(&Joystick, H1D, TEMPO(BalancePower, TEMPO(EXEC("initPIPPower(WEP,SYS,MID);"), EXEC("initPIPPower(WEP,ENG,MID);"), PIPPressDelay), PIPPressDelay));	// DOWN		PIPS[Short: Balance,Med: Tank,			Long: Offensive]
 	MapKey(&Joystick, H1L, TEMPO(PowerSys, TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));				// LEFT		PIPS[Short: 1xSYS,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP]
 	MapKey(&Joystick, H1R, TEMPO(PowerWep, TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));				// RIGHT	PIPS[Short: 1xWEP,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS]
 
 
-//	-------------------------Target Management Switch (TMS)
+	//	-------------------------Target Management Switch (TMS)
 	MapKey(&Joystick, H2U, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay));													// UP
 	MapKey(&Joystick, H2D, PULSE+SelectNextSystemInRoute);																								// DOWN
 	MapKey(&Joystick, H2L, TEMPO(PULSE+SelectPrevShip, TEMPO(PULSE+SelectPrevHostileShip, PULSE+SelectPrevSubsystem, LongPressDelay), LongPressDelay));	// LEFT
 	MapKey(&Joystick, H2R, TEMPO(PULSE+SelectNextShip, TEMPO(PULSE+SelectNextHostileShip, PULSE+SelectNextSubsystem, LongPressDelay), LongPressDelay));	// RIGHT
 	
-//	-------------------------Data Management Switch (DMS)
+	//	-------------------------Data Management Switch (DMS)
 	MapKeyIO(&Joystick, H3U, PULSE+CommsPanel, TEMPO(EXEC("initToggleSilentRuningOFFonFire();"), EXEC("initToggleHeatSinkonSilentRuning();"), ExtraPressDelay));	// UP
 	MapKeyIO(&Joystick, H3D, PULSE+RolePanel, TEMPO(0,EXEC("initToggleSilentRuning();"), LongPressDelay));															// DOWN
 	MapKeyRIO(&Joystick, H3D, 0,EXEC("initToggleSilentRuning();"));																									// DOWN RELEASE
 	MapKeyIO(&Joystick, H3L, PULSE+TargetPanel, PrevFireGroup); 																									// /LEFT
 	MapKeyIO(&Joystick, H3R, PULSE+SystemPanel, NextFireGroup); 																									// RIGHT
 
-//	-------------------------Countermeasures Management Switch (CMS)
+	//	-------------------------Countermeasures Management Switch (CMS)
 	MapKey(&Joystick, H4U, UIUp);																	// UP		UI UP
 	MapKey(&Joystick, H4D, UIDown);																	// DOWN		UI DOWN
 	MapKeyIO(&Joystick, H4L, UIPrevPanel, UILeft);													// LEFT		UI LEFT,	[S3]+ Previous Panel
@@ -158,130 +159,132 @@ int main()
 //	MAP THROTTLE ARM CONTROLS																																	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//--BUTTON------------------------------------------------------------------------------------------------------------------------------------------------------//
+//--THROTTLE ARM BUTTON-----------------------------------------------------------------------------------------------------------------------------------------//
 
-//	-------------------------Slew Control Push
+	//	-------------------------Slew Control Push
 	MapKey(&Throttle, SC, EXEC("initToogleHeadLook();"));	//ONLY IF !HMD & !TRACKIR : Head Look		
 	MapKeyR(&Throttle, SC, EXEC("initToogleHeadLook();"));
 
-//	-------------------------Left Throttle Button (RED)
+	//	-------------------------Left Throttle Button (RED)
 	MapKeyIO(&Throttle, LTB, EXEC("initSetThrottleCurves();"), EXEC("initToggleReverseThrottle();"));
 	MapKeyRIO(&Throttle, LTB, 0, EXEC("initToggleReverseThrottle();"));
 
-//	-------------------------Mic Switch
+	//	-------------------------Mic Switch
 	MapKey(&Throttle, MSP, EXEC("initVoicePTT();"));
 	MapKeyR(&Throttle, MSP, EXEC("initVoicePTT();"));
 
-//--HAT---------------------------------------------------------------------------------------------------------------------------------------------------------//
+//--THROTTLE ARM HAT--------------------------------------------------------------------------------------------------------------------------------------------//
 
-//	-------------------------Mic Switch
+	//	-------------------------Mic Switch
 	MapKeyIO(&Throttle, MSU, TEMPO(PULSE+FighterFocus, PULSE+FighterDock, LongPressDelay), TEMPO(PULSE+WingmanTarget, PULSE+WingmanNavlock, LongPressDelay));	// UP
 	MapKeyIO(&Throttle, MSD, TEMPO(PULSE+FighterFollow, PULSE+FighterOrders, LongPressDelay), PULSE+SelectWingman2);											// DOWN
 	MapKeyIO(&Throttle, MSL, TEMPO(PULSE+FighterHoldPosition, PULSE+FighterDefensive, LongPressDelay), PULSE+SelectWingman1);									// LEFT
 	MapKeyIO(&Throttle, MSR, TEMPO(PULSE+FighterHoldFire, PULSE+FighterAggressive, LongPressDelay), PULSE+SelectWingman3);										// RIGHT
 	
-//	-------------------------Coolie Hat Switch	
+	//	-------------------------Coolie Hat Switch	
 	MapKey(&Throttle, CSU, ThrustUp);																				// UP
 	MapKey(&Throttle, CSD, ThrustDown);																				// DOWN
 	MapKey(&Throttle, CSL, ThrustLeft);																				// LEFT
 	MapKey(&Throttle, CSR, ThrustRight);																			// RIGHT
 
-//--SWITCH-------------------------------------------------------------------------------------------------------------------------------------------------------//
+//--THROTTLE ARM SWITCH-----------------------------------------------------------------------------------------------------------------------------------------//
 
-//	-------------------------Speedbrake
+	//	-------------------------Speedbrake
 	MapKey(&Throttle, SPDF, TEMPO(EXEC("initFrameShiftDrive();"), EXEC("initSystemJump();"), ExtraPressDelay));													// Switch FORWARD
-//	MapKey(&Throttle, SPDM, 0);																																	// <Unmapped> Switch MIDDLE	
+//	MapKey(&Throttle, SPDM, 0);																																	// Switch MIDDLE	
 	MapKeyIO(&Throttle, SPDB,  EXEC("initToggleSuperCruiseMode();"), TEMPO(EXEC("initThrottleBoost();"), EXEC("initSuperCruise();"), LongPressDelay));			// Switch BACK HOLD
 
-//	-------------------------Boat Switch
+	//	-------------------------Boat Switch
 	MapKey(&Throttle, BSF, PULSE+GalaxyMap);																		// Switch FORWARD
 	MapKey(&Throttle, BSM, PULSE+UIBack);																			// Switch MIDDLE
 	MapKey(&Throttle, BSB, PULSE+SystemMap);																		// Switch BACK
 
-//	-------------------------China Hat
+	//	-------------------------China Hat
 	MapKey(&Throttle, CHF, TEMPO(PULSE+DeployHeatSink, PULSE+ChargeECM, LongPressDelay));							// Switch FORWARD
-//	MapKey(&Throttle, CHM, 0);																						// <Unmapped> Switch MIDDLE
+//	MapKey(&Throttle, CHM, 0);																						// Switch MIDDLE
 	MapKey(&Throttle, CHB, TEMPO(PULSE+FireChaffLauncher, PULSE+UseShieldCell, LongPressDelay));					// Switch BACK
 
-//	-------------------------Pinky Throttle
-	MapKeyIO(&Throttle, PSF, PULSE+ChangeWeaponColor, PULSE+OrbitalLines);											// Switch FORWARD	[Hide Orbital Lines]
-//	MapKey(&Throttle, PSM, 0);																						// <Unmapped> Switch MIDDLE
-	MapKeyIO(&Throttle, PSB, PULSE+ChangeEngineColor, PULSE+HideShipGUI);											// Switch BACK		[Hides Ship's Holographic Display]
+	//	-------------------------Pinky Throttle
+	MapKeyIO(&Throttle, PSF, PULSE+ChangeWeaponColor, PULSE+OrbitalLines);											// Switch FORWARD
+//	MapKey(&Throttle, PSM, 0);																						// Switch MIDDLE
+	MapKeyIO(&Throttle, PSB, PULSE+ChangeEngineColor, PULSE+HideShipGUI);											// Switch BACK
 
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MAP THROTTLE BASE CONTROLS																																	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//--BUTTON------------------------------------------------------------------------------------------------------------------------------------------------------//
+//--THROTTLE BASE BUTTON----------------------------------------------------------------------------------------------------------------------------------------//
 
-//	-------------------------Landing Gear/ Warning Horn Silence Button
+	//	-------------------------Landing Gear/ Warning Horn Silence Button
 	MapKeyIO(&Throttle, LDGH, PULSE+TrackIRPause, TEMPO(PULSE+EXEC("initHeadCenter();"), TEMPO(PULSE+Screenshot, PULSE+HighResScreenshot, LongPressDelay), LongPressDelay));			// PUSH
 
-//	-------------------------Autopilot Engage Button Same As Autopilot Disengage Button
+	//	-------------------------Autopilot Engage Button Same As Autopilot Disengage Button
 	MapKey(&Throttle, APENG, EXEC("initEngageAPkey();"));																																// PUSH
 
-//	-------------------------Autopilot Disengage Button Same As Autopilot Engage Button
+	//	-------------------------Autopilot Disengage Button Same As Autopilot Engage Button
 //	MapKey(&Throttle, APDIS, 0);																																						// <Unmapped> PUSH
 
-//--SWITCH-------------------------------------------------------------------------------------------------------------------------------------------------------//	
+//--THROTTLE BASE SWITCH----------------------------------------------------------------------------------------------------------------------------------------//	
 	
-//	-------------------------FLAPS - Map Throttle to Joystick Curve Presets
+	//	-------------------------FLAPS - Map Throttle to Joystick Curve Presets
 	MapKey(&Throttle, FLAPU, EXEC("initSetJoystickCurves();"));														// Flaps UP
 	MapKey(&Throttle, FLAPM, EXEC("initSetJoystickCurves();"));														// Flaps MIDDLE
 	MapKey(&Throttle, FLAPD, EXEC("initSetJoystickCurves();"));														// Flaps DOWN
 
-//	-------------------------Autopilot Select Switch // Modifier don't touch this
+	//	-------------------------Autopilot Select Switch // Modifier don't touch this
 //	MapKey(&Throttle, APPAT, 0);																					// Modifier UP			(PATH)
 //	MapKey(&Throttle, APAH, 0);																						// Modifier MIDDLE		(ALT/HDG)
 //	MapKey(&Throttle, APALT, 0);																					// Modifier DOWN		(ALT)
 
-//	-------------------------Engine Fuel Flow Switches LEFT
-	MapKey(&Throttle, EFLNORM, EXEC("initToggleLights();"));														// Switch UP
-	MapKey(&Throttle, EFLOVER, EXEC("initToggleLights();"));														// Switch DOWN
+	//	-------------------------Engine Fuel Flow Switches LEFT
+	MapKey(&Throttle, EFLNORM, 0);																					// Switch UP
+	MapKey(&Throttle, EFLOVER, 0);																					// Switch DOWN
 
-//	-------------------------Engine Fuel Flow Switches RIGHT
-	MapKey(&Throttle, EFRNORM, EXEC("initToggleVoiceAttackMic();"));												// Switch UP			[Ship Light]
-	MapKey(&Throttle, EFROVER, EXEC("initToggleVoiceAttackMic();"));												// Switch DOWN
+	//	-------------------------Engine Fuel Flow Switches RIGHT
+	MapKey(&Throttle, EFRNORM, EXEC("initToggleLights();"));														// Switch UP
+	MapKey(&Throttle, EFROVER, EXEC("initToggleLights();"));														// Switch DOWN
 
-//	-------------------------Engine Operate Ign/Norm LEFT
-	MapKey(&Throttle, EOLIGN, TEMPO(EXEC("initToggleOptimalPIPMode();"), EXEC("initToggleRotationCorrection();"), LongPressDelay));			// UP
-//	MapKey(&Throttle, EOLNORM, 0);																											// <Unmapped> OFF
-//	MapKey(&Throttle, EOLMOTOR, 0);																											// <Unmapped> DOWN
+	//	-------------------------Engine Operate Ign/Norm LEFT
+	MapKeyIO(&Throttle, EOLIGN, TEMPO(EXEC("initTogglePTTPTP();"), EXEC("initTogglePTTMode();"), LongPressDelay), 
+								TEMPO(EXEC("initToggleCamera();"), EXEC("initFPSCONNECTION();"), LongPressDelay));	// UP		
+//	MapKey(&Throttle, EOLNORM, 0);																					// OFF
+	MapKey(&Throttle, EOLMOTOR, EXEC("initToggleVoiceAttackMic();"));												// DOWN
+	MapKeyR(&Throttle, EOLMOTOR, EXEC("initToggleVoiceAttackMic();"));												// DOWN RELEASE
 
-//	-------------------------Engine Operate Ign/Norm RIGHT		initTogglePTTPTP()		initTogglePTTMode()
-	MapKeyIO(&Throttle, EORIGN, TEMPO(EXEC("initTogglePTTPTP();"), EXEC("initTogglePTTMode();"), LongPressDelay), 
-								TEMPO(EXEC("initToggleCamera();"), EXEC("initFPSCONNECTION();"), LongPressDelay));	// UP
-//	MapKey(&Throttle, EORNORM, 0);																					// <Unmapped> OFF
+	//	-------------------------Engine Operate Ign/Norm RIGHT
+	MapKeyIO(&Throttle, EORIGN, TEMPO(EXEC("initToggleSecureRetract();"), EXEC("initToggleRotationCorrection();"), LongPressDelay),
+								TEMPO(EXEC("initToggleOptimalPIPMode();"), EXEC("initToggleStopFireRetractHardpoints();"), LongPressDelay));	// UP								
+//	MapKey(&Throttle, EORNORM, 0);																												// OFF
+
 	MapKey(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));														// DOWN
 	MapKeyR(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));													// DOWN RELEASE
-
 	//MapKey(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN					Use this one If the previous cause BUG
 	//MapKeyR(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN RELEASE			(Client delay to open Game Menu vary)
 
-//	-------------------------APU Start
+	//	-------------------------APU Start
 	MapKey(&Throttle, APUON, EXEC("initJettisonCargo();"));															// Switch UP
 //	MapKey(&Throttle, APUOFF, 0);																					// Switch DOWN (OFF)
 
-//	-------------------------EAC
+	//	-------------------------EAC
 	MapKey(&Throttle, EACON, EXEC("initToggleLandingGear();"));														// Switch UP 			(ARM)
 	MapKeyR(&Throttle, EACON, EXEC("initToggleLandingGear();"));													// Switch UP RELEASE
-//	MapKey(&Throttle, EACOFF, 0);																					// <Unmapped> Switch DOWN			(OFF)
+//	MapKey(&Throttle, EACOFF, 0);																					// Switch DOWN			(OFF)
 
-//	-------------------------RDR ALTM
+	//	-------------------------RDR ALTM
 	MapKey(&Throttle, RDRNRM, EXEC("initToggleCargoScoop();"));														// Switch UP			(NRM)
 	MapKeyR(&Throttle, RDRNRM, EXEC("initToggleCargoScoop();"));													// Switch UP RELEASE
-//	MapKey(&Throttle, RDRDIS, 0);																					// <Unmapped> Switch DOWN			(DIS)
+//	MapKey(&Throttle, RDRDIS, 0);																					// Switch DOWN			(DIS)
 
 
-//--TRHOTTLE-----------------------------------------------------------------------------------------------------------------------------------------------------//
+//--THROTTLE BASE TRHOTTLE--------------------------------------------------------------------------------------------------------------------------------------//
 
-//	-------------------------Throttle Idle Detents LEFT
+	//	-------------------------Throttle Idle Detents LEFT
 	MapKey(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));												// ON	[Locking (Down): Stationary]
 	MapKeyR(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));												// ON RELEASE
-//	MapKey(&Throttle, IDLELOFF, 0);																					// <Unmapped> OFF
+//	MapKey(&Throttle, IDLELOFF, 0);																					// OFF
 
-//	-------------------------Throttle Idle Detents RIGHT
+	//	-------------------------Throttle Idle Detents RIGHT
 //	MapKey(&Throttle, IDLERON, 0);																					// ON
 //	MapKeyR(&Throttle, IDLERON, 0);																					// ON RELEASE
 //	MapKey(&Throttle, IDLEROFF, 0);																					// OFF
@@ -294,27 +297,27 @@ int main()
 //	HARDWARE MAPPINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	//----------------------------------------------------------------------------------------------------------------------Set LED
+	//	-------------------------Set LED
 	int initLEDStates(){
 		//Enable LED Backlight on Start (Value 0-255)
-		if(HMD){
+		if(HMD){	//Set LED Backlight on Start If HMD
 				vThrottleLight = ThrottleLightHMD;
-				vThrottleLightBackup = ThrottleLightHMD;
+				vThrottleLightBackup = ThrottleLightHMD;	//Backup the LED Backlight defaukt value
 				if(DebugMode)printf("HMD -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHMD);
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightHMD));			//LED Backlight on Start If HMD
-		}else{
+				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightHMD));			
+		}else{	//Set LED Backlight on Start
 				vThrottleLight = ThrottleLight;
-				vThrottleLightBackup = ThrottleLight;
+				vThrottleLightBackup = ThrottleLight;	//Backup the LED Backlight defaukt value
 				if(DebugMode)printf("No HMD Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLight));				//LED Backlight on Start
+				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLight));				
 		}
 	
 		//Initiate LED status all OFF
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));						// set LED 1 OFF	
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));						// set LED 2 OFF
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));						// set LED 3 OFF	
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));						// set LED 4 OFF
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));						// set LED 5 OFF		
+		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));	
+		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));
+		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));	
+		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));
+		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));		
 		
 		//Initiate Led State
 		if(ToggleSuperCruiseModeLED!=0 & SupecruiseOnThrottle){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSuperCruiseModeLED));}
@@ -331,12 +334,15 @@ int main()
 		if(ToggleHeatSinkonSilentRuningLED!=0 & HeatSinkonSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));}
 		if(ToggleIDLEonThrottleLED!=0 & sIDLE){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleIDLEonThrottleLED));}
 		if(ToggleOptimalPIPModeLED!=0 & OptimalPIPMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleOptimalPIPModeLED));}
-//		if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
-//		if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
-//		if(ToggleCameraLED!=0 & sCameraMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCameraLED));}
+		if(ToggleSecureRetractLED!=0 & SecureRetract){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSecureRetractLED));}
+		if(ToggleStopFireRetractHardpointsLED!=0 & StopFireRetractHardpoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleStopFireRetractHardpointsLED));}		
+		//if(ToggleHardPointsonFireGameModeLED!=0 & HardPointsonFireGameMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardPointsonFireGameModeLED));}
+		//if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
+		//if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
+		//if(ToggleCameraLED!=0 & sCameraMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCameraLED));}
 	}
 	
-	//----------------------------------------------------------------------------------------------------------------------Set Joystick
+	//	-------------------------Set Joystick
 	//Set Default Joystick Axis
 	int initJoystickAxis(){	
 		MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// Set Joystick Control X Axis
@@ -365,7 +371,7 @@ int main()
 		}
 	}
 	
-	//----------------------------------------------------------------------------------------------------------------------Set Throttle
+	//	-------------------------Set Throttle
 	//Set Default Throttle Axis
 	int initThrottleAxis(){	
 		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
@@ -388,7 +394,7 @@ int main()
 		if(DebugMode)printf("Set	Throttle	Curve Profile[%d}\x0a", vThrottleCurveProfile);
 	}
 
-	//----------------------------------------------------------------------------------------------------------------------Set Rudders	
+	//	-------------------------Set Rudders	
 	//Set Rudders Axis
 	int initRudders(){
 		MapAxis(&TFRPRudder, TRUDDER, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
@@ -397,7 +403,7 @@ int main()
 		if(DebugMode)printf("Initialising Rudders Axis\x0a");
 	}
 	
-	//----------------------------------------------------------------------------------------------------------------------Set MFD
+	//	-------------------------Set MFD
 	//Set Right MFD
 	int initRightMFD(){
 //		MapKey(&RMFD, GAINU, 0);
