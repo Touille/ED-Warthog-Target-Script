@@ -1,7 +1,19 @@
-# 2.2.03.1R 14/01/2017
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.1R 2017/01/14
+
+![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
 - [x] Complete
 - [ ] Implemented / Need More Test
+
+### INSTALATION:
+
+1. The Warthog Script can be run from any location. All files from [Thrustmaster Warthog Script] folder need to be in the same folder.
+2. Copy the Elite Dangerous Binds Profile __ED+HCS V2.2.03.1R.1.8.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
+```
+\Users\<User>\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings**
+```
+3. Just Drag&Drop __ED+HCS v2.2.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
+4. Most commands can be tested prior to starting the game in Target Script Editor using the Debug Message, Event Tester and Device Analyzer.
 
 ### FEATURES:
 
