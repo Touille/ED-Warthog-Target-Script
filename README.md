@@ -7,7 +7,7 @@
 
 ### INSTALATION:
 
-1. The Warthog Script can be run from any location. All files from [Thrustmaster Warthog Script] folder need to be in the same folder.
+1. The Warthog Script can be run from any location. All files from __Thrustmaster Warthog Script__ folder need to be in the same folder.
 2. Copy the Elite Dangerous Binds Profile __ED+HCS V2.2.03.1R.1.8.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
 ```
 \Users\<User>\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
@@ -42,12 +42,12 @@
 
 ### PTT:
 
-- [x] Default PTT Mode (Toggle or Hold). Can be switched  On The Fly (S3 (Joystick Nosewhell Steering Button) + Short Press Engine Operate Ign/Norm RIGHT)
-- [x] Default PTT (Internal or External). Can be switched On The Fly (S3 (Joystick Nosewhell Steering Button) + Long Press Engine Operate Ign/Norm RIGHT)
+- [x] Default PTT Mode (Toggle or Hold). Can be switched  On The Fly (S3 (Joystick Nosewhell Steering Button) + Short Press Engine Operate Ign/Norm LEFT)
+- [x] Default PTT (Internal or External). Can be switched On The Fly (S3 (Joystick Nosewhell Steering Button) + Long Press Engine Operate Ign/Norm LEFT)
 	
 ### HEAT SINK:
 
-- [ ] Automatic Heat Sink On Silent Runing Can be switched  On The Fly (Long Data Management Switch UP)
+- [ ] Automatic Heat Sink On Silent Runing Can be switched  On The Fly (Extra Long Data Management Switch UP)
 - [x] Automatic Silent Runing Off & On when Fire (if silent runing is up before fire) and for other functions. Can be switched  On The Fly (Short Data Management Switch UP)
 
 ### JOYSTICK & THROTTLE CURVE:
