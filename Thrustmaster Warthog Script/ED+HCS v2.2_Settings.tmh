@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.1R	2017/01/14
+//	V2.2.03.2b	2017/01/14
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,7 +38,7 @@
 	
 	int HMD							=1;		//If HMD set to 1 and set TrackIR to 0
 	int TrackIR						=0;		//If TrackIR set to 1 and set HMD to 0
-	int VoiceAttack					=1;		//If VoiceAttack Used set to 1 : Engine Operate Ign/Norm LEFT Down Toggle VA Mic	
+	int VoiceAttack					=1;		//If VoiceAttack Used set to 1 : Engine Operate Ign/Norm Right Down Toggle VA Mic	
 
 	int GameMenuOnIDLE				=0;		//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
 	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
