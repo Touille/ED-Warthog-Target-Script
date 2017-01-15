@@ -38,7 +38,7 @@
 ### PIP:
 
 - [x] Automatic PIP Mode (Backup & Restrore previous PIP Mode) When Deploy or Retract Hardpoints, Escape Fight, Fire, Game Menu, ... (Setup In Settings File ON or OFF). Can be switched On or Off On The Fly
-- [x] PIP Management Hat Switch offering 8 different presets depending how long you hold down the button.
+- [x] PIP Management Hat Switch offering 12 different presets depending how long you hold down the button.
 
 ### PTT:
 
