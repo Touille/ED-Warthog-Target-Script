@@ -129,11 +129,27 @@ int main()
 //--JOYSTICK HAT------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//	-------------------------Trim Switch
-	MapKey(&Joystick, H1U, TEMPO(PowerEng, TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));				// UP		PIPS[Short: 1xENG,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP]
-	MapKey(&Joystick, H1D, TEMPO(EXEC("initPIPPower();"), TEMPO(EXEC("initPIPPower(WEP,SYS,MID);"), EXEC("initPIPPower(WEP,ENG,MID);"), PIPPressDelay), PIPPressDelay));	// DOWN		PIPS[Short: Balance,Med: Tank,			Long: Offensive]
-	MapKey(&Joystick, H1L, TEMPO(PowerSys, TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));				// LEFT		PIPS[Short: 1xSYS,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP]
-	MapKey(&Joystick, H1R, TEMPO(PowerWep, TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));				// RIGHT	PIPS[Short: 1xWEP,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS]
+	
+	// UP		PIPS[Short: 1xENG,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP]
+	//MapKey(&Joystick, H1U, TEMPO(PowerEng, TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));
+	// DOWN		PIPS[Short: Balance,Med: Tank,			Long: Offensive]
+//	MapKey(&Joystick, H1D, TEMPO(EXEC("initPIPPower();"), TEMPO(EXEC("initPIPPower(WEP,SYS,MID);"), EXEC("initPIPPower(WEP,ENG,MID);"), PIPPressDelay), PIPPressDelay));
+	// LEFT		PIPS[Short: 1xSYS,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP]
+	//MapKey(&Joystick, H1L, TEMPO(PowerSys, TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));
+	// RIGHT	PIPS[Short: 1xWEP,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS]
+	//MapKey(&Joystick, H1R, TEMPO(PowerWep, TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));		
+	
+	// UP		PIPS[Short: 4xENG 1SYS 1WEP,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP]
+	MapKeyIO(&Joystick, H1U, EXEC("initPIPPower(SYS,WEP,MID);"),TEMPO(EXEC("initPIPPower(ENG);"), TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));
 
+	// DOWN		PIPS[Short: Balance,Med: Tank,			Long: Offensive]
+	MapKey(&Joystick, H1D, TEMPO(EXEC("initPIPPower();"), TEMPO(EXEC("initPIPPower(WEP,SYS,MID);"), EXEC("initPIPPower(WEP,ENG,MID);"), PIPPressDelay), PIPPressDelay));
+	
+	// LEFT		PIPS[Short: 4xSYS 1ENG 1WEP,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP]
+	MapKeyIO(&Joystick, H1L, EXEC("initPIPPower(SYS,ENG,MID);"),TEMPO(EXEC("initPIPPower(SYS);"), TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));
+	
+	// RIGHT	PIPS[Short: 4xWEP 1SYS 1ENG,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS]
+	MapKeyIO(&Joystick, H1R, EXEC("initPIPPower(ENG,WEP,MID);"),TEMPO(EXEC("initPIPPower(WEP);"), TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));
 
 	//	-------------------------Target Management Switch (TMS)
 	MapKey(&Joystick, H2U, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay));													// UP
@@ -238,8 +254,8 @@ int main()
 //	MapKey(&Throttle, APALT, 0);																					// Modifier DOWN		(ALT)
 
 	//	-------------------------Engine Fuel Flow Switches LEFT
-	MapKey(&Throttle, EFLNORM, 0);																					// Switch UP
-	MapKey(&Throttle, EFLOVER, 0);																					// Switch DOWN
+//	MapKey(&Throttle, EFLNORM, 0);																					// Switch UP
+//	MapKey(&Throttle, EFLOVER, 0);																					// Switch DOWN
 
 	//	-------------------------Engine Fuel Flow Switches RIGHT
 	MapKey(&Throttle, EFRNORM, EXEC("initToggleLights();"));														// Switch UP

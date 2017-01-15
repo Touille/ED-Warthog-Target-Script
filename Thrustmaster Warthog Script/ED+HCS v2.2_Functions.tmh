@@ -656,10 +656,12 @@
 		else if(y == WEP) PIPhalf = PULSE+ PowerWep;
 
 		if(z == 0 & z != MID) PIPMid = 0;
-		else if(z == MID) PIPMid = PIPfull;
+		else if(z == MID) PIPMid = PIPhalf;
 		
 		// Send PIPS
-		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPhalf, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPMid, D(PIPPulseDelay),PIPfull));
+		ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPhalf, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPMid));
+		
+		//ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPhalf, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPMid, D(PIPPulseDelay),PIPfull));
 		//ActKey(KEYON+ CHAIN(LOCK+PULSE+ BalancePower, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPhalf, D(PIPPulseDelay),PIPfull, D(PIPPulseDelay),PIPMid, D(PIPPulseDelay),PIPfull, LOCK));
 		
 		// Save the PIPS for Automatique PIP MODE RESET (OptimalPIPMode in Settings File)
@@ -681,7 +683,7 @@
 					}
 				}
 				else if(y ==0){
-					if(x == sys){if(vOptimalPIP != 10) vOptimalPIP = 10;}			//4 SYS 1 ENG 1 WEP (10)
+					if(x == SYS){if(vOptimalPIP != 10) vOptimalPIP = 10;}			//4 SYS 1 ENG 1 WEP (10)
 					else if(x == ENG){if(vOptimalPIP != 11) vOptimalPIP = 11;}		//4 ENG 1 SYS 1 WEP (11)
 					else if(x == WEP){if(vOptimalPIP != 12) vOptimalPIP = 12;}		//4 WEP 1 SYS 1 ENG (12)
 				}
