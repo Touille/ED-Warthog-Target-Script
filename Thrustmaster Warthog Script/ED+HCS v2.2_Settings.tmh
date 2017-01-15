@@ -135,7 +135,7 @@
 	// 172 to 214	is level 4
 	// 215 to 255	is level 5
 	
-	define ThrottleLight 		255				//Base Throttle LED Intensity
+	define ThrottleLight 		171				//Base Throttle LED Intensity
 	define ThrottleLightHMD 	85				//Base Throttle LED Intensity when HMD Use
 	define ThrottleLEDOnIDLE	0				//Throttle LED Intensity on Throttle IDLE State
 

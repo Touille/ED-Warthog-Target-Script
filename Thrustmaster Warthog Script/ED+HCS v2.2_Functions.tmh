@@ -255,7 +255,7 @@
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	//TOGGLE: Silent Runing OFF/ON on Fire
+	//TOGGLE: Silent Runing OFF on Fire
 	int initToggleSilentRuningOFFonFire(){
 		SilentRuningOFFonFire=!SilentRuningOFFonFire;	//reverse the flag status
 		if(SilentRuningOFFonFire)ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningonFireLED, 1);"));	//Put The LED ON
@@ -457,6 +457,7 @@
 	int initHeadCenter(){
 		if(HMD){ActKey(KEYON+PULSE+HMDCenter); if(DebugMode)printf("HMD Center\x0a");}
 		else if(TrackIR){ActKey(KEYON+PULSE+TrackIRCenter); if(DebugMode)printf("TrackIR Center\x0a");}
+		else{ActKey(KEYON+PULSE+UIFocus); if(DebugMode)printf("UI Focus\x0a");}
 	}
 	
 	//FUNCTION: Voice PTT
