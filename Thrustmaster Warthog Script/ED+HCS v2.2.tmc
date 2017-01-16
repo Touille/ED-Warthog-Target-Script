@@ -26,7 +26,6 @@
 include "target.tmh"
 include "ED+HCS v2.2_KeyBindings.ttm"
 include "ED+HCS v2.2_Settings.tmh"
-//include "ED+HCS v2.2_Functions.tmh"
 include "ED+HCS v2.2_Functions_TOGGLE .tmh"
 include "ED+HCS v2.2_Functions_CORE.tmh"
 include "ED+HCS v2.2_Macros.tmh"
