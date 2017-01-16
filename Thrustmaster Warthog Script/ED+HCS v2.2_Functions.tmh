@@ -384,7 +384,6 @@
 			if(Throttle[IDLELON]) sIDLE = 1;	//Throttle position is IDLE State =1
 			else sIDLE = 0;	//Throttle position is !IDLE State =0
 			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+EXEC("initGameMenu();"));	//If GameMenu on IDLE Option is 1, Launch Game Menu
-			//if(GameMenuOnIDLE)ActKey(KEYON+PULSE+GameMenu);				//If GameMenu on IDLE Option is 1, Launch Game Menu Use this one If the previous cause BUG (Client delay to open Game Menu vary)
 			if(sIDLE){	//If Throttle position is IDLE State =1
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLEDOnIDLE));
 				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 1);"));	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
@@ -593,6 +592,8 @@
 		}
 	}
 
+//	-------------------------Escape Fight
+
 	//FUNCTION: Escape Fight
 	int initEscapeFight(){
 		if(SecureRetract & (sHardPoints | sCargo | sGears)){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
@@ -606,9 +607,7 @@
 				ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG, SYS);"));	//4 ENG	2 SYS (1)
 			}
 			DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
-			if(vOptimalPIPEFBackup != vOptimalPIP){
-				DeferCall(10000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(EF);"));	//Restore Previous PIP Mode
-			}
+			DeferCall(10000, &ActKey, KEYON+PULSE+EXEC("initRestoreEscapeFightPIPPower();"));	//Restore Previous PIP Mode If vOptimalPIPEFBackup != 4 SYS 2 ENG (3)
 		}
 		ActKey(KEYON+PULSE+mEscapeFight);
 		if(sSilentRuning){		//Disable Silent Runing previouly Enable
@@ -618,11 +617,20 @@
 		if(DebugMode) printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG) \x0a");
 	}
 
-	//FUNCTION: Switch vSLonEscapeFight state Need Function to Defercall EXEC in initEscapeFight()
+	//FUNCTION: Escape Fight Switch vSLonEscapeFight state Need Function to Defercall EXEC in initEscapeFight()
 	int initSwitchvSLonEscapeFight(){
 		vSLonEscapeFight=!vSLonEscapeFight;	//reverse the flag status
 		//if(DebugMode)printf("vSLonEscapeFight [%d]\x0a", vSLonEscapeFight);
 	}
+	//FUNCTION: Escape Fight Restore PIPPower Need Function to Defercall EXEC in initEscapeFight()
+	int initRestoreEscapeFightPIPPower(){
+		//if(DebugMode) printf("vOptimalPIPEFBackup [%d] vOptimalPIP [%d]\x0a", vOptimalPIPEFBackup, vOptimalPIP);
+		if(vOptimalPIPEFBackup != vOptimalPIP){
+			ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(EF);"));	//Restore Previous PIP Mode
+		}
+	}
+
+//	-----------------------------------
 
 	//FUNCTION: Request Docking
 	int initRCDocking(){

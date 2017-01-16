@@ -26,7 +26,9 @@
 include "target.tmh"
 include "ED+HCS v2.2_KeyBindings.ttm"
 include "ED+HCS v2.2_Settings.tmh"
-include "ED+HCS v2.2_Functions.tmh"
+//include "ED+HCS v2.2_Functions.tmh"
+include "ED+HCS v2.2_Functions_TOGGLE .tmh"
+include "ED+HCS v2.2_Functions_CORE.tmh"
 include "ED+HCS v2.2_Macros.tmh"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -77,8 +79,14 @@ int main()
 	initSetThrottleCurves();
 
 	//Initiate MFD
-	if(USEMFD > 0)initRightMFD();
-	if(USEMFD > 1)initLeftMFD();
+	if(USEMFD > 0){
+		if(DebugMode)printf("Initialising Right MFD\x0a");
+		initRightMFD();
+	}
+	if(USEMFD > 1){
+		if(DebugMode)printf("Initialising Left MFD\x0a");
+		initLeftMFD();
+	}
 
 	// Initiate Led State
 	if(DebugMode)printf("Initialising LED States\x0a");
@@ -266,8 +274,6 @@ int main()
 
 	MapKey(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));														// DOWN
 	MapKeyR(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));													// DOWN RELEASE
-	//MapKey(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN					Use this one If the previous cause BUG
-	//MapKeyR(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN RELEASE			(Client delay to open Game Menu vary)
 
 	//	-------------------------APU Start
 	MapKey(&Throttle, APUON, EXEC("initJettisonCargo();"));															// Switch UP
