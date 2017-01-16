@@ -243,7 +243,7 @@
 			}else{	//Silent Runing [HOLD] Mode Engage
 				ActKey(KEYON+DOWN+SilentRunning);	//Push DOWN The Silent Running Key
 			}
-		}else{
+		}else{	//If Button Is Released
 			if(!SilentRuningGameMode & sSilentRuning){		//Silent Runing [HOLD] Mode DisEngage
 				sSilentRuning=!sSilentRuning;	//reverse the flag status
 				ActKey(KEYON+UP+SilentRunning);	//Push UP The Silent Running Key
@@ -339,8 +339,10 @@
 		}
 		if(DebugMode) printf("Rotation Correction	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRCorrection);	
 	}
-	
-	//TOGGLE: Classified (External) 'Debug' Camera		vSLonCamera
+
+//	-------------------------External Camera
+
+	//TOGGLE: External Camera
 	int initToggleCamera(){
 		sCameraMode=!sCameraMode;	//reverse the flag status
 		if(sSilentRuning){	//ShutDown Silent Runing
@@ -366,48 +368,49 @@
 		}else{	//Close The Camera Mode
 			ActKey(KEYON+PULSE+ClassifiedCamera);	//Push The Camera Mode Key
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 0);"));	//Put The LED OFF
-			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				if(vOptimalPIPCCBackup != vOptimalPIP){
-					DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(CC);"));	//Restore Previous PIP Mode
-				}
-			}
+			if(OptimalPIPMode){DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("initRestoreCameraPIPPower();"));}	//Restore Previous PIP Mode If vOptimalPIPCCBackup != 4 SYS 2 ENG (3)
 		}
 		if(DebugMode) printf("Classified Camera	[%d]	[ON:[1] OFF:[0]]\x0a", sCameraMode);
 	}
+
+	//FUNCTION: External Camera Restore PIPPower Need Function to Defercall EXEC in initToggleCamera()
+	int initRestoreCameraPIPPower(){
+		if(DebugMode) printf("vOptimalPIPCCBackup [%d] vOptimalPIP [%d]\x0a", vOptimalPIPCCBackup, vOptimalPIP);
+		if(vOptimalPIPCCBackup != vOptimalPIP){
+			ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(CC);"));	//Restore Previous PIP Mode
+		}
+	}
+	
+//	----------------------------------
 
 	//TOGGLE: Head Look
 	int initToogleHeadLook(){																	
 		if(!HMD & !TrackIR){	//Only IF No HMD & No Trackir
 			if(Throttle[SC]){
+				sHeadLook=!sHeadLook;	//reverse the flag status
 				if(HeadLookGameMode){	//HeadLook [TOGGLE] Mode Ingame
-					vHL=!vHL;	//reverse the flag status
-					if(vHL){	//HeadLook [TOGGLE] Mode First Pulse Engage
-						ActKey(KEYON+PULSE+HeadLook);						
-						ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 1);"));	//Put The LED ON
-						if(DebugMode) printf("HeadLook [Toggle] Engaged\x0a");
-					}else{	//HeadLook [TOGGLE] Mode Second Pulse DisEngage				
-						ActKey(KEYON+PULSE+HeadLook);
-						ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 0);"));	//Put The LED OFF
-						if(DebugMode) printf("HeadLook [Toggle] Disengaged\x0a");
-					}
+					ActKey(KEYON+PULSE+HeadLook);
+					if(DebugMode) printf("Head Look	[TOOGLE]	[%d]	[ON:[1] OFF:[0]]\x0a", sHeadLook);
 				}else{	//HeadLook [HOLD] Mode Ingame Engage
 					ActKey(KEYON+DOWN+HeadLook);
-					ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 1);"));	//Put The LED ON
-					if(DebugMode)printf("HeadLook [HOLD] Engaged\x0a");
 				}
 			}else{	//If Button Is Released
-				if(!HeadLookGameMode){	//HeadLook [HOLD] Mode Ingame DisEngage
+				if(!HeadLookGameMode & sHeadLook){	//HeadLook [HOLD] Mode Ingame DisEngage
+					sHeadLook=!sHeadLook;	//reverse the flag status
 					ActKey(KEYON+UP+HeadLook);
-					ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 0);"));	//Put The LED OFF
-					if(DebugMode)printf("HeadLook [HOLD] DisEngaged\x0a");
 				}
 			}
+			if(sHeadLook){ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 1);"));}	//Put The LED ON
+			else {ActKey(KEYON+PULSE+EXEC("initLED(ToogleHeadLookLED, 0);"));}			//Put The LED OFF
+			if(DebugMode & !HeadLookGameMode) printf("Head Look	[HOLD]	[%d]	[ON:[1] OFF:[0]]\x0a", sHeadLook);
 		}
 	}
 
+//	-------------------------Game Menu
+
 	//TOGGLE: GameMenu
 	int initToggleGameMenu(){
-		vGameMenu=!vGameMenu;	//reverse the flag status
+		sGameMenu=!sGameMenu;	//reverse the flag status
 		if(sSilentRuning){	//ShutDown Silent Runing
 			if(!vSLonGameMenu){
 				vSLonGameMenu=!vSLonGameMenu;	//reverse the flag status
@@ -419,7 +422,7 @@
 				//if(DebugMode)printf("vSLonGameMenu [%d]\x0a", vSLonGameMenu);
 			}
 		}
-		if(vGameMenu){	//Open The Game Menu
+		if(sGameMenu){	//Open The Game Menu
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
 				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode			
 				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
@@ -429,13 +432,19 @@
 			ActKey(KEYON+PULSE+SetSpeed0);	//Push Set Speed To 0 Key
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 1);"));	//Put The LED ON
 		}else{	//Close The Game Menu
-			if(OptimalPIPMode){	//If Optimal Mode is Enable
-				if(vOptimalPIPGMBackup != vOptimalPIP){
-					DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(GM);"));	//Restore Previous PIP Mode After 3s
-				}
-			}
+			if(OptimalPIPMode){DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestoreGameMenuPIPPower();"));}	//Restore Previous PIP Mode If vOptimalPIPGMBackup != 4 SYS 2 ENG (3)
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 0);"));	//Put The LED OFF
 		}		
 		DeferCall(3000, &ActKey, KEYON+PULSE+GameMenu);	//Push Game Menu Key After 3s
-		if(DebugMode) printf("Game Menu	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", vGameMenu);
+		if(DebugMode) printf("Game Menu	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sGameMenu);
 	}
+	
+	//FUNCTION: GameMenu Restore PIPPower Need Function to Defercall EXEC in initToggleGameMenu()
+	int initRestoreGameMenuPIPPower(){
+		if(DebugMode) printf("vOptimalPIPGMBackup [%d] vOptimalPIP [%d]\x0a", vOptimalPIPGMBackup, vOptimalPIP);
+		if(vOptimalPIPGMBackup != vOptimalPIP){
+			ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(GM);"));	//Restore Previous PIP Mode
+		}
+	}	
+	
+//	----------------------------------
