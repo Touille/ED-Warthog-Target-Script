@@ -146,6 +146,7 @@
 	int sIDLE;							//initToggleIDLEonThrottle()		Throttle IDLE
 	int sVoiceAttack;					//initToggleVoiceAttackMic()		Voice Attack Mic
 	int sRT;							//initToggleReverseThrottle()		Reverse Throttle
+	int sFlightAssist;					//initToggleEnhancedFAOFF()			Flight Assist
 	
 //	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
 	
@@ -203,10 +204,12 @@
 	int vLG;									//initToggleLandingGear()
 	int vCS;									//initToggleCargoScoop()
 	int vGameMenu;								//initGameMenu()
-	int vSLonFire;								//initFire()	initToggleSilentRuning()
+	int vSLonFire;								//initFire()			initToggleSilentRuning()
+	int vSLonEscapeFight;						//initEscapeFight()		initToggleSilentRuning()
+	int vSLonGameMenu;							//initToggleGameMenu()	initToggleSilentRuning()
+	int vSLonCamera;							//initToggleCamera()	initToggleSilentRuning()
 	int vHL;									//initToogleHeadLook()
 	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
-	int vSL;									//initToggleSilentRuning()			Silent Runing [TOGGLE] Mode Ingame
 	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	

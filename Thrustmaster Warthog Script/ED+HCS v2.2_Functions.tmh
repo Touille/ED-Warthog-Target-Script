@@ -121,105 +121,82 @@
 
 	//TOGGLE: Silent Runing
 	int initToggleSilentRuning(){
-		if(Joystick[H3D] | Joystick[TG1] | Joystick[S2] | vSLonFire){
+		if(Joystick[H3D] | Joystick[TG1] | Joystick[S2] | vSLonFire | vSLonEscapeFight | vSLonGameMenu | vSLonCamera){
+			sSilentRuning=!sSilentRuning;	//reverse the silent runing flag status
 			if(SilentRuningGameMode){	//Silent Runing [TOGGLE] Mode Ingame
-				vSL=!vSL;	//reverse the [TOGGLE] flag status
-				if(vSL){	//Silent Runing [TOGGLE] Mode First Pulse Engage
-					sSilentRuning=!sSilentRuning;	//reverse the silent runing flag status
-					if(sSilentRuning){	//If Silent Runing Enable
-						if(HeatSinkonSilentRuning){	//Check if Heat Sink on Silent Runing is Enable
-							ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);	//Call The Heat Sink on Silent Running Macro
-							if(DebugMode) printf("Heat Sink On Silent Runing	[%d]	[ON:[1] OFF:[0]]\x0a", sSilentRuning);
-						}else{	//If Heat Sink on Silent Runing is Disable
-							ActKey(KEYON+PULSE+SilentRunning);	//Push The Silent Running Key
-						}
-						ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 1);"));	//Put The LED ON
-					}
-					if(DebugMode) printf("Silent Runing	Toggle 1rst Push [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
-				}else{	//Silent Runing [TOGGLE] Mode Second Pulse DisEngage
-					sSilentRuning=!sSilentRuning;	//reverse the silent runing flag status
+				if(HeatSinkonSilentRuning){	//Check if Heat Sink on Silent Runing is Enable
+					ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);	//Call The Heat Sink on Silent Running Macro
+				}else{	//If Heat Sink on Silent Runing is Disable
 					ActKey(KEYON+PULSE+SilentRunning);	//Push The Silent Running Key
-					ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 0);"));	//Put The LED OFF
-					if(DebugMode) printf("Silent Runing	Toggle 2nd  Push [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 				}
+				if(DebugMode) printf("Silent Runing [TOGGLE]	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 			}else{	//Silent Runing [HOLD] Mode Engage
-				sSilentRuning=!sSilentRuning; //reverse the flag status
 				ActKey(KEYON+DOWN+SilentRunning);	//Push DOWN The Silent Running Key
-				ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 1);"));	//Put The LED ON
-				if(DebugMode) printf("Silent Runing	Hold Push [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 			}
 		}else{
 			if(!SilentRuningGameMode & sSilentRuning){		//Silent Runing [HOLD] Mode DisEngage
 				sSilentRuning=!sSilentRuning;	//reverse the flag status
 				ActKey(KEYON+UP+SilentRunning);	//Push UP The Silent Running Key
-				ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 0);"));	//Put The LED OFF
-				if(DebugMode) printf("Silent Runing	Hold Released [%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 			}
 		}
-	}
+		if(sSilentRuning){ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 1);"));}	//Put The LED ON
+		else {ActKey(KEYON+PULSE+EXEC("initLED(ToggleSilentRuningLED, 0);"));}				//Put The LED OFF
+		if(DebugMode & !SilentRuningGameMode) printf("Silent Runing [HOLD]	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
+	}	
 
 	//TOGGLE: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
 	int initToggleEnhancedFAOFF(){																	
 		if(Joystick[S4]){	//If Button Is Pushed
+			sFlightAssist=!sFlightAssist;	//reverse the flag status
 			if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
 				vFA=!vFA;	//reverse the flag status
-				if(!sRCorrection){		//If Rotational Correction is OFF, Just Flight
-					ActKey(KEYON+PULSE+FlightAssist);
-					if(vFA){if(DebugMode) printf("FAOFF [Toggle] Engaged\x0a");}
-					if(!vFA){if(DebugMode) printf("FAOFF [Toggle] Disengaged\x0a");}
-				}else{	//If Rotational Correction is ON, Adjust Curves
+				if(sRCorrection){	//If Rotational Correction is ON
 					if(vFA){	//FA [TOGGLE] Mode First Pulse Engage
 						vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
 						vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
-							if(DebugMode) printf("EnhancedFAOFF [Toggle] Engaged\x0a");
+							if(DebugMode) printf("Curve Profile Adjusted\x0a");
 						}
-						ActKey(KEYON+PULSE+FlightAssist);						
-						ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 1);"));	//Put The LED ON
-					}else{	//FA [TOGGLE] Mode Second Pulse DisEngage				
+					}else{	//FA [TOGGLE] Mode Second Pulse DisEngage	
 						vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
-							if(DebugMode) printf("EnhancedFAOFF [Toggle] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
+							if(DebugMode) printf("Curve Profile Return to Default\x0a");
 						}
-						ActKey(KEYON+PULSE+FlightAssist);
-						ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 0);"));	//Put The LED OFF
 					}
 				}
+				ActKey(KEYON+PULSE+FlightAssist);
+				if(DebugMode) printf("EnhancedFAOFF [TOGGLE]	[%d]	[ENABLE:[1] DISABLE:[0]]	Rcorrection	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sFlightAssist, sRCorrection);
 			}else{	//FA [HOLD] Mode Ingame Engage
-				if(!sRCorrection){	//If Rotational Correction is OFF, Just Flight
-					ActKey(KEYON+DOWN+FlightAssist);
-					if(DebugMode)printf("FAOFF [HOLD] Engaged\x0a");
-				}else{	//If Rotational Correction is ON, Adjust Curves
+				if(sRCorrection){	//If Rotational Correction is ON
 					vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
 					vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
-						if(DebugMode)printf("EnhancedFAOFF [HOLD] Engaged\x0a");
+						if(DebugMode) printf("Curve Profile Adjusted\x0a");
 					}
-					ActKey(KEYON+DOWN+FlightAssist);
-					ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 1);"));	//Put The LED ON
 				}
+				ActKey(KEYON+DOWN+FlightAssist);
 			}
 		}else{	//If Button Is Released
-			if(!FlightAssistGameMode){	//FA [HOLD] Mode Ingame DisEngage
-				if(!sRCorrection){	//If Rotational Correction is OFF, Just Flight
-					ActKey(KEYON+UP+FlightAssist);
-					if(DebugMode)printf("FAOFF [HOLD] Disengaged\x0a");
-				}else{	//If Rotational Correction is ON, Adjust Curves
+			if(!FlightAssistGameMode & sFlightAssist){	//FA [HOLD] Mode Ingame DisEngage
+				sFlightAssist=!sFlightAssist;	//reverse the flag status
+				if(sRCorrection){	//If Rotational Correction is ON
 					vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset					
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
-						if(DebugMode)printf("EnhancedFAOFF [HOLD] Disengaged\x0a");printf("Curve Profile Return to Default\x0a");
+						if(DebugMode) printf("Curve Profile Return to Default\x0a");
 					}
-					ActKey(KEYON+UP+FlightAssist);
-					ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 0);"));	//Put The LED OFF
 				}
+				ActKey(KEYON+UP+FlightAssist);
 			}
 		}
+		if(sFlightAssist){ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 1);"));}	//Put The LED ON
+		else {ActKey(KEYON+PULSE+EXEC("initLED(ToggleFALED, 0);"));}				//Put The LED OFF
+		if(DebugMode & !FlightAssistGameMode) printf("EnhancedFAOFF [HOLD]	[%d]	[ENABLE:[1] DISABLE:[0]]	Rcorrection	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sFlightAssist, sRCorrection);
 	}
-	
+
 	//TOGGLE: Reverse Throttle
 	int initToggleReverseThrottle(){
 		if(Throttle[LTB]){	//If Button Is Pushed
@@ -301,10 +278,20 @@
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	//TOGGLE: Classified (External) 'Debug' Camera
+	//TOGGLE: Classified (External) 'Debug' Camera		vSLonCamera
 	int initToggleCamera(){
 		sCameraMode=!sCameraMode;	//reverse the flag status
-		if(sSilentRuning){ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}	//If Silent Runing is Engaged, Disengade it
+		if(sSilentRuning){	//ShutDown Silent Runing
+			if(!vSLonCamera){
+				vSLonCamera=!vSLonCamera;	//reverse the flag status
+				//if(DebugMode)printf("vSLonCamera [%d]\x0a", vSLonCamera);
+			}
+			ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//If Silent Runing is Engaged, Disengade it
+			if(vSLonCamera){
+				vSLonCamera=!vSLonCamera;	//reverse the flag status
+				//if(DebugMode)printf("vSLonCamera [%d]\x0a", vSLonCamera);
+			}
+		}
 		if(sCameraMode){	//Open The Camera Mode
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
 				vOptimalPIPCCBackup = vOptimalPIP;	//Backup Actual PIP Mode				
@@ -359,7 +346,17 @@
 	//TOGGLE: GameMenu
 	int initToggleGameMenu(){
 		vGameMenu=!vGameMenu;	//reverse the flag status
-		if(sSilentRuning)ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//If Silent Runing is Engaged, Disengade it
+		if(sSilentRuning){	//ShutDown Silent Runing
+			if(!vSLonGameMenu){
+				vSLonGameMenu=!vSLonGameMenu;	//reverse the flag status
+				//if(DebugMode)printf("vSLonGameMenu [%d]\x0a", vSLonGameMenu);
+			}
+			ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//If Silent Runing is Engaged, Disengade it
+			if(vSLonGameMenu){
+				vSLonGameMenu=!vSLonGameMenu;	//reverse the flag status
+				//if(DebugMode)printf("vSLonGameMenu [%d]\x0a", vSLonGameMenu);
+			}
+		}
 		if(vGameMenu){	//Open The Game Menu
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
 				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode			
@@ -502,7 +499,7 @@
 	int initFire(){
 		if(Joystick[TG1] | Joystick[S2]){	//PRESS THE TG1 or S2 BUTTON	
 			if(SilentRuningOFFonFire & sSilentRuning){
-				if(!vSLonFire){
+				if(!vSLonFire){	//ShutDown Silent Runing
 					vSLonFire=!vSLonFire;	//reverse the flag status
 					vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
 					ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));
@@ -595,7 +592,10 @@
 	//FUNCTION: Escape Fight
 	int initEscapeFight(){
 		if(SecureRetract){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}
-		if(!sSilentRuning){ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));}	//If Silent Running is Disable, Enable it
+		if(!sSilentRuning){	//If Silent Running is Disable, Enable it
+			if(!vSLonEscapeFight){ActKey(KEYON+PULSE+EXEC("initSwitchvSLonEscapeFight();"));}	//ShutDown Silent Runing
+			ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));
+		}
 		if(OptimalPIPMode){	//If Optimal Mode is Enable
 			vOptimalPIPEFBackup = vOptimalPIP;	//Backup Actual PIP Mode
 			if(vOptimalPIP != 1){	// Already 4xENG 2xSYS?			
@@ -607,10 +607,19 @@
 			}
 		}
 		ActKey(KEYON+PULSE+mEscapeFight);
-		if(sSilentRuning){DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));}		//Disable Silent Runing previouly Enable
-		if(DebugMode) printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG)\x0a");
+		if(sSilentRuning){		//Disable Silent Runing previouly Enable
+			DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));
+			if(vSLonEscapeFight){DeferCall(5000, &ActKey, KEYON+PULSE+EXEC("initSwitchvSLonEscapeFight();"));}	//reverse the flag status
+		}
+		if(DebugMode) printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG) \x0a");
 	}
-	
+
+	//FUNCTION: Switch vSLonEscapeFight state Need Function to Defercall EXEC in initEscapeFight()
+	int initSwitchvSLonEscapeFight(){
+		vSLonEscapeFight=!vSLonEscapeFight;	//reverse the flag status
+		//if(DebugMode)printf("vSLonEscapeFight [%d]\x0a", vSLonEscapeFight);
+	}
+
 	//FUNCTION: Request Docking
 	int initRCDocking(){
 		if(DebugMode) printf("Docking Initialisation\x0a");
