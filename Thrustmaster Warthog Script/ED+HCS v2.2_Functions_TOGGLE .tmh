@@ -340,8 +340,6 @@
 		if(DebugMode) printf("Rotation Correction	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRCorrection);	
 	}
 
-//	-------------------------External Camera
-
 	//TOGGLE: External Camera
 	int initToggleCamera(){
 		sCameraMode=!sCameraMode;	//reverse the flag status
@@ -368,20 +366,12 @@
 		}else{	//Close The Camera Mode
 			ActKey(KEYON+PULSE+ClassifiedCamera);	//Push The Camera Mode Key
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 0);"));	//Put The LED OFF
-			if(OptimalPIPMode){DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("initRestoreCameraPIPPower();"));}	//Restore Previous PIP Mode If vOptimalPIPCCBackup != 4 SYS 2 ENG (3)
+			if(OptimalPIPMode){
+				DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(CC);"));	//Restore Previous PIP Mode If vOptimalPIPCCBackup != 4 SYS 2 ENG (3)
+			}
 		}
 		if(DebugMode) printf("Classified Camera	[%d]	[ON:[1] OFF:[0]]\x0a", sCameraMode);
 	}
-
-	//FUNCTION: External Camera Restore PIPPower Need Function to Defercall EXEC in initToggleCamera()
-	int initRestoreCameraPIPPower(){
-		if(DebugMode) printf("vOptimalPIPCCBackup [%d] vOptimalPIP [%d]\x0a", vOptimalPIPCCBackup, vOptimalPIP);
-		if(vOptimalPIPCCBackup != vOptimalPIP){
-			ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(CC);"));	//Restore Previous PIP Mode
-		}
-	}
-	
-//	----------------------------------
 
 	//TOGGLE: Head Look
 	int initToogleHeadLook(){																	
@@ -405,8 +395,6 @@
 			if(DebugMode & !HeadLookGameMode) printf("Head Look	[HOLD]	[%d]	[ON:[1] OFF:[0]]\x0a", sHeadLook);
 		}
 	}
-
-//	-------------------------Game Menu
 
 	//TOGGLE: GameMenu
 	int initToggleGameMenu(){
@@ -432,19 +420,9 @@
 			ActKey(KEYON+PULSE+SetSpeed0);	//Push Set Speed To 0 Key
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 1);"));	//Put The LED ON
 		}else{	//Close The Game Menu
-			if(OptimalPIPMode){DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestoreGameMenuPIPPower();"));}	//Restore Previous PIP Mode If vOptimalPIPGMBackup != 4 SYS 2 ENG (3)
+			if(OptimalPIPMode){DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(GM);"));}	//Restore Previous PIP Mode If vOptimalPIPGMBackup != 4 SYS 2 ENG (3)
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 0);"));	//Put The LED OFF
 		}		
 		DeferCall(3000, &ActKey, KEYON+PULSE+GameMenu);	//Push Game Menu Key After 3s
 		if(DebugMode) printf("Game Menu	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sGameMenu);
 	}
-	
-	//FUNCTION: GameMenu Restore PIPPower Need Function to Defercall EXEC in initToggleGameMenu()
-	int initRestoreGameMenuPIPPower(){
-		if(DebugMode) printf("vOptimalPIPGMBackup [%d] vOptimalPIP [%d]\x0a", vOptimalPIPGMBackup, vOptimalPIP);
-		if(vOptimalPIPGMBackup != vOptimalPIP){
-			ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(GM);"));	//Restore Previous PIP Mode
-		}
-	}	
-	
-//	----------------------------------
