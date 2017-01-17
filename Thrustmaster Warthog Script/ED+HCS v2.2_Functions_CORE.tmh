@@ -293,7 +293,7 @@
 		ActKey(KEYON+PULSE+mEscapeFight);
 		if(sSilentRuning){		//Disable Silent Runing previouly Enable
 			DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));
-			if(vSLonEscapeFight){DeferCall(5000, &ActKey, KEYON+PULSE+EXEC("initSwitchState(EF);"));}	//Restore Previous PIP Mode If vOptimalPIPGMBackup != 4 SYS 2 ENG (3)
+			if(vSLonEscapeFight){DeferCall(5000, &ActKey, KEYON+PULSE+EXEC("initSwitchState(EF);"));}	//reverse the flag status
 		}
 		if(DebugMode) printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG) \x0a");
 	}
