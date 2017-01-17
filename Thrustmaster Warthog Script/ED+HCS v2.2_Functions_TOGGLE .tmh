@@ -210,13 +210,13 @@
 			if(sHardPoints){
 				if(OptimalPIPMode){	//If Optimal Mode is Enable
 					vOptimalPIPHPBackup = vOptimalPIP;	//Backup Actual PIP Mode
-					if(vOptimalPIP != 6){	// Already 4xWEP 2xSYS?
-						ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));	//4 WEP 2 SYS (6)
-					}
+					ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));	//4 WEP 2 SYS (6)
 				}
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleHardpointsLED, 1);"));	//Put The LED ON
 			}else{
-				ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPHPBackup);"));	//Restore Previous PIP Mode
+				if(OptimalPIPMode){	//If Optimal Mode is Enable
+					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPHPBackup);"));	//Restore Previous PIP Mode
+				}
 				ActKey(KEYON+PULSE+EXEC("initLED(ToggleHardpointsLED, 0);"));	//Put The LED OFF
 			}
 		}else{	//Reset The Flag On The FLY S3 + SWITCH
@@ -353,16 +353,16 @@
 		if(sCameraMode){	//Open The Camera Mode
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
 				vOptimalPIPCCBackup = vOptimalPIP;	//Backup Actual PIP Mode				
-				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
-					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
-				}
+				ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
 			}
 			DeferCall(1000, &ActKey, KEYON+PULSE+mClassifiedCamera);	//Call The Camera Mode Macro
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 1);"));	//Put The LED ON
 		}else{	//Close The Camera Mode
 			ActKey(KEYON+PULSE+ClassifiedCamera);	//Push The Camera Mode Key
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleCameraLED, 0);"));	//Put The LED OFF
-			DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPCCBackup);"));	//Restore Previous PIP Mode If vOptimalPIPCCBackup != 4 SYS 2 ENG (3)
+			if(OptimalPIPMode){	//If Optimal Mode is Enable
+				DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPCCBackup);"));	//Restore Previous PIP Mode If vOptimalPIPCCBackup != 4 SYS 2 ENG (3)
+			}
 		}
 		if(DebugMode) printf("Classified Camera	[%d]	[ON:[1] OFF:[0]]\x0a", sCameraMode);
 	}
@@ -407,14 +407,14 @@
 		if(sGameMenu){	//Open The Game Menu
 			if(OptimalPIPMode){	//If Optimal Mode is Enable
 				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode			
-				if(vOptimalPIP != 3){	// Already 4xSYS 2xENG?
-					ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
-				}
+				ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
 			}
 			ActKey(KEYON+PULSE+SetSpeed0);	//Push Set Speed To 0 Key
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 1);"));	//Put The LED ON
 		}else{	//Close The Game Menu
-			DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPGMBackup);"));	//Restore Previous PIP Mode If vOptimalPIPGMBackup != 4 SYS 2 ENG (3)
+			if(OptimalPIPMode){	//If Optimal Mode is Enable
+				DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPGMBackup);"));	//Restore Previous PIP Mode If vOptimalPIPGMBackup != 4 SYS 2 ENG (3)
+			}
 			ActKey(KEYON+PULSE+EXEC("initLED(ToggleGameMenuLED, 0);"));	//Put The LED OFF
 		}		
 		DeferCall(3000, &ActKey, KEYON+PULSE+GameMenu);	//Push Game Menu Key After 3s
