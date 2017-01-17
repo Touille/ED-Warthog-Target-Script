@@ -92,7 +92,11 @@
 //			x gets 4 PIPs, y gets 2 PIPs, if z = MID get 50/50 of x and y (3x 3y)																				//
 //			If only x, balanced 1 PIP on each 2ndary power																										//
 //			If no params, balances power.																														//
+
 //		initRestorePIPPower(j)	Params = HarPoints (HP) Or FIRE (Fire) OR EF (Escape Fight) OR GM (Game Menu) OR CC (Classified Camera)							//
+
+//		initRestorePIPPower(j)	Params = vOptimalPIP[XXXXX]Backup	(ex: initRestorePIPPower(vOptimalPIPFireBackup) )											//																								//
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//PIP Management
@@ -148,34 +152,30 @@
 			}
 			if(DebugMode) printf("Initialising PIP Commands	[%d]\x0a", vOptimalPIP);
 		}
+		else{if(DebugMode)printf("OptimalPIPMode is Disable\x0a");}
 	}
 	
 	//PIP Restore Management
 	int initRestorePIPPower(int j=0){
-		
-		//Check What PIP to Restore, HarPoints (HP) Or FIRE (Fire) OR EF (Escape Fight) OR GM (Game Menu) OR CC (Classified Camera)
-		if(j == FIRE) PIPRestore = vOptimalPIPFireBackup;	//Weapon Fire
-		else if(j == HP) PIPRestore = vOptimalPIPHPBackup;	//HardPoints
-		else if(j == EF) PIPRestore = vOptimalPIPEFBackup;	//Escape Fight
-		else if(j == GM) PIPRestore = vOptimalPIPGMBackup;	//Game Menu
-		else if(j == CC) PIPRestore = vOptimalPIPCCBackup;	//Classified Camera
-
-		if(PIPRestore != vOptimalPIP){	// Send Good Backup PIPS only if previous PIPSwith is != of backup Value
-			if(DebugMode)printf("Reset PIP : PIPRestore [%d] vOptimalPIP [%d]\x0a", PIPRestore, vOptimalPIP);
-			if(PIPRestore == 0)ActKey(KEYON+PULSE+EXEC("initPIPPower();"));				//If no Previous PIP Mode selected Balance Power
-			else if(PIPRestore == 1)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));		//4 ENG	2 SYS (1)
-			else if(PIPRestore == 2)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP);"));		//4 ENG 2 WEP (2)
-			else if(PIPRestore == 3)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG);"));		//4 SYS 2 ENG (3)
-			else if(PIPRestore == 4)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP);"));		//4 SYS 2 WEP (4)
-			else if(PIPRestore == 5)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG);"));		//4 WEP 2 ENG (5)
-			else if(PIPRestore == 6)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));		//4 WEP 2 SYS (6)
-			else if(PIPRestore == 7)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG,MID);"));	//3 SYS 3 ENG (7)
-			else if(PIPRestore == 8)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP,MID);"));	//3 ENG 3 WEP (8)
-			else if(PIPRestore == 9)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP,MID);"));	//3 SYS 3 WEP (9)	
-			else if(PIPRestore == 10)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS);"));			//4 SYS 1 ENG 1 WEP (10)
-			else if(PIPRestore == 11)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG);"));			//4 ENG 1 SYS 1 WEP (11)
-			else if(PIPRestore == 12)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP);"));			//4 WEP 1 SYS 1 ENG (12)
+		if(OptimalPIPMode){
+			if(j != vOptimalPIP){	// Send Good Backup PIPS only if previous PIPSwith is != of backup Value
+				if(DebugMode){printf("Reset PIP ?: PIPRestore [%d] vOptimalPIP [%d]\x0a", j, vOptimalPIP);}
+				if(j == 0)ActKey(KEYON+PULSE+EXEC("initPIPPower();"));				//If no Previous PIP Mode selected Balance Power
+				else if(j == 1)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,SYS);"));		//4 ENG	2 SYS (1)
+				else if(j == 2)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP);"));		//4 ENG 2 WEP (2)
+				else if(j == 3)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG);"));		//4 SYS 2 ENG (3)
+				else if(j == 4)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP);"));		//4 SYS 2 WEP (4)
+				else if(j == 5)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,ENG);"));		//4 WEP 2 ENG (5)
+				else if(j == 6)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));		//4 WEP 2 SYS (6)
+				else if(j == 7)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,ENG,MID);"));	//3 SYS 3 ENG (7)
+				else if(j == 8)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG,WEP,MID);"));	//3 ENG 3 WEP (8)
+				else if(j == 9)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS,WEP,MID);"));	//3 SYS 3 WEP (9)	
+				else if(j == 10)ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS);"));			//4 SYS 1 ENG 1 WEP (10)
+				else if(j == 11)ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG);"));			//4 ENG 1 SYS 1 WEP (11)
+				else if(j == 12)ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP);"));			//4 WEP 1 SYS 1 ENG (12)
+			}
 		}
+		else{if(DebugMode)printf("OptimalPIPMode is Disable\x0a");}
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -205,11 +205,10 @@
 		}else{				//RELEASE THE TG1 or S2 BUTTON
 			if(!Joystick[TG1]){ActKey(KEYON+UP+PrimaryFire);}
 			if(!Joystick[S2]){ActKey(KEYON+UP+SecondaryFire);}
-			if(OptimalPIPMode & !Joystick[TG1] & !Joystick[S2]){	//If Optimal Mode is Enable
-				if(vOptimalPIPFireBackup != vOptimalPIP){
-					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(FIRE);"));	//Restore Previous PIP Mode				
-				}
-			}			
+			if(!Joystick[TG1] & !Joystick[S2]){	//If Optimal Mode is Enable
+				ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPFireBackup);"));	//Restore Previous PIP Mode		
+			}
+			
 			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !Joystick[S2] & !Joystick[TG1]){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
 			if(vSilentRuningBackup!=0 & !Joystick[S2] & !Joystick[TG1]){
 				vSilentRuningBackup = 0;
@@ -279,7 +278,9 @@
 	int initEscapeFight(){
 		if(SecureRetract & (sHardPoints | sCargo | sGears)){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
 		if(!sSilentRuning){	//If Silent Running is Disable, Enable it
-			if(!vSLonEscapeFight){ActKey(KEYON+PULSE+EXEC("initSwitchState(EF);"));}	//ShutDown Silent Runing
+			if(!vSLonEscapeFight){
+				ActKey(KEYON+PULSE+EXEC("initSwitchState(EF);"));	//ShutDown Silent Runing
+			}
 			ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));
 		}
 		if(OptimalPIPMode){	//If Optimal Mode is Enable
@@ -288,12 +289,14 @@
 				ActKey(KEYON+PULSE+EXEC("initPIPPower(ENG, SYS);"));	//4 ENG	2 SYS (1)
 			}
 			DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
-			DeferCall(10000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(EF);"));	//Restore Previous PIP Mode If vOptimalPIPEFBackup != 4 SYS 2 ENG (3)
 		}
+		DeferCall(10000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPEFBackup);"));	//Restore Previous PIP Mode If vOptimalPIPEFBackup != 4 SYS 2 ENG (3)
 		ActKey(KEYON+PULSE+mEscapeFight);
 		if(sSilentRuning){		//Disable Silent Runing previouly Enable
 			DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));
-			if(vSLonEscapeFight){DeferCall(5000, &ActKey, KEYON+PULSE+EXEC("initSwitchState(EF);"));}	//reverse the flag status
+			if(vSLonEscapeFight){
+				DeferCall(5000, &ActKey, KEYON+PULSE+EXEC("initSwitchState(EF);"));	//reverse the flag status
+			}
 		}
 		if(DebugMode) printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG) \x0a");
 	}
