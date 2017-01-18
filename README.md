@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.1R 2017/01/14
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.2b 2017/01/18
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -7,13 +7,14 @@
 
 ### INSTALATION:
 
-1. The Warthog Script can be run from any location. All files from __Thrustmaster Warthog Script__ folder need to be in the same folder.
-2. Copy the Elite Dangerous Binds Profile __ED+HCS V2.2.03.1R.1.8.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
+* The Warthog Script can be run from any location. All files from __Thrustmaster Warthog Script__ folder need to be in the same folder.
+* Copy the Elite Dangerous Binds Profile __ED+HCS V2.2.03.1R.1.8.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
 ```
 \Users\<User>\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
 ```
-3. Just Drag&Drop __ED+HCS v2.2.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
-4. Most commands can be tested prior to starting the game in Target Script Editor using the Debug Message, Event Tester and Device Analyzer.
+
+* Just Drag&Drop __ED+HCS v2.2.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
+* Most commands can be tested prior to starting the game in Target Script Editor using the Debug Message, Event Tester and Device Analyzer.
 
 ### FEATURES:
 
@@ -31,14 +32,14 @@
 
 ### LED:
 	
-- [x] Easy Led Configuration you can chose what you want to be assigned (Settings File)
+- [x] Easy Led Configuration : You can chose what you want to be assigned (Settings File)
 - [x] Throttle LED intensity On The Fly (S3 + Friction Control Axis)
 - [x] Throttle LED Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in setting file))
 	
 ### PIP:
 
 - [x] Automatic PIP Mode (Backup & Restrore previous PIP Mode) When Deploy or Retract Hardpoints, Escape Fight, Fire, Game Menu, ... (Setup In Settings File ON or OFF). Can be switched On or Off On The Fly
-- [x] PIP Management Hat Switch offering 8 different presets depending how long you hold down the button.
+- [x] PIP Management Hat Switch offering 12 different presets depending how long you hold down the button.
 
 ### PTT:
 

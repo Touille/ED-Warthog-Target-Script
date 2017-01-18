@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.1R	2017/01/14
+//	V2.2.03.2b	2017/01/14
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,7 +26,8 @@
 include "target.tmh"
 include "ED+HCS v2.2_KeyBindings.ttm"
 include "ED+HCS v2.2_Settings.tmh"
-include "ED+HCS v2.2_Functions.tmh"
+include "ED+HCS v2.2_Functions_TOGGLE .tmh"
+include "ED+HCS v2.2_Functions_CORE.tmh"
 include "ED+HCS v2.2_Macros.tmh"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -77,8 +78,14 @@ int main()
 	initSetThrottleCurves();
 
 	//Initiate MFD
-	if(USEMFD > 0)initRightMFD();
-	if(USEMFD > 1)initLeftMFD();
+	if(USEMFD > 0){
+		if(DebugMode)printf("Initialising Right MFD\x0a");
+		initRightMFD();
+	}
+	if(USEMFD > 1){
+		if(DebugMode)printf("Initialising Left MFD\x0a");
+		initLeftMFD();
+	}
 
 	// Initiate Led State
 	if(DebugMode)printf("Initialising LED States\x0a");
@@ -93,7 +100,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.2.03.1R----2017/01/14------------------------\x0a");
+	printf("--------------------------V2.2.03.2b----2017/01/18------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -129,11 +136,18 @@ int main()
 //--JOYSTICK HAT------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//	-------------------------Trim Switch
-	MapKey(&Joystick, H1U, TEMPO(PowerEng, TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));				// UP		PIPS[Short: 1xENG,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP]
-	MapKey(&Joystick, H1D, TEMPO(BalancePower, TEMPO(EXEC("initPIPPower(WEP,SYS,MID);"), EXEC("initPIPPower(WEP,ENG,MID);"), PIPPressDelay), PIPPressDelay));	// DOWN		PIPS[Short: Balance,Med: Tank,			Long: Offensive]
-	MapKey(&Joystick, H1L, TEMPO(PowerSys, TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));				// LEFT		PIPS[Short: 1xSYS,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP]
-	MapKey(&Joystick, H1R, TEMPO(PowerWep, TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));				// RIGHT	PIPS[Short: 1xWEP,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS]
+	
+	// UP		PIPS[Short: 4xENG 1SYS 1WEP,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP	S3: 3xSYS 3xWEP]
+	MapKeyIO(&Joystick, H1U, EXEC("initPIPPower(SYS,WEP,MID);"),TEMPO(EXEC("initPIPPower(ENG);"), TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));
 
+	// DOWN		PIPS[Short: Balance,	Med: Cycle 3xSYS 3xWEP / 3xENG 3xWEP / 3ENG 3xSYS]
+	MapKey(&Joystick, H1D, TEMPO(EXEC("initPIPPower();"), SEQ(EXEC("initPIPPower(SYS,WEP,MID);"),EXEC("initPIPPower(ENG,WEP,MID);"), EXEC("initPIPPower(ENG,SYS,MID);")), PIPPressDelay));	
+	
+	// LEFT		PIPS[Short: 4xSYS 1ENG 1WEP,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP	S3: 3ENG 3xSYS]
+	MapKeyIO(&Joystick, H1L, EXEC("initPIPPower(SYS,ENG,MID);"),TEMPO(EXEC("initPIPPower(SYS);"), TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));
+	
+	// RIGHT	PIPS[Short: 4xWEP 1SYS 1ENG,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS	S3: 3xENG 3xWEP]
+	MapKeyIO(&Joystick, H1R, EXEC("initPIPPower(ENG,WEP,MID);"),TEMPO(EXEC("initPIPPower(WEP);"), TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));
 
 	//	-------------------------Target Management Switch (TMS)
 	MapKey(&Joystick, H2U, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay));													// UP
@@ -237,9 +251,9 @@ int main()
 //	MapKey(&Throttle, APAH, 0);																						// Modifier MIDDLE		(ALT/HDG)
 //	MapKey(&Throttle, APALT, 0);																					// Modifier DOWN		(ALT)
 
-	//	-------------------------Engine Fuel Flow Switches LEFT
-	MapKey(&Throttle, EFLNORM, 0);																					// Switch UP
-	MapKey(&Throttle, EFLOVER, 0);																					// Switch DOWN
+	//	-------------------------Engine Fuel Flow Switches LEFT	
+	MapKey(&Throttle, EFLNORM, EXEC("initToggleExplorerMode();"));													// Switch UP
+	MapKey(&Throttle, EFLOVER, EXEC("initToggleExplorerMode();"));													// Switch DOWN
 
 	//	-------------------------Engine Fuel Flow Switches RIGHT
 	MapKey(&Throttle, EFRNORM, EXEC("initToggleLights();"));														// Switch UP
@@ -259,8 +273,6 @@ int main()
 
 	MapKey(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));														// DOWN
 	MapKeyR(&Throttle, EORMOTOR, EXEC("initToggleGameMenu();"));													// DOWN RELEASE
-	//MapKey(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN					Use this one If the previous cause BUG
-	//MapKeyR(&Throttle, EORMOTOR, PULSE+GameMenu);																	// DOWN RELEASE			(Client delay to open Game Menu vary)
 
 	//	-------------------------APU Start
 	MapKey(&Throttle, APUON, EXEC("initJettisonCargo();"));															// Switch UP
@@ -335,7 +347,8 @@ int main()
 		if(ToggleIDLEonThrottleLED!=0 & sIDLE){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleIDLEonThrottleLED));}
 		if(ToggleOptimalPIPModeLED!=0 & OptimalPIPMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleOptimalPIPModeLED));}
 		if(ToggleSecureRetractLED!=0 & SecureRetract){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSecureRetractLED));}
-		if(ToggleStopFireRetractHardpointsLED!=0 & StopFireRetractHardpoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleStopFireRetractHardpointsLED));}		
+		if(ToggleStopFireRetractHardpointsLED!=0 & StopFireRetractHardpoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleStopFireRetractHardpointsLED));}
+		if(ToogleExplorerModeLED!=0 & sExplorerMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToogleExplorerModeLED));}
 		//if(ToggleHardPointsonFireGameModeLED!=0 & HardPointsonFireGameMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardPointsonFireGameModeLED));}
 		//if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
 		//if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
