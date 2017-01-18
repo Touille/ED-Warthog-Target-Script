@@ -251,9 +251,9 @@ int main()
 //	MapKey(&Throttle, APAH, 0);																						// Modifier MIDDLE		(ALT/HDG)
 //	MapKey(&Throttle, APALT, 0);																					// Modifier DOWN		(ALT)
 
-	//	-------------------------Engine Fuel Flow Switches LEFT
-//	MapKey(&Throttle, EFLNORM, 0);																					// Switch UP
-//	MapKey(&Throttle, EFLOVER, 0);																					// Switch DOWN
+	//	-------------------------Engine Fuel Flow Switches LEFT	
+	MapKey(&Throttle, EFLNORM, EXEC("initToggleExplorerMode();"));													// Switch UP
+	MapKey(&Throttle, EFLOVER, EXEC("initToggleExplorerMode();"));													// Switch DOWN
 
 	//	-------------------------Engine Fuel Flow Switches RIGHT
 	MapKey(&Throttle, EFRNORM, EXEC("initToggleLights();"));														// Switch UP
@@ -347,7 +347,8 @@ int main()
 		if(ToggleIDLEonThrottleLED!=0 & sIDLE){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleIDLEonThrottleLED));}
 		if(ToggleOptimalPIPModeLED!=0 & OptimalPIPMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleOptimalPIPModeLED));}
 		if(ToggleSecureRetractLED!=0 & SecureRetract){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSecureRetractLED));}
-		if(ToggleStopFireRetractHardpointsLED!=0 & StopFireRetractHardpoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleStopFireRetractHardpointsLED));}		
+		if(ToggleStopFireRetractHardpointsLED!=0 & StopFireRetractHardpoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleStopFireRetractHardpointsLED));}
+		if(ToogleExplorerModeLED!=0 & sExplorerMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToogleExplorerModeLED));}
 		//if(ToggleHardPointsonFireGameModeLED!=0 & HardPointsonFireGameMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardPointsonFireGameModeLED));}
 		//if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
 		//if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}

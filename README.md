@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.2b 2017/01/15
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.2b 2017/01/18
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -32,7 +32,7 @@
 
 ### LED:
 	
-- [x] Easy Led Configuration you can chose what you want to be assigned (Settings File)
+- [x] Easy Led Configuration : You can chose what you want to be assigned (Settings File)
 - [x] Throttle LED intensity On The Fly (S3 + Friction Control Axis)
 - [x] Throttle LED Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in setting file))
 	

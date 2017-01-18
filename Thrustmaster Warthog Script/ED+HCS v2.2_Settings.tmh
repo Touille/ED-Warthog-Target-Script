@@ -124,7 +124,7 @@
 	define ToggleReverseThrottleLED				0
 	define ToggleGameMenuLED					0
 	define ToogleHeadLookLED					0
-	
+	define ToogleExplorerModeLED				0
 		
 //	--Throttle Backlight (Value 0-255)--------------------------------------------------------------------------------------------------------------------------//
 
@@ -154,6 +154,7 @@
 	
 	int sCameraMode;					//initToggleCamera()				Classified Camera	
 	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
+	int sExplorerMode;					//initToggleExplorerMode()			Desactivate Functions for Exploring (OptimalPIPMode when fire, StopFireRetractHardpoints ...)
 	
 	//If Misaligned With Game [S3]+Toggle The Switch
 	int sHardPoints;					//initToggleHardpoints()			HardPoints												
@@ -193,9 +194,9 @@
 //	VARIABLES USED IN FUNCTION																																	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int vJoystickCurveProfile;					//initSetJoystickCurves()	initJoystickCurves()	initToggleEnhancedFAOFF()	Can be switched on the Fly [FLAPS]
+	int vJoystickCurveProfile;					//initSetJoystickCurves()	initJoystickCurves()	initToggleEnhancedFAOFF()
 	int vJoystickCurveProfileBackup;			//initToggleEnhancedFAOFF()
-	int vThrottleCurveProfile;					//initSetThrottleCurves()														Can be switched on the Fly [S3 + THROTTLE ARM RED BUTTON]
+	int vThrottleCurveProfile;					//initSetThrottleCurves()
 	int vThrottleLight;							//initLEDStates()
 	int vThrottleLightBackup;					//initToggleIDLEonThrottle()	initLEDStates()	EventHandle()
 	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
@@ -214,8 +215,8 @@
 	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	//PIP Management Backup
-	int vOptimalPIP;							//initPIPPower()	initFire()	initToggleHardpoints()
+	//PIP Management
+	int vOptimalPIP;							//initPIPPower()
 	int vOptimalPIPHPBackup;					//initToggleHardpoints()
 	int vOptimalPIPFireBackup;					//initFire()
 	int vOptimalPIPEFBackup;					//initEscapeFight()
@@ -227,7 +228,7 @@
 	define ENG 2
 	define WEP 3
 	define MID 4
-	int PIPfull, PIPhalf, PIPMid;
+	int PIPx, PIPy, PIPz;
 	
 	//initSwitchState()
 	define EF 1
@@ -245,17 +246,19 @@
 		printf("		Optimal PIP Mode--------------------------%d\x0a", OptimalPIPMode);
 		printf("		Heat Sink On SilentRuning-----------------%d\x0a", HeatSinkonSilentRuning);
 		printf("		Silent Runing OFF On Fire-----------------%d\x0a", SilentRuningOFFonFire);
+		printf("		Combine Pri+Sec Fire----------------------%d\x0a", sCombinedFire);
+		printf("		Retract HardPoints On Fire----------------%d\x0a", StopFireRetractHardpoints);
 //		printf("--------------------------------------------------------------------------\x0a");
 		printf("		Rotation Correction-----------------------%d\x0a", sRCorrection);
-		printf("		Combine Pri+Sec Fire----------------------%d\x0a", sCombinedFire);
-		printf("		Classified CameraMode---------------------%d\x0a", sCameraMode);
-		printf("		HardPoints--------------------------------%d\x0a", sHardPoints);
-		printf("		Landing Gears-----------------------------%d\x0a", sGears);
-		printf("		Cargo Scoop-------------------------------%d\x0a", sCargo);
-		printf("		Ship Lights-------------------------------%d\x0a", sLights);
+//		printf("		Landing Gears-----------------------------%d\x0a", sGears);
+//		printf("		Cargo Scoop-------------------------------%d\x0a", sCargo);
+//		printf("		Ship Lights-------------------------------%d\x0a", sLights);
+//		printf("		Classified CameraMode---------------------%d\x0a", sCameraMode);
+//		printf("		HardPoints--------------------------------%d\x0a", sHardPoints);
+//		printf("		Explorer Mode-----------------------------%d\x0a", sExplorerMode);
 		printf("--------------------------In Game Settings--------------------------------\x0a");
 		printf("		PPT------------------------HOLD/TOGGLE----%d\x0a", sPTTMode);
-		printf("		PPT------------------------EXT./INT.------%d\x0a", sPTTState);
+		printf("		PPT-MIC--------------------EXT./INT.------%d\x0a", sPTTState);
 		printf("		Flight Assist--------------HOLD/TOGGLE----%d\x0a", FlightAssistGameMode);
 //		printf("		Drive Assist---------------HOLD/TOGGLE----%d\x0a", DriveAssistGameMode);
 		printf("		HardPoints on Fire---------OFF/ON---------%d\x0a", HardPointsonFireGameMode);
