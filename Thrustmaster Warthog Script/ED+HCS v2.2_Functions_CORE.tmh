@@ -268,7 +268,7 @@
 		if(SecureRetract & (sHardPoints | sCargo | sGears)){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
 		if(!sSilentRuning){	//If Silent Running is Disable, Enable it
 			if(!vSLonEscapeFight){
-				ActKey(KEYON+PULSE+EXEC("initSwitchState(EF);"));	//ShutDown Silent Runing
+				vSLonEscapeFight=!vSLonEscapeFight;
 			}
 			ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));
 		}
