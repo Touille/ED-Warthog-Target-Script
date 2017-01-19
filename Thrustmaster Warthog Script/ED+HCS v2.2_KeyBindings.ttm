@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.2b	2017/01/14
+//	V2.2.03.2b	2017/01
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -66,8 +66,8 @@
 	define ReverseThrottle			L_CTL+USB[0x15]			// L_CTRL+R
 
 	//SRV CONTROLS//
-	define SRVHandbrake				USB[0x1B]				// X			[HCS]									
-	define SRVTurret				USB[0x18]				// U			[HCS]									
+	define SRVHandbrake				USB[0x1B]				// X			[HCS]
+	define SRVTurret				USB[0x18]				// U			[HCS]
 	define SRVVerticalThrust		USB[0x2C]				// Space		[HCS]
 	define SRVRecallDismissShip		L_ALT+USB[0x1B]			// L_ALT+X		[HCS]
 
@@ -152,7 +152,7 @@
 //	define NVidiaCaptureManual		L_ALT+USB[0x42]			// <Disabled> ALT+F9
 
 	//HEADLOOK//
-	define HeadLook					USB[0x5D]				// NUMPAD 5			
+	define HeadLook					USB[0x5D]				// NUMPAD 5
 //	define LookUp					DXHATUP					// <Disabled>
 //	define LookDown					DXHATDOWN				// <Disabled>
 //	define LookLeft					DXHATLEFT				// <Disabled>

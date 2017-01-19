@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.2b	2017/01/14
+//	V2.2.03.2b	2017/01
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,18 +23,18 @@
 //	TOGGLE FUNCTIONS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)	
+	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)
 	int initToggleIDLEonThrottle(){
 		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
 			if(Throttle[IDLELON]) sIDLE = 1;	//Throttle position is IDLE State =1
 			else sIDLE = 0;	//Throttle position is !IDLE State =0
 			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+EXEC("initGameMenu();"));	//If GameMenu on IDLE Option is 1, Launch Game Menu
 			if(sIDLE){
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLEDOnIDLE));
-				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 1);"));	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
+				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightOnIDLE));
+				if(ThrottleLightOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 1);"));	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
 			}else{
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
-				if(ThrottleLEDOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 0);"));	//Put The LED OFF Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
+				if(ThrottleLightOnIDLE!=0)ActKey(KEYON+PULSE+EXEC("initLED(ToggleIDLEonThrottleLED, 0);"));	//Put The LED OFF Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
 			}
 			if(DebugMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);
 		}
@@ -145,7 +145,7 @@
 //	TOGGLE GAMES FUNCTIONS																																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	//TOGGLE: Landing Gear	
+	//TOGGLE: Landing Gear
 	int initToggleLandingGear(){
 		if(!Joystick[S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
@@ -173,7 +173,7 @@
 	}
 	
 	//TOGGLE: Cargo Scoop	
-	int initToggleCargoScoop(){																
+	int initToggleCargoScoop(){
 		if(!Joystick[S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sCargo=!sCargo;
@@ -263,7 +263,7 @@
 	}	
 
 	//TOGGLE: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
-	int initToggleEnhancedFAOFF(){																	
+	int initToggleEnhancedFAOFF(){
 		if(Joystick[S4]){
 			sFlightAssist=!sFlightAssist;
 			if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
@@ -272,13 +272,13 @@
 					if(vFA){	//FA [TOGGLE] Mode First Pulse Engage
 						vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
 						vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
-						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
+						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 							if(DebugMode) printf("Curve Profile Adjusted\x0a");
 						}
 					}else{	//FA [TOGGLE] Mode Second Pulse DisEngage	
 						vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
-						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
+						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 							if(DebugMode) printf("Curve Profile Return to Default\x0a");
 						}
@@ -290,7 +290,7 @@
 				if(sRCorrection){
 					vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
 					vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
-					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset						
+					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 						if(DebugMode) printf("Curve Profile Adjusted\x0a");
 					}
@@ -302,7 +302,7 @@
 				sFlightAssist=!sFlightAssist;
 				if(sRCorrection){
 					vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
-					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset					
+					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
 						if(DebugMode) printf("Curve Profile Return to Default\x0a");
 					}
@@ -336,7 +336,7 @@
 	}
 	
 	//TOGGLE: Rotational Correction
-	int initToggleRotationCorrection(){	
+	int initToggleRotationCorrection(){
 		if(!Joystick[S3]){
 			sRCorrection=!sRCorrection;
 			ActKey(KEYON+PULSE+RotationalCorrection);
@@ -345,7 +345,7 @@
 		}else{	//Reset On The FLY S3 + SWITCH
 			sRCorrection=!sRCorrection;
 		}
-		if(DebugMode) printf("Rotation Correction	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRCorrection);	
+		if(DebugMode) printf("Rotation Correction	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRCorrection);
 	}
 
 	//TOGGLE: External Camera
@@ -364,7 +364,7 @@
 		}
 		if(sCameraMode){	//Open The Camera Mode
 			if(OptimalPIPMode){
-				vOptimalPIPCCBackup = vOptimalPIP;	//Backup Actual PIP Mode				
+				vOptimalPIPCCBackup = vOptimalPIP;	//Backup Actual PIP Mode
 				ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
 			}
 			DeferCall(1000, &ActKey, KEYON+PULSE+mClassifiedCamera);	//Call The Camera Mode Macro
@@ -380,7 +380,7 @@
 	}
 
 	//TOGGLE: Head Look
-	int initToogleHeadLook(){																	
+	int initToogleHeadLook(){
 		if(!HMD & !TrackIR){
 			if(Throttle[SC]){
 				sHeadLook=!sHeadLook;
@@ -418,7 +418,7 @@
 		}
 		if(sGameMenu){	//Open The Game Menu
 			if(OptimalPIPMode){
-				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode			
+				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode
 				ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
 			}
 			ActKey(KEYON+PULSE+SetSpeed0);
