@@ -130,19 +130,16 @@
 			if(sPTTMode){	//TOGGLE
 				vVoice=!vVoice;
 				ActKey(KEYON+PULSE+vPTT);
-				if(vVoice)ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 1);"));
-				else ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 0);"));
 				if(DebugMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] [HOLD:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
 			}else{	//Talk [HOLD]
 				ActKey(KEYON+DOWN+vPTT);
-				ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 1);"));
 			}
 		}
 		if(!Throttle[MSP] & !sPTTMode){	//Silence [HOLD]
 			vVoicePTT=!vVoicePTT;
 			ActKey(KEYON+UP+vPTT);
-			ActKey(KEYON+PULSE+EXEC("initLED(ToggleVoicePTTLED, 0);"));
 		}
+		initLED(ToggleVoicePTTLED, vVoicePTT);
 		if(DebugMode & !sPTTMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] PUSH:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
 	}
 	
@@ -153,12 +150,6 @@
 		if(sGears) ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
 		if(sCargo) ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
 		vSecureEscapeFight=!vSecureEscapeFight;
-	}
-
-	//FUNCTION: Toggle LED	requested, Params = Toggle Name LED, ON[1] or OFF[0] (ex:	initLED(ToggleLandingGearLED, 1)	Will up the LG LED if ToggleLandingGearLED is Define in setting (!=0))
-	int initLED(int l = 0, int LEDONOFF =0){
-		if(LEDONOFF == 1 & l!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+l));	//LED ON
-		if(LEDONOFF == 0 & l!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-l));	//LED OFF
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

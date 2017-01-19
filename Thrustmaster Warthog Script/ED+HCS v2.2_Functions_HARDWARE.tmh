@@ -23,6 +23,15 @@
 //	HARDWARE MAPPINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
+	//FUNCTION: Toggle LED	Params = Toggle Name LED, Value to Track (ex: initLED(ToogleHeadLookLED, sHeadLook);	Will up the HeadLook LED if ToogleHeadLookLED is Define in setting (!=0))
+	int initLED(int t = 0, int v =0){
+		if(v == 1 & t!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+t));		//LED ON
+		else if(v == 0 & t!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-t));	//LED OFF
+		else{
+			if(DebugMode) printf("LED SET	[%d]	Value	[%d]\x0a", t, v);
+		}
+	}
+
 	//	-------------------------Set LED
 	int initLEDStates(){
 	
