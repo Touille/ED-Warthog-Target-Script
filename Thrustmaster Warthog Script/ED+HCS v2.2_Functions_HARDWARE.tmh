@@ -28,7 +28,7 @@
 		if(v == 1 & t!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+t));		//LED ON
 		else if(v == 0 & t!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-t));	//LED OFF
 		else{
-			if(DebugMode) printf("LED SET	[%d]	Value	[%d]\x0a", t, v);
+			//if(DebugMode) printf("LED SET	[%d]	Value	[%d]\x0a", t, v);
 		}
 	}
 

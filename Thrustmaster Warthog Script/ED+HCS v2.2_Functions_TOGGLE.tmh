@@ -28,7 +28,7 @@
 		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
 			if(Throttle[IDLELON]) sIDLE = 1;	//Throttle position is IDLE State =1
 			else sIDLE = 0;	//Throttle position is !IDLE State =0
-			if(GameMenuOnIDLE)ActKey(KEYON+PULSE+EXEC("initGameMenu();"));	//If GameMenu on IDLE Option is 1, Launch Game Menu
+			if(GameMenuOnIDLE)initGameMenu();	//If GameMenu on IDLE Option is 1, Launch Game Menu
 			if(sIDLE){
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightOnIDLE));
 			}else{
@@ -209,11 +209,11 @@
 			if(sHardPoints){
 				if(OptimalPIPMode & !sExplorerMode){
 					vOptimalPIPHPBackup = vOptimalPIP;	//Backup Actual PIP Mode
-					ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));	//4 WEP 2 SYS (6)
+					initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 				}
 			}else{
 				if(OptimalPIPMode & !sExplorerMode){
-					ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPHPBackup);"));	//Restore Previous PIP Mode
+					initRestorePIPPower(vOptimalPIPHPBackup);	//Restore Previous PIP Mode
 				}
 			}
 			initLED(ToggleHardpointsLED, sHardPoints);
@@ -258,13 +258,13 @@
 						vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
 						vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
-							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
+							initJoystickCurves();
 							if(DebugMode) printf("Curve Profile Adjusted\x0a");
 						}
 					}else{	//FA [TOGGLE] Mode Second Pulse DisEngage	
 						vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
-							ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
+							initJoystickCurves();
 							if(DebugMode) printf("Curve Profile Return to Default\x0a");
 						}
 					}
@@ -276,7 +276,7 @@
 					vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
 					vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
-						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
+						initJoystickCurves();
 						if(DebugMode) printf("Curve Profile Adjusted\x0a");
 					}
 				}
@@ -288,7 +288,7 @@
 				if(sRCorrection){
 					vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
-						ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
+						initJoystickCurves();
 						if(DebugMode) printf("Curve Profile Return to Default\x0a");
 					}
 				}
@@ -338,7 +338,7 @@
 				vSLonCamera=!vSLonCamera;
 				//if(DebugMode)printf("vSLonCamera [%d]\x0a", vSLonCamera);
 			}
-			ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//If Silent Runing is Engaged, Disengade it
+			initToggleSilentRuning();	//If Silent Runing is Engaged, Disengade it
 			if(vSLonCamera){
 				vSLonCamera=!vSLonCamera;
 				//if(DebugMode)printf("vSLonCamera [%d]\x0a", vSLonCamera);
@@ -347,7 +347,7 @@
 		if(sCameraMode){	//Open The Camera Mode
 			if(OptimalPIPMode){
 				vOptimalPIPCCBackup = vOptimalPIP;	//Backup Actual PIP Mode
-				ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
+				initPIPPower(SYS, ENG);	//4 SYS 2 ENG (3)
 			}
 			DeferCall(1000, &ActKey, KEYON+PULSE+mClassifiedCamera);	//Call The Camera Mode Macro
 		}else{	//Close The Camera Mode
@@ -390,7 +390,7 @@
 				vSLonGameMenu=!vSLonGameMenu;
 				//if(DebugMode)printf("vSLonGameMenu [%d]\x0a", vSLonGameMenu);
 			}
-			ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//If Silent Runing is Engaged, Disengade it
+			initToggleSilentRuning();	//If Silent Runing is Engaged, Disengade it
 			if(vSLonGameMenu){
 				vSLonGameMenu=!vSLonGameMenu;
 				//if(DebugMode)printf("vSLonGameMenu [%d]\x0a", vSLonGameMenu);
@@ -399,7 +399,7 @@
 		if(sGameMenu){	//Open The Game Menu
 			if(OptimalPIPMode){
 				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode
-				ActKey(KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
+				initPIPPower(SYS, ENG);	//4 SYS 2 ENG (3)
 			}
 			ActKey(KEYON+PULSE+SetSpeed0);
 		}else{	//Close The Game Menu

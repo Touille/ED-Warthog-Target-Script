@@ -163,13 +163,15 @@
 				if(!vSLonFire){	//ShutDown Silent Runing
 					vSLonFire=!vSLonFire;
 					vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
-					ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));
+					initToggleSilentRuning();
 				}
 			}
-			if(HardPointsonFireGameMode & !sHardPoints){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
+			if(HardPointsonFireGameMode & !sHardPoints){
+				initToggleHardpoints();
+			}
 			if(OptimalPIPMode & !sExplorerMode){
 				vOptimalPIPFireBackup = vOptimalPIP;	//Backup Actual PIP Mode
-				ActKey(KEYON+PULSE+EXEC("initPIPPower(WEP,SYS);"));	//4 WEP 2 SYS (6)
+				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 			}			
 			if(Joystick[TG1]){ActKey(KEYON+DOWN+PrimaryFire);}
 			if(Joystick[S2]){ActKey(KEYON+DOWN+SecondaryFire);}
@@ -178,12 +180,12 @@
 			if(!Joystick[TG1]){ActKey(KEYON+UP+PrimaryFire);}
 			if(!Joystick[S2]){ActKey(KEYON+UP+SecondaryFire);}
 			if(OptimalPIPMode & !Joystick[TG1] & !Joystick[S2] & !sExplorerMode){
-				ActKey(KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPFireBackup);"));	//Restore Previous PIP Mode		
+				initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
 			}
 			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !Joystick[S2] & !Joystick[TG1] & !sExplorerMode){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
 			if(vSilentRuningBackup!=0 & !Joystick[S2] & !Joystick[TG1]){
 				vSilentRuningBackup = 0;
-				ActKey(KEYON+PULSE+EXEC("initToggleSilentRuning();"));	//Restore Silent Runing State
+				initToggleSilentRuning();	//Restore Silent Runing State
 			}
 			if(SilentRuningOFFonFire & sSilentRuning & vSLonFire & !Joystick[S2] & !Joystick[TG1]){
 				vSLonFire=!vSLonFire;
@@ -206,24 +208,23 @@
 
 	//FUNCTION: Init Supercruise
 	int initSuperCruise(){
-		if(SecureRetract & (sHardPoints | sCargo | sGears)){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+		if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
 		ActKey(KEYON+PULSE+Supercruise);
 		if(DebugMode) printf("Engage SuperCruise\x0a");
 	}
 	
 	//FUNCTION: Init FrameShiftDrive
 	int initFrameShiftDrive(){
-		if(SecureRetract & (sHardPoints | sCargo | sGears)){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+		if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
 		ActKey(KEYON+PULSE+FrameShiftDrive);
 		if(DebugMode) printf("Engage FSD\x0a");
 	}
 	
 	//FUNCTION: SystemJump
 	int initSystemJump(){
-		if(!SecureRetract & (sHardPoints | sCargo | sGears)){		//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
-			ActKey(KEYON+PULSE+EXEC("initFrameShiftDrive();"));
-		}else{
-			if(SecureRetract & (sHardPoints | sCargo | sGears)){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+		if(!SecureRetract & (sHardPoints | sCargo | sGears))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
+		else{
+			if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();;}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
 			ActKey(KEYON+PULSE+mSystemJump);
 			if(DebugMode) printf("Engage System Jump\x0a");
 		}
@@ -236,7 +237,7 @@
 	//FUNCTION: Use Supercruise while boosting if Throttle is 100%
 	int initThrottleBoost(){
 		if(SupecruiseOnThrottle & AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){	//Throttle All the Way Up & SupecruiseOnThrottle is Actived?
-			if(SecureRetract & (sHardPoints | sCargo | sGears)){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+			if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
 			ActKey(KEYON+PULSE+Supercruise);
 			if(DebugMode) printf("SuperCruise On Throttle Engaged\x0a");
 		}else{
@@ -275,7 +276,7 @@
 	//FUNCTION: Request Docking
 	int initRCDocking(){
 		if(DebugMode) printf("Docking Initialisation\x0a");
-		if(SecureRetract & (sHardPoints | sCargo | sGears)){ActKey(KEYON+PULSE+EXEC("initSecureRectract();"));}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+		if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
 		ActKey(KEYON+PULSE+mRequestCancelDock);
 		if(OptimalPIPMode){
 			DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
@@ -284,8 +285,8 @@
 
 	//FUNCTION: Autopilot Engage / Disengage Key
 	int initEngageAPkey(){
-		if (Throttle[APPAT]) ActKey(KEYON+PULSE+EXEC("initRCDocking();"));
-		else if (Throttle[APAH]) ActKey(KEYON+PULSE+EXEC("initEscapeFight();"));
-		else if (Throttle[APALT] & !Joystick[S3]) ActKey(KEYON+PULSE+EXEC("initSystemJump();"));
+		if (Throttle[APPAT]) initRCDocking();
+		else if (Throttle[APAH]) initEscapeFight();
+		else if (Throttle[APALT] & !Joystick[S3]) initSystemJump();
 		else if (Throttle[APALT] & Joystick[S3]) ActKey(KEYON+PULSE+CancelFSD);
 	}
