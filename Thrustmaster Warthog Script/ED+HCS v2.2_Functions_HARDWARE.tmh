@@ -23,11 +23,12 @@
 //	HARDWARE MAPPINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	//FUNCTION: Toggle LED	Params = Toggle Name LED, Value to Track (ex: initLED(ToogleHeadLookLED, sHeadLook);	Will up the HeadLook LED if ToogleHeadLookLED is Define in setting (!=0))
+	//FUNCTION: Toggle LED	Params = Toggle Name LED, Value to Track (ex: initLED(ToogleHeadLookLED, sHeadLook);	Will up or down the HeadLook LED if ToogleHeadLookLED is Define in setting (!=0))
 	int initLED(int t = 0, int v =0){
-		if(v == 1 & t!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+t));		//LED ON
-		else if(v == 0 & t!=0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-t));	//LED OFF
-		else{
+		if(t!=0){
+			if     (v == 1)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+t));	//LED ON
+			else if(v == 0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-t));	//LED OFF
+		}else{
 			//if(DebugMode) printf("LED SET	[%d]	Value	[%d]\x0a", t, v);
 		}
 	}
@@ -39,12 +40,12 @@
 		if(HMD){	//Set LED Backlight on Start If HMD
 				vThrottleLight = ThrottleLightHMD;
 				vThrottleLightBackup = ThrottleLightHMD;	//Backup the LED Backlight defaukt value
-				if(DebugMode)printf("HMD -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHMD);
+				if(DebugMode | DebugMMode)printf("HMD -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHMD);
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightHMD));
 		}else{	//Set LED Backlight on Start
 				vThrottleLight = ThrottleLight;
 				vThrottleLightBackup = ThrottleLight;	//Backup the LED Backlight defaukt value
-				if(DebugMode)printf("No HMD Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
+				if(DebugMode | DebugMMode)printf("No HMD Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLight));
 		}
 
@@ -59,12 +60,12 @@
 		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));
 		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));
 		if(USEMFD > 0){
-			ActKey(PULSE+KEYON+LED(&RMFD, LED_ONOFF, LED_CURRENT-LED1)); //set right MFD LED 1 OFF
-			ActKey(PULSE+KEYON+LED(&RMFD, LED_ONOFF, LED_CURRENT-LED2)); //set right MFD LED 2 OFF
+			ActKey(PULSE+KEYON+LED(&RMFD, LED_ONOFF, LED_CURRENT-LED1));	//set right MFD LED 1 OFF
+			ActKey(PULSE+KEYON+LED(&RMFD, LED_ONOFF, LED_CURRENT-LED2));	//set right MFD LED 2 OFF
 		}
 		if(USEMFD > 1){
-			ActKey(PULSE+KEYON+LED(&LMFD, LED_ONOFF, LED_CURRENT-LED1)); //set left MFD LED 1 OFF
-			ActKey(PULSE+KEYON+LED(&LMFD, LED_ONOFF, LED_CURRENT-LED2)); //set left MFD LED 2 OFF
+			ActKey(PULSE+KEYON+LED(&LMFD, LED_ONOFF, LED_CURRENT-LED1));	//set left MFD LED 1 OFF
+			ActKey(PULSE+KEYON+LED(&LMFD, LED_ONOFF, LED_CURRENT-LED2));	//set left MFD LED 2 OFF
 		}			
 		
 		//Initiate Led State
@@ -85,20 +86,25 @@
 		initLED(ToggleSecureRetractLED, SecureRetract);
 		initLED(ToggleStopFireRetractHardpointsLED, StopFireRetractHardpoints);
 		initLED(ToogleExplorerModeLED, sExplorerMode);
+		
 		//initLED(ToggleHardPointsonFireGameModeLED, HardPointsonFireGameMode);
-		//initLED(ToggleFALED, sFA);
+		//initLED(ToggleFALED, sFlightAssist);
+		//initLED(ToggleVALED, sVoiceAttack);
 		//initLED(ToggleSilentRuningLED, sSilentRuning);
+		//initLED(ToggleReverseThrottleLED, sRT);		
 		//initLED(ToggleCameraLED, sCameraMode);
+		//initLED(ToggleGameMenuLED, sGameMenu);
+		//initLED(ToogleHeadLookLED, sHeadLook);
 		
 	}
 	
 	//	-------------------------Set Joystick
 	//Set Default Joystick Axis
 	int initJoystickAxis(){	
-		MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// Set Joystick Control X Axis
-		MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// Set Joystick Control Y Axis
-		MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
-		MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
+		MapAxis(&Joystick, JOYX, DX_X_AXIS,    AXIS_NORMAL, MAP_ABSOLUTE);	// Set Joystick Control X Axis
+		MapAxis(&Joystick, JOYY, DX_Y_AXIS,    AXIS_NORMAL, MAP_ABSOLUTE);	// Set Joystick Control Y Axis
+		MapAxis(&Throttle, SCX,  DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);	// Set Slew Control X Axis
+		MapAxis(&Throttle, SCY,  DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);	// Set Slew Control Y Axis
 	}
 
 	//Joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
@@ -113,8 +119,8 @@
 	int initJoystickCurves(){
 		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
-		SetSCurve(&Throttle, SCX, 0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
-		SetSCurve(&Throttle, SCY, 0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
+		SetSCurve(&Throttle, SCX,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
+		SetSCurve(&Throttle, SCY,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		if (DebugMode){
 			printf("Set	Joystick	Curve Profile	[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
 			printf("Set	Slew		Curve Profile	[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
@@ -147,8 +153,8 @@
 	//	-------------------------Set Rudders	
 	//Set Rudders Axis
 	int initRudders(){
-		MapAxis(&TFRPRudder, TRUDDER, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
-		MapAxis(&TFRPRudder, TRPLEFT, DX_X_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
+		MapAxis(&TFRPRudder, TRUDDER,  DX_Z_AXIS, AXIS_NORMAL,   MAP_ABSOLUTE);
+		MapAxis(&TFRPRudder, TRPLEFT,  DX_X_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
 		MapAxis(&TFRPRudder, TRPRIGHT, DX_Y_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
-		if(DebugMode)printf("Initialising Rudders Axis\x0a");
+		if(DebugMode | DebugMMode)printf("Initialising Rudders Axis\x0a");
 	}

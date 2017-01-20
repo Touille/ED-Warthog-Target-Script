@@ -64,32 +64,32 @@ int main()
 	if(Rudders == 2)initRudders();
 
 	// Initiate Axis Mappings
-	if(DebugMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");
+	if(DebugMode | DebugMMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");
 	
-	if(DebugMode)printf("Initialising Joystick Axis\x0a");
+	if(DebugMode | DebugMMode)printf("Initialising Joystick Axis\x0a");
 	initJoystickAxis();
 	
-	if(DebugMode)printf("Initialising Throttle Axis\x0a");
+	if(DebugMode | DebugMMode)printf("Initialising Throttle Axis\x0a");
 	initThrottleAxis();
 	
-	if(DebugMode)printf("Initialising Joystick Curve\x0a");
+	if(DebugMode | DebugMMode)printf("Initialising Joystick Curve\x0a");
 	initSetJoystickCurves();
 	
-	if(DebugMode)printf("Initialising Throttle Curve\x0a");
+	if(DebugMode | DebugMMode)printf("Initialising Throttle Curve\x0a");
 	initSetThrottleCurves();
 
 	//Initiate MFD
 	if(USEMFD > 0){
-		if(DebugMode)printf("Initialising Right MFD\x0a");
+		if(DebugMode | DebugMMode)printf("Initialising Right MFD\x0a");
 		initRightMFD();
 	}
 	if(USEMFD > 1){
-		if(DebugMode)printf("Initialising Left MFD\x0a");
+		if(DebugMode | DebugMMode)printf("Initialising Left MFD\x0a");
 		initLeftMFD();
 	}
 
 	// Initiate Led State
-	if(DebugMode)printf("Initialising LED States\x0a");
+	if(DebugMode | DebugMMode)printf("Initialising LED States\x0a");
 	initLEDStates();
 
 	// Initiate Custom & PIP Functions (ED+HCS_Macros_v2.2.tmh)
@@ -338,7 +338,7 @@ int main()
 //		MapKey(&RMFD, BRTD, 0);
 //		MapKey(&RMFD, CONU, 0);
 //		MapKey(&RMFD, COND, 0);
-		if(DebugMode)printf("Initialising Right MFD\x0a");
+		if(DebugMode)printf("...Done\x0a");
 	}
 	
 	//Set Left MFD
@@ -369,7 +369,7 @@ int main()
 //		MapKey(&LMFD, BRTD, 0);
 //		MapKey(&LMFD, CONU, 0);
 //		MapKey(&LMFD, COND, 0);
-		if(DebugMode)printf("Initialising Left MFD\x0a");
+		if(DebugMode)printf("...Done\x0a");
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

@@ -49,7 +49,7 @@
 			initLED(ToogleExplorerModeLED, sExplorerMode);
 			if(DebugMode) printf("Explorer Mode	[%d]	[ON:[1] OFF:[0]]\x0a", sExplorerMode);
 		}
-	}	
+	}
 	
 	//TOGGLE: StopFire When Retract Hardpoints
 	int initToggleStopFireRetractHardpoints(){
@@ -140,7 +140,7 @@
 		if(!Joystick[S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sGears=!sGears;
-				if(DebugMode)printf("Landing Gear SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode | DebugMMode)printf("Landing Gear SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}else{	//Or Change the flag status with the switch position
 				if(Throttle[EACON]) sGears = 1;	//Switch position is UP : Landing Gear Is Deployed
 				else sGears = 0;	//Switch position is DOWN : Landing Gear Is Retracted
@@ -152,7 +152,7 @@
 				vLG=!vLG;	//Reset On The FLY : Just switch
 				ActKey(KEYON+PULSE+LandingGear);
 			}else{
-				if(DebugMode) printf("Landing Gear Reset On The Fly\x0a");
+				if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly\x0a");
 			}
 			initLED(ToggleLandingGearLED, sGears);
 		}else{	//Reset The Flag On The FLY S3 + SWITCH
@@ -166,7 +166,7 @@
 		if(!Joystick[S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sCargo=!sCargo;
-				if(DebugMode)printf("Cargo Scoop SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode | DebugMMode)printf("Cargo Scoop SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}else{	//Or Change the flag status with the switch position
 				if(Throttle[RDRNRM]) sCargo = 1;	//Switch position is UP : Cargo Scoop Is Deployed
 				else sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
@@ -178,7 +178,7 @@
 				vCS=!vCS;	//Reset On The FLY : Just switch
 				ActKey(KEYON+PULSE+CargoScoop);
 			}else{
-				if(DebugMode) printf("Cargo Scoop Reset On The Fly\x0a");
+				if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly\x0a");
 			}
 			initLED(ToggleCargoScoopLED, sCargo);
 		}else{	//Reset The Flag On The FLY S3 + SWITCH
@@ -202,7 +202,7 @@
 	int initToggleHardpoints(){
 		if(!Joystick[S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This Just Display Msg (Hardpoint is Mapped on Button : No Position)
-				if(DebugMode)printf("HardPoints SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode | DebugMMode)printf("HardPoints SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}
 			sHardPoints=!sHardPoints;
 			ActKey(KEYON+PULSE+DeployHardpoints);
@@ -259,13 +259,13 @@
 						vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 							initJoystickCurves();
-							if(DebugMode) printf("Curve Profile Adjusted\x0a");
+							if(DebugMode | DebugMMode) printf("Curve Profile Adjusted\x0a");
 						}
 					}else{	//FA [TOGGLE] Mode Second Pulse DisEngage	
 						vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 							initJoystickCurves();
-							if(DebugMode) printf("Curve Profile Return to Default\x0a");
+							if(DebugMode | DebugMMode) printf("Curve Profile Return to Default\x0a");
 						}
 					}
 				}
@@ -277,7 +277,7 @@
 					vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 						initJoystickCurves();
-						if(DebugMode) printf("Curve Profile Adjusted\x0a");
+						if(DebugMode | DebugMMode) printf("Curve Profile Adjusted\x0a");
 					}
 				}
 				ActKey(KEYON+DOWN+FlightAssist);
@@ -289,7 +289,7 @@
 					vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 						initJoystickCurves();
-						if(DebugMode) printf("Curve Profile Return to Default\x0a");
+						if(DebugMode | DebugMMode) printf("Curve Profile Return to Default\x0a");
 					}
 				}
 				ActKey(KEYON+UP+FlightAssist);

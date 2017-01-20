@@ -31,7 +31,8 @@
 //	PERSONAL SETTINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int DebugMode					=1;		//If 1 Target Script Editor Window will Display Debug Msg
+	int DebugMode					=1;		//If 1 Target Script Editor Window will Display All Debug Msg
+	int DebugMMode					=1;		//If 1 Target Script Editor Window will Display Some Debug Msg
 
 	define Rudders	0						//0 for no rudders, 1 for rudders, 2 for T.Flight rudders
 	define USEMFD	0						//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)

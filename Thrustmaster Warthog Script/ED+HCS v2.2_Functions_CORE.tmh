@@ -85,16 +85,16 @@
 	int initRestorePIPPower(int j=0){
 		if(j != vOptimalPIP){	// Send Good Backup PIPS only if previous PIP Swith is != of Backuped Value
 			//if(DebugMode){printf("Reset PIP ?: PIPRestore [%d] vOptimalPIP [%d]\x0a", j, vOptimalPIP);}
-			if(j == 0)initPIPPower();					//2 SYS 2 ENG 2 WEP (0)
-			else if(j == 1)initPIPPower(ENG,SYS);		//4 ENG	2 SYS (1)
-			else if(j == 2)initPIPPower(ENG,WEP);		//4 ENG 2 WEP (2)
-			else if(j == 3)initPIPPower(SYS,ENG);		//4 SYS 2 ENG (3)
-			else if(j == 4)initPIPPower(SYS,WEP);		//4 SYS 2 WEP (4)
-			else if(j == 5)initPIPPower(WEP,ENG);		//4 WEP 2 ENG (5)
-			else if(j == 6)initPIPPower(WEP,SYS);		//4 WEP 2 SYS (6)
-			else if(j == 7)initPIPPower(SYS,ENG,MID);	//3 SYS 3 ENG (7)
-			else if(j == 8)initPIPPower(ENG,WEP,MID);	//3 ENG 3 WEP (8)
-			else if(j == 9)initPIPPower(SYS,WEP,MID);	//3 SYS 3 WEP (9)	
+			if     (j == 0) initPIPPower();				//2 SYS 2 ENG 2 WEP (0)
+			else if(j == 1) initPIPPower(ENG,SYS);		//4 ENG	2 SYS (1)
+			else if(j == 2) initPIPPower(ENG,WEP);		//4 ENG 2 WEP (2)
+			else if(j == 3) initPIPPower(SYS,ENG);		//4 SYS 2 ENG (3)
+			else if(j == 4) initPIPPower(SYS,WEP);		//4 SYS 2 WEP (4)
+			else if(j == 5) initPIPPower(WEP,ENG);		//4 WEP 2 ENG (5)
+			else if(j == 6) initPIPPower(WEP,SYS);		//4 WEP 2 SYS (6)
+			else if(j == 7) initPIPPower(SYS,ENG,MID);	//3 SYS 3 ENG (7)
+			else if(j == 8) initPIPPower(ENG,WEP,MID);	//3 ENG 3 WEP (8)
+			else if(j == 9) initPIPPower(SYS,WEP,MID);	//3 SYS 3 WEP (9)	
 			else if(j == 10)initPIPPower(SYS);			//4 SYS 1 ENG 1 WEP (10)
 			else if(j == 11)initPIPPower(ENG);			//4 ENG 1 SYS 1 WEP (11)
 			else if(j == 12)initPIPPower(WEP);			//4 WEP 1 SYS 1 ENG (12)
@@ -199,9 +199,9 @@
 		if(Throttle[APUON]){
 			if(sCargo){
 				ActKey(KEYON+PULSE+JettisonAllCargo);
-				if(DebugMode) printf("Jettison All Cargo\x0a");
+				if(DebugMode | DebugMMode) printf("Jettison All Cargo\x0a");
 			}else{
-				if(DebugMode) printf("Jettison Need Cargo Scoop Open\x0a");
+				if(DebugMode | DebugMMode) printf("Jettison Need Cargo Scoop Open\x0a");
 			}
 		}
 	}
@@ -270,7 +270,7 @@
 				DeferCall(5000, &ActKey, KEYON+PULSE+EXEC("vSLonEscapeFight=!vSLonEscapeFight;"));
 			}
 		}
-		if(DebugMode) printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG) \x0a");
+		if(DebugMode | DebugMMode) printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG) \x0a");
 	}
 
 	//FUNCTION: Request Docking

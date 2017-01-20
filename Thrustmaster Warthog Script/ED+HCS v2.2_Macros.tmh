@@ -42,21 +42,21 @@
 		//MACRO: Auto-Docking Request
 		mRequestCancelDock = CHAIN(
 			LOCK+PULSE+SetSpeed0, D(ShortPulseDelay),
-			PULSE+TargetPanel, D(MediumPulseDelay),
-			PULSE+UINextPanel, D(MediumPulseDelay),
-			PULSE+UINextPanel, D(MediumPulseDelay),
-			PULSE+UISelect, D(MediumPulseDelay),
-			PULSE+UIDown, D(MediumPulseDelay),
-			PULSE+UISelect, D(MediumPulseDelay),
-			PULSE+UIPrevPanel, D(MediumPulseDelay),
-			PULSE+UIPrevPanel, D(MediumPulseDelay),
+			PULSE+TargetPanel,    D(MediumPulseDelay),
+			PULSE+UINextPanel,    D(MediumPulseDelay),
+			PULSE+UINextPanel,    D(MediumPulseDelay),
+			PULSE+UISelect,       D(MediumPulseDelay),
+			PULSE+UIDown,         D(MediumPulseDelay),
+			PULSE+UISelect,       D(MediumPulseDelay),
+			PULSE+UIPrevPanel,    D(MediumPulseDelay),
+			PULSE+UIPrevPanel,    D(MediumPulseDelay),
 			PULSE+UIBack, 
 			LOCK);
 
 		//MACRO: System Jump
 		mSystemJump = CHAIN(
-			PULSE+SelectNextSystemInRoute, D(ShortPulseDelay),
-			PULSE+SetSpeed100, D(ExtraPulseDelay),
+			PULSE+SelectNextSystemInRoute,  D(ShortPulseDelay),
+			PULSE+SetSpeed100,              D(ExtraPulseDelay),
 			EXEC("initFrameShiftDrive();"), D(FSDOFFDelay),
 			PULSE+SetSpeed0);
 			
@@ -74,7 +74,7 @@
 	
 		//MACRO: Classified (External) 'Debug' Camera
 		mClassifiedCamera = CHAIN(
-			PULSE+SetSpeed0, D(ShortPulseDelay),
+			PULSE+SetSpeed0,        D(ShortPulseDelay),
 			PULSE+ClassifiedCamera, D(LongPulseDelay),
 			PULSE+SPC);
 	
