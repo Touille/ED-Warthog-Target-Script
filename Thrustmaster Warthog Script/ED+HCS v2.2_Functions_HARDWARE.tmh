@@ -68,27 +68,27 @@
 		}			
 		
 		//Initiate Led State
-		if(ToggleSuperCruiseModeLED!=0 & SupecruiseOnThrottle){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSuperCruiseModeLED));}
-		if(ToggleRCorrectionLED!=0 & sRCorrection){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleRCorrectionLED));}
-		if(ToggleLandingGearLED!=0 & sGears){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleLandingGearLED));}
-		if(ToggleCargoScoopLED!=0 & sCargo){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCargoScoopLED));}
-		if(ToggleLightsLED!=0 & sLights){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleLightsLED));}
-		if(ToggleHardpointsLED!=0 & sHardPoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardpointsLED));}
-		if(ToggleCombinedFireLED!=0 & sCombinedFire){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCombinedFireLED));}
-		if(TogglePTTLED!=0 & sPTTState){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTLED));}
-		if(ToggleVoicePTTLED!=0 & vVoicePTT){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleVoicePTTLED));}
-		if(TogglePTTModeLED!=0 & sPTTMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTModeLED));}
-		if(ToggleSilentRuningonFireLED!=0 & SilentRuningOFFonFire){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningonFireLED));}
-		if(ToggleHeatSinkonSilentRuningLED!=0 & HeatSinkonSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));}
-		if(ToggleIDLEonThrottleLED!=0 & sIDLE){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleIDLEonThrottleLED));}
-		if(ToggleOptimalPIPModeLED!=0 & OptimalPIPMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleOptimalPIPModeLED));}
-		if(ToggleSecureRetractLED!=0 & SecureRetract){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSecureRetractLED));}
-		if(ToggleStopFireRetractHardpointsLED!=0 & StopFireRetractHardpoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleStopFireRetractHardpointsLED));}
-		if(ToogleExplorerModeLED!=0 & sExplorerMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToogleExplorerModeLED));}
-		//if(ToggleHardPointsonFireGameModeLED!=0 & HardPointsonFireGameMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardPointsonFireGameModeLED));}
-		//if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
-		//if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
-		//if(ToggleCameraLED!=0 & sCameraMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCameraLED));}
+		initLED(ToggleSuperCruiseModeLED, SupecruiseOnThrottle);
+		initLED(ToggleRCorrectionLED, sRCorrection);
+		initLED(ToggleLandingGearLED, sGears);
+		initLED(ToggleCargoScoopLED, sCargo);
+		initLED(ToggleLightsLED, sLights);
+		initLED(ToggleHardpointsLED, sHardPoints);
+		initLED(ToggleCombinedFireLED, sCombinedFire);
+		initLED(TogglePTTLED, sPTTState);
+		initLED(ToggleVoicePTTLED, vVoicePTT);
+		initLED(TogglePTTModeLED, sPTTMode);
+		initLED(ToggleSilentRuningonFireLED, SilentRuningOFFonFire);
+		initLED(ToggleHeatSinkonSilentRuningLED, HeatSinkonSilentRuning);
+		initLED(ToggleIDLEonThrottleLED, sIDLE);
+		initLED(ToggleOptimalPIPModeLED, OptimalPIPMode);
+		initLED(ToggleSecureRetractLED, SecureRetract);
+		initLED(ToggleStopFireRetractHardpointsLED, StopFireRetractHardpoints);
+		initLED(ToogleExplorerModeLED, sExplorerMode);
+		//initLED(ToggleHardPointsonFireGameModeLED, HardPointsonFireGameMode);
+		//initLED(ToggleFALED, sFA);
+		//initLED(ToggleSilentRuningLED, sSilentRuning);
+		//initLED(ToggleCameraLED, sCameraMode);
 		
 	}
 	

@@ -108,6 +108,7 @@
 	define ToggleSuperCruiseModeLED				LED3
 	define ToggleSilentRuningonFireLED			LED4
 	define ToggleStopFireRetractHardpointsLED	LED5	//Retract HardPoints When Fire OFF LED
+	define ToggleHardPointsonFireGameModeLED	0
 	define ToggleHeatSinkonSilentRuningLED		0
 	define ToggleLandingGearLED					0
 	define ToggleCargoScoopLED					0
