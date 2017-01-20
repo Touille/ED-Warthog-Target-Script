@@ -146,9 +146,9 @@
 	//FUNCTION: Init Secure Retract
 	int initSecureRectract(){
 		vSecureEscapeFight=!vSecureEscapeFight;
-		if(sHardPoints) ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));
-		if(sGears) ActKey(KEYON+PULSE+EXEC("initToggleLandingGear();"));
-		if(sCargo) ActKey(KEYON+PULSE+EXEC("initToggleCargoScoop();"));
+		if(sHardPoints)initToggleHardpoints();
+		if(sGears)initToggleLandingGear();
+		if(sCargo)initToggleCargoScoop();
 		vSecureEscapeFight=!vSecureEscapeFight;
 	}
 
@@ -182,7 +182,7 @@
 			if(OptimalPIPMode & !Joystick[TG1] & !Joystick[S2] & !sExplorerMode){
 				initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
 			}
-			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !Joystick[S2] & !Joystick[TG1] & !sExplorerMode){ActKey(KEYON+PULSE+EXEC("initToggleHardpoints();"));}
+			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !Joystick[S2] & !Joystick[TG1] & !sExplorerMode){initToggleHardpoints();}
 			if(vSilentRuningBackup!=0 & !Joystick[S2] & !Joystick[TG1]){
 				vSilentRuningBackup = 0;
 				initToggleSilentRuning();	//Restore Silent Runing State
