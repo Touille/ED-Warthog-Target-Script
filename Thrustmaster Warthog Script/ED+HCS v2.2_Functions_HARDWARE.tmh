@@ -156,5 +156,4 @@
 		MapAxis(&TFRPRudder, TRUDDER,  DX_Z_AXIS, AXIS_NORMAL,   MAP_ABSOLUTE);
 		MapAxis(&TFRPRudder, TRPLEFT,  DX_X_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
 		MapAxis(&TFRPRudder, TRPRIGHT, DX_Y_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
-		if(DebugMode | DebugMMode)printf("Initialising Rudders Axis\x0a");
 	}

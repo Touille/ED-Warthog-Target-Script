@@ -41,16 +41,17 @@
 
 		//MACRO: Auto-Docking Request
 		mRequestCancelDock = CHAIN(
-			LOCK+PULSE+SetSpeed0, D(ShortPulseDelay),
-			PULSE+TargetPanel,    D(MediumPulseDelay),
-			PULSE+UINextPanel,    D(MediumPulseDelay),
-			PULSE+UINextPanel,    D(MediumPulseDelay),
-			PULSE+UISelect,       D(MediumPulseDelay),
-			PULSE+UIDown,         D(MediumPulseDelay),
-			PULSE+UISelect,       D(MediumPulseDelay),
-			PULSE+UIPrevPanel,    D(MediumPulseDelay),
-			PULSE+UIPrevPanel,    D(MediumPulseDelay),
-			PULSE+UIBack, 
+			LOCK+
+			PULSE+TargetPanel,    D(2*MiniPulseDelay),
+			PULSE+UINextPanel,    D(2*MiniPulseDelay),
+			PULSE+UINextPanel,    D(2*MiniPulseDelay),
+			PULSE+UISelect,       D(2*MiniPulseDelay),
+			PULSE+UIDown,         D(2*MiniPulseDelay),
+			PULSE+UISelect,       D(2*MiniPulseDelay),
+			PULSE+UIPrevPanel,    D(2*MiniPulseDelay),
+			PULSE+UIPrevPanel,    D(2*MiniPulseDelay),
+			PULSE+UIBack,         D(2*MiniPulseDelay),
+			PULSE+SetSpeed0,
 			LOCK);
 
 		//MACRO: System Jump

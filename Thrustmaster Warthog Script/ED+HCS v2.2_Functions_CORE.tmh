@@ -225,6 +225,9 @@
 		if(!SecureRetract & (sHardPoints | sCargo | sGears))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
 		else{
 			if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();;}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+			if(OptimalPIPMode){
+				initPIPPower(ENG, SYS);	//4 ENG	2 SYS (1)
+			}
 			ActKey(KEYON+PULSE+mSystemJump);
 			if(DebugMode) printf("Engage System Jump\x0a");
 		}

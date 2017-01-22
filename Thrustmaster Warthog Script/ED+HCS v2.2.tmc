@@ -60,24 +60,27 @@ int main()
 	SetKBRate(PulseTime, DelayTime);
 	SetKBLayout(KBLayout);
 	
-	//Initiate Rudders
-	if(Rudders == 2)initRudders();
+	if(DebugMode | DebugMMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");
 
 	// Initiate Axis Mappings
-	if(DebugMode | DebugMMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");
-	
 	if(DebugMode | DebugMMode)printf("Initialising Joystick Axis\x0a");
 	initJoystickAxis();
 	
 	if(DebugMode | DebugMMode)printf("Initialising Throttle Axis\x0a");
 	initThrottleAxis();
 	
+	if(Rudders == 2){
+		if(DebugMode | DebugMMode)printf("Initialising Rudders Axis\x0a");
+		initRudders();
+	}	
+	
+	// Initiate Curve Mappings
 	if(DebugMode | DebugMMode)printf("Initialising Joystick Curve\x0a");
 	initSetJoystickCurves();
 	
 	if(DebugMode | DebugMMode)printf("Initialising Throttle Curve\x0a");
 	initSetThrottleCurves();
-
+	
 	//Initiate MFD
 	if(USEMFD > 0){
 		if(DebugMode | DebugMMode)printf("Initialising Right MFD\x0a");
