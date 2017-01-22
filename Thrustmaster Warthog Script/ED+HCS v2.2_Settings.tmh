@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.2b	2017/01
+//	V2.2.03.2R	2017/01
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -43,7 +43,7 @@
 
 	int GameMenuOnIDLE				=0;		//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
 	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
-	int ExploreModeFire				=0;		//Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0
+	int ExploreModeFire				=0;		//Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only in ExplorerMode (See throttle chart when switch is UP)
 	
 //	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
 
