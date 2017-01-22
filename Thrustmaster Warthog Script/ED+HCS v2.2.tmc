@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.2b	2017/01/14
+//	V2.2.03.2b	2017/01
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,11 +24,12 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 include "target.tmh"
-include "ED+HCS v2.2_KeyBindings.ttm"
 include "ED+HCS v2.2_Settings.tmh"
-include "ED+HCS v2.2_Functions_TOGGLE .tmh"
-include "ED+HCS v2.2_Functions_CORE.tmh"
+include "ED+HCS v2.2_KeyBindings.ttm"
 include "ED+HCS v2.2_Macros.tmh"
+include "ED+HCS v2.2_Functions_HARDWARE.tmh"
+include "ED+HCS v2.2_Functions_TOGGLE.tmh"
+include "ED+HCS v2.2_Functions_CORE.tmh"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 int main()
@@ -59,36 +60,39 @@ int main()
 	SetKBRate(PulseTime, DelayTime);
 	SetKBLayout(KBLayout);
 	
-	//Initiate Rudders
-	if(Rudders == 2)initRudders();
+	if(DebugMode | DebugMMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");
 
 	// Initiate Axis Mappings
-	if(DebugMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");
-	
-	if(DebugMode)printf("Initialising Joystick Axis\x0a");
+	if(DebugMode | DebugMMode)printf("Initialising Joystick Axis\x0a");
 	initJoystickAxis();
 	
-	if(DebugMode)printf("Initialising Throttle Axis\x0a");
+	if(DebugMode | DebugMMode)printf("Initialising Throttle Axis\x0a");
 	initThrottleAxis();
 	
-	if(DebugMode)printf("Initialising Joystick Curve\x0a");
+	if(Rudders == 2){
+		if(DebugMode | DebugMMode)printf("Initialising Rudders Axis\x0a");
+		initRudders();
+	}	
+	
+	// Initiate Curve Mappings
+	if(DebugMode | DebugMMode)printf("Initialising Joystick Curve\x0a");
 	initSetJoystickCurves();
 	
-	if(DebugMode)printf("Initialising Throttle Curve\x0a");
+	if(DebugMode | DebugMMode)printf("Initialising Throttle Curve\x0a");
 	initSetThrottleCurves();
-
+	
 	//Initiate MFD
 	if(USEMFD > 0){
-		if(DebugMode)printf("Initialising Right MFD\x0a");
+		if(DebugMode | DebugMMode)printf("Initialising Right MFD\x0a");
 		initRightMFD();
 	}
 	if(USEMFD > 1){
-		if(DebugMode)printf("Initialising Left MFD\x0a");
+		if(DebugMode | DebugMMode)printf("Initialising Left MFD\x0a");
 		initLeftMFD();
 	}
 
 	// Initiate Led State
-	if(DebugMode)printf("Initialising LED States\x0a");
+	if(DebugMode | DebugMMode)printf("Initialising LED States\x0a");
 	initLEDStates();
 
 	// Initiate Custom & PIP Functions (ED+HCS_Macros_v2.2.tmh)
@@ -100,7 +104,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.2.03.2b----2017/01/18------------------------\x0a");
+	printf("--------------------------V2.2.03.2b----2017/01/20------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -112,8 +116,8 @@ int main()
 
 	SetShiftButton(&Joystick, S3, &Throttle, APPAT, APALT);
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//	
-//	MAP JOYSTICK CONTROLS																																		//																						
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	MAP JOYSTICK CONTROLS																																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 //--JOYSTICK BUTTON---------------------------------------------------------------------------------------------------------------------------------------------//
@@ -306,117 +310,9 @@ int main()
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	HARDWARE MAPPINGS																																			//
+//	MAP MFD																																						//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	//	-------------------------Set LED
-	int initLEDStates(){
-		//Enable LED Backlight on Start (Value 0-255)
-		if(HMD){	//Set LED Backlight on Start If HMD
-				vThrottleLight = ThrottleLightHMD;
-				vThrottleLightBackup = ThrottleLightHMD;	//Backup the LED Backlight defaukt value
-				if(DebugMode)printf("HMD -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHMD);
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightHMD));			
-		}else{	//Set LED Backlight on Start
-				vThrottleLight = ThrottleLight;
-				vThrottleLightBackup = ThrottleLight;	//Backup the LED Backlight defaukt value
-				if(DebugMode)printf("No HMD Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLight));				
-		}
-	
-		//Initiate LED status all OFF
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));	
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));	
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));		
-		
-		//Initiate Led State
-		if(ToggleSuperCruiseModeLED!=0 & SupecruiseOnThrottle){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSuperCruiseModeLED));}
-		if(ToggleRCorrectionLED!=0 & sRCorrection){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleRCorrectionLED));}
-		if(ToggleLandingGearLED!=0 & sGears){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleLandingGearLED));}
-		if(ToggleCargoScoopLED!=0 & sCargo){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCargoScoopLED));}
-		if(ToggleLightsLED!=0 & sLights){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleLightsLED));}
-		if(ToggleHardpointsLED!=0 & sHardPoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardpointsLED));}
-		if(ToggleCombinedFireLED!=0 & sCombinedFire){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCombinedFireLED));}
-		if(TogglePTTLED!=0 & sPTTState){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTLED));}
-		if(ToggleVoicePTTLED!=0 & vVoicePTT){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleVoicePTTLED));}
-		if(TogglePTTModeLED!=0 & sPTTMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+TogglePTTModeLED));}
-		if(ToggleSilentRuningonFireLED!=0 & SilentRuningOFFonFire){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningonFireLED));}
-		if(ToggleHeatSinkonSilentRuningLED!=0 & HeatSinkonSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHeatSinkonSilentRuningLED));}
-		if(ToggleIDLEonThrottleLED!=0 & sIDLE){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleIDLEonThrottleLED));}
-		if(ToggleOptimalPIPModeLED!=0 & OptimalPIPMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleOptimalPIPModeLED));}
-		if(ToggleSecureRetractLED!=0 & SecureRetract){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSecureRetractLED));}
-		if(ToggleStopFireRetractHardpointsLED!=0 & StopFireRetractHardpoints){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleStopFireRetractHardpointsLED));}
-		if(ToogleExplorerModeLED!=0 & sExplorerMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToogleExplorerModeLED));}
-		//if(ToggleHardPointsonFireGameModeLED!=0 & HardPointsonFireGameMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleHardPointsonFireGameModeLED));}
-		//if(ToggleFALED!=0 & sFA){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleFALED));}
-		//if(ToggleSilentRuningLED!=0 & sSilentRuning){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleSilentRuningLED));}
-		//if(ToggleCameraLED!=0 & sCameraMode){ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+ToggleCameraLED));}
-	}
-	
-	//	-------------------------Set Joystick
-	//Set Default Joystick Axis
-	int initJoystickAxis(){	
-		MapAxis(&Joystick, JOYX, DX_X_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// Set Joystick Control X Axis
-		MapAxis(&Joystick, JOYY, DX_Y_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);							// Set Joystick Control Y Axis
-		MapAxis(&Throttle, SCX, DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control X Axis
-		MapAxis(&Throttle, SCY, DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);						// Set Slew Control Y Axis
-	}
-
-	//Joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
-	int initSetJoystickCurves(){
-		if(Throttle[FLAPU]) vJoystickCurveProfile = 0;
-		if(!Throttle[FLAPU] & !Throttle[FLAPD]) vJoystickCurveProfile = 1;
-		if(Throttle[FLAPD]) vJoystickCurveProfile = 2;
-		ActKey(KEYON+PULSE+EXEC("initJoystickCurves();"));
-	}
-	
-	//Joystick Curve Initialising
-	int initJoystickCurves(){
-		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
-		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
-		SetSCurve(&Throttle, SCX, 0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
-		SetSCurve(&Throttle, SCY, 0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
-		if (DebugMode){
-			printf("Set	Joystick	Curve Profile	[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
-			printf("Set	Slew		Curve Profile	[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
-		}
-	}
-	
-	//	-------------------------Set Throttle
-	//Set Default Throttle Axis
-	int initThrottleAxis(){	
-		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
-		MapAxis(&Throttle, THR_LEFT, 0, AXIS_NORMAL, MAP_ABSOLUTE);								// Set Left Throttle / DX_ZROT_AXIS / We don't Use It Yet In ED
-		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling) 
-		SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));				// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
-	}
-	
-	//Set Throttle Curve two different presets are selectable On The Fly (S3 + RED Button on Throttle Arm)
-	int initSetThrottleCurves(){
-		vThrottleCurveProfile=!vThrottleCurveProfile;
-		if(vThrottleCurveProfile){
-			if(!AfterburnerDetent)SetJCurve(&Throttle, THR_RIGHT, 50, 50);	//Without Warthog Physical Afterburner Detent
-			else SetJCurve(&Throttle, THR_RIGHT, 65, 95); //At 65% of the physical controller’s axis travel, the DirectX axis must have reached 95% of the axis value.
-		}else{
-			if(ThrottleAxisRange)SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 2, -3);	//Full Range Precision
-			else SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 3, -3);	//Forward only Precision
-		}
-		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
-		if(DebugMode)printf("Set	Throttle	Curve Profile[%d}\x0a", vThrottleCurveProfile);
-	}
-
-	//	-------------------------Set Rudders	
-	//Set Rudders Axis
-	int initRudders(){
-		MapAxis(&TFRPRudder, TRUDDER, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);
-		MapAxis(&TFRPRudder, TRPLEFT, DX_X_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
-		MapAxis(&TFRPRudder, TRPRIGHT, DX_Y_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
-		if(DebugMode)printf("Initialising Rudders Axis\x0a");
-	}
-	
-	//	-------------------------Set MFD
 	//Set Right MFD
 	int initRightMFD(){
 //		MapKey(&RMFD, GAINU, 0);
@@ -445,7 +341,7 @@ int main()
 //		MapKey(&RMFD, BRTD, 0);
 //		MapKey(&RMFD, CONU, 0);
 //		MapKey(&RMFD, COND, 0);
-		if(DebugMode)printf("Initialising Right MFD\x0a");
+		if(DebugMode)printf("...Done\x0a");
 	}
 	
 	//Set Left MFD
@@ -476,7 +372,7 @@ int main()
 //		MapKey(&LMFD, BRTD, 0);
 //		MapKey(&LMFD, CONU, 0);
 //		MapKey(&LMFD, COND, 0);
-		if(DebugMode)printf("Initialising Left MFD\x0a");
+		if(DebugMode)printf("...Done\x0a");
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

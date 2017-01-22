@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.2b	2017/01/14
+//	V2.2.03.2b	2017/01
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,7 +31,8 @@
 //	PERSONAL SETTINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int DebugMode					=1;		//If 1 Target Script Editor Window will Display Debug Msg
+	int DebugMode					=1;		//If 1 Target Script Editor Window will Display All Debug Msg
+	int DebugMMode					=1;		//If 1 Target Script Editor Window will Display Some Debug Msg
 
 	define Rudders	0						//0 for no rudders, 1 for rudders, 2 for T.Flight rudders
 	define USEMFD	0						//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)
@@ -56,7 +57,7 @@
 	int sPTTMode					=1;		//PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]			[S3]+[L]
 	
 	//Throttle Arm Speedbrake BACK
-	int SupecruiseOnThrottle		=0;		//Supercruise if Boost when Throttle > 99%														[S]														
+	int SupecruiseOnThrottle		=0;		//Supercruise if Boost when Throttle > 99%														[S]
 
 	//Joystick Data Management Switch UP (DMS) Effect Apply only if SilentRuningGameMode is Set to [1]
 	int SilentRuningOFFonFire		=1;		//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}		[S]
@@ -98,20 +99,23 @@
 	define SL_DEADZONE 1					//Set the SL Deadzone.. use the Device Analyzer to validate
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	LED SETTINGS // Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 // 5 LED's MAXIMUM																								//
+//	LED SETTINGS																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+//	--LED On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 // 5 LED's MAXIMUM---------------------------//
 
 	define ToggleOptimalPIPModeLED				LED1
 	define ToggleSecureRetractLED				LED2
 	define ToggleSuperCruiseModeLED				LED3
 	define ToggleSilentRuningonFireLED			LED4
-	define ToggleStopFireRetractHardpointsLED	LED5		//Retract HardPoints When Fire OFF LED
+	define ToggleStopFireRetractHardpointsLED	LED5	//Retract HardPoints When Fire OFF LED
+	define ToggleHardPointsonFireGameModeLED	0
 	define ToggleHeatSinkonSilentRuningLED		0
 	define ToggleLandingGearLED					0
 	define ToggleCargoScoopLED					0
 	define ToggleLightsLED						0
 	define ToggleHardpointsLED					0
-	define ToggleCombinedFireLED				0	
+	define ToggleCombinedFireLED				0
 	define ToggleRCorrectionLED					0
 	define ToggleCameraLED						0
 	define TogglePTTLED							0
@@ -126,7 +130,7 @@
 	define ToogleHeadLookLED					0
 	define ToogleExplorerModeLED				0
 		
-//	--Throttle Backlight (Value 0-255)--------------------------------------------------------------------------------------------------------------------------//
+//	--LED Backlight (Value 0-255)--------------------------------------------------------------------------------------------------------------------------//
 
 	// 0 to 42		is OFF
 	// 43 to 85		is level 1
@@ -135,9 +139,14 @@
 	// 172 to 214	is level 4
 	// 215 to 255	is level 5
 	
+	//Throttle
 	define ThrottleLight 		171				//Base Throttle LED Intensity
 	define ThrottleLightHMD 	85				//Base Throttle LED Intensity when HMD Use
-	define ThrottleLEDOnIDLE	0				//Throttle LED Intensity on Throttle IDLE State
+	define ThrottleLightOnIDLE	0				//Base Throttle LED Intensity on Throttle IDLE State
+	
+	//MFD
+	define RMFDLight			129				//Right MFD backlight
+	define LMFDLight			129				//Light MFD backlight
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	TOGGLE STATES																																				//
@@ -149,21 +158,21 @@
 	int sFlightAssist;					//initToggleEnhancedFAOFF()			Flight Assist
 	int sGameMenu;						//initGameMenu()					Game Menu
 	int sHeadLook;						//initToogleHeadLook()				Head Look
+	int sExplorerMode;					//initToggleExplorerMode()			Desactivate Functions for Exploring (OptimalPIPMode when fire, StopFireRetractHardpoints ...)
 	
 //	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
 	
-	int sCameraMode;					//initToggleCamera()				Classified Camera	
+	int sCameraMode;					//initToggleCamera()				Classified Camera
 	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
-	int sExplorerMode;					//initToggleExplorerMode()			Desactivate Functions for Exploring (OptimalPIPMode when fire, StopFireRetractHardpoints ...)
 	
 	//If Misaligned With Game [S3]+Toggle The Switch
-	int sHardPoints;					//initToggleHardpoints()			HardPoints												
-	int sGears;							//initToggleLandingGear()			Landing Gears											
+	int sHardPoints;					//initToggleHardpoints()			HardPoints
+	int sGears;							//initToggleLandingGear()			Landing Gears
 	int sCargo;							//initToggleCargoScoop()			Cargo Scoop
 	int sLights;						//initToggleLights()				ShipLights
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	PRESS & PULSE DELAY SETTINGS																																		//
+//	PRESS & PULSE DELAY SETTINGS																																//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//PRESS DELAY (Keys)
@@ -230,9 +239,6 @@
 	define MID 4
 	int PIPx, PIPy, PIPz;
 	
-	//initSwitchState()
-	define EF 1
-	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	REPORT STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -242,7 +248,7 @@
 		printf("		Supecruise On Throttle--------------------%d\x0a", SupecruiseOnThrottle);
 		printf("		Secure Retract----------------------------%d\x0a", SecureRetract);
 		printf("		Game Menu On IDLE-------------------------%d\x0a", GameMenuOnIDLE);
-		printf("		Throttle LED Value On IDLE----------------%d\x0a", ThrottleLEDOnIDLE);
+		printf("		Throttle Light Value On IDLE--------------%d\x0a", ThrottleLightOnIDLE);
 		printf("		Optimal PIP Mode--------------------------%d\x0a", OptimalPIPMode);
 		printf("		Heat Sink On SilentRuning-----------------%d\x0a", HeatSinkonSilentRuning);
 		printf("		Silent Runing OFF On Fire-----------------%d\x0a", SilentRuningOFFonFire);
@@ -269,5 +275,3 @@
 		printf("		Flight Throttle------------FWD/FULL Range-%d\x0a", ThrottleAxisRange);
 		printf("--------------------------------------------------------------------------\x0a");
 	}	
-
-	
