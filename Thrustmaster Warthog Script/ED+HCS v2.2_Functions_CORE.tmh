@@ -158,18 +158,24 @@
 
 	//FUNCTION: Init Fire
 	int initFire(){
+		
+		//ShutDown Silent Runing if it running
 		if(SilentRuningOFFonFire & sSilentRuning){
-			if(!vSLonFire){	//ShutDown Silent Runing
+			if(!vSLonFire){
 				vSLonFire=!vSLonFire;
 				vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
 				initToggleSilentRuning();
 			}
 		}
+		
+		//Deploy Hardpoint if HardPointsonFireGameMode is Enable
 		if(HardPointsonFireGameMode & !sHardPoints){
 			initToggleHardpoints();
 		}
+		
+		//Backup Actual PIP Mode
 		if(OptimalPIPMode & !sExplorerMode){
-			vOptimalPIPFireBackup = vOptimalPIP;	//Backup Actual PIP Mode
+			vOptimalPIPFireBackup = vOptimalPIP;
 			initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 		}
 		
@@ -179,24 +185,31 @@
 		if(!Joystick[TG1] & Joystick[S2 ] & !sExplorerMode){ActKey(KEYON+UP+PrimaryFire);}
 		if(!Joystick[S2 ] & Joystick[TG1] & !sExplorerMode){ActKey(KEYON+UP+SecondaryFire);}
 		if(!Joystick[S2] & !Joystick[TG1] & !sExplorerMode){ActKey(KEYON+UP+PrimaryFire);ActKey(KEYON+UP+SecondaryFire);}
-		if(!Joystick[S2] & !Joystick[TG1] & sExplorerMode){
+		if(!Joystick[S2] & !Joystick[TG1] & sExplorerMode){	//Explorer Mode Easy Scan just push and release button Don't need to keep pressed 6s should be enough for system scan.. I don't try the other scan yet
 			if      (ExploreModeFire == 0){DeferCall(6000, &ActKey, KEYON+UP+PrimaryFire);ActKey(KEYON+UP+SecondaryFire);}
 			else if (ExploreModeFire == 1){DeferCall(6000, &ActKey, KEYON+UP+SecondaryFire);ActKey(KEYON+UP+PrimaryFire);}
 			else if (ExploreModeFire == 2){DeferCall(6000, &ActKey, KEYON+UP+PrimaryFire);DeferCall(6000, &ActKey, KEYON+UP+SecondaryFire);}
 		}
 			
+		//Restore Previous PIP Mode	
 		if(OptimalPIPMode & !Joystick[TG1] & !Joystick[S2] & !sExplorerMode){
 			initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
 		}
+		
+		//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
 		if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !Joystick[S2] & !Joystick[TG1] & !sExplorerMode){initToggleHardpoints();}
+		
+		
+		//Restore Silent Runing if it was running before fire
 		if(vSilentRuningBackup!=0 & !Joystick[S2] & !Joystick[TG1]){
 			vSilentRuningBackup = 0;
 			initToggleSilentRuning();	//Restore Silent Runing State
 		}
+		
 		if(SilentRuningOFFonFire & sSilentRuning & vSLonFire & !Joystick[S2] & !Joystick[TG1]){
 			vSLonFire=!vSLonFire;
 		}
-		if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
+		//if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
 	}
 	
 	//FUNCTION: Jettison All Cargo	
