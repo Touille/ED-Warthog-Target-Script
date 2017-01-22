@@ -43,6 +43,7 @@
 
 	int GameMenuOnIDLE				=0;		//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
 	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
+	int ExploreModeFire				=0;		//Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0
 	
 //	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
 

@@ -158,42 +158,45 @@
 
 	//FUNCTION: Init Fire
 	int initFire(){
-		if(Joystick[TG1] | Joystick[S2]){	//PRESS THE TG1 or S2 BUTTON	
-			if(SilentRuningOFFonFire & sSilentRuning){
-				if(!vSLonFire){	//ShutDown Silent Runing
-					vSLonFire=!vSLonFire;
-					vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
-					initToggleSilentRuning();
-				}
-			}
-			if(HardPointsonFireGameMode & !sHardPoints){
-				initToggleHardpoints();
-			}
-			if(OptimalPIPMode & !sExplorerMode){
-				vOptimalPIPFireBackup = vOptimalPIP;	//Backup Actual PIP Mode
-				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
-			}			
-			if(Joystick[TG1]){ActKey(KEYON+DOWN+PrimaryFire);}
-			if(Joystick[S2]){ActKey(KEYON+DOWN+SecondaryFire);}
-			//if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
-		}else{				//RELEASE THE TG1 or S2 BUTTON
-			if(!Joystick[TG1] & sExplorerMode){DeferCall(6000, &ActKey, KEYON+UP+PrimaryFire);}		//If Explorer Mode is Enable, you don't need to keep key pressed to scan system, just press and release
-			if(!Joystick[S2 ] & sExplorerMode){DeferCall(6000, &ActKey, KEYON+UP+SecondaryFire);}	//                    That work on both Fire, you can comment the one you don't use to scan if you want
-			if(!Joystick[TG1] & !sExplorerMode){ActKey(KEYON+UP+PrimaryFire);}
-			if(!Joystick[S2 ] & !sExplorerMode){ActKey(KEYON+UP+SecondaryFire);}
-			if(OptimalPIPMode & !Joystick[TG1] & !Joystick[S2] & !sExplorerMode){
-				initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
-			}
-			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !Joystick[S2] & !Joystick[TG1] & !sExplorerMode){initToggleHardpoints();}
-			if(vSilentRuningBackup!=0 & !Joystick[S2] & !Joystick[TG1]){
-				vSilentRuningBackup = 0;
-				initToggleSilentRuning();	//Restore Silent Runing State
-			}
-			if(SilentRuningOFFonFire & sSilentRuning & vSLonFire & !Joystick[S2] & !Joystick[TG1]){
+		if(SilentRuningOFFonFire & sSilentRuning){
+			if(!vSLonFire){	//ShutDown Silent Runing
 				vSLonFire=!vSLonFire;
+				vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
+				initToggleSilentRuning();
 			}
-			//if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
 		}
+		if(HardPointsonFireGameMode & !sHardPoints){
+			initToggleHardpoints();
+		}
+		if(OptimalPIPMode & !sExplorerMode){
+			vOptimalPIPFireBackup = vOptimalPIP;	//Backup Actual PIP Mode
+			initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
+		}
+		
+		//Check Wich Button		
+		if(Joystick[TG1]){ActKey(KEYON+DOWN+PrimaryFire);}
+		if(Joystick[S2 ]){ActKey(KEYON+DOWN+SecondaryFire);}
+		if(!Joystick[TG1] & Joystick[S2 ] & !sExplorerMode){ActKey(KEYON+UP+PrimaryFire);}
+		if(!Joystick[S2 ] & Joystick[TG1] & !sExplorerMode){ActKey(KEYON+UP+SecondaryFire);}
+		if(!Joystick[S2] & !Joystick[TG1] & !sExplorerMode){ActKey(KEYON+UP+PrimaryFire);ActKey(KEYON+UP+SecondaryFire);}
+		if(!Joystick[S2] & !Joystick[TG1] & sExplorerMode){
+			if      (ExploreModeFire == 0){DeferCall(6000, &ActKey, KEYON+UP+PrimaryFire);ActKey(KEYON+UP+SecondaryFire);}
+			else if (ExploreModeFire == 1){DeferCall(6000, &ActKey, KEYON+UP+SecondaryFire);ActKey(KEYON+UP+PrimaryFire);}
+			else if (ExploreModeFire == 2){DeferCall(6000, &ActKey, KEYON+UP+PrimaryFire);DeferCall(6000, &ActKey, KEYON+UP+SecondaryFire);}
+		}
+			
+		if(OptimalPIPMode & !Joystick[TG1] & !Joystick[S2] & !sExplorerMode){
+			initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
+		}
+		if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !Joystick[S2] & !Joystick[TG1] & !sExplorerMode){initToggleHardpoints();}
+		if(vSilentRuningBackup!=0 & !Joystick[S2] & !Joystick[TG1]){
+			vSilentRuningBackup = 0;
+			initToggleSilentRuning();	//Restore Silent Runing State
+		}
+		if(SilentRuningOFFonFire & sSilentRuning & vSLonFire & !Joystick[S2] & !Joystick[TG1]){
+			vSLonFire=!vSLonFire;
+		}
+		if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
 	}
 	
 	//FUNCTION: Jettison All Cargo	

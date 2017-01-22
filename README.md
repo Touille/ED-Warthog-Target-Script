@@ -64,4 +64,4 @@
 ### EXPLORER MODE:
 
 - [x] Desactivate some advanced functions you don't need for Exploration with one switch: Automatic PIP Mode (for fire & hardpoints), Automatic retract Hardpoint when you stop fire,... (if activated). If switch off this mode, it will return to all your previous choices.
-- [x] You don't need to keep fire key pressed to scan system, just press and release. ( This function work on both Fire, you can comment the line (place // at the begin of the line) of the Fire key you don't use to scan if you want in ED+HCS v2.2_Functions_CORE.tmh ; initFire() .. if(!Joystick[TG1] & sExplorerMode), or if(!Joystick[S2 ] & sExplorerMode) )
+- [x] You don't need to keep fire key pressed to scan system or use Scan (wake...), just press and release. ( This function work on both Fire, chose wich you want to assign to scan in Settings File : ExploreModeFire , Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2 )
