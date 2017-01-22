@@ -27,16 +27,11 @@
 	int initToggleIDLEonThrottle(){
 		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
 			if(Throttle[IDLELON]) sIDLE = 1;	//Throttle position is IDLE State =1
-			else sIDLE = 0;	//Throttle position is !IDLE State =0
+			else                  sIDLE = 0;	//Throttle position is !IDLE State =0
 			if(GameMenuOnIDLE)initGameMenu();	//If GameMenu on IDLE Option is 1, Launch Game Menu
-			if(sIDLE){
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightOnIDLE));
-			}else{
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
-			}
-			if(ThrottleLightOnIDLE!=0){	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
-				initLED(ToggleIDLEonThrottleLED, sExplorerMode);
-			}
+			if(sIDLE)ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightOnIDLE));
+			else     ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
+			if(ThrottleLightOnIDLE!=0)initLED(ToggleIDLEonThrottleLED, sExplorerMode);	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
 			if(DebugMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);
 		}
 	}
@@ -45,7 +40,7 @@
 	int initToggleExplorerMode(){
 		if(!Joystick[S3]){
 			if(Throttle[EFLNORM]) sExplorerMode = 1;	//Switch position is UP : Explorer Mode Is ON
-			else sExplorerMode =0;	//Switch position is DOWN : Explorer Mode Is OFF
+			else                  sExplorerMode = 0;	//Switch position is DOWN : Explorer Mode Is OFF
 			initLED(ToogleExplorerModeLED, sExplorerMode);
 			if(DebugMode) printf("Explorer Mode	[%d]	[ON:[1] OFF:[0]]\x0a", sExplorerMode);
 		}
@@ -143,7 +138,7 @@
 				if(DebugMode | DebugMMode)printf("Landing Gear SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}else{	//Or Change the flag status with the switch position
 				if(Throttle[EACON]) sGears = 1;	//Switch position is UP : Landing Gear Is Deployed
-				else sGears = 0;	//Switch position is DOWN : Landing Gear Is Retracted
+				else                sGears = 0;	//Switch position is DOWN : Landing Gear Is Retracted
 			}
 			if(sGears & !vLG){	//vLG is there if initSecureRectract() initialise This
 				vLG=!vLG;	//Reset On The FLY : Just switch
@@ -169,7 +164,7 @@
 				if(DebugMode | DebugMMode)printf("Cargo Scoop SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}else{	//Or Change the flag status with the switch position
 				if(Throttle[RDRNRM]) sCargo = 1;	//Switch position is UP : Cargo Scoop Is Deployed
-				else sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
+				else                 sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
 			}
 			if(sCargo & !vCS){	//vCS is there if initSecureRectract() initialise This
 				vCS=!vCS;	//Reset On The FLY : Just switch
@@ -191,7 +186,7 @@
 	int initToggleLights(){
 		if(!Joystick[S3]){
 			if(Throttle[EFRNORM]) sLights = 1;	//Switch position is UP : Light Is ON
-			else sLights = 0;	//Switch position is DOWN : Light Is OFF
+			else                  sLights = 0;	//Switch position is DOWN : Light Is OFF
 			ActKey(KEYON+PULSE+ShipLights);
 			initLED(ToggleLightsLED, sLights);
 		}

@@ -109,9 +109,9 @@
 
 	//Joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
 	int initSetJoystickCurves(){
-		if(Throttle[FLAPU]) vJoystickCurveProfile = 0;
-		if(!Throttle[FLAPU] & !Throttle[FLAPD]) vJoystickCurveProfile = 1;
-		if(Throttle[FLAPD]) vJoystickCurveProfile = 2;
+		if     (Throttle[FLAPU]) vJoystickCurveProfile = 0;	// Flaps UP
+		else if(Throttle[FLAPD]) vJoystickCurveProfile = 2;	// Flaps DOWN
+		else                     vJoystickCurveProfile = 1;	// Flaps MIDDLE
 		initJoystickCurves();
 	}
 	
@@ -122,18 +122,18 @@
 		SetSCurve(&Throttle, SCX,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Throttle, SCY,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		if (DebugMode){
-			printf("Set	Joystick	Curve Profile	[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
-			printf("Set	Slew		Curve Profile	[%d]: Curve=%d, Zoom=%d\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
+			printf("Set	Joystick	Curve Profile	[%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
+			printf("Set	Slew		Curve Profile	[%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		}
 	}
 	
 	//	-------------------------Set Throttle
 	//Set Default Throttle Axis
 	int initThrottleAxis(){	
-		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Right Throttle
-		MapAxis(&Throttle, THR_LEFT, 0, AXIS_NORMAL, MAP_ABSOLUTE);								// Set Left Throttle / DX_ZROT_AXIS / We don't Use It Yet In ED
-		MapAxis(&Throttle, THR_FC, DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);					// Set Friction Control Axis Curve (Sensor Range Zoom Scaling) 
-		SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));				// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
+		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS,      AXIS_NORMAL, MAP_ABSOLUTE);		// Set Right Throttle
+		MapAxis(&Throttle, THR_LEFT , 0,              AXIS_NORMAL, MAP_ABSOLUTE);		// Set Left Throttle / DX_ZROT_AXIS / We don't Use It Yet In ED
+		MapAxis(&Throttle, THR_FC   , DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);		// Set Friction Control Axis Curve (Sensor Range Zoom Scaling) 
+		SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));		// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
 	}
 	
 	//Set Throttle Curve two different presets are selectable On The Fly (S3 + RED Button on Throttle Arm)
@@ -141,10 +141,10 @@
 		vThrottleCurveProfile=!vThrottleCurveProfile;
 		if(vThrottleCurveProfile){
 			if(!AfterburnerDetent)SetJCurve(&Throttle, THR_RIGHT, 50, 50);	//Without Warthog Physical Afterburner Detent
-			else SetJCurve(&Throttle, THR_RIGHT, 65, 95); //At 65% of the physical controller’s axis travel, the DirectX axis must have reached 95% of the axis value.
+			else                  SetJCurve(&Throttle, THR_RIGHT, 65, 95);	//Or With Detent. At 65% of the physical controller’s axis travel, the DirectX axis must have reached 95% of the axis value.
 		}else{
 			if(ThrottleAxisRange)SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 2, -3);	//Full Range Precision
-			else SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 3, -3);	//Forward only Precision
+			else                 SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 3, -3);	//Forward only Precision
 		}
 		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
 		if(DebugMode)printf("Set	Throttle	Curve Profile[%d}\x0a", vThrottleCurveProfile);
