@@ -224,6 +224,8 @@
 	int vSLonCamera;							//initToggleCamera()	initToggleSilentRuning()
 	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
 	int vPIP;									//initPIPPower()
+	int vPrimaryFire;							//initPrimaryFire()
+	int vSecondaryFire;							//initSecondaryFire()
 	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	

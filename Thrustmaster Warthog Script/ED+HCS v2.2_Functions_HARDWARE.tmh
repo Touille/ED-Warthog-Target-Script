@@ -39,12 +39,12 @@
 		//Initiate LED Backlight power on Throttle (Value 0-255)
 		if(HMD){	//Set LED Backlight on Start If HMD
 				vThrottleLight = ThrottleLightHMD;
-				vThrottleLightBackup = ThrottleLightHMD;	//Backup the LED Backlight defaukt value
+				vThrottleLightBackup = ThrottleLightHMD;	//Backup the LED Backlight default value
 				if(DebugMode | DebugMMode)printf("HMD -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHMD);
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightHMD));
 		}else{	//Set LED Backlight on Start
 				vThrottleLight = ThrottleLight;
-				vThrottleLightBackup = ThrottleLight;	//Backup the LED Backlight defaukt value
+				vThrottleLightBackup = ThrottleLight;	//Backup the LED Backlight default value
 				if(DebugMode | DebugMMode)printf("No HMD Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
 				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLight));
 		}
