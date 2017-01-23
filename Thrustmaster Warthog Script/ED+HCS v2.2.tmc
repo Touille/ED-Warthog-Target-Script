@@ -25,6 +25,7 @@
 
 include "target.tmh"
 include "ED+HCS v2.2_Settings.tmh"
+include "ED+HCS v2.2_USBKey.ttm"
 include "ED+HCS v2.2_KeyBindings.ttm"
 include "ED+HCS v2.2_Macros.tmh"
 include "ED+HCS v2.2_Functions_HARDWARE.tmh"

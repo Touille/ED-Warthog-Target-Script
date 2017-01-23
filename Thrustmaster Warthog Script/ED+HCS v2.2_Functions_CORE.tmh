@@ -231,8 +231,7 @@
 			DeferCall(6000, &ActKey, KEYON+UP+PrimaryFire);
 			DeferCall(6500, &ActKey, KEYON+PULSE+EXEC("vPrimaryFire=!vPrimaryFire;"));
 			//if(DebugMode) printf("TG1 Up ExplorerMode\x0a");
-		}
-		else if(!Joystick[TG1] & vPrimaryFire){
+		}else if(!Joystick[TG1] & vPrimaryFire){
 			ActKey(KEYON+UP+PrimaryFire);
 			vPrimaryFire=!vPrimaryFire;
 			//if(DebugMode) printf("TG1 Up\x0a");
@@ -250,8 +249,7 @@
 			DeferCall(6000, &ActKey, KEYON+UP+SecondaryFire);
 			DeferCall(6500, &ActKey, KEYON+PULSE+EXEC("vSecondaryFire=!vSecondaryFire;"));
 			//if(DebugMode) printf("S2  Up ExplorerMode\x0a");
-		}
-		else if(!Joystick[S2] & vSecondaryFire){
+		}else if(!Joystick[S2] & vSecondaryFire){
 			ActKey(KEYON+UP+SecondaryFire);
 			vSecondaryFire=!vSecondaryFire;
 			//if(DebugMode) printf("S2  Up\x0a");

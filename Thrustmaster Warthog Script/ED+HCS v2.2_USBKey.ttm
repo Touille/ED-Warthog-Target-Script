@@ -1,0 +1,198 @@
+//	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
+//	V2.2.03.3b	2017/01
+//	Distributed freely under the MIT License.
+//	
+//	Permission is hereby granted, free of charge, to any person obtaining a copy
+//	of this software and associated documentation files (the "Software"), to deal
+//	in the Software without restriction, including without limitation the rights
+//	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//	copies of the Software, and to permit persons to whom the Software is
+//	furnished to do so, subject to the following conditions:
+//	
+//	The above copyright notice and this permission notice shall be included in all
+//	copies or substantial portions of the Software.
+//	
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//	SOFTWARE.
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	USB KEY DEFINITIONS																																			//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+define USB_A                   USB[0x04] // [  4] a or A
+define USB_B                   USB[0x05] // [  5] b or B
+define USB_C                   USB[0x06] // [  6] c or C
+define USB_D                   USB[0x07] // [  7] d or D
+define USB_E                   USB[0x08] // [  8] e or E
+define USB_F                   USB[0x09] // [  9] f or F
+define USB_G                   USB[0x0A] // [ 10] g or G
+define USB_H                   USB[0x0B] // [ 11] h or H
+define USB_I                   USB[0x0C] // [ 12] i or I
+define USB_J                   USB[0x0D] // [ 13] j or J
+define USB_K                   USB[0x0E] // [ 14] k or K
+define USB_L                   USB[0x0F] // [ 15] l or L
+define USB_M                   USB[0x10] // [ 16] m or M
+define USB_N                   USB[0x11] // [ 17] n or N
+define USB_O                   USB[0x12] // [ 18] o or O
+define USB_P                   USB[0x13] // [ 19] p or P
+define USB_Q                   USB[0x14] // [ 20] q or Q
+define USB_R                   USB[0x15] // [ 21] r or R
+define USB_S                   USB[0x16] // [ 22] s or S
+define USB_T                   USB[0x17] // [ 23] t or T
+define USB_U                   USB[0x18] // [ 24] u or U
+define USB_V                   USB[0x19] // [ 25] v or V
+define USB_W                   USB[0x1A] // [ 26] w or W
+define USB_X                   USB[0x1B] // [ 27] x or X
+define USB_Y                   USB[0x1C] // [ 28] y or Y
+define USB_Z                   USB[0x1D] // [ 29] z or Z
+define USB_1                   USB[0x1E] // [ 30] 1 or !
+define USB_2                   USB[0x1F] // [ 31] 2 or @
+define USB_3                   USB[0x20] // [ 32] 3 or #
+define USB_4                   USB[0x21] // [ 33] 4 or $
+define USB_5                   USB[0x22] // [ 34] 5 or %
+define USB_6                   USB[0x23] // [ 35] 6 or ^
+define USB_7                   USB[0x24] // [ 36] 7 or &
+define USB_8                   USB[0x25] // [ 37] 8 or *
+define USB_9                   USB[0x26] // [ 38] 9 or (
+define USB_0                   USB[0x27] // [ 39] 0 or )
+define USB_RETURNORENTER       USB[0x28] // [ 40] Return (Enter)
+define USB_ESCAPE              USB[0x29] // [ 41] Escape
+define USB_DELETEORBACKSPACE   USB[0x2A] // [ 42] Delete (Backspace)
+define USB_TAB                 USB[0x2B] // [ 43] Tab
+define USB_SPACEBAR            USB[0x2C] // [ 44] Spacebar
+define USB_HYPHEN              USB[0x2D] // [ 45] - or _
+define USB_EQUALSIGN           USB[0x2E] // [ 46] = or +
+define USB_OPENBRACKET         USB[0x2F] // [ 47] [ or {
+define USB_CLOSEBRACKET        USB[0x30] // [ 48] ] or }
+define USB_BACKSLASH           USB[0x31] // [ 49] \ or |
+define USB_NONUSPOUND          USB[0x32] // [ 50] Non-US # or _
+define USB_SEMICOLON           USB[0x33] // [ 51] ; or :
+define USB_QUOTE               USB[0x34] // [ 52] ' or "
+define USB_GRAVEACCENTANDTILDE USB[0x35] // [ 53] Grave Accent and Tilde
+define USB_COMMA               USB[0x36] // [ 54] , or <
+define USB_PERIOD              USB[0x37] // [ 55] . or >
+define USB_SLASH               USB[0x38] // [ 56] / or ?
+define USB_CAPSLOCK            USB[0x39] // [ 57] Caps Lock
+define USB_F1                  USB[0x3A] // [ 58] F1
+define USB_F2                  USB[0x3B] // [ 59] F2
+define USB_F3                  USB[0x3C] // [ 60] F3
+define USB_F4                  USB[0x3D] // [ 61] F4
+define USB_F5                  USB[0x3E] // [ 62] F5
+define USB_F6                  USB[0x3F] // [ 63] F6
+define USB_F7                  USB[0x40] // [ 64] F7
+define USB_F8                  USB[0x41] // [ 65] F8
+define USB_F9                  USB[0x42] // [ 66] F9
+define USB_F10                 USB[0x43] // [ 67] F10
+define USB_F11                 USB[0x44] // [ 68] F11
+define USB_F12                 USB[0x45] // [ 69] F12
+define USB_PRINTSCREEN         USB[0x46] // [ 70] Print Screen
+define USB_SCROLLLOCK          USB[0x47] // [ 71] Scroll Lock
+define USB_PAUSE               USB[0x48] // [ 72] Pause
+define USB_INSERT              USB[0x49] // [ 73] Insert
+define USB_HOME                USB[0x4A] // [ 74] Home
+define USB_PAGEUP              USB[0x4B] // [ 75] Page Up
+define USB_DELETEFORWARD       USB[0x4C] // [ 76] Delete Forward
+define USB_END                 USB[0x4D] // [ 77] End
+define USB_PAGEDOWN            USB[0x4E] // [ 78] Page Down
+define USB_RIGHTARROW          USB[0x4F] // [ 79] Right Arrow
+define USB_LEFTARROW           USB[0x50] // [ 80] Left Arrow
+define USB_DOWNARROW           USB[0x51] // [ 81] Down Arrow
+define USB_UPARROW             USB[0x52] // [ 82] Up Arrow
+define USB_KP_NUMLOCK          USB[0x53] // [ 83] Keypad NumLock or Clear
+define USB_KP_SLASH            USB[0x54] // [ 84] Keypad /
+define USB_KP_ASTERISK         USB[0x55] // [ 85] Keypad *
+define USB_KP_HYPHEN           USB[0x56] // [ 86] Keypad -
+define USB_KP_PLUS             USB[0x57] // [ 87] Keypad +
+define USB_KP_ENTER            USB[0x58] // [ 88] Keypad Enter
+define USB_KP_1                USB[0x59] // [ 89] Keypad 1 or End
+define USB_KP_2                USB[0x5A] // [ 90] Keypad 2 or Down Arrow
+define USB_KP_3                USB[0x5B] // [ 91] Keypad 3 or Page Down
+define USB_KP_4                USB[0x5C] // [ 92] Keypad 4 or Left Arrow
+define USB_KP_5                USB[0x5D] // [ 93] Keypad 5
+define USB_KP_6                USB[0x5E] // [ 94] Keypad 6 or Right Arrow
+define USB_KP_7                USB[0x5F] // [ 95] Keypad 7 or Home
+define USB_KP_8                USB[0x60] // [ 96] Keypad 8 or Up Arrow
+define USB_KP_9                USB[0x61] // [ 97] Keypad 9 or Page Up
+define USB_KP_0                USB[0x62] // [ 98] Keypad 0 or Insert
+define USB_KP_PERIOD           USB[0x63] // [ 99] Keypad . or Delete
+define USB_NONUSBACKSLASH      USB[0x64] // [100] Non-US \ or |
+define USB_APPLICATION         USB[0x65] // [101] Application
+define USB_POWER               USB[0x66] // [102] Power
+define USB_KP_EQUALSIGN        USB[0x67] // [103] Keypad =
+define USB_F13                 USB[0x68] // [104] F13
+define USB_F14                 USB[0x69] // [105] F14
+define USB_F15                 USB[0x6A] // [106] F15
+define USB_F16                 USB[0x6B] // [107] F16
+define USB_F17                 USB[0x6C] // [108] F17
+define USB_F18                 USB[0x6D] // [109] F18
+define USB_F19                 USB[0x6E] // [110] F19
+define USB_F20                 USB[0x6F] // [111] F20
+define USB_F21                 USB[0x70] // [112] F21
+define USB_F22                 USB[0x71] // [113] F22
+define USB_F23                 USB[0x72] // [114] F23
+define USB_F24                 USB[0x73] // [115] F24
+define USB_EXECUTE             USB[0x74] // [116] Execute
+define USB_HELP                USB[0x75] // [117] Help
+define USB_MENU                USB[0x76] // [118] Menu
+define USB_SELECT              USB[0x77] // [119] Select
+define USB_STOP                USB[0x78] // [120] Stop
+define USB_AGAIN               USB[0x79] // [121] Again
+define USB_UNDO                USB[0x7A] // [122] Undo
+define USB_CUT                 USB[0x7B] // [123] Cut
+define USB_COPY                USB[0x7C] // [124] Copy
+define USB_PASTE               USB[0x7D] // [125] Paste
+define USB_FIND                USB[0x7E] // [126] Find
+define USB_MUTE                USB[0x7F] // [127] Mute
+define USB_VOLUMEUP            USB[0x80] // [128] Volume Up
+define USB_VOLUMEDOWN          USB[0x81] // [129] Volume Down
+define USB_LOCKINGCAPSLOCK     USB[0x82] // [130] Locking Caps Lock
+define USB_LOCKINGNUMLOCK      USB[0x83] // [131] Locking Num Lock
+define USB_LOCKINGSCROLLLOCK   USB[0x84] // [132] Locking Scroll Lock
+define USB_KP_COMMA            USB[0x85] // [133] Keypad Comma
+define USB_KP_EQUALSIGNAS400   USB[0x86] // [134] Keypad Equal Sign for AS/400
+define USB_INTERNATIONAL1      USB[0x87] // [135] International1
+define USB_INTERNATIONAL2      USB[0x88] // [136] International2
+define USB_INTERNATIONAL3      USB[0x89] // [137] International3
+define USB_INTERNATIONAL4      USB[0x8A] // [138] International4
+define USB_INTERNATIONAL5      USB[0x8B] // [139] International5
+define USB_INTERNATIONAL6      USB[0x8C] // [140] International6
+define USB_INTERNATIONAL7      USB[0x8D] // [141] International7
+define USB_INTERNATIONAL8      USB[0x8E] // [142] International8
+define USB_INTERNATIONAL9      USB[0x8F] // [143] International9
+define USB_LANG1               USB[0x90] // [144] LANG1
+define USB_LANG2               USB[0x91] // [145] LANG2
+define USB_LANG3               USB[0x92] // [146] LANG3
+define USB_LANG4               USB[0x93] // [147] LANG4
+define USB_LANG5               USB[0x94] // [148] LANG5
+define USB_LANG6               USB[0x95] // [149] LANG6
+define USB_LANG7               USB[0x96] // [150] LANG7
+define USB_LANG8               USB[0x97] // [151] LANG8
+define USB_LANG9               USB[0x98] // [152] LANG9
+define USB_ALTERNATEERASE      USB[0x99] // [153] AlternateErase
+define USB_SYSREQORATTENTION   USB[0x9A] // [154] SysReq/Attention
+define USB_CANCEL              USB[0x9B] // [155] Cancel
+define USB_CLEAR               USB[0x9C] // [156] Clear
+define USB_PRIOR               USB[0x9D] // [157] Prior
+define USB_RETURN              USB[0x9E] // [158] Return
+define USB_SEPARATOR           USB[0x9F] // [159] Separator
+define USB_OUT                 USB[0xA0] // [160] Out
+define USB_OPER                USB[0xA1] // [161] Oper
+define USB_CLEARORAGAIN        USB[0xA2] // [162] Clear/Again
+define USB_CRSELORPROPS        USB[0xA3] // [163] CrSel/Props
+define USB_EXSEL               USB[0xA4] // [164] ExSel
+//                             0xA5-0xDF Reserved
+define USB_LEFTCONTROL         USB[0xE0] // [225]Left Control
+define USB_LEFTSHIFT           USB[0xE1] // [226] Left Shift
+define USB_LEFTALT             USB[0xE2] // [227] Left Alt
+define USB_LEFTGUI             USB[0xE3] // [228] Left GUI
+define USB_RIGHTCONTROL        USB[0xE4] // [229] Right Control
+define USB_RIGHTSHIFT          USB[0xE5] // [230] Right Shift
+define USB_RIGHTALT            USB[0xE6] // [231] Right Alt
+define USB_RIGHTGUI            USB[0xE7] // [232] Right GUI
+//                             0xE8-0xFFFF Reserved
+define USB__RESERVED           USB[0xFFFF]
+
