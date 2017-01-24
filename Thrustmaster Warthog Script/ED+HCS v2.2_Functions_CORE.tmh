@@ -104,55 +104,6 @@
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	FUNCTIONS																																					//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-	
-	//FUNCTION FPS & CONNECTION STATUS
-	int initFPSCONNECTION(){
-		ActKey(KEYON+PULSE+ShowFramerate);
-		ActKey(KEYON+PULSE+ShowConnectionStatus);
-		if(DebugMode)printf("FPS & CONNECTION STATUS\x0a");
-	}
-	
-	//FUNCTION: Head Center
-	int initHeadCenter(){
-		if     (HMD)    {ActKey(KEYON+PULSE+HMDCenter); if(DebugMode)printf("HMD Center\x0a");}
-		else if(TrackIR){ActKey(KEYON+PULSE+TrackIRCenter); if(DebugMode)printf("TrackIR Center\x0a");}
-		else            {ActKey(KEYON+PULSE+UIFocus); if(DebugMode)printf("UI Focus\x0a");}
-	}
-	
-	//FUNCTION: Voice PTT
-	int initVoicePTT(){
-		if     (sPTTState) vPTT = InternalVoiceCommsPTT;	//External Mic
-		else if(!sPTTState)vPTT = ExternalVoiceCommsPTT;	//Internal Mic
-		if(Throttle[MSP]){
-			vVoicePTT=!vVoicePTT;
-			if(sPTTMode){	//TOGGLE
-				vVoice=!vVoice;
-				ActKey(KEYON+PULSE+vPTT);
-				if(DebugMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] [HOLD:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
-			}else{	//Talk [HOLD]
-				ActKey(KEYON+DOWN+vPTT);
-			}
-		}
-		if(!Throttle[MSP] & !sPTTMode){	//Silence [HOLD]
-			vVoicePTT=!vVoicePTT;
-			ActKey(KEYON+UP+vPTT);
-		}
-		initLED(ToggleVoicePTTLED, vVoicePTT);
-		if(DebugMode & !sPTTMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] PUSH:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
-	}
-	
-	//FUNCTION: Init Secure Retract
-	int initSecureRectract(){
-		vSecureEscapeFight=!vSecureEscapeFight;
-		if(sHardPoints)initToggleHardpoints();
-		if(sGears)     initToggleLandingGear();
-		if(sCargo)     initToggleCargoScoop();
-		vSecureEscapeFight=!vSecureEscapeFight;
-	}
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MAIN GAMES FUNCTIONS																																		//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -160,33 +111,23 @@
 	
 	//FUNCTION: Init Fire
 	int initFire(){
-		
 		if(Joystick[TG1] | Joystick[S2]){
-		
-			//ShutDown Silent Runing if it running
-			if(SilentRuningOFFonFire & sSilentRuning){
+			if(SilentRuningOFFonFire & sSilentRuning){	//ShutDown Silent Runing if it running
 				if(!vSLonFire){
-					if(DebugMode) printf("Shut Down Silent Runing\x0a");
 					vSLonFire=!vSLonFire;
 					vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
 					initToggleSilentRuning();
+					if(DebugMode) printf("Shut Down Silent Runing\x0a");
 				}
 			}
-		
-			//Deploy Hardpoint if HardPointsonFireGameMode is Enable
-			if(HardPointsonFireGameMode & !sHardPoints){
-				initToggleHardpoints();
-			}
-		
-			//Backup Actual PIP Mode
-			if(OptimalPIPMode & !sExplorerMode){
+			if(HardPointsonFireGameMode & !sHardPoints){initToggleHardpoints();}	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
+			if(OptimalPIPMode & !sExplorerMode){	//Backup Actual PIP Mode
 				if(vOptimalPIPFireBackup != vOptimalPIP){
 					vOptimalPIPFireBackup = vOptimalPIP;
 					if(DebugMode) printf("Backup PIP\x0a");
 				}
 				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 			}
-			
 		}
 		
 		//Fire !!
@@ -194,23 +135,17 @@
 		initSecondaryFire();
 		
 		if(!Joystick[TG1] & !Joystick[S2]){
-
-			//Restore Previous PIP Mode	
-			if(OptimalPIPMode & !sExplorerMode){
+			if(OptimalPIPMode & !sExplorerMode){	//Restore Previous PIP Mode	
 				initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
 				if(DebugMode) printf("Restore PIP\x0a");
 			}
-		
-			//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
-			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !sExplorerMode){initToggleHardpoints();}
-		
-			//Restore Silent Runing if it was running before fire
-			if(vSilentRuningBackup!=0){
+			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !sExplorerMode){initToggleHardpoints();}//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
+			if(vSilentRuningBackup!=0){	//Restore Silent Runing if it was running before fire
 				vSilentRuningBackup = 0;
 				initToggleSilentRuning();	//Restore Silent Runing State
 				if(DebugMode) printf("Restore Silent Runing\x0a");
 			}
-		
+	
 			if(SilentRuningOFFonFire & sSilentRuning & vSLonFire){
 				vSLonFire=!vSLonFire;
 			}
@@ -227,14 +162,16 @@
 			vPrimaryFire=!vPrimaryFire;
 			//if(DebugMode) printf("TG1 Down\x0a");
 		}
-		if(!Joystick[TG1] & sExplorerMode & vPrimaryFire & (ExploreModeFire == 0 | ExploreModeFire == 2)){
-			DeferCall(6000, &ActKey, KEYON+UP+PrimaryFire);
-			DeferCall(6500, &ActKey, KEYON+PULSE+EXEC("vPrimaryFire=!vPrimaryFire;"));
-			//if(DebugMode) printf("TG1 Up ExplorerMode\x0a");
-		}else if(!Joystick[TG1] & vPrimaryFire){
-			ActKey(KEYON+UP+PrimaryFire);
-			vPrimaryFire=!vPrimaryFire;
-			//if(DebugMode) printf("TG1 Up\x0a");
+		else if(!Joystick[TG1] & vPrimaryFire){
+			if(sExplorerMode & (ExploreModeFire == 0 | ExploreModeFire == 2)){
+				DeferCall(6000, &ActKey, KEYON+UP+PrimaryFire);
+				DeferCall(6500, &ActKey, KEYON+PULSE+EXEC("vPrimaryFire=!vPrimaryFire;"));
+				//if(DebugMode) printf("TG1 Up ExplorerMode\x0a");
+			}else{
+				ActKey(KEYON+UP+PrimaryFire);
+				vPrimaryFire=!vPrimaryFire;
+				//if(DebugMode) printf("TG1 Up\x0a");
+			}
 		}
 	}
 
@@ -245,14 +182,16 @@
 			vSecondaryFire=!vSecondaryFire;
 			//if(DebugMode) printf("S2  Down\x0a");
 		}
-		if(!Joystick[S2] & sExplorerMode & vSecondaryFire & (ExploreModeFire == 1 | ExploreModeFire == 2)){
-			DeferCall(6000, &ActKey, KEYON+UP+SecondaryFire);
-			DeferCall(6500, &ActKey, KEYON+PULSE+EXEC("vSecondaryFire=!vSecondaryFire;"));
-			//if(DebugMode) printf("S2  Up ExplorerMode\x0a");
-		}else if(!Joystick[S2] & vSecondaryFire){
-			ActKey(KEYON+UP+SecondaryFire);
-			vSecondaryFire=!vSecondaryFire;
-			//if(DebugMode) printf("S2  Up\x0a");
+		else if(!Joystick[S2] & vSecondaryFire){
+			if(sExplorerMode & (ExploreModeFire == 1 | ExploreModeFire == 2)){
+				DeferCall(6000, &ActKey, KEYON+UP+SecondaryFire);
+				DeferCall(6500, &ActKey, KEYON+PULSE+EXEC("vSecondaryFire=!vSecondaryFire;"));
+				//if(DebugMode) printf("S2  Up ExplorerMode\x0a");
+			}else{
+				ActKey(KEYON+UP+SecondaryFire);
+				vSecondaryFire=!vSecondaryFire;
+				//if(DebugMode) printf("S2  Up\x0a");
+			}
 		}
 	}
 	
@@ -280,6 +219,31 @@
 		if(DebugMode) printf("Engage FSD\x0a");
 	}
 	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	EXTRA GAMES FUNCTIONS																																		//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	//FUNCTION: Init Secure Retract
+	int initSecureRectract(){
+		vSecureEscapeFight=!vSecureEscapeFight;
+		if(sHardPoints)initToggleHardpoints();
+		if(sGears)     initToggleLandingGear();
+		if(sCargo)     initToggleCargoScoop();
+		vSecureEscapeFight=!vSecureEscapeFight;
+	}
+	
+	//FUNCTION: Engine Boost Or Use Supercruise while boosting if Throttle is 100%
+	int initThrottleBoost(){
+		if(SupecruiseOnThrottle & AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){	//Throttle All the Way Up & SupecruiseOnThrottle is Actived?
+			if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+			ActKey(KEYON+PULSE+Supercruise);
+			if(DebugMode) printf("SuperCruise On Throttle Engaged\x0a");
+		}else{
+			ActKey(KEYON+PULSE+EngineBoost);
+			if(DebugMode) printf("Engine Boost\x0a");
+		}
+	}
+
 	//FUNCTION: SystemJump
 	int initSystemJump(){
 		if(!SecureRetract & (sHardPoints | sCargo | sGears))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
@@ -290,22 +254,6 @@
 			}
 			ActKey(KEYON+PULSE+mSystemJump);
 			if(DebugMode) printf("Engage System Jump\x0a");
-		}
-	}
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	EXTRA GAMES FUNCTIONS																																		//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	//FUNCTION: Use Supercruise while boosting if Throttle is 100%
-	int initThrottleBoost(){
-		if(SupecruiseOnThrottle & AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){	//Throttle All the Way Up & SupecruiseOnThrottle is Actived?
-			if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
-			ActKey(KEYON+PULSE+Supercruise);
-			if(DebugMode) printf("SuperCruise On Throttle Engaged\x0a");
-		}else{
-			ActKey(KEYON+PULSE+EngineBoost);
-			if(DebugMode) printf("Engine Boost\x0a");
 		}
 	}
 
@@ -353,3 +301,85 @@
 		else if (Throttle[APALT] & !Joystick[S3]) initSystemJump();
 		else if (Throttle[APALT] & Joystick[S3]) ActKey(KEYON+PULSE+CancelFSD);
 	}
+	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	EXTRA FUNCTIONS																																				//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	
+	//FUNCTION FPS & CONNECTION STATUS
+	int initFPSCONNECTION(){
+		ActKey(KEYON+PULSE+ShowFramerate);
+		ActKey(KEYON+PULSE+ShowConnectionStatus);
+		if(DebugMode)printf("FPS & CONNECTION STATUS\x0a");
+	}
+	
+	//FUNCTION: Head Center
+	int initHeadCenter(){
+		if     (HMD)    {ActKey(KEYON+PULSE+HMDCenter); if(DebugMode)printf("HMD Center\x0a");}
+		else if(TrackIR){ActKey(KEYON+PULSE+TrackIRCenter); if(DebugMode)printf("TrackIR Center\x0a");}
+		else            {ActKey(KEYON+PULSE+UIFocus); if(DebugMode)printf("UI Focus\x0a");}
+	}
+	
+	//FUNCTION: Capture Video
+//	int initCaptureVideo(){
+//		if       (GFXVideo == 1){	//Nvidia Shadowplay
+//			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
+//			if(DebugMode)printf("NVidia ShadowPlay Capture Video\x0a");
+//		}else if (GFXVideo == 2){	//AMD Relive
+//			ActKey(KEYON+PULSE+AMDCaptureVideo);
+//			if(DebugMode)printf("AMD Relive Capture Video\x0a");
+//		}else{	//None
+//			if(DebugMode)printf("No Software selected for Capture Video\x0a");
+//		}
+//	}
+
+	//FUNCTION: Streaming Video
+//	int initStreamingVideo(){
+//		if       (GFXVideo == 1){	//Nvidia Shadowplay
+//			ActKey(KEYON+PULSE+NVidiaStreaming);
+//			if(DebugMode)printf("NVidia ShadowPlay Streaming\x0a");
+//		}else if (GFXVideo == 2){	//AMD Relive
+//			ActKey(KEYON+PULSE+AMDStreaming);
+//			if(DebugMode)printf("AMD Relive Streaming\x0a");
+//		}else{	//None
+//			if(DebugMode)printf("No Software selected for Streaming\x0a");
+//		}
+//	}
+
+	//FUNCTION: Screenshot
+//	int initScreenshot(){
+//		if(!UseSteamScreenshot){
+//			if(sExplorerMode){
+//				ActKey(KEYON+PULSE+HighResScreenshot);
+//				if(DebugMode)printf("HD Screenshot\x0a");
+//			}else{
+//				ActKey(KEYON+PULSE+Screenshot);
+//				if(DebugMode)printf("Screenshot\x0a");
+//			}
+//		}else{
+//			ActKey(KEYON+PULSE+TakeSteamScreenshot);
+//			if(DebugMode)printf("Steam Screenshot\x0a");
+//		}
+//	}
+	
+	//FUNCTION: Voice PTT
+	int initVoicePTT(){
+		if     (sPTTState) vPTT = InternalVoiceCommsPTT;	//External Mic
+		else if(!sPTTState)vPTT = ExternalVoiceCommsPTT;	//Internal Mic
+		if(Throttle[MSP]){
+			vVoicePTT=!vVoicePTT;
+			if(sPTTMode){	//TOGGLE
+				vVoice=!vVoice;
+				ActKey(KEYON+PULSE+vPTT);
+				if(DebugMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] [HOLD:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
+			}else{	//Talk [HOLD]
+				ActKey(KEYON+DOWN+vPTT);
+			}
+		}
+		if(!Throttle[MSP] & !sPTTMode){	//Silence [HOLD]
+			vVoicePTT=!vVoicePTT;
+			ActKey(KEYON+UP+vPTT);
+		}
+		initLED(ToggleVoicePTTLED, vVoicePTT);
+		if(DebugMode & !sPTTMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] PUSH:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
+	}	
