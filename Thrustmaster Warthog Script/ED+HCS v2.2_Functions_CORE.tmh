@@ -85,7 +85,7 @@
 	int initRestorePIPPower(int j=0){
 		if(j != vOptimalPIP){	// Send Good Backup PIPS only if previous PIP Swith is != of Backuped Value
 			//if(DebugMode){printf("Reset PIP ?: PIPRestore [%d] vOptimalPIP [%d]\x0a", j, vOptimalPIP);}
-			if     (j == 0 ) initPIPPower();				//2 SYS 2 ENG 2 WEP (0)
+			if     (j == 0 ) initPIPPower();			//2 SYS 2 ENG 2 WEP (0)
 			else if(j == 1) initPIPPower(ENG,SYS);		//4 ENG	2 SYS (1)
 			else if(j == 2) initPIPPower(ENG,WEP);		//4 ENG 2 WEP (2)
 			else if(j == 3) initPIPPower(SYS,ENG);		//4 SYS 2 ENG (3)

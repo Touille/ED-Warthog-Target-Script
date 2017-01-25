@@ -1,0 +1,83 @@
+//	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
+//	V2.2.03.3b	2017/01
+//	Distributed freely under the MIT License.
+//	
+//	Permission is hereby granted, free of charge, to any person obtaining a copy
+//	of this software and associated documentation files (the "Software"), to deal
+//	in the Software without restriction, including without limitation the rights
+//	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//	copies of the Software, and to permit persons to whom the Software is
+//	furnished to do so, subject to the following conditions:
+//	
+//	The above copyright notice and this permission notice shall be included in all
+//	copies or substantial portions of the Software.
+//	
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//	SOFTWARE.
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	VARIABLES USED IN FUNCTION																																	//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int vJoystickCurveProfile;					//initSetJoystickCurves()	initJoystickCurves()	initToggleEnhancedFAOFF()
+	int vJoystickCurveProfileBackup;			//initToggleEnhancedFAOFF()
+	int vThrottleCurveProfile;					//initSetThrottleCurves()
+	int vThrottleLight;							//initLEDStates()
+	int vThrottleLightBackup;					//initToggleIDLEonThrottle()	initLEDStates()	EventHandle()
+	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
+	int vVoicePTT;								//initVoicePTT()
+	int vPTT;									//initVoicePTT()
+	int vVoice;									//initVoicePTT()
+	int vSilentRuningBackup;					//initFire()
+	int vLG;									//initToggleLandingGear()
+	int vCS;									//initToggleCargoScoop()
+	int vSLonFire;								//initFire()			initToggleSilentRuning()
+	int vSLonEscapeFight;						//initEscapeFight()		initToggleSilentRuning()
+	int vSLonGameMenu;							//initToggleGameMenu()	initToggleSilentRuning()
+	int vSLonCamera;							//initToggleCamera()	initToggleSilentRuning()
+	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
+	int vPIP;									//initPIPPower()
+	int vPrimaryFire;							//initPrimaryFire()
+	int vSecondaryFire;							//initSecondaryFire()
+	
+//	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
+	
+	//PIP Management
+	int vOptimalPIP;							//initPIPPower()
+	int vOptimalPIPHPBackup;					//initToggleHardpoints()
+	int vOptimalPIPFireBackup;					//initFire()
+	int vOptimalPIPEFBackup;					//initEscapeFight()
+	int vOptimalPIPGMBackup;					//initToggleGameMenu()
+	int vOptimalPIPCCBackup;					//initToggleCamera()
+
+	//initPIPPower()
+	define SYS 1
+	define ENG 2
+	define WEP 3
+	define MID 4
+	int PIPx, PIPy, PIPz;
+	
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	TOGGLE STATES																																				//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	int sIDLE;							//initToggleIDLEonThrottle()		Throttle IDLE
+	int sVoiceAttack;					//initToggleVoiceAttackMic()		Voice Attack Mic
+	int sRT;							//initToggleReverseThrottle()		Reverse Throttle
+	int sFlightAssist;					//initToggleEnhancedFAOFF()			Flight Assist
+	int sGameMenu;						//initGameMenu()					Game Menu
+	int sHeadLook;						//initToogleHeadLook()				Head Look
+	int sExplorerMode;					//initToggleExplorerMode()			Desactivate Functions for Exploring (OptimalPIPMode when fire, StopFireRetractHardpoints ...)
+	int sHardPoints;					//initToggleHardpoints()			HardPoints
+	int sCameraMode;					//initToggleCamera()				Classified Camera
+	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
+	
+	//If Misaligned With Game [S3]+Toggle The Switch
+
+	int sGears;							//initToggleLandingGear()			Landing Gears
+	int sCargo;							//initToggleCargoScoop()			Cargo Scoop
+	int sLights;						//initToggleLights()				ShipLights

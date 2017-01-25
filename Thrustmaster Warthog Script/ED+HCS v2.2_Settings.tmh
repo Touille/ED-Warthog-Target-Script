@@ -47,7 +47,7 @@
 	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
 	int ExploreModeFire				=0;		//Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only in ExplorerMode (See throttle chart when switch is UP)
 	
-//	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
+//	------------Default Settings------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
 
 	//Throttle Engine Operate Ign/Norm Right UP
 	int OptimalPIPMode				=1;		//Automatic PIP Mode: When Hardpoint is Up or Down / When Escape Fight / When Fire...			[S]
@@ -95,12 +95,12 @@
 	
 	//Joystick			Up,M,Down
 	short JS_CURVE[] = {-1, 0,  2};			//Negative values make the axis more sensitive around the center, while positive values provide better control in the center position
-	short JS_ZOOM[]  = {1 , 0, -1};			//Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
+	short JS_ZOOM[]  = { 1, 0, -1};			//Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
 	define JS_DEADZONE 1					//Set the JS Deadzone.. use the Device Analyzer to validate
 
 	//Slew				Up,M,Down
 	short SL_CURVE[] = {-1, 0,  2};			//Negative values make the axis more sensitive around the center, while positive values provide better control in the center position
-	short SL_ZOOM[]  = {1 , 0, -1};			//Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
+	short SL_ZOOM[]  = { 1, 0, -1};			//Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
 	define SL_DEADZONE 1					//Set the SL Deadzone.. use the Device Analyzer to validate
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -154,29 +154,6 @@
 	define LMFDLight			129				//Light MFD backlight
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	TOGGLE STATES																																				//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	int sIDLE;							//initToggleIDLEonThrottle()		Throttle IDLE
-	int sVoiceAttack;					//initToggleVoiceAttackMic()		Voice Attack Mic
-	int sRT;							//initToggleReverseThrottle()		Reverse Throttle
-	int sFlightAssist;					//initToggleEnhancedFAOFF()			Flight Assist
-	int sGameMenu;						//initGameMenu()					Game Menu
-	int sHeadLook;						//initToogleHeadLook()				Head Look
-	int sExplorerMode;					//initToggleExplorerMode()			Desactivate Functions for Exploring (OptimalPIPMode when fire, StopFireRetractHardpoints ...)
-	
-//	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
-	
-	int sCameraMode;					//initToggleCamera()				Classified Camera
-	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
-	
-	//If Misaligned With Game [S3]+Toggle The Switch
-	int sHardPoints;					//initToggleHardpoints()			HardPoints
-	int sGears;							//initToggleLandingGear()			Landing Gears
-	int sCargo;							//initToggleCargoScoop()			Cargo Scoop
-	int sLights;						//initToggleLights()				ShipLights
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PRESS & PULSE DELAY SETTINGS																																//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
@@ -204,48 +181,7 @@
 	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	define HeatSinkonSilentRuningDelay 8000
 	
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	VARIABLES USED IN FUNCTION																																	//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int vJoystickCurveProfile;					//initSetJoystickCurves()	initJoystickCurves()	initToggleEnhancedFAOFF()
-	int vJoystickCurveProfileBackup;			//initToggleEnhancedFAOFF()
-	int vThrottleCurveProfile;					//initSetThrottleCurves()
-	int vThrottleLight;							//initLEDStates()
-	int vThrottleLightBackup;					//initToggleIDLEonThrottle()	initLEDStates()	EventHandle()
-	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
-	int vVoicePTT;								//initVoicePTT()
-	int vPTT;									//initVoicePTT()
-	int vVoice;									//initVoicePTT()
-	int vSilentRuningBackup;					//initFire()
-	int vLG;									//initToggleLandingGear()
-	int vCS;									//initToggleCargoScoop()
-	int vSLonFire;								//initFire()			initToggleSilentRuning()
-	int vSLonEscapeFight;						//initEscapeFight()		initToggleSilentRuning()
-	int vSLonGameMenu;							//initToggleGameMenu()	initToggleSilentRuning()
-	int vSLonCamera;							//initToggleCamera()	initToggleSilentRuning()
-	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
-	int vPIP;									//initPIPPower()
-	int vPrimaryFire;							//initPrimaryFire()
-	int vSecondaryFire;							//initSecondaryFire()
-	
-//	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
-	
-	//PIP Management
-	int vOptimalPIP;							//initPIPPower()
-	int vOptimalPIPHPBackup;					//initToggleHardpoints()
-	int vOptimalPIPFireBackup;					//initFire()
-	int vOptimalPIPEFBackup;					//initEscapeFight()
-	int vOptimalPIPGMBackup;					//initToggleGameMenu()
-	int vOptimalPIPCCBackup;					//initToggleCamera()
-
-	//initPIPPower()
-	define SYS 1
-	define ENG 2
-	define WEP 3
-	define MID 4
-	int PIPx, PIPy, PIPz;
-	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	REPORT STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

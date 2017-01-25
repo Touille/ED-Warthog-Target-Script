@@ -25,6 +25,7 @@
 
 include "target.tmh"
 include "ED+HCS v2.2_Settings.tmh"
+include "ED+HCS v2.2_Variables.tmh"
 include "ED+HCS v2.2_USBKey.ttm"
 include "ED+HCS v2.2_KeyBindings.ttm"
 include "ED+HCS v2.2_Macros.tmh"
@@ -105,7 +106,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.2.03.3b----2017/01/22------------------------\x0a");
+	printf("--------------------------V2.2.03.3b----2017/01/25------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
