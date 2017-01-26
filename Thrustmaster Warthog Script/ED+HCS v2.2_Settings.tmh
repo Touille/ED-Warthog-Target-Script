@@ -177,7 +177,7 @@
 	
 	//PIP DELAY
 	define PIPPressDelay	350			//PIP Press Key Delay 350
-	define PIPPulseDelay	25			//PIP Pulse Delay PIP Initialisation 75 initPIPPower()
+	define PIPPulseDelay	25			//PIP Pulse Delay PIP Initialisation 25 (you can up it up to 75 if needed) initPIPPower()
 	
 	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	define HeatSinkonSilentRuningDelay 8000
