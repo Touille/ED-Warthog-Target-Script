@@ -110,6 +110,7 @@ int main()
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
+	printf("-o/--o/-----Farinhir : The First CMDR to report Bug & FeedBack-----o/--o/-\x0a");
 	printf("--------------------------------------------------------------------------\x0a");
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -153,15 +154,9 @@ int main()
 	MapKeyIO(&Joystick, H1R, EXEC("initPIPPower(ENG,WEP,MID);"),TEMPO(EXEC("initPIPPower(WEP);"), TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));
 
 	//	-------------------------Target Management Switch (TMS)
-	MapKey(&Joystick, H2U, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay));													// UP
-	MapKey(&Joystick, H2D, PULSE+SelectNextSystemInRoute);																								// DOWN
-
-//	MapKey(&Joystick, H2L, TEMPO(PULSE+SelectPrevShip, TEMPO(PULSE+SelectPrevHostileShip, PULSE+SelectPrevSubsystem, LongPressDelay), LongPressDelay));	// LEFT
-	
+	MapKey(&Joystick, H2U, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay));								// UP
+	MapKey(&Joystick, H2D, PULSE+SelectNextSystemInRoute);																			// DOWN
 	MapKeyIO(&Joystick, H2L, PULSE+SelectPrevSubsystem, TEMPO(PULSE+SelectPrevHostileShip, PULSE+SelectPrevShip, LongPressDelay));	// LEFT
-	
-//	MapKey(&Joystick, H2R, TEMPO(PULSE+SelectNextShip, TEMPO(PULSE+SelectNextHostileShip, PULSE+SelectNextSubsystem, LongPressDelay), LongPressDelay));	// RIGHT
-
 	MapKeyIO(&Joystick, H2R, PULSE+SelectNextSubsystem, TEMPO(PULSE+SelectNextHostileShip, PULSE+SelectNextShip, LongPressDelay));	// RIGHT
 	
 	//	-------------------------Data Management Switch (DMS)

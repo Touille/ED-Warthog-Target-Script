@@ -257,7 +257,7 @@
 		}
 	}
 
-	//FUNCTION: Escape Fight	All we want is to Escape Fight so We don't check SecureRetract & OptimalPIPMode, if you want, you can UnComment the 4 Lines to check Them
+	//FUNCTION: Escape Fight	All we want is to Escape Fight so We don't check SecureRetract & OptimalPIPMode states, if you want, you can UnComment the 4 Lines to check Them
 	int initEscapeFight(){
 		//if(SecureRetract){	//If you want to check if SecureRetract is Enable UnComment this line
 			if(sHardPoints | sCargo | sGears){

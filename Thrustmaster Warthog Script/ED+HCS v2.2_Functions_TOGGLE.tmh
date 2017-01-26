@@ -63,7 +63,7 @@
 	//TOGGLE: Silent Runing OFF on Fire
 	int initToggleSilentRuningOFFonFire(){
 		SilentRuningOFFonFire=!SilentRuningOFFonFire;
-		initLED(ToggleSilentRuningonFireLED, SilentRuningOFFonFire);
+		initLED(ToggleSilentRuningOFFonFireLED, SilentRuningOFFonFire);
 		if(DebugMode) printf("Silent Runing On Fire	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SilentRuningOFFonFire);
 	}
 
@@ -84,7 +84,7 @@
 	//TOGGLE: Supecruise On Throttle Mode
 	int initToggleSuperCruiseMode(){
 		SupecruiseOnThrottle=!SupecruiseOnThrottle;
-		initLED(ToggleSuperCruiseModeLED, SupecruiseOnThrottle);
+		initLED(ToggleSupecruiseOnThrottleLED, SupecruiseOnThrottle);
 		if(DebugMode) printf("Supecruise On Throttle	[%d]	[ON:[1] OFF:[0]]\x0a", SupecruiseOnThrottle);
 	}
 	

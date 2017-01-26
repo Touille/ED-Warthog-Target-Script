@@ -69,7 +69,7 @@
 		}			
 		
 		//Initiate Led State
-		initLED(ToggleSuperCruiseModeLED, SupecruiseOnThrottle);
+		initLED(ToggleSupecruiseOnThrottleLED, SupecruiseOnThrottle);
 		initLED(ToggleRCorrectionLED, sRCorrection);
 		initLED(ToggleLandingGearLED, sGears);
 		initLED(ToggleCargoScoopLED, sCargo);
@@ -79,7 +79,7 @@
 		initLED(TogglePTTLED, sPTTState);
 		initLED(ToggleVoicePTTLED, vVoicePTT);
 		initLED(TogglePTTModeLED, sPTTMode);
-		initLED(ToggleSilentRuningonFireLED, SilentRuningOFFonFire);
+		initLED(ToggleSilentRuningOFFonFireLED, SilentRuningOFFonFire);
 		initLED(ToggleHeatSinkonSilentRuningLED, HeatSinkonSilentRuning);
 		initLED(ToggleIDLEonThrottleLED, sIDLE);
 		initLED(ToggleOptimalPIPModeLED, OptimalPIPMode);
@@ -105,6 +105,10 @@
 		MapAxis(&Joystick, JOYY, DX_Y_AXIS,    AXIS_NORMAL, MAP_ABSOLUTE);	// Set Joystick Control Y Axis
 		MapAxis(&Throttle, SCX,  DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);	// Set Slew Control X Axis
 		MapAxis(&Throttle, SCY,  DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);	// Set Slew Control Y Axis
+		if(CenterJoystickMount){	//	Rotate Joystick Axis 15deg CCW to account for center mounting position
+			RotateDXAxis(DX_X_AXIS, DX_Y_AXIS, -15);
+			if(DebugMode | DebugMMode) printf("Rotate Joystick Axis 15deg CCW to account for center mounting position\x0a");
+		}
 	}
 
 	//Joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
