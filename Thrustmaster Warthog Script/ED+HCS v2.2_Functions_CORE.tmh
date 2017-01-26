@@ -74,8 +74,8 @@
 			else if(z == MID) PIPz = PIPy;
 			
 			// Send PIPS
-			ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPy, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPz));
-			
+			//ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPy, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPz));
+			ActKey(KEYON+ CHAIN(LOCK+PULSE+ BalancePower, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPy, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPz, LOCK));
 		}else{
 			//if(DebugMode) printf("This PIP is Already Pushed	[%d]\x0a", vOptimalPIP);	
 		}			
