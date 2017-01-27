@@ -127,7 +127,7 @@
 			}
 			if(HardPointsonFireGameMode & !sHardPoints){initToggleHardpoints();}	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
 			if(OptimalPIPMode & !sExplorerMode){	//Backup Actual PIP Mode
-				if(vOptimalPIPFireBackup != vOptimalPIP & vOptimalPIP != 6){	//if it already 4 WEP 2 SYS (6) we don't save it again
+				if(vOptimalPIPFireBackup != vOptimalPIP & vOptimalPIP != 6){	//if the PIP it already 4 WEP 2 SYS (6) we don't save it again
 					vOptimalPIPFireBackup = vOptimalPIP;
 					if(DebugMode) printf("Backup PIP\x0a");
 				}
