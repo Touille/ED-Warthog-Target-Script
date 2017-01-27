@@ -205,7 +205,6 @@
 			ActKey(KEYON+PULSE+DeployHardpoints);
 			if(sHardPoints){
 				if(OptimalPIPMode & !sExplorerMode){
-//					vOptimalPIPHPBackup = vOptimalPIP;	//Backup Actual PIP Mode
 					initBackupPIPPower(OptimalPIPHPBackup);	//Backup Actual PIP Mode OptimalPIPHPBackup (2)
 					initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 				}
@@ -345,7 +344,6 @@
 		}
 		if(sCameraMode){	//Open The Camera Mode
 			if(OptimalPIPMode){
-//				vOptimalPIPCCBackup = vOptimalPIP;	//Backup Actual PIP Mode
 				initBackupPIPPower(OptimalPIPCCBackup);	//Backup Actual PIP Mode OptimalPIPCCBackup (5)
 				initPIPPower(SYS, ENG);	//4 SYS 2 ENG (3)
 			}
@@ -398,7 +396,6 @@
 		}
 		if(sGameMenu){	//Open The Game Menu
 			if(OptimalPIPMode){
-//				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode
 				initBackupPIPPower(OptimalPIPGMBackup);	//Backup Actual PIP Mode OptimalPIPGMBackup (4)
 				initPIPPower(SYS, ENG);	//4 SYS 2 ENG (3)
 			}

@@ -143,10 +143,6 @@
 			}
 			if(HardPointsonFireGameMode & !sHardPoints){initToggleHardpoints();}	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
 			if(OptimalPIPMode & !sExplorerMode){	//Backup Actual PIP Mode
-//				if(vOptimalPIPFireBackup != vOptimalPIP & vOptimalPIP != 6){	//if the PIP it already 4 WEP 2 SYS (6) we don't save it again
-//					vOptimalPIPFireBackup = vOptimalPIP;
-//					if(DebugMode) printf("Backup PIP\x0a");
-//				}
 				initBackupPIPPower(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
 				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 			}
@@ -289,7 +285,6 @@
 			initToggleSilentRuning();
 		}
 		//if(OptimalPIPMode){	//If you want to check if OptimalPIPMode is Enable UnComment this line
-//			vOptimalPIPEFBackup = vOptimalPIP;	//Backup Actual PIP Mode
 			initBackupPIPPower(OptimalPIPEFBackup);	//Backup Actual PIP Mode OptimalPIPEFBackup   (3)
 			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
 			DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
