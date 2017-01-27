@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3b 2017/01/26
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3b 2017/01/27
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -15,6 +15,25 @@
 
 * Just Drag&Drop __ED+HCS v2.2.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
 * Most commands can be tested prior to starting the game in Target Script Editor using the Debug Message, Event Tester and Device Analyzer.
+
+### BEFORE FLYING:
+
+The Script work with a lot of States value. Some of them are very important:
+
+ * Landing Gear Switch (Throttle EAC Switch) state is Switch Down : Retracted / Switch Up : Deployed
+ 
+ * Cargo Scoop Switch (Throttle RDR ALTM Switch) state is Switch Down : Retracted / Switch Up : Deployed
+
+ * Harpoints (Joystick MASTER Mode Control Button Longpress) is a press Button, so no switch state. You need to know, it start retracted in Script
+ 
+
+When you launch the Game, the script start with this states (according the switch position for LGears and CScoop). 
+If, for example, hardpoints is already deployed you should "tell" to the script it is without sending Command Key ; Press [S3] and Joystick MASTER Mode Control Button Longpress, to "align" the Harpoints state betwen game and script.
+That goes for LGears and CScoop to. You can Switch the states withous sending game commands, like previously, Press [S3] and switch LGears or/and CScoop if "mis aligned" 
+
+The Optimal PIP Mode, make Backup of Previous engaged PIP. By Default it will return to //2 SYS 2 ENG 2 WEP (0) if you don't make change before deploying Hardpoints or Fire after the game launch. 
+I suggest, when you launch the game, to make one change to PIP before deploying hardpoints and another before fire, so the script can backup those value.
+
 
 ### FEATURES:
 
