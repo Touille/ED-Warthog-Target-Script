@@ -109,7 +109,7 @@
 		}
 	}
 	
-	//PIP Backup
+	//PIP Backup Management
 	int initBackupPIPPower(int p=0){
 		if(p == 1 | p == 2 | p == 3 | p == 4 | p == 5){
 			if     (p == 1){if(vOptimalPIPFireBackup != vOptimalPIP & vOptimalPIP != 6){vOptimalPIPFireBackup = vOptimalPIP; vPIPB=!vPIPB;}}	//OptimalPIPFireBackup (1) if the PIP it already 4 WEP 2 SYS (6) we don't save it again

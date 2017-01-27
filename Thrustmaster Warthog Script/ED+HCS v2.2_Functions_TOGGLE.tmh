@@ -152,6 +152,7 @@
 			initLED(ToggleLandingGearLED, sGears);
 		}else{	//Reset The Flag On The FLY S3 + SWITCH
 			vLG=!vLG;
+			sGears=!sGears;
 			if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly with S3\x0a");
 		}
 		if(DebugMode)printf("Landing Gear	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sGears);
@@ -179,6 +180,7 @@
 			initLED(ToggleCargoScoopLED, sCargo);
 		}else{	//Reset The Flag On The FLY S3 + SWITCH
 			vCS=!vCS;
+			sCargo=!sCargo;
 			if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly with S3\x0a");
 		}
 		if(DebugMode)printf("Cargo Scoop	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sCargo);
