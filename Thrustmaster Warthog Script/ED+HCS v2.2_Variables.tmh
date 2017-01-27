@@ -48,17 +48,18 @@
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//PIP Management
-	define OptimalPIPFireBackup 1
-	define OptimalPIPHPBackup   2
-	define OptimalPIPEFBackup   3
-	define OptimalPIPGMBackup   4
-	define OptimalPIPCCBackup   5	
 	int vOptimalPIP;							//initPIPPower()
-	int vOptimalPIPHPBackup;					//initToggleHardpoints()
+	
 	int vOptimalPIPFireBackup;					//initFire()
+	define OptimalPIPFireBackup 1
+	int vOptimalPIPHPBackup;					//initToggleHardpoints()
+	define OptimalPIPHPBackup   2
 	int vOptimalPIPEFBackup;					//initEscapeFight()
+	define OptimalPIPEFBackup   3
 	int vOptimalPIPGMBackup;					//initToggleGameMenu()
+	define OptimalPIPGMBackup   4
 	int vOptimalPIPCCBackup;					//initToggleCamera()
+	define OptimalPIPCCBackup   5
 	
 	//initPIPPower()
 	define SYS 1

@@ -103,13 +103,14 @@
 			else if(j == 10)initPIPPower(SYS);          //4 SYS 1 ENG 1 WEP (10)
 			else if(j == 11)initPIPPower(ENG);          //4 ENG 1 SYS 1 WEP (11)
 			else if(j == 12)initPIPPower(WEP);          //4 WEP 1 SYS 1 ENG (12)
+			if(DebugMode) printf("Restore Previous PIP [%d] (preset PIP 1-12)\x0a",j);
 		}else{
 			//if(DebugMode) printf("This PIP is Already OK	[%d]\x0a", vOptimalPIP);	
 		}
 	}
 	
 	//PIP Backup
-	int initPIPBackup(int p=0){
+	int initBackupPIPPower(int p=0){
 		if(p == 1 | p == 2 | p == 3 | p == 4 | p == 5){
 			if     (p == 1){if(vOptimalPIPFireBackup != vOptimalPIP & vOptimalPIP != 6){vOptimalPIPFireBackup = vOptimalPIP; vPIPB=!vPIPB;}}	//OptimalPIPFireBackup (1) if the PIP it already 4 WEP 2 SYS (6) we don't save it again
 			else if(p == 2){if(vOptimalPIPHPBackup   != vOptimalPIP){                   vOptimalPIPHPBackup   = vOptimalPIP; vPIPB=!vPIPB;}}	//OptimalPIPHPBackup   (2) 4 WEP 2 SYS (6)
@@ -146,7 +147,7 @@
 //					vOptimalPIPFireBackup = vOptimalPIP;
 //					if(DebugMode) printf("Backup PIP\x0a");
 //				}
-				initPIPBackup(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
+				initBackupPIPPower(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
 				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 			}
 		}
@@ -158,7 +159,6 @@
 		if(!Joystick[TG1] & !Joystick[S2]){
 			if(OptimalPIPMode & !sExplorerMode){	//Restore Previous PIP Mode	
 				initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
-				if(DebugMode) printf("Restore PIP\x0a");
 			}
 			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !sExplorerMode){initToggleHardpoints();}//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
 			if(vSilentRuningBackup!=0){	//Restore Silent Runing if it was running before fire
@@ -166,7 +166,6 @@
 				initToggleSilentRuning();	//Restore Silent Runing State
 				if(DebugMode) printf("Restore Silent Runing\x0a");
 			}
-	
 			if(SilentRuningOFFonFire & sSilentRuning & vSLonFire){
 				vSLonFire=!vSLonFire;
 			}
@@ -291,7 +290,7 @@
 		}
 		//if(OptimalPIPMode){	//If you want to check if OptimalPIPMode is Enable UnComment this line
 //			vOptimalPIPEFBackup = vOptimalPIP;	//Backup Actual PIP Mode
-			initPIPBackup(OptimalPIPEFBackup);	//Backup Actual PIP Mode OptimalPIPEFBackup   (3)
+			initBackupPIPPower(OptimalPIPEFBackup);	//Backup Actual PIP Mode OptimalPIPEFBackup   (3)
 			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
 			DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
 			DeferCall(10000, &initRestorePIPPower, vOptimalPIPEFBackup);	//Restore Previous PIP Mode If vOptimalPIPEFBackup != 4 SYS 2 ENG (3)
