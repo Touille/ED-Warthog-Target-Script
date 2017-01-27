@@ -52,7 +52,7 @@
 
 	//Throttle Engine Operate Ign/Norm Right UP
 	int OptimalPIPMode				=1;		//Automatic PIP Mode: When Hardpoint is Up or Down / When Escape Fight / When Fire...			[S]
-	int StopFireRetractHardpoints	=1;		//Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1					[L]
+	int StopFireRetractHardpoints	=0;		//Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1					[L]
 	int SecureRetract				=1;		//Automatic Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump		[S3]+[S]
 	int sRCorrection				=1;		//Rotational Correction	[OFF:0, ON:1]															[S3]+[L]
 	
