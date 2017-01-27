@@ -41,19 +41,25 @@
 	int vSLonCamera;							//initToggleCamera()	initToggleSilentRuning()
 	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
 	int vPIP;									//initPIPPower()
+	int vPIPB;									//initPIPBackup()
 	int vPrimaryFire;							//initPrimaryFire()
 	int vSecondaryFire;							//initSecondaryFire()
 	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//PIP Management
+	define OptimalPIPFireBackup 1
+	define OptimalPIPHPBackup   2
+	define OptimalPIPEFBackup   3
+	define OptimalPIPGMBackup   4
+	define OptimalPIPCCBackup   5	
 	int vOptimalPIP;							//initPIPPower()
 	int vOptimalPIPHPBackup;					//initToggleHardpoints()
 	int vOptimalPIPFireBackup;					//initFire()
 	int vOptimalPIPEFBackup;					//initEscapeFight()
 	int vOptimalPIPGMBackup;					//initToggleGameMenu()
 	int vOptimalPIPCCBackup;					//initToggleCamera()
-
+	
 	//initPIPPower()
 	define SYS 1
 	define ENG 2
