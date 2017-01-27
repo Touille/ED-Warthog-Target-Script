@@ -116,8 +116,6 @@
 			else if(p == 3){if(vOptimalPIPEFBackup   != vOptimalPIP){                   vOptimalPIPEFBackup   = vOptimalPIP; vPIPB=!vPIPB;}}	//OptimalPIPEFBackup   (3) 4 ENG 2 SYS (1) & 4 SYS 2 ENG (3)
 			else if(p == 4){if(vOptimalPIPGMBackup   != vOptimalPIP){                   vOptimalPIPGMBackup   = vOptimalPIP; vPIPB=!vPIPB;}}	//OptimalPIPGMBackup   (4) 4 SYS 2 ENG (3)
 			else if(p == 5){if(vOptimalPIPCCBackup   != vOptimalPIP){                   vOptimalPIPCCBackup   = vOptimalPIP; vPIPB=!vPIPB;}}	//OptimalPIPCCBackup   (5) 4 SYS 2 ENG (3)
-		}else{
-			if(DebugMode) printf("Warning Backup Name should be wrong [%d] ! Previous PIP [%d]\x0a",p, vOptimalPIP);
 		}
 		if(vPIPB){
 			vPIPB=!vPIPB;
