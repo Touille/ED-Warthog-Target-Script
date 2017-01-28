@@ -217,16 +217,16 @@
 
 	//FUNCTION: Init Supercruise
 	int initSuperCruise(){
-		if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+		initSecureRectract();
 		ActKey(KEYON+PULSE+Supercruise);
-		if(DebugMode) printf("Engage SuperCruise\x0a");
+		if(DebugMode | DebugMMode) printf("Engage SuperCruise\x0a");
 	}
 	
 	//FUNCTION: Init FrameShiftDrive
 	int initFrameShiftDrive(){
-		if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+		initSecureRectract();
 		ActKey(KEYON+PULSE+FrameShiftDrive);
-		if(DebugMode) printf("Engage FSD\x0a");
+		if(DebugMode | DebugMMode) printf("Engage FSD\x0a");
 	}
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -235,22 +235,24 @@
 
 	//FUNCTION: Init Secure Retract
 	int initSecureRectract(){
-		vSecureEscapeFight=!vSecureEscapeFight;
-		if(sHardPoints)initToggleHardpoints();
-		if(sGears)     initToggleLandingGear();
-		if(sCargo)     initToggleCargoScoop();
-		vSecureEscapeFight=!vSecureEscapeFight;
+		if(SecureRetract & (sHardPoints | sCargo | sGears)){	//only if SecureRetract is ON & HardPoints or C Scoop Or L Gears is Deployed
+			vSecureEscapeFight=!vSecureEscapeFight;
+			if(sHardPoints)initToggleHardpoints();
+			if(sGears)     initToggleLandingGear();
+			if(sCargo)     initToggleCargoScoop();
+			vSecureEscapeFight=!vSecureEscapeFight;
+		}
 	}
 	
 	//FUNCTION: Engine Boost Or Use Supercruise while boosting if Throttle is 100%
 	int initThrottleBoost(){
 		if(SupecruiseOnThrottle & AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){	//Throttle All the Way Up & SupecruiseOnThrottle is Actived?
-			if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+			initSecureRectract();
 			ActKey(KEYON+PULSE+Supercruise);
-			if(DebugMode) printf("SuperCruise On Throttle Engaged\x0a");
+			if(DebugMode | DebugMMode) printf("SuperCruise On Throttle Engaged\x0a");
 		}else{
 			ActKey(KEYON+PULSE+EngineBoost);
-			if(DebugMode) printf("Engine Boost\x0a");
+			if(DebugMode | DebugMMode) printf("Engine Boost\x0a");
 		}
 	}
 
@@ -258,22 +260,23 @@
 	int initSystemJump(){
 		if(!SecureRetract & (sHardPoints | sCargo | sGears))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
 		else{
-			if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();;}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+			initSecureRectract();
 			if(OptimalPIPMode){
 				initPIPPower(ENG, SYS);	//4 ENG	2 SYS (1)
 			}
 			ActKey(KEYON+PULSE+mSystemJump);
-			if(DebugMode) printf("Engage System Jump\x0a");
+			if(DebugMode | DebugMMode) printf("Engage System Jump\x0a");
 		}
 	}
 
-	//FUNCTION: Escape Fight	All we want is to Escape Fight so We don't check SecureRetract & OptimalPIPMode states, if you want, you can UnComment the 4 Lines to check Them
+	//FUNCTION: Escape Fight	All we want is to Escape Fight so We don't check the OptimalPIPMode states, if you want, you can UnComment the 2 Lines to check Them
 	int initEscapeFight(){
-		//if(SecureRetract){	//If you want to check if SecureRetract is Enable UnComment this line
-			if(sHardPoints | sCargo | sGears){
-				initSecureRectract();	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
-			}
-		//}	//If you want to check if SecureRetract is Enable UnComment this line	
+		if(!SecureRetract){	//if SecureRetract is Disable
+			if(DebugMode | DebugMMode) printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");
+			SecureRetract=!SecureRetract;	//we Enable it
+			DeferCall(2000, &ActKey, KEYON+PULSE+EXEC("SecureRetract=!SecureRetract;")); //Then we Disable it after the initSecureRectract() below is done (2s should be ok)
+		}
+		initSecureRectract();	//All we want is to Escape so we retract Hardpoints, C.Scoop and L.Gears if deployed
 		if(!sSilentRuning & !vSLonEscapeFight){	//If Silent Running is Disable, Enable it
 			vSLonEscapeFight=!vSLonEscapeFight;
 			initToggleSilentRuning();
@@ -297,7 +300,7 @@
 	//FUNCTION: Request Docking
 	int initRCDocking(){
 		if(DebugMode) printf("Docking Initialisation\x0a");
-		if(SecureRetract & (sHardPoints | sCargo | sGears)){initSecureRectract();}	//initSecureRectract() only if HardPoints or Cargo Scoop Or L Gears Deployed
+		initSecureRectract();
 		ActKey(KEYON+PULSE+mRequestCancelDock);
 		if(OptimalPIPMode){
 			DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)

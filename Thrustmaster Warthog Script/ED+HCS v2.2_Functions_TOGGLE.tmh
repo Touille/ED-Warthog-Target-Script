@@ -135,7 +135,7 @@
 		if(!Joystick[S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sGears=!sGears;
-				if(DebugMode | DebugMMode)printf("Landing Gear SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode | DebugMMode)printf("Landing Gear SecureEscapeFight : Toggle the Switch\x0a");
 			}else{	//Or Change the flag status with the switch position
 				if(Throttle[EACON]) sGears = 1;	//Switch position is UP : Landing Gear Is Deployed
 				else                sGears = 0;	//Switch position is DOWN : Landing Gear Is Retracted
@@ -163,7 +163,7 @@
 		if(!Joystick[S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sCargo=!sCargo;
-				if(DebugMode | DebugMMode)printf("Cargo Scoop SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode | DebugMMode)printf("Cargo Scoop SecureEscapeFight : Toggle the Switch\x0a");
 			}else{	//Or Change the flag status with the switch position
 				if(Throttle[RDRNRM]) sCargo = 1;	//Switch position is UP : Cargo Scoop Is Deployed
 				else                 sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
