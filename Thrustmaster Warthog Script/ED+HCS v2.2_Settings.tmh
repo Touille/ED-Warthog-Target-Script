@@ -57,7 +57,7 @@
 	int sRCorrection				=1;		//Rotational Correction	[OFF:0, ON:1]															[S3]+[L]
 	
 	//Throttle Engine Operate Ign/Norm Left UP
-	int sPTTState					=0;		//Internal / External Mic	[External:[0] Internal:[1]}		[S3]+[S]
+	int sPTTState					=0;		//Internal / External Mic	[External:[0] Internal:[1]]		[S3]+[S]
 	int sPTTMode					=1;		//PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]			[S3]+[L]
 	
 	//Throttle Arm Speedbrake BACK

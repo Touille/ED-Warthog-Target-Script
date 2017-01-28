@@ -23,33 +23,48 @@
 //	VARIABLES USED IN FUNCTION																																	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
+	//Hardware
 	int vJoystickCurveProfile;					//initSetJoystickCurves()	initJoystickCurves()	initToggleEnhancedFAOFF()
 	int vJoystickCurveProfileBackup;			//initToggleEnhancedFAOFF()
 	int vThrottleCurveProfile;					//initSetThrottleCurves()
 	int vThrottleLight;							//initLEDStates()
 	int vThrottleLightBackup;					//initToggleIDLEonThrottle()	initLEDStates()	EventHandle()
+	
+	//Game
 	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
-	int vVoicePTT;								//initVoicePTT()
-	int vPTT;									//initVoicePTT()
-	int vVoice;									//initVoicePTT()
-	int vSilentRuningBackup;					//initFire()
 	int vLG;									//initToggleLandingGear()
 	int vCS;									//initToggleCargoScoop()
-	int vSLonFire;								//initFire()			initToggleSilentRuning()
-	int vSLonEscapeFight;						//initEscapeFight()		initToggleSilentRuning()
-	int vSLonGameMenu;							//initToggleGameMenu()	initToggleSilentRuning()
-	int vSLonCamera;							//initToggleCamera()	initToggleSilentRuning()
 	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
-	int vPIP;									//initPIPPower()
-	int vPIPB;									//initPIPBackup()
+	
+	//initVoicePTT()	
+	int vVoicePTT;
+	int vPTT;
+	int vVoice;	
+	
+	//initToggleSilentRuning()
+	int vSilentRuningBackup;					//initFire()
+	int vSLonFire;								//initFire()
+	int vSLonEscapeFight;						//initEscapeFight()
+	int vSLonGameMenu;							//initToggleGameMenu()
+	int vSLonCamera;							//initToggleCamera()
+	
+	//initFire()
 	int vPrimaryFire;							//initPrimaryFire()
 	int vSecondaryFire;							//initSecondaryFire()
 	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	//PIP Management
-	int vOptimalPIP;							//initPIPPower()
-	
+	//initPIPPower()
+	int vOptimalPIP;
+	int vPIP;
+	int PIPx, PIPy, PIPz;
+	define SYS 1
+	define ENG 2
+	define WEP 3
+	define MID 4
+
+	//initPIPBackup()
+	int vPIPB;
 	int vOptimalPIPFireBackup;					//initFire()
 	define OptimalPIPFireBackup 1
 	int vOptimalPIPHPBackup;					//initToggleHardpoints()
@@ -61,37 +76,29 @@
 	int vOptimalPIPCCBackup;					//initToggleCamera()
 	define OptimalPIPCCBackup   5
 	
-	//initPIPPower()
-	define SYS 1
-	define ENG 2
-	define WEP 3
-	define MID 4
-	int PIPx, PIPy, PIPz;
-	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	TOGGLE STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//Extra
-	int sVoiceAttack;					//initToggleVoiceAttackMic()		Voice Attack Mic
-//	int sNVidiaCaptureVideo;			//initCaptureVideo()				Nvidia Shadowplay Capture
-//	int sAMDCaptureVideo;				//initCaptureVideo()				AMD Relive Capture
-//	int sNVidiaStreaming;				//initStreamingVideo()				Nvidia Shadowplay Streaming
-//	int sAMDStreaming;					//initStreamingVideo()				AMD Relive Streaming
+	int sVoiceAttack;			//initToggleVoiceAttackMic()		Voice Attack Mic
+//	int sNVidiaCaptureVideo;	//initCaptureVideo()				Nvidia Shadowplay Capture
+//	int sAMDCaptureVideo;		//initCaptureVideo()				AMD Relive Capture
+//	int sNVidiaStreaming;		//initStreamingVideo()				Nvidia Shadowplay Streaming
+//	int sAMDStreaming;			//initStreamingVideo()				AMD Relive Streaming
 
 	//Game
-	int sIDLE;							//initToggleIDLEonThrottle()		Throttle IDLE
-	int sRT;							//initToggleReverseThrottle()		Reverse Throttle
-	int sFlightAssist;					//initToggleEnhancedFAOFF()			Flight Assist
-	int sGameMenu;						//initGameMenu()					Game Menu
-	int sHeadLook;						//initToogleHeadLook()				Head Look
-	int sExplorerMode;					//initToggleExplorerMode()			Desactivate Functions for Exploring (OptimalPIPMode when fire, StopFireRetractHardpoints ...)
-	int sHardPoints;					//initToggleHardpoints()			HardPoints
-	int sCameraMode;					//initToggleCamera()				Classified Camera
-	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
+	int sIDLE;					//initToggleIDLEonThrottle()		Throttle IDLE
+	int sRT;					//initToggleReverseThrottle()		Reverse Throttle
+	int sFlightAssist;			//initToggleEnhancedFAOFF()			Flight Assist
+	int sGameMenu;				//initGameMenu()					Game Menu
+	int sHeadLook;				//initToogleHeadLook()				Head Look
+	int sExplorerMode;			//initToggleExplorerMode()			Desactivate Functions for Exploring (OptimalPIPMode when fire, StopFireRetractHardpoints ...)
+	int sCameraMode;			//initToggleCamera()				Classified Camera
+	int sSilentRuning;			//initToggleSilentRuning()			Silent Runing
 	
 	//If Misaligned With Game [S3]+Toggle The Switch
-
-	int sGears;							//initToggleLandingGear()			Landing Gears
-	int sCargo;							//initToggleCargoScoop()			Cargo Scoop
-	int sLights;						//initToggleLights()				ShipLights
+	int sHardPoints;			//initToggleHardpoints()			HardPoints
+	int sGears;					//initToggleLandingGear()			Landing Gears
+	int sCargo;					//initToggleCargoScoop()			Cargo Scoop
+	int sLights;				//initToggleLights()				ShipLights
