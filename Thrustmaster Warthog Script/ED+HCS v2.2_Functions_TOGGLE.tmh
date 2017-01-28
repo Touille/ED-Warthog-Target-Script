@@ -31,7 +31,7 @@
 			if(GameMenuOnIDLE)initGameMenu();	//If GameMenu on IDLE Option is 1, Launch Game Menu
 			if(sIDLE)ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightOnIDLE));
 			else     ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
-			if(ThrottleLightOnIDLE!=0)initLED(ToggleIDLEonThrottleLED, sExplorerMode);	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
+			if(ThrottleLightOnIDLE!=0)initLED(ToggleIDLEonThrottleLED, sIDLE);	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
 			if(DebugMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);
 		}
 	}
@@ -320,13 +320,9 @@
 	
 	//TOGGLE: Rotational Correction
 	int initToggleRotationCorrection(){
-		if(!Joystick[S3]){
-			sRCorrection=!sRCorrection;
-			ActKey(KEYON+PULSE+RotationalCorrection);
-			initLED(ToggleRCorrectionLED, sRCorrection);
-		}else{	//Reset On The FLY S3 + SWITCH
-			sRCorrection=!sRCorrection;
-		}
+		sRCorrection=!sRCorrection;
+		ActKey(KEYON+PULSE+RotationalCorrection);
+		initLED(ToggleRCorrectionLED, sRCorrection);
 		if(DebugMode) printf("Rotation Correction	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRCorrection);
 	}
 
