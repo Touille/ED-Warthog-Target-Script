@@ -46,7 +46,9 @@
 
 	int GameMenuOnIDLE				=0;		//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
 	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
-	int ExploreModeFire				=0;		//Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only in ExplorerMode (See throttle chart when switch is UP)
+	
+	int ExploreModeFire				=0;		//Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
+											//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with TG1ScanDelay and S2ScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
 	
 //	------------Default Settings------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
 
@@ -188,6 +190,10 @@
 	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	define HeatSinkonSilentRuningDelay 8000
 	
+	//Scan Delay (keep key pressed for ...sec) when Explorer mode is 1)
+	//Ingame, Sytem Scan is 5s and other scan are 10s we put 1 more sec to be sure
+	define TG1ScanDelay		6000	//ExploreModeFire 0 or 2 TG1 Delay
+	define S2ScanDelay		11000	//ExploreModeFire 1 or 2 S2  Delay
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	REPORT STATES																																				//

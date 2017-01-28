@@ -174,17 +174,16 @@
 		}
 		else if(!Joystick[TG1] & vPrimaryFire){
 			if(sExplorerMode & (ExploreModeFire == 0 | ExploreModeFire == 2)){
-				DeferCall(6000, &ActKey, KEYON+UP+PrimaryFire);
-				DeferCall(6500, &ActKey, KEYON+PULSE+EXEC("vPrimaryFire=!vPrimaryFire;"));
+				DeferCall(TG1ScanDelay, &ActKey, KEYON+UP+PrimaryFire);
 				//if(DebugMode) printf("TG1 Up ExplorerMode\x0a");
 			}else{
 				ActKey(KEYON+UP+PrimaryFire);
-				vPrimaryFire=!vPrimaryFire;
 				//if(DebugMode) printf("TG1 Up\x0a");
 			}
+			vPrimaryFire=!vPrimaryFire;
 		}
 	}
-
+	
 	//FUNCTION: init SecondaryFire
 	int initSecondaryFire(){
 		if(Joystick[S2] & !vSecondaryFire){
@@ -194,17 +193,16 @@
 		}
 		else if(!Joystick[S2] & vSecondaryFire){
 			if(sExplorerMode & (ExploreModeFire == 1 | ExploreModeFire == 2)){
-				DeferCall(6000, &ActKey, KEYON+UP+SecondaryFire);
-				DeferCall(6500, &ActKey, KEYON+PULSE+EXEC("vSecondaryFire=!vSecondaryFire;"));
+				DeferCall(S2ScanDelay, &ActKey, KEYON+UP+SecondaryFire);
 				//if(DebugMode) printf("S2  Up ExplorerMode\x0a");
 			}else{
 				ActKey(KEYON+UP+SecondaryFire);
-				vSecondaryFire=!vSecondaryFire;
 				//if(DebugMode) printf("S2  Up\x0a");
 			}
+			vSecondaryFire=!vSecondaryFire;
 		}
 	}
-	
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//FUNCTION: Jettison All Cargo	
