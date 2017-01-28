@@ -135,6 +135,12 @@
 	define ToggleGameMenuLED					0
 	define ToogleHeadLookLED					0
 	define ToogleExplorerModeLED				0
+//	define ToogleNVidiaCaptureVideoLED			0		//Nvidia Shadowplay Capture
+//	define ToogleNVidiaStreamingLED				0		//Nvidia Shadowplay Streaming
+//	define ToogleAMDCaptureVideoLED				0		//AMD Relive Capture
+//	define ToogleAMDStreamingLED				0		//AMD Relive Streaming
+
+	
 		
 //	--LED Backlight (Value 0-255)--------------------------------------------------------------------------------------------------------------------------//
 

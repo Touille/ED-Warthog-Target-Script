@@ -154,8 +154,8 @@ int main()
 	MapKeyIO(&Joystick, H1R, EXEC("initPIPPower(ENG,WEP,MID);"),TEMPO(EXEC("initPIPPower(WEP);"), TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));
 
 	//	-------------------------Target Management Switch (TMS)
-	MapKey(&Joystick, H2U, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay));								// UP
-	MapKey(&Joystick, H2D, PULSE+SelectNextSystemInRoute);																			// DOWN
+	MapKey  (&Joystick, H2U, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay));								// UP
+	MapKey  (&Joystick, H2D, PULSE+SelectNextSystemInRoute);																			// DOWN
 	MapKeyIO(&Joystick, H2L, PULSE+SelectPrevSubsystem, TEMPO(PULSE+SelectPrevHostileShip, PULSE+SelectPrevShip, LongPressDelay));	// LEFT
 	MapKeyIO(&Joystick, H2R, PULSE+SelectNextSubsystem, TEMPO(PULSE+SelectNextHostileShip, PULSE+SelectNextShip, LongPressDelay));	// RIGHT
 	
@@ -236,6 +236,8 @@ int main()
 
 	//	-------------------------Landing Gear/ Warning Horn Silence Button
 	MapKeyIO(&Throttle, LDGH, PULSE+TrackIRPause, TEMPO(PULSE+EXEC("initHeadCenter();"), TEMPO(PULSE+Screenshot, PULSE+HighResScreenshot, LongPressDelay), LongPressDelay));			// PUSH
+//	MapKeyIO(&Throttle, LDGH, TEMPO(PULSE+TrackIRPause, TEMPO(PULSE+EXEC("initCaptureVideo();"), PULSE+EXEC("initStreamingVideo();"), ExtraPressDelay), LongPressDelay),
+//							  TEMPO(PULSE+EXEC("initHeadCenter();"), TEMPO(PULSE+Screenshot, PULSE+HighResScreenshot, LongPressDelay), LongPressDelay));								// PUSH
 
 	//	-------------------------Autopilot Engage Button Same As Autopilot Disengage Button
 	MapKey(&Throttle, APENG, EXEC("initEngageAPkey();"));																																// PUSH

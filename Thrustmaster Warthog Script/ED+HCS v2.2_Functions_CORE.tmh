@@ -133,13 +133,11 @@
 	//FUNCTION: Init Fire
 	int initFire(){
 		if(Joystick[TG1] | Joystick[S2]){
-			if(SilentRuningOFFonFire & sSilentRuning){	//ShutDown Silent Runing if it running
-				if(!vSLonFire){
-					vSLonFire=!vSLonFire;
-					vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
-					initToggleSilentRuning();
-					if(DebugMode) printf("Shut Down Silent Runing\x0a");
-				}
+			if(SilentRuningOFFonFire & sSilentRuning & !vSLonFire){	//ShutDown Silent Runing if it running
+				vSLonFire=!vSLonFire;
+				vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
+				if(DebugMode) printf("Shut Down Silent Runing\x0a");
+				initToggleSilentRuning();
 			}
 			if(HardPointsonFireGameMode & !sHardPoints){initToggleHardpoints();}	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
 			if(OptimalPIPMode & !sExplorerMode){	//Backup Actual PIP Mode
@@ -159,15 +157,11 @@
 			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !sExplorerMode){initToggleHardpoints();}//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
 			if(vSilentRuningBackup!=0){	//Restore Silent Runing if it was running before fire
 				vSilentRuningBackup = 0;
+				if(DebugMode) printf("Restore Silent Runing\x0a");				
 				initToggleSilentRuning();	//Restore Silent Runing State
-				if(DebugMode) printf("Restore Silent Runing\x0a");
-			}
-			if(SilentRuningOFFonFire & sSilentRuning & vSLonFire){
 				vSLonFire=!vSLonFire;
 			}
-			
 		}
-		
 		//if(DebugMode)printf("vSLonFire [%d]\x0a", vSLonFire);
 	}
 
@@ -339,11 +333,15 @@
 	//FUNCTION: Capture Video
 //	int initCaptureVideo(){
 //		if       (GFXVideo == 1){	//Nvidia Shadowplay
+//			sNVidiaCaptureVideo=!sNVidiaCaptureVideo;
 //			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
-//			if(DebugMode)printf("NVidia ShadowPlay Capture Video\x0a");
+//			initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo);
+//			if(DebugMode)printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
 //		}else if (GFXVideo == 2){	//AMD Relive
+//			sAMDCaptureVideo=!sAMDCaptureVideo;
 //			ActKey(KEYON+PULSE+AMDCaptureVideo);
-//			if(DebugMode)printf("AMD Relive Capture Video\x0a");
+//			initLED(ToogleAMDCaptureVideoLED, sAMDCaptureVideo);
+//			if(DebugMode)printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
 //		}else{	//None
 //			if(DebugMode)printf("No Software selected for Capture Video\x0a");
 //		}
@@ -352,11 +350,15 @@
 	//FUNCTION: Streaming Video
 //	int initStreamingVideo(){
 //		if       (GFXVideo == 1){	//Nvidia Shadowplay
+//			sNVidiaStreaming=!sNVidiaStreaming;
 //			ActKey(KEYON+PULSE+NVidiaStreaming);
-//			if(DebugMode)printf("NVidia ShadowPlay Streaming\x0a");
+//			initLED(ToogleNVidiaStreamingLED, sNVidiaStreaming);
+//			if(DebugMode)printf("NVidia ShadowPlay Streaming [%d]\x0a", sNVidiaStreaming);
 //		}else if (GFXVideo == 2){	//AMD Relive
+//			sAMDStreaming=!sAMDStreaming;
 //			ActKey(KEYON+PULSE+AMDStreaming);
-//			if(DebugMode)printf("AMD Relive Streaming\x0a");
+//			initLED(ToogleAMDStreamingLED, sAMDStreaming);
+//			if(DebugMode)printf("AMD Relive Streaming [%d]\x0a", sAMDStreaming);
 //		}else{	//None
 //			if(DebugMode)printf("No Software selected for Streaming\x0a");
 //		}
