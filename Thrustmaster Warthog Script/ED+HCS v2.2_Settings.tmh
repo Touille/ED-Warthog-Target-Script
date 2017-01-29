@@ -40,7 +40,10 @@
 	int HMD							=1;		//If HMD set to 1 and set TrackIR to 0
 	int TrackIR						=0;		//If TrackIR set to 1 and set HMD to 0
 	int VoiceAttack					=1;		//If VoiceAttack Used set to 1 : Engine Operate Ign/Norm Left Down Toggle VA Mic
-	int CenterJoystickMount			=0;		//[0] Default Axis / [1] to Rotate Joystick Axis 15deg CCW to account for center mounting position	
+	
+	int CenterJoystickMount			=0;		//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position
+	define JoystickAngle			0		//Joystick Axis Rotation ° (if you use Joystick center mounting [-15] should be a "good" default value, else left it at 0)
+	
 //	int GFXVideo					=0;		//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
 //	int UseSteamScreenshot			=0;		//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
 

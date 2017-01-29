@@ -105,9 +105,9 @@
 		MapAxis(&Joystick, JOYY, DX_Y_AXIS,    AXIS_NORMAL, MAP_ABSOLUTE);	// Set Joystick Control Y Axis
 		MapAxis(&Throttle, SCX,  DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);	// Set Slew Control X Axis
 		MapAxis(&Throttle, SCY,  DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);	// Set Slew Control Y Axis
-		if(CenterJoystickMount){	//	Rotate Joystick Axis 15deg CCW to account for center mounting position
-			RotateDXAxis(DX_X_AXIS, DX_Y_AXIS, -15);
-			if(DebugMode | DebugMMode) printf("Rotate Joystick Axis 15deg CCW to account for center mounting position\x0a");
+		if(CenterJoystickMount){	//	Rotate Joystick Axis to account for center mounting position
+			RotateDXAxis(DX_X_AXIS, DX_Y_AXIS, JoystickAngle);
+			if(DebugMode | DebugMMode) printf("Rotate Joystick Axis [%d]° CCW(-) or CW to account center mounting position\x0a",JoystickAngle);
 		}
 	}
 
@@ -121,14 +121,25 @@
 	
 	//Joystick Curve Initialising
 	int initJoystickCurves(){
-		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
-		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
+	
+		float Zs;
+		if(CenterJoystickMount){Zs = ZoomScale(JoystickAngle);}
+		else{Zs = 0;}
+		
+		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zs);
+		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zs);
 		SetSCurve(&Throttle, SCX,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Throttle, SCY,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		if (DebugMode){
-			printf("Set	Joystick	Curve Profile	[%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
+			printf("Set	Joystick	Curve Profile	[%d]: Curve = [%d], Zoom = [%d]+Zsc[%f]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile], Zs);
 			printf("Set	Slew		Curve Profile	[%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		}
+	}
+	
+	//Joystick Optimal ZoomScale (to reach the corner of the axes when Joystick is Rotated : Canter Mount posisiton)
+	float ZoomScale(float ang){
+		ang = ang * 3.1415926 / 180;	// convert angle from degrees into radians
+		return 2 / ln(2) * ln(abs(cos(ang) + abs(sin(ang))));	// returns the optimal zoom scale
 	}
 	
 	//	-------------------------Set Throttle
