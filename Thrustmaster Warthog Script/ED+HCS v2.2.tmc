@@ -106,7 +106,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.2.03.3b----2017/01/28------------------------\x0a");
+	printf("--------------------------V2.2.03.3b----2017/01/29------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -156,8 +156,8 @@ int main()
 	//	-------------------------Target Management Switch (TMS)
 	MapKey  (&Joystick, H2U, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay));								// UP
 	MapKey  (&Joystick, H2D, PULSE+SelectNextSystemInRoute);																			// DOWN
-	MapKeyIO(&Joystick, H2L, PULSE+SelectPrevSubsystem, TEMPO(PULSE+SelectPrevHostileShip, PULSE+SelectPrevShip, LongPressDelay));	// LEFT
-	MapKeyIO(&Joystick, H2R, PULSE+SelectNextSubsystem, TEMPO(PULSE+SelectNextHostileShip, PULSE+SelectNextShip, LongPressDelay));	// RIGHT
+	MapKeyIO(&Joystick, H2L, PULSE+SelectPrevSubsystem, TEMPO(PULSE+SelectPrevHostileShip, PULSE+SelectPrevShip, LongPressDelay));		// LEFT
+	MapKeyIO(&Joystick, H2R, PULSE+SelectNextSubsystem, TEMPO(PULSE+SelectNextHostileShip, PULSE+SelectNextShip, LongPressDelay));		// RIGHT
 	
 	//	-------------------------Data Management Switch (DMS)
 	MapKeyIO (&Joystick, H3U, PULSE+CommsPanel, TEMPO(EXEC("initToggleSilentRuningOFFonFire();"), EXEC("initToggleHeatSinkonSilentRuning();"), ExtraPressDelay));	// UP
@@ -273,7 +273,7 @@ int main()
 	MapKeyR (&Throttle, EOLMOTOR, EXEC("initToggleVoiceAttackMic();"));												// DOWN RELEASE
 
 	//	-------------------------Engine Operate Ign/Norm RIGHT
-	MapKeyIO(&Throttle, EORIGN, TEMPO(EXEC("initToggleSecureRetract();"), EXEC("initToggleRotationCorrection();"), LongPressDelay),
+	MapKeyIO(&Throttle, EORIGN, TEMPO(EXEC("initToggleSecureRetract();"), EXEC("initToggleRotationalCorrection();"), LongPressDelay),
 								TEMPO(EXEC("initToggleOptimalPIPMode();"), EXEC("initToggleStopFireRetractHardpoints();"), LongPressDelay));	// UP								
 //	MapKey  (&Throttle, EORNORM, 0);																											// OFF
 
