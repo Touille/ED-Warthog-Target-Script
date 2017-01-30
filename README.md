@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3b 2017/01/27
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3b 2017/01/30
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -34,20 +34,23 @@ That goes for LGears and CScoop to. You can Switch the states without sending ga
 The Optimal PIP Mode, make Backup of Previous engaged PIP. By Default it will return to //2 SYS 2 ENG 2 WEP (0) if you don't make change before deploying Hardpoints or Fire after the game launch. 
 I suggest, when you launch the game, to make one change to PIP before deploying hardpoints and another before fire, so the script can backup those value.
 
+Because of all this tracking states in the script, __HCS User should use L.Gears, C.Scoop, Hardpoints, and PIP on HOTAS__. Other commands should be OK to use via HCS
 
 ### FEATURES:
 
 - [ ] Support MFD (2), Rudders and T.Flight rudders (NOT TESTED YET)
-- [x] HMD / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity
+- [x] HMD / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity. (Setup In Settings File)
 - [ ] Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction (if misaligned with game states just switch (it's should work) Or Press S3 + Switch)
 - [x] Easy Debug Msg OFF (Debugmode OFF (0) Or ON (1) In Settings File)
-- [x] Supercruise On Throttle when boosting if throttle at 100%. Can be switched On or Off On The Fly
+- [x] Supercruise On Throttle when boosting if throttle at 100%. (Can be switched On or Off On The Fly)
 - [x] Game Menu Up on Idle Throttle states. (Setup In Settings File)
 - [x] Secure Retract Mode : Automatic Retract of Hardpoint Gear and cargo  when engaging Escape Fight Mode, Supercruise, FrameshiftDrive,...
 - [x] Dual stage trigger Combined Fire on Triger 1 to allow combined Primary & Secondary fire or for the trigger to be separated to Primary fire only. Can be switched On or Off On The Fly
 - [x] Support [Toggle] & [Hold] mode for Game Settings : Reverse Throttle, Flight Assist & Silent Runing (option in Settings File Default is Reverse Throttle [HOLD],  Flight Assist [HOLD], Silent Runing [TOGGLE]. If you want to change modify in ED AND in the setting file xxxGameMode)
 - [x] Enhanced Functions Like Game Menu (Set Speed to 0, put silence runing off, PIP to tank then open game menu...when game menu is closed, restore previous PIP Mode...), System jump (target next system in route, Retract hardpoint if needed, Frameshift drive, then in Warp, set speed to 0 (safe next system entrance) ...More advanced functions will come later
-- [ ] Rotate Joystick Axis 15deg CCW to account for center Joystick mounting position (CenterJoystickMount option in settings file)
+- [ ] Rotate Joystick Axis to account for center Joystick mounting position (CenterJoystickMount & JoystickAngle options in Settings file)
+- [ ] Nvidia Shadowplay and AMD Relive Video Capture and Streaming Support. (Setup In Settings File)
+- [ ] Steam Screenshot Support. (Setup In Settings File)
 
 
 ### LED:

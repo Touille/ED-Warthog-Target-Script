@@ -24,8 +24,8 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 include "target.tmh"
-include "ED+HCS v2.2_Settings.tmh"
 include "ED+HCS v2.2_Variables.tmh"
+include "ED+HCS v2.2_Settings.tmh"
 include "ED+HCS v2.2_USBKey.ttm"
 include "ED+HCS v2.2_KeyBindings.ttm"
 include "ED+HCS v2.2_Macros.tmh"
@@ -218,12 +218,11 @@ int main()
 //--THROTTLE BASE BUTTON----------------------------------------------------------------------------------------------------------------------------------------//
 
 	//	-------------------------Landing Gear/ Warning Horn Silence Button
-	MapKeyIO(&Throttle, LDGH, PULSE+TrackIRPause, TEMPO(PULSE+EXEC("initHeadCenter();"), TEMPO(PULSE+Screenshot, PULSE+HighResScreenshot, LongPressDelay), LongPressDelay));			// PUSH
-//	MapKeyIO(&Throttle, LDGH, TEMPO(PULSE+TrackIRPause, TEMPO(PULSE+EXEC("initCaptureVideo();"), PULSE+EXEC("initStreamingVideo();"), ExtraPressDelay), LongPressDelay),
-//							  TEMPO(PULSE+EXEC("initHeadCenter();"), TEMPO(PULSE+Screenshot, PULSE+HighResScreenshot, LongPressDelay), LongPressDelay));								// PUSH
+	MapKeyIO(&Throttle, LDGH, TEMPO(PULSE+TrackIRPause, TEMPO(PULSE+EXEC("initCaptureVideo();"), PULSE+EXEC("initStreamingVideo();"), ExtraPressDelay), LongPressDelay),
+							  TEMPO(PULSE+EXEC("initHeadCenter();"), TEMPO(EXEC("initScreenshot();"), PULSE+HighResScreenshot, ExtraPressDelay), LongPressDelay));						// PUSH
 
 	//	-------------------------Autopilot Engage Button Same As Autopilot Disengage Button
-	MapKey(&Throttle, APENG, EXEC("initEngageAPkey();"));																																// PUSH
+	MapKeyIO(&Throttle, APENG, EXEC("initRCDocking();"), TEMPO(0, EXEC("initEscapeFight();"), LongPressDelay));																			// PUSH
 
 	//	-------------------------Autopilot Disengage Button Same As Autopilot Engage Button
 //	MapKey(&Throttle, APDIS, 0);																																						// <Unmapped> PUSH

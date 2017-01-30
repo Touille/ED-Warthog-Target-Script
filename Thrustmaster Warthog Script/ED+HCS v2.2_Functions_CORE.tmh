@@ -305,14 +305,6 @@
 		}
 	}
 
-	//FUNCTION: Autopilot Engage / Disengage Key
-	int initEngageAPkey(){
-		if      (Throttle[APPAT]) initRCDocking();
-		else if (Throttle[APAH]) initEscapeFight();
-		else if (Throttle[APALT] & !Joystick[S3]) initSystemJump();
-		else if (Throttle[APALT] & Joystick[S3]) ActKey(KEYON+PULSE+CancelFSD);
-	}
-	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	EXTRA FUNCTIONS																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -332,54 +324,54 @@
 	}
 	
 	//FUNCTION: Capture Video
-//	int initCaptureVideo(){
-//		if       (GFXVideo == 1){	//Nvidia Shadowplay
-//			sNVidiaCaptureVideo=!sNVidiaCaptureVideo;
-//			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
-//			initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo);
-//			if(DebugMode)printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
-//		}else if (GFXVideo == 2){	//AMD Relive
-//			sAMDCaptureVideo=!sAMDCaptureVideo;
-//			ActKey(KEYON+PULSE+AMDCaptureVideo);
-//			initLED(ToogleAMDCaptureVideoLED, sAMDCaptureVideo);
-//			if(DebugMode)printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
-//		}else{	//None
-//			if(DebugMode)printf("No Software selected for Capture Video\x0a");
-//		}
-//	}
+	int initCaptureVideo(){
+		if       (GFXVideo == 1){	//Nvidia Shadowplay
+			sNVidiaCaptureVideo=!sNVidiaCaptureVideo;
+			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
+			initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo);
+			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
+		}else if (GFXVideo == 2){	//AMD Relive
+			sAMDCaptureVideo=!sAMDCaptureVideo;
+			ActKey(KEYON+PULSE+AMDCaptureVideo);
+			initLED(ToogleAMDCaptureVideoLED, sAMDCaptureVideo);
+			if(DebugMode | DebugMMode)printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
+		}else{	//None
+			if(DebugMode | DebugMMode)printf("No Software selected for Capture Video\x0a");
+		}
+	}
 
 	//FUNCTION: Streaming Video
-//	int initStreamingVideo(){
-//		if       (GFXVideo == 1){	//Nvidia Shadowplay
-//			sNVidiaStreaming=!sNVidiaStreaming;
-//			ActKey(KEYON+PULSE+NVidiaStreaming);
-//			initLED(ToogleNVidiaStreamingLED, sNVidiaStreaming);
-//			if(DebugMode)printf("NVidia ShadowPlay Streaming [%d]\x0a", sNVidiaStreaming);
-//		}else if (GFXVideo == 2){	//AMD Relive
-//			sAMDStreaming=!sAMDStreaming;
-//			ActKey(KEYON+PULSE+AMDStreaming);
-//			initLED(ToogleAMDStreamingLED, sAMDStreaming);
-//			if(DebugMode)printf("AMD Relive Streaming [%d]\x0a", sAMDStreaming);
-//		}else{	//None
-//			if(DebugMode)printf("No Software selected for Streaming\x0a");
-//		}
-//	}
+	int initStreamingVideo(){
+		if       (GFXVideo == 1){	//Nvidia Shadowplay
+			sNVidiaStreaming=!sNVidiaStreaming;
+			ActKey(KEYON+PULSE+NVidiaStreaming);
+			initLED(ToogleNVidiaStreamingLED, sNVidiaStreaming);
+			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Streaming [%d]\x0a", sNVidiaStreaming);
+		}else if (GFXVideo == 2){	//AMD Relive
+			sAMDStreaming=!sAMDStreaming;
+			ActKey(KEYON+PULSE+AMDStreaming);
+			initLED(ToogleAMDStreamingLED, sAMDStreaming);
+			if(DebugMode | DebugMMode)printf("AMD Relive Streaming [%d]\x0a", sAMDStreaming);
+		}else{	//None
+			if(DebugMode | DebugMMode)printf("No Software selected for Streaming\x0a");
+		}
+	}
 
 	//FUNCTION: Screenshot
-//	int initScreenshot(){
-//		if(!UseSteamScreenshot){
-//			if(sExplorerMode){
-//				ActKey(KEYON+PULSE+HighResScreenshot);
-//				if(DebugMode)printf("HD Screenshot\x0a");
-//			}else{
-//				ActKey(KEYON+PULSE+Screenshot);
-//				if(DebugMode)printf("Screenshot\x0a");
-//			}
-//		}else{
-//			ActKey(KEYON+PULSE+TakeSteamScreenshot);
-//			if(DebugMode)printf("Steam Screenshot\x0a");
-//		}
-//	}
+	int initScreenshot(){
+		if(!UseSteamScreenshot){
+			//if(sExplorerMode){
+			//	ActKey(KEYON+PULSE+HighResScreenshot);
+			//	if(DebugMode)printf("HD Screenshot\x0a");
+			//}else{
+				ActKey(KEYON+PULSE+Screenshot);
+				if(DebugMode | DebugMMode)printf("Screenshot\x0a");
+			//}
+		}else{
+			ActKey(KEYON+PULSE+TakeSteamScreenshot);
+			if(DebugMode | DebugMMode)printf("Steam Screenshot\x0a");
+		}
+	}
 	
 	//FUNCTION: Voice PTT
 	int initVoicePTT(){

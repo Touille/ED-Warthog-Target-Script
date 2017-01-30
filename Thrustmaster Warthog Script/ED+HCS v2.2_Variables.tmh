@@ -82,10 +82,10 @@
 
 	//Extra
 	int sVoiceAttack;			//initToggleVoiceAttackMic()		Voice Attack Mic
-//	int sNVidiaCaptureVideo;	//initCaptureVideo()				Nvidia Shadowplay Capture
-//	int sAMDCaptureVideo;		//initCaptureVideo()				AMD Relive Capture
-//	int sNVidiaStreaming;		//initStreamingVideo()				Nvidia Shadowplay Streaming
-//	int sAMDStreaming;			//initStreamingVideo()				AMD Relive Streaming
+	int sNVidiaCaptureVideo;	//initCaptureVideo()				Nvidia Shadowplay Capture
+	int sAMDCaptureVideo;		//initCaptureVideo()				AMD Relive Capture
+	int sNVidiaStreaming;		//initStreamingVideo()				Nvidia Shadowplay Streaming
+	int sAMDStreaming;			//initStreamingVideo()				AMD Relive Streaming
 
 	//Game
 	int sIDLE;					//initToggleIDLEonThrottle()		Throttle IDLE

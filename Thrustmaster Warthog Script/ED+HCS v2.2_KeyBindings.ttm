@@ -50,7 +50,6 @@
 	define ThrustRight              USB_E					//USB[0x08]				// E			[HCS]
 	define EngineBoost              USB_TAB					//USB[0x2B]				// TAB			[HCS]
 	define FrameShiftDrive          USB_J					//USB[0x0D]				// J			[HCS]
-	define CancelFSD                USB_J					//USB[0x0D]				// J
 	define Supercruise              USB_KP_SLASH			//USB[0x54]				// NUMPAD /		[HCS]
 	define SetSpeedNeg100           USB_KP_HYPHEN			//USB[0x56]				// NUMPAD -		[HCS]
 	define SetSpeedNeg75            USB_KP_9				//USB[0x61]				// NUMPAD 9		[HCS]
@@ -156,23 +155,23 @@
 	define TrackIRPause             USB_PAUSE				//USB[0x48]				// PAUSE
 
 	//TS3, MUMBLE, VENTRILO,...
-	define ExternalVoiceCommsPTT    USB_GRAVEACCENTANDTILDE	//USB[0x35]				// ~						(Map this to your Ventrilo/Mumble/Skype/TS3/... PTT Key)
+	define ExternalVoiceCommsPTT    USB_GRAVEACCENTANDTILDE	//USB[0x35]				// ~			(Map this to your Ventrilo/Mumble/Skype/TS3/... PTT Key)
 
 	//VOICE ATTACK
 	define ToggleVoiceAttackMic     L_ALT+USB_F2			//L_ALT+USB[0x3B]		// ALT+F2
 //	define ToggleVoiceAttackGlobal  L_ALT+USB_V				//L_ALT+USB[0x19]		// <Disabled> (ALT)+V
 
 	//STEAM
-//	define TakeSteamScreenshot      L_ALT+USB_F12			//L_ALT+USB[0x45]		// <Disabled> L_ALT+F12		(Map L_ALT+F12 to your Steam ScreenShot Key : Steam -> Settings -> In-Game)
+	define TakeSteamScreenshot      L_ALT+USB_F12			//L_ALT+USB[0x45]		//  L_ALT+F12	(Map L_ALT+F12 to your Steam ScreenShot Key : Steam -> Settings -> In-Game)
 //	define ShowSteamOverlay         L_SHIFT+USB_TAB			//L_SHIFT+USB[0x2B]		// <Disabled> SHIFT+TAB
 
 	//NVIDIA SHADOWPLAY
-//	define NVidiaCaptureVideo       L_ALT+USB_F9			// <Disabled>
-//	define NVidiaStreaming          L_ALT+USB_F8			// <Disabled>
+	define NVidiaCaptureVideo       L_ALT+USB_F9
+	define NVidiaStreaming          L_ALT+USB_F8
 
 	//AMD RELIVE
-//	define AMDCaptureVideo          L_CTL+L_SHIFT+USB_R		// <Disabled>
-//	define AMDStreaming             L_CTL+L_SHIFT+USB_G		// <Disabled>
+	define AMDCaptureVideo          L_CTL+L_SHIFT+USB_R
+	define AMDStreaming             L_CTL+L_SHIFT+USB_G
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // REFERENCE: DEFAULT THRUSTMASTER WARTHOG DX MAPPINGS //																										//

@@ -122,17 +122,17 @@
 	//Joystick Curve Initialising
 	int initJoystickCurves(){
 	
-		float Zsc;
-		if(CenterJoystickMount){Zsc = ZoomScale(JoystickAngle);}
-		else{Zsc = 0;}
+		float Zsc;	//Zoom Scale Curve Correction
+		if(CenterJoystickMount){Zsc = ZoomScale(JoystickAngle);}	//Center Joystick mount : check the Joystick angle
+		else{Zsc = 0;}	//else angle should be 0
 		
 		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zsc);
 		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zsc);
 		SetSCurve(&Throttle, SCX,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Throttle, SCY,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		if (DebugMode){
-			printf("Set	Joystick	Curve Profile	[%d]: Curve = [%d], Zoom = [%d]+Zsc[%f]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile], Zsc);
-			printf("Set	Slew		Curve Profile	[%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
+			printf("Set	Joystick Curve Profile [%d]: Curve = [%d], Zoom = [%d]+Zsc[%f]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile], Zsc);
+			printf("Set	Slew     Curve Profile [%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		}
 	}
 	
@@ -162,7 +162,7 @@
 			else                 SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 3, -3);	//Forward only Precision
 		}
 		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
-		if(DebugMode)printf("Set	Throttle	Curve Profile[%d}\x0a", vThrottleCurveProfile);
+		if(DebugMode)printf("Set	Throttle Curve Profile [%d]\x0a", vThrottleCurveProfile);
 	}
 
 	//	-------------------------Set Rudders	
