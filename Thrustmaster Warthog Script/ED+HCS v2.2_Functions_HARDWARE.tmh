@@ -122,21 +122,21 @@
 	//Joystick Curve Initialising
 	int initJoystickCurves(){
 	
-		float Zs;
-		if(CenterJoystickMount){Zs = ZoomScale(JoystickAngle);}
-		else{Zs = 0;}
+		float Zsc;
+		if(CenterJoystickMount){Zsc = ZoomScale(JoystickAngle);}
+		else{Zsc = 0;}
 		
-		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zs);
-		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zs);
+		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zsc);
+		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zsc);
 		SetSCurve(&Throttle, SCX,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Throttle, SCY,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		if (DebugMode){
-			printf("Set	Joystick	Curve Profile	[%d]: Curve = [%d], Zoom = [%d]+Zsc[%f]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile], Zs);
+			printf("Set	Joystick	Curve Profile	[%d]: Curve = [%d], Zoom = [%d]+Zsc[%f]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile], Zsc);
 			printf("Set	Slew		Curve Profile	[%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		}
 	}
 	
-	//Joystick Optimal ZoomScale (to reach the corner of the axes when Joystick is Rotated : Canter Mount posisiton)
+	//Joystick Optimal ZoomScale (to reach the corner of the axes when Joystick is Rotated : Center Mount posisiton)
 	float ZoomScale(float ang){
 		ang = ang * 3.1415926 / 180;	// convert angle from degrees into radians
 		return 2 / ln(2) * ln(abs(cos(ang) + abs(sin(ang))));	// returns the optimal zoom scale
