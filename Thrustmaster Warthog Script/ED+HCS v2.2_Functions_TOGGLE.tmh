@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.2R	2017/01
+//	V2.2.03.3b	2017/01
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,8 +31,8 @@
 			if(GameMenuOnIDLE)initGameMenu();	//If GameMenu on IDLE Option is 1, Launch Game Menu
 			if(sIDLE)ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightOnIDLE));
 			else     ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
-			if(ThrottleLightOnIDLE!=0)initLED(ToggleIDLEonThrottleLED, sExplorerMode);	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
-			if(DebugMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);
+			if(ThrottleLightOnIDLE!=0)initLED(ToggleIDLEonThrottleLED, sIDLE);	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
+			if(DebugMode | DebugMMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);
 		}
 	}
 	
@@ -42,50 +42,50 @@
 			if(Throttle[EFLNORM]) sExplorerMode = 1;	//Switch position is UP : Explorer Mode Is ON
 			else                  sExplorerMode = 0;	//Switch position is DOWN : Explorer Mode Is OFF
 			initLED(ToogleExplorerModeLED, sExplorerMode);
-			if(DebugMode) printf("Explorer Mode	[%d]	[ON:[1] OFF:[0]]\x0a", sExplorerMode);
+			if(DebugMode | DebugMMode) printf("Explorer Mode	[%d]	[ON:[1] OFF:[0]]\x0a", sExplorerMode);
 		}
 	}
 	
-	//TOGGLE: StopFire When Retract Hardpoints
+	//TOGGLE: StopFire Retract Hardpoints
 	int initToggleStopFireRetractHardpoints(){
 		StopFireRetractHardpoints=!StopFireRetractHardpoints;
 		initLED(ToggleStopFireRetractHardpointsLED, StopFireRetractHardpoints);
-		if(DebugMode) printf("Retract HP on Fire	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", StopFireRetractHardpoints);
+		if(DebugMode | DebugMMode) printf("Retract HP on Fire	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", StopFireRetractHardpoints);
 	}
 	
 	//TOGGLE: SecureRetract
 	int initToggleSecureRetract(){
 		SecureRetract=!SecureRetract;
 		initLED(ToggleSecureRetractLED, SecureRetract);
-		if(DebugMode) printf("SecureRetract		[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SecureRetract);
+		if(DebugMode | DebugMMode) printf("SecureRetract		[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SecureRetract);
 	}	
 
 	//TOGGLE: Silent Runing OFF on Fire
 	int initToggleSilentRuningOFFonFire(){
 		SilentRuningOFFonFire=!SilentRuningOFFonFire;
-		initLED(ToggleSilentRuningonFireLED, SilentRuningOFFonFire);
-		if(DebugMode) printf("Silent Runing On Fire	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SilentRuningOFFonFire);
+		initLED(ToggleSilentRuningOFFonFireLED, SilentRuningOFFonFire);
+		if(DebugMode | DebugMMode) printf("Silent Runing On Fire	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SilentRuningOFFonFire);
 	}
 
 	//TOGGLE: HeatSink on Silent Runing
 	int initToggleHeatSinkonSilentRuning(){
 		HeatSinkonSilentRuning=!HeatSinkonSilentRuning;
 		initLED(ToggleHeatSinkonSilentRuningLED, HeatSinkonSilentRuning);
-		if(DebugMode) printf("Heat Sink on Silent Runing	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", HeatSinkonSilentRuning);
+		if(DebugMode | DebugMMode) printf("Heat Sink on Silent Runing	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", HeatSinkonSilentRuning);
 	}	
 	
 	//TOGGLE: Optimal PIP Mode
 	int initToggleOptimalPIPMode(){
 		OptimalPIPMode=!OptimalPIPMode;
 		initLED(ToggleOptimalPIPModeLED, OptimalPIPMode);
-		if(DebugMode) printf("Optimal PIPMode	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", OptimalPIPMode);
+		if(DebugMode | DebugMMode) printf("Optimal PIPMode	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", OptimalPIPMode);
 	}
 	
 	//TOGGLE: Supecruise On Throttle Mode
 	int initToggleSuperCruiseMode(){
 		SupecruiseOnThrottle=!SupecruiseOnThrottle;
-		initLED(ToggleSuperCruiseModeLED, SupecruiseOnThrottle);
-		if(DebugMode) printf("Supecruise On Throttle	[%d]	[ON:[1] OFF:[0]]\x0a", SupecruiseOnThrottle);
+		initLED(ToggleSupecruiseOnThrottleLED, SupecruiseOnThrottle);
+		if(DebugMode | DebugMMode) printf("Supecruise On Throttle	[%d]	[ON:[1] OFF:[0]]\x0a", SupecruiseOnThrottle);
 	}
 	
 	//TOGGLE: Combined Fire	
@@ -97,7 +97,7 @@
 			MapKey(&Joystick, TG2, 0);	//Separate Primary & Secondary Fire Press TG2 do Nothing
 		}
 		initLED(ToggleCombinedFireLED, sCombinedFire);
-		if(DebugMode) printf("Primary & Secondary Fire	[%d]	[COMBINED:[1] SEPARATE[0]]\x0a", sCombinedFire);
+		if(DebugMode | DebugMMode) printf("Primary & Secondary Fire	[%d]	[COMBINED:[1] SEPARATE[0]]\x0a", sCombinedFire);
 	}
 	
 //---------------------Voice------------------------------------------------------------------------------------------------------------------------------------//
@@ -108,7 +108,7 @@
 			sVoiceAttack=!sVoiceAttack;
 			ActKey(KEYON+PULSE+ToggleVoiceAttackMic);
 			initLED(ToggleVALED, sVoiceAttack);
-			if(DebugMode) printf("Voice Attack Mic	[%d]	[MUTE:[1] UNMUTE:[0]]\x0a", sVoiceAttack);
+			if(DebugMode | DebugMMode) printf("Voice Attack Mic	[%d]	[MUTE:[1] UNMUTE:[0]]\x0a", sVoiceAttack);
 		}
 	}
 
@@ -116,14 +116,14 @@
 	int initTogglePTTPTP(){
 		sPTTMode=!sPTTMode;
 		initLED(TogglePTTModeLED, sPTTMode);
-		if(DebugMode) printf("PTTMode Change	[%d]	[HOLD:[0] TOGGLE:[1]]\x0a", sPTTMode);
+		if(DebugMode | DebugMMode) printf("PTTMode Change	[%d]	[HOLD:[0] TOGGLE:[1]]\x0a", sPTTMode);
 	}
 	
 	//TOGGLE: External/Internal Voice
 	int initTogglePTTMode(){
 		sPTTState=!sPTTState;
 		initLED(TogglePTTLED, sPTTState);
-		if(DebugMode) printf("Mic Change		[%d]	[External:[0]Internal:[1]]\x0a", sPTTState);
+		if(DebugMode | DebugMMode) printf("Mic Change		[%d]	[External:[0]Internal:[1]]\x0a", sPTTState);
 	}	
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -135,7 +135,7 @@
 		if(!Joystick[S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sGears=!sGears;
-				if(DebugMode | DebugMMode)printf("Landing Gear SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode | DebugMMode)printf("Landing Gear SecureEscapeFight : Toggle the Switch\x0a");
 			}else{	//Or Change the flag status with the switch position
 				if(Throttle[EACON]) sGears = 1;	//Switch position is UP : Landing Gear Is Deployed
 				else                sGears = 0;	//Switch position is DOWN : Landing Gear Is Retracted
@@ -152,6 +152,8 @@
 			initLED(ToggleLandingGearLED, sGears);
 		}else{	//Reset The Flag On The FLY S3 + SWITCH
 			vLG=!vLG;
+			sGears=!sGears;
+			if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly with S3\x0a");
 		}
 		if(DebugMode)printf("Landing Gear	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sGears);
 	}
@@ -161,7 +163,7 @@
 		if(!Joystick[S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sCargo=!sCargo;
-				if(DebugMode | DebugMMode)printf("Cargo Scoop SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode | DebugMMode)printf("Cargo Scoop SecureEscapeFight : Toggle the Switch\x0a");
 			}else{	//Or Change the flag status with the switch position
 				if(Throttle[RDRNRM]) sCargo = 1;	//Switch position is UP : Cargo Scoop Is Deployed
 				else                 sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
@@ -178,6 +180,8 @@
 			initLED(ToggleCargoScoopLED, sCargo);
 		}else{	//Reset The Flag On The FLY S3 + SWITCH
 			vCS=!vCS;
+			sCargo=!sCargo;
+			if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly with S3\x0a");
 		}
 		if(DebugMode)printf("Cargo Scoop	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sCargo);
 	}
@@ -203,7 +207,7 @@
 			ActKey(KEYON+PULSE+DeployHardpoints);
 			if(sHardPoints){
 				if(OptimalPIPMode & !sExplorerMode){
-					vOptimalPIPHPBackup = vOptimalPIP;	//Backup Actual PIP Mode
+					initBackupPIPPower(OptimalPIPHPBackup);	//Backup Actual PIP Mode OptimalPIPHPBackup (2)
 					initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 				}
 			}else{
@@ -214,6 +218,7 @@
 			initLED(ToggleHardpointsLED, sHardPoints);
 		}else{	//Reset The Flag On The FLY S3 + SWITCH
 			sHardPoints=!sHardPoints;
+			if(DebugMode | DebugMMode) printf("Hardpoints Reset On The Fly with S3\x0a");
 		}
 		if(DebugMode) printf("HardPoints	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sHardPoints);
 	}
@@ -314,15 +319,11 @@
 	}
 	
 	//TOGGLE: Rotational Correction
-	int initToggleRotationCorrection(){
-		if(!Joystick[S3]){
-			sRCorrection=!sRCorrection;
-			ActKey(KEYON+PULSE+RotationalCorrection);
-			initLED(ToggleRCorrectionLED, sRCorrection);
-		}else{	//Reset On The FLY S3 + SWITCH
-			sRCorrection=!sRCorrection;
-		}
-		if(DebugMode) printf("Rotation Correction	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRCorrection);
+	int initToggleRotationalCorrection(){
+		sRCorrection=!sRCorrection;
+		ActKey(KEYON+PULSE+RotationalCorrection);
+		initLED(ToggleRCorrectionLED, sRCorrection);
+		if(DebugMode) printf("Rotational Correction	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sRCorrection);
 	}
 
 	//TOGGLE: External Camera
@@ -341,7 +342,7 @@
 		}
 		if(sCameraMode){	//Open The Camera Mode
 			if(OptimalPIPMode){
-				vOptimalPIPCCBackup = vOptimalPIP;	//Backup Actual PIP Mode
+				initBackupPIPPower(OptimalPIPCCBackup);	//Backup Actual PIP Mode OptimalPIPCCBackup (5)
 				initPIPPower(SYS, ENG);	//4 SYS 2 ENG (3)
 			}
 			DeferCall(1000, &ActKey, KEYON+PULSE+mClassifiedCamera);	//Call The Camera Mode Macro
@@ -393,7 +394,7 @@
 		}
 		if(sGameMenu){	//Open The Game Menu
 			if(OptimalPIPMode){
-				vOptimalPIPGMBackup = vOptimalPIP;	//Backup Actual PIP Mode
+				initBackupPIPPower(OptimalPIPGMBackup);	//Backup Actual PIP Mode OptimalPIPGMBackup (4)
 				initPIPPower(SYS, ENG);	//4 SYS 2 ENG (3)
 			}
 			ActKey(KEYON+PULSE+SetSpeed0);

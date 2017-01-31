@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.2R	2017/01
+//	V2.2.03.3b	2017/01
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,34 +31,43 @@
 //	PERSONAL SETTINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int DebugMode					=1;		//If 1 Target Script Editor Window will Display All Debug Msg
-	int DebugMMode					=1;		//If 1 Target Script Editor Window will Display Some Debug Msg
+	int DebugMode					=1;		//If [1] Target Script Editor Window will Display All Debug Msg
+	int DebugMMode					=1;		//If [1] Target Script Editor Window will Display Some Debug Msg
 
-	define Rudders	0						//0 for no rudders, 1 for rudders, 2 for T.Flight rudders
-	define USEMFD	0						//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configurd yet)
+	define Rudders					0		//[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
+	define USEMFD					0		//If you have one MFD, set this to 1 (Right MFD). If you have two MFDs, set it to 2 (Right & Left MFD). (Mapkey For MFD not configured yet)
 	
-	int HMD							=1;		//If HMD set to 1 and set TrackIR to 0
-	int TrackIR						=0;		//If TrackIR set to 1 and set HMD to 0
-	int VoiceAttack					=1;		//If VoiceAttack Used set to 1 : Engine Operate Ign/Norm Right Down Toggle VA Mic	
+	int HMD							=1;		//If HMD set to [1] (and set TrackIR to 0)
+	int TrackIR						=0;		//If TrackIR set to [1] (and set HMD to 0)
+	int VoiceAttack					=1;		//If VoiceAttack Used set to [1] : Engine Operate Ign/Norm Left Down Toggle VA Mic
+	
+	int CenterJoystickMount			=0;		//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position
+	define JoystickAngle			0		//Joystick Axis Rotation ° (if you use Joystick center mounting [-15] should be a "good" default value, else left it at 0)
+	
+	int GFXVideo					=1;		//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
+	int UseSteamScreenshot			=0;		//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
+											//Notice that apply, only, on normal screenshot (HD one Still be ED)
 
 	int GameMenuOnIDLE				=0;		//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
 	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
-	int ExploreModeFire				=0;		//Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only in ExplorerMode (See throttle chart when switch is UP)
 	
-//	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
+	int ExploreModeFire				=0;		//Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
+											//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with TG1ScanDelay and S2ScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
+	
+//	------------Default Settings------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
 
 	//Throttle Engine Operate Ign/Norm Right UP
 	int OptimalPIPMode				=1;		//Automatic PIP Mode: When Hardpoint is Up or Down / When Escape Fight / When Fire...			[S]
-	int StopFireRetractHardpoints	=1;		//Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1					[L]
+	int StopFireRetractHardpoints	=0;		//Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1					[L]
 	int SecureRetract				=1;		//Automatic Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump		[S3]+[S]
 	int sRCorrection				=1;		//Rotational Correction	[OFF:0, ON:1]															[S3]+[L]
 	
 	//Throttle Engine Operate Ign/Norm Left UP
-	int sPTTState					=0;		//Internal / External Mic	[External:[0] Internal:[1]}		[S3]+[S]
+	int sPTTState					=0;		//Internal / External Mic	[External:[0] Internal:[1]]		[S3]+[S]
 	int sPTTMode					=1;		//PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]			[S3]+[L]
 	
 	//Throttle Arm Speedbrake BACK
-	int SupecruiseOnThrottle		=0;		//Supercruise if Boost when Throttle > 99%														[S]
+	int SupecruiseOnThrottle		=0;		//Supercruise if Boost when Throttle > 99%		[S3]
 
 	//Joystick Data Management Switch UP (DMS) Effect Apply only if SilentRuningGameMode is Set to [1]
 	int SilentRuningOFFonFire		=1;		//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}		[S]
@@ -93,12 +102,12 @@
 	
 	//Joystick			Up,M,Down
 	short JS_CURVE[] = {-1, 0,  2};			//Negative values make the axis more sensitive around the center, while positive values provide better control in the center position
-	short JS_ZOOM[]  = {1 , 0, -1};			//Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
+	short JS_ZOOM[]  = { 1, 0, -1};			//Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
 	define JS_DEADZONE 1					//Set the JS Deadzone.. use the Device Analyzer to validate
 
 	//Slew				Up,M,Down
 	short SL_CURVE[] = {-1, 0,  2};			//Negative values make the axis more sensitive around the center, while positive values provide better control in the center position
-	short SL_ZOOM[]  = {1 , 0, -1};			//Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
+	short SL_ZOOM[]  = { 1, 0, -1};			//Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
 	define SL_DEADZONE 1					//Set the SL Deadzone.. use the Device Analyzer to validate
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -107,31 +116,37 @@
 
 //	--LED On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 // 5 LED's MAXIMUM---------------------------//
 
-	define ToggleOptimalPIPModeLED				LED1
-	define ToggleSecureRetractLED				LED2
-	define ToggleSuperCruiseModeLED				LED3
-	define ToggleSilentRuningonFireLED			LED4
-	define ToggleStopFireRetractHardpointsLED	LED5	//Retract HardPoints When Fire OFF LED
-	define ToggleHardPointsonFireGameModeLED	0
-	define ToggleHeatSinkonSilentRuningLED		0
-	define ToggleLandingGearLED					0
-	define ToggleCargoScoopLED					0
-	define ToggleLightsLED						0
-	define ToggleHardpointsLED					0
-	define ToggleCombinedFireLED				0
-	define ToggleRCorrectionLED					0
-	define ToggleCameraLED						0
-	define TogglePTTLED							0
-	define ToggleVoicePTTLED					0
-	define TogglePTTModeLED						0
-	define ToggleSilentRuningLED				0
-	define ToggleIDLEonThrottleLED				0		//IDLE LED Work only if ThrottleLEDOnIDLE != 0
-	define ToggleFALED							0		//Flight Assist LED
-	define ToggleVALED							0		//Voice Attack Mic LED
-	define ToggleReverseThrottleLED				0
-	define ToggleGameMenuLED					0
-	define ToogleHeadLookLED					0
-	define ToogleExplorerModeLED				0
+	define ToggleOptimalPIPModeLED              LED1
+	define ToggleSecureRetractLED               LED2
+	define ToggleSupecruiseOnThrottleLED        LED3
+	define ToggleSilentRuningOFFonFireLED       LED4
+	define ToggleStopFireRetractHardpointsLED   LED5	//Retract HardPoints When Fire OFF LED
+	define ToggleHardPointsonFireGameModeLED    0
+	define ToggleHeatSinkonSilentRuningLED      0
+	define ToggleLandingGearLED                 0
+	define ToggleCargoScoopLED                  0
+	define ToggleLightsLED                      0
+	define ToggleHardpointsLED                  0
+	define ToggleCombinedFireLED                0
+	define ToggleRCorrectionLED                 0
+	define ToggleCameraLED                      0
+	define TogglePTTLED                         0
+	define ToggleVoicePTTLED                    0
+	define TogglePTTModeLED                     0
+	define ToggleSilentRuningLED                0
+	define ToggleIDLEonThrottleLED              0		//IDLE LED Work only if ThrottleLEDOnIDLE != 0
+	define ToggleFALED                          0		//Flight Assist LED
+	define ToggleVALED                          0		//Voice Attack Mic LED
+	define ToggleReverseThrottleLED             0
+	define ToggleGameMenuLED                    0
+	define ToogleHeadLookLED                    0
+	define ToogleExplorerModeLED                0
+	define ToogleNVidiaCaptureVideoLED          0		//Nvidia Shadowplay Capture
+	define ToogleNVidiaStreamingLED             0		//Nvidia Shadowplay Streaming
+	define ToogleAMDCaptureVideoLED             0		//AMD Relive Capture
+	define ToogleAMDStreamingLED                0		//AMD Relive Streaming
+
+	
 		
 //	--LED Backlight (Value 0-255)--------------------------------------------------------------------------------------------------------------------------//
 
@@ -150,29 +165,6 @@
 	//MFD
 	define RMFDLight			129				//Right MFD backlight
 	define LMFDLight			129				//Light MFD backlight
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	TOGGLE STATES																																				//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	int sIDLE;							//initToggleIDLEonThrottle()		Throttle IDLE
-	int sVoiceAttack;					//initToggleVoiceAttackMic()		Voice Attack Mic
-	int sRT;							//initToggleReverseThrottle()		Reverse Throttle
-	int sFlightAssist;					//initToggleEnhancedFAOFF()			Flight Assist
-	int sGameMenu;						//initGameMenu()					Game Menu
-	int sHeadLook;						//initToogleHeadLook()				Head Look
-	int sExplorerMode;					//initToggleExplorerMode()			Desactivate Functions for Exploring (OptimalPIPMode when fire, StopFireRetractHardpoints ...)
-	
-//	-------------------------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong--------------------------------//
-	
-	int sCameraMode;					//initToggleCamera()				Classified Camera
-	int sSilentRuning;					//initToggleSilentRuning()			Silent Runing
-	
-	//If Misaligned With Game [S3]+Toggle The Switch
-	int sHardPoints;					//initToggleHardpoints()			HardPoints
-	int sGears;							//initToggleLandingGear()			Landing Gears
-	int sCargo;							//initToggleCargoScoop()			Cargo Scoop
-	int sLights;						//initToggleLights()				ShipLights
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PRESS & PULSE DELAY SETTINGS																																//
@@ -197,51 +189,16 @@
 	
 	//PIP DELAY
 	define PIPPressDelay	350			//PIP Press Key Delay 350
-	define PIPPulseDelay	75			//PIP Pulse Delay PIP Initialisation 75 initPIPPower()
+	define PIPPulseDelay	25			//PIP Pulse Delay PIP Initialisation 25 (you can up it up to 75 if needed) initPIPPower()
 	
 	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	define HeatSinkonSilentRuningDelay 8000
 	
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	VARIABLES USED IN FUNCTION																																	//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+	//Scan Delay (keep key pressed for ...sec) when Explorer mode is [1])
+	//Ingame, Sytem Scan is 5s and other scan are 10s we put 1 more sec to be sure
+	define TG1ScanDelay		6000	//ExploreModeFire 0 or 2 TG1 Delay
+	define S2ScanDelay		11000	//ExploreModeFire 1 or 2 S2  Delay
 
-	int vJoystickCurveProfile;					//initSetJoystickCurves()	initJoystickCurves()	initToggleEnhancedFAOFF()
-	int vJoystickCurveProfileBackup;			//initToggleEnhancedFAOFF()
-	int vThrottleCurveProfile;					//initSetThrottleCurves()
-	int vThrottleLight;							//initLEDStates()
-	int vThrottleLightBackup;					//initToggleIDLEonThrottle()	initLEDStates()	EventHandle()
-	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
-	int vVoicePTT;								//initVoicePTT()
-	int vPTT;									//initVoicePTT()
-	int vVoice;									//initVoicePTT()
-	int vSilentRuningBackup;					//initFire()
-	int vLG;									//initToggleLandingGear()
-	int vCS;									//initToggleCargoScoop()
-	int vSLonFire;								//initFire()			initToggleSilentRuning()
-	int vSLonEscapeFight;						//initEscapeFight()		initToggleSilentRuning()
-	int vSLonGameMenu;							//initToggleGameMenu()	initToggleSilentRuning()
-	int vSLonCamera;							//initToggleCamera()	initToggleSilentRuning()
-	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
-	int vPIP;									//initPIPPower()
-	
-//	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
-	
-	//PIP Management
-	int vOptimalPIP;							//initPIPPower()
-	int vOptimalPIPHPBackup;					//initToggleHardpoints()
-	int vOptimalPIPFireBackup;					//initFire()
-	int vOptimalPIPEFBackup;					//initEscapeFight()
-	int vOptimalPIPGMBackup;					//initToggleGameMenu()
-	int vOptimalPIPCCBackup;					//initToggleCamera()
-
-	//initPIPPower()
-	define SYS 1
-	define ENG 2
-	define WEP 3
-	define MID 4
-	int PIPx, PIPy, PIPz;
-	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	REPORT STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -258,7 +215,7 @@
 		printf("		Combine Pri+Sec Fire----------------------%d\x0a", sCombinedFire);
 		printf("		Retract HardPoints On Fire----------------%d\x0a", StopFireRetractHardpoints);
 //		printf("--------------------------------------------------------------------------\x0a");
-		printf("		Rotation Correction-----------------------%d\x0a", sRCorrection);
+		printf("		Rotational Correction---------------------%d\x0a", sRCorrection);
 //		printf("		Landing Gears-----------------------------%d\x0a", sGears);
 //		printf("		Cargo Scoop-------------------------------%d\x0a", sCargo);
 //		printf("		Ship Lights-------------------------------%d\x0a", sLights);

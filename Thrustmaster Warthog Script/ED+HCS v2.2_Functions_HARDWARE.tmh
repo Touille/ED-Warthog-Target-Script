@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.2R	2017/01
+//	V2.2.03.3b	2017/01
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,15 +22,63 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	HARDWARE MAPPINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	//FUNCTION: Toggle LED	Params = Toggle Name LED, Value to Track (ex: initLED(ToogleHeadLookLED, sHeadLook);	Will up or down the HeadLook LED if ToogleHeadLookLED is Define in setting (!=0))
-	int initLED(int t = 0, int v =0){
-		if(t!=0){
-			if     (v == 1)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT+t));	//LED ON
-			else if(v == 0)ActKey(KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT-t));	//LED OFF
+	
+	//We, now, Use GameOutput to reduce overhead on software
+	
+	//FUNCTION: Toggle Throttle LED	Params = Toggle Name LED, Value(state) to Track and delay if you want the led flashing
+	int initLED(int t = 0, int v = 0, int ms = 0){
+		if(t!=0 & ms == 0){	//No Delay, Toggle LED ON/OFF
+			if     (t == LED1){toggleLED1(v);}
+			else if(t == LED2){toggleLED2(v);}
+			else if(t == LED3){toggleLED3(v);}
+			else if(t == LED4){toggleLED4(v);}
+			else if(t == LED5){toggleLED5(v);}
+			else{
+				if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4 or LED5\x0a");
+			}
+		}else if(t!= 0 & ms !=0){	//Delay Flashing LED
+			if     (ms < 250) {ms = 250 ;}else if(ms > 2000){ms = 2000;}	//Flashing btw 250ms & 2000ms (2sec) only
+			if     (t == LED1){flagHoverLED1=!flagHoverLED1; flashingLED1(ms);}
+			else if(t == LED2){flagHoverLED2=!flagHoverLED2; flashingLED2(ms);}
+			else if(t == LED3){flagHoverLED3=!flagHoverLED3; flashingLED3(ms);}
+			else if(t == LED4){flagHoverLED4=!flagHoverLED4; flashingLED4(ms);}
+			else if(t == LED5){flagHoverLED5=!flagHoverLED5; flashingLED5(ms);}
+			else{
+				if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4 or LED5\x0a");
+			}
 		}else{
 			//if(DebugMode) printf("LED SET	[%d]	Value	[%d]\x0a", t, v);
 		}
+	}
+
+	//FUNCTIONS: Toggle Throttle LED
+	int toggleLED1(int v = 0){GameOutput(&Throttle, OUT_ID_LED_1, v);}
+	int toggleLED2(int v = 0){GameOutput(&Throttle, OUT_ID_LED_2, v);}
+	int toggleLED3(int v = 0){GameOutput(&Throttle, OUT_ID_LED_3, v);}
+	int toggleLED4(int v = 0){GameOutput(&Throttle, OUT_ID_LED_4, v);}
+	int toggleLED5(int v = 0){GameOutput(&Throttle, OUT_ID_LED_5, v);}
+
+
+	//FUNCTIONS: Flashing Throttle LED
+	int flashingLED1(int ms = 0){	//Throttle LED1
+		if(flagHoverLED1 > 0){GameOutput(&Throttle, OUT_ID_LED_1, 2);DeferCall(ms, &flashingLED1, ms);	//Falshing LED
+		}else{GameOutput(&Throttle, OUT_ID_LED_1, 0);}	//LED OFF
+	}
+	int flashingLED2(int ms = 0){	//Throttle LED2
+		if(flagHoverLED2 > 0){GameOutput(&Throttle, OUT_ID_LED_2, 2);DeferCall(ms, &flashingLED2, ms);	//Falshing LED
+		}else{GameOutput(&Throttle, OUT_ID_LED_2, 0);}	//LED OFF
+	}
+	int flashingLED3(int ms = 0){	//Throttle LED3
+		if(flagHoverLED3 > 0){GameOutput(&Throttle, OUT_ID_LED_3, 2);DeferCall(ms, &flashingLED3, ms);	//Falshing LED
+		}else{GameOutput(&Throttle, OUT_ID_LED_3, 0);}	//LED OFF
+	}
+	int flashingLED4(int ms = 0){	//Throttle LED4
+		if(flagHoverLED4 > 0){GameOutput(&Throttle, OUT_ID_LED_4, 2);DeferCall(ms, &flashingLED4, ms);	//Falshing LED
+		}else{GameOutput(&Throttle, OUT_ID_LED_4, 0);}	//LED OFF
+	}
+	int flashingLED5(int ms = 0){	//Throttle LED5
+		if(flagHoverLED5 > 0){GameOutput(&Throttle, OUT_ID_LED_5, 2);DeferCall(ms, &flashingLED5, ms);	//Falshing LED
+		}else{GameOutput(&Throttle, OUT_ID_LED_5, 0);}	//LED OFF
 	}
 
 	//	-------------------------Set LED
@@ -39,37 +87,39 @@
 		//Initiate LED Backlight power on Throttle (Value 0-255)
 		if(HMD){	//Set LED Backlight on Start If HMD
 				vThrottleLight = ThrottleLightHMD;
-				vThrottleLightBackup = ThrottleLightHMD;	//Backup the LED Backlight defaukt value
+				vThrottleLightBackup = ThrottleLightHMD;	//Backup the LED Backlight default value
 				if(DebugMode | DebugMMode)printf("HMD -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHMD);
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightHMD));
+				GameOutput(&Throttle, LED_INTENSITY, ThrottleLightHMD);
+				GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 1);
 		}else{	//Set LED Backlight on Start
 				vThrottleLight = ThrottleLight;
-				vThrottleLightBackup = ThrottleLight;	//Backup the LED Backlight defaukt value
+				vThrottleLightBackup = ThrottleLight;	//Backup the LED Backlight default value
 				if(DebugMode | DebugMMode)printf("No HMD Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
-				ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLight));
+				GameOutput(&Throttle, LED_INTENSITY, ThrottleLight);
+				GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 1);
 		}
 
 		//Initiate LED Backlight power On MFD
-		if(USEMFD > 0)ActKey(PULSE+KEYON+LED(&RMFD, LED_INTENSITY, RMFDLight));
-		if(USEMFD > 1)ActKey(PULSE+KEYON+LED(&LMFD, LED_INTENSITY, LMFDLight));
+		if(USEMFD > 0){GameOutput(&RMFD, LED_INTENSITY, RMFDLight);GameOutput(&RMFD, OUT_ID_LED_BACKLIGHT, 1);}
+		if(USEMFD > 1){GameOutput(&LMFD, LED_INTENSITY, LMFDLight);GameOutput(&LMFD, OUT_ID_LED_BACKLIGHT, 1);}
 
 		//Initiate LED status all OFF
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED1));
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED2));
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED3));
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED4));
-		ActKey(PULSE+KEYON+LED(&Throttle, LED_ONOFF, LED_CURRENT-LED5));
+		GameOutput(&Throttle, OUT_ID_LED_1, 0);
+		GameOutput(&Throttle, OUT_ID_LED_2, 0);
+		GameOutput(&Throttle, OUT_ID_LED_3, 0);
+		GameOutput(&Throttle, OUT_ID_LED_4, 0);
+		GameOutput(&Throttle, OUT_ID_LED_5, 0);
 		if(USEMFD > 0){
-			ActKey(PULSE+KEYON+LED(&RMFD, LED_ONOFF, LED_CURRENT-LED1));	//set right MFD LED 1 OFF
-			ActKey(PULSE+KEYON+LED(&RMFD, LED_ONOFF, LED_CURRENT-LED2));	//set right MFD LED 2 OFF
+			GameOutput(&RMFD, OUT_ID_LED_1, 0);	//set right MFD LED 1 OFF
+			GameOutput(&RMFD, OUT_ID_LED_2, 0);	//set right MFD LED 2 OFF
 		}
 		if(USEMFD > 1){
-			ActKey(PULSE+KEYON+LED(&LMFD, LED_ONOFF, LED_CURRENT-LED1));	//set left MFD LED 1 OFF
-			ActKey(PULSE+KEYON+LED(&LMFD, LED_ONOFF, LED_CURRENT-LED2));	//set left MFD LED 2 OFF
-		}			
-		
+			GameOutput(&LMFD, OUT_ID_LED_1, 0);	//set left MFD LED 1 OFF
+			GameOutput(&LMFD, OUT_ID_LED_2, 0);	//set left MFD LED 2 OFF
+		}	
+
 		//Initiate Led State
-		initLED(ToggleSuperCruiseModeLED, SupecruiseOnThrottle);
+		initLED(ToggleSupecruiseOnThrottleLED, SupecruiseOnThrottle);
 		initLED(ToggleRCorrectionLED, sRCorrection);
 		initLED(ToggleLandingGearLED, sGears);
 		initLED(ToggleCargoScoopLED, sCargo);
@@ -79,7 +129,7 @@
 		initLED(TogglePTTLED, sPTTState);
 		initLED(ToggleVoicePTTLED, vVoicePTT);
 		initLED(TogglePTTModeLED, sPTTMode);
-		initLED(ToggleSilentRuningonFireLED, SilentRuningOFFonFire);
+		initLED(ToggleSilentRuningOFFonFireLED, SilentRuningOFFonFire);
 		initLED(ToggleHeatSinkonSilentRuningLED, HeatSinkonSilentRuning);
 		initLED(ToggleIDLEonThrottleLED, sIDLE);
 		initLED(ToggleOptimalPIPModeLED, OptimalPIPMode);
@@ -105,6 +155,10 @@
 		MapAxis(&Joystick, JOYY, DX_Y_AXIS,    AXIS_NORMAL, MAP_ABSOLUTE);	// Set Joystick Control Y Axis
 		MapAxis(&Throttle, SCX,  DX_XROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);	// Set Slew Control X Axis
 		MapAxis(&Throttle, SCY,  DX_YROT_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);	// Set Slew Control Y Axis
+		if(CenterJoystickMount){	//	Rotate Joystick Axis to account for center mounting position
+			RotateDXAxis(DX_X_AXIS, DX_Y_AXIS, JoystickAngle);
+			if(DebugMode | DebugMMode) printf("Rotate Joystick Axis [%d]° CCW(-) or CW to account center mounting position\x0a",JoystickAngle);
+		}
 	}
 
 	//Joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
@@ -117,14 +171,29 @@
 	
 	//Joystick Curve Initialising
 	int initJoystickCurves(){
-		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
-		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
+	
+		float Zsc;	//Zoom Scale Curve Correction
+		if(CenterJoystickMount){Zsc = ZoomScale(JoystickAngle);}	//Center Joystick mount : check the Joystick angle
+		else{Zsc = 0;}	//else angle should be 0
+		
+		SetSCurve(&Joystick, JOYX, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zsc);
+		SetSCurve(&Joystick, JOYY, 0, JS_DEADZONE, 0, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]+Zsc);
 		SetSCurve(&Throttle, SCX,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		SetSCurve(&Throttle, SCY,  0, SL_DEADZONE, 0, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		if (DebugMode){
-			printf("Set	Joystick	Curve Profile	[%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
-			printf("Set	Slew		Curve Profile	[%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
+			if(CenterJoystickMount & JoystickAngle != 0){
+				printf("Set	Joystick Curve Profile [%d]: Curve = [%d], Zoom = [%d]+Zsc[%f]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile], Zsc);
+			}else{
+				printf("Set	Joystick Curve Profile [%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
+			}
+			printf("Set	Slew     Curve Profile [%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
 		}
+	}
+	
+	//Joystick Optimal ZoomScale (to reach the corner of the axes when Joystick is Rotated : Center Mount posisiton)
+	float ZoomScale(float ang){
+		ang = ang * 3.1415926 / 180;	// convert angle from degrees into radians
+		return 2 / ln(2) * ln(abs(cos(ang) + abs(sin(ang))));	// returns the optimal zoom scale
 	}
 	
 	//	-------------------------Set Throttle
@@ -147,7 +216,7 @@
 			else                 SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 3, -3);	//Forward only Precision
 		}
 		DXAxis(DX_Z_AXIS, -AxisVal(Throttle[THR_RIGHT], &axdata));
-		if(DebugMode)printf("Set	Throttle	Curve Profile[%d}\x0a", vThrottleCurveProfile);
+		if(DebugMode)printf("Set	Throttle Curve Profile [%d]\x0a", vThrottleCurveProfile);
 	}
 
 	//	-------------------------Set Rudders	
