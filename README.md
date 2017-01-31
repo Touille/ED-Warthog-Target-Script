@@ -58,6 +58,7 @@ Because of all this tracking states in the script, __HCS User should use L.Gears
 - [x] Easy Led Configuration : You can chose what you want to be assigned (Settings File)
 - [x] Throttle LED intensity On The Fly (S3 + Friction Control Axis)
 - [x] Throttle LED Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in settings file))
+- [ ] Support Flashing Led (for now, only configured for Capture video and streaming video LED (Shadowplay or Relive) is you activate it and change default LED to respective one : settings file)
 	
 ### PIP:
 
