@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3b 2017/01/30
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3b 2017/01/31
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -57,7 +57,7 @@ Because of all this tracking states in the script, __HCS User should use L.Gears
 	
 - [x] Easy Led Configuration : You can chose what you want to be assigned (Settings File)
 - [x] Throttle LED intensity On The Fly (S3 + Friction Control Axis)
-- [x] Throttle LED Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in setting file))
+- [x] Throttle LED Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in settings file))
 	
 ### PIP:
 

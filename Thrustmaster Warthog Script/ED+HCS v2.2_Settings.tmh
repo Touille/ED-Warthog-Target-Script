@@ -35,7 +35,7 @@
 	int DebugMMode					=1;		//If [1] Target Script Editor Window will Display Some Debug Msg
 
 	define Rudders					0		//[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
-	define USEMFD					0		//If you have one MFD, set this to 1. If you have two MFDs, set it to 2. (Mapkey For MFD not configured yet)
+	define USEMFD					0		//If you have one MFD, set this to 1 (Right MFD). If you have two MFDs, set it to 2 (Right & Left MFD). (Mapkey For MFD not configured yet)
 	
 	int HMD							=1;		//If HMD set to [1] (and set TrackIR to 0)
 	int TrackIR						=0;		//If TrackIR set to [1] (and set HMD to 0)
@@ -44,7 +44,7 @@
 	int CenterJoystickMount			=0;		//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position
 	define JoystickAngle			0		//Joystick Axis Rotation ° (if you use Joystick center mounting [-15] should be a "good" default value, else left it at 0)
 	
-	int GFXVideo					=0;		//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
+	int GFXVideo					=1;		//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
 	int UseSteamScreenshot			=0;		//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
 											//Notice that apply, only, on normal screenshot (HD one Still be ED)
 
@@ -215,7 +215,7 @@
 		printf("		Combine Pri+Sec Fire----------------------%d\x0a", sCombinedFire);
 		printf("		Retract HardPoints On Fire----------------%d\x0a", StopFireRetractHardpoints);
 //		printf("--------------------------------------------------------------------------\x0a");
-		printf("		Rotation Correction-----------------------%d\x0a", sRCorrection);
+		printf("		Rotational Correction---------------------%d\x0a", sRCorrection);
 //		printf("		Landing Gears-----------------------------%d\x0a", sGears);
 //		printf("		Cargo Scoop-------------------------------%d\x0a", sCargo);
 //		printf("		Ship Lights-------------------------------%d\x0a", sLights);

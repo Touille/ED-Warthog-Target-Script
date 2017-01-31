@@ -52,6 +52,13 @@
 	int vPrimaryFire;							//initPrimaryFire()
 	int vSecondaryFire;							//initSecondaryFire()
 	
+	//LED Management : initLED()
+	int flagHoverLED1;							//flashingLED1()
+	int flagHoverLED2;							//flashingLED2()
+	int flagHoverLED3;							//flashingLED3()
+	int flagHoverLED4;							//flashingLED4()
+	int flagHoverLED5;							//flashingLED5()
+	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//initPIPPower()
@@ -66,15 +73,17 @@
 	//initPIPBackup()
 	int vPIPB;
 	int vOptimalPIPFireBackup;					//initFire()
-	define OptimalPIPFireBackup 1
+	define OptimalPIPFireBackup  1
 	int vOptimalPIPHPBackup;					//initToggleHardpoints()
-	define OptimalPIPHPBackup   2
+	define OptimalPIPHPBackup    2
 	int vOptimalPIPEFBackup;					//initEscapeFight()
-	define OptimalPIPEFBackup   3
+	define OptimalPIPEFBackup    3
 	int vOptimalPIPGMBackup;					//initToggleGameMenu()
-	define OptimalPIPGMBackup   4
+	define OptimalPIPGMBackup    4
 	int vOptimalPIPCCBackup;					//initToggleCamera()
-	define OptimalPIPCCBackup   5
+	define OptimalPIPCCBackup    5
+//	int vOptimalPIPBoostBackup;					//initThrottleBoost()
+//	define OptimalPIPBoostBackup 6
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	TOGGLE STATES																																				//
