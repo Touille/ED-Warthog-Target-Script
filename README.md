@@ -50,7 +50,7 @@ Because of all this tracking states in the script, __HCS User should use L.Gears
 - [x] Enhanced Functions Like Game Menu (Set Speed to 0, put silence runing off, PIP to tank then open game menu...when game menu is closed, restore previous PIP Mode...), System jump (target next system in route, Retract hardpoint if needed, Frameshift drive, then in Warp, set speed to 0 (safe next system entrance) ...More advanced functions will come later
 - [ ] Rotate Joystick Axis to account for center Joystick mounting position (CenterJoystickMount & JoystickAngle options in Settings file)
 - [ ] Nvidia Shadowplay and AMD Relive Video Capture and Streaming Support. (Setup In Settings File)
-- [ ] Steam Screenshot Support. (Setup In Settings File)
+- [ ] Steam Screenshot Support. (For Normal Screenshot only : Setup In Settings File)
 
 
 ### LED:
@@ -58,7 +58,7 @@ Because of all this tracking states in the script, __HCS User should use L.Gears
 - [x] Easy Led Configuration : You can chose what you want to be assigned (Settings File)
 - [x] Throttle LED intensity On The Fly (S3 + Friction Control Axis)
 - [x] Throttle LED Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in settings file))
-- [ ] Support Flashing Led (for now, only configured for Capture video and streaming video LED (Shadowplay or Relive) is you activate it and change default LED to respective one : settings file)
+- [ ] Support Flashing Led (for now, only configured for Capture video and streaming video LED (Shadowplay or Relive) if you activate it and change default LED to respective one : settings file)
 	
 ### PIP:
 
