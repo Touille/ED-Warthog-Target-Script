@@ -334,12 +334,12 @@
 		if       (GFXVideo == 1){	//Nvidia Shadowplay
 			sNVidiaCaptureVideo=!sNVidiaCaptureVideo;
 			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
-			initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo, 250);
+			initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo, 500);
 			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
 		}else if (GFXVideo == 2){	//AMD Relive
 			sAMDCaptureVideo=!sAMDCaptureVideo;
 			ActKey(KEYON+PULSE+AMDCaptureVideo);
-			initLED(ToogleAMDCaptureVideoLED, sAMDCaptureVideo, 250);
+			initLED(ToogleAMDCaptureVideoLED, sAMDCaptureVideo, 500);
 			if(DebugMode | DebugMMode)printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
 		}else{	//None
 			if(DebugMode | DebugMMode)printf("No Software selected for Capture Video\x0a");

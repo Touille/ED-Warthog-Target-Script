@@ -34,7 +34,7 @@
 	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
 	int vLG;									//initToggleLandingGear()
 	int vCS;									//initToggleCargoScoop()
-	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
+	int vFA;									//initToggleEnhancedFAOFF()		Flight Assist [TOGGLE] Mode Ingame
 	
 	//initVoicePTT()	
 	int vVoicePTT;
@@ -53,6 +53,12 @@
 	int vSecondaryFire;							//initSecondaryFire()
 	
 	//LED Management : initLED()
+	int LED_DEVICE;								//initLED()
+	int LED_OUTPOUT;							//initLED()
+	define RMFDLED1			0x40				//Right MFD LED1
+	define RMFDLED2			0x400				//Right MFD LED2
+	define LMFDLED1			0x50				//Left MFD LED1
+	define LMFDLED2			0x500				//Left MFD LED1		
 	int flagHoverLED1;							//flashingLED1()
 	int flagHoverLED2;							//flashingLED2()
 	int flagHoverLED3;							//flashingLED3()

@@ -39,17 +39,17 @@
 	
 	int HMD							=1;		//If HMD set to [1] (and set TrackIR to 0)
 	int TrackIR						=0;		//If TrackIR set to [1] (and set HMD to 0)
-	int VoiceAttack					=1;		//If VoiceAttack Used set to [1] : Engine Operate Ign/Norm Left Down Toggle VA Mic
+	int VoiceAttack					=1;		//If VoiceAttack Used set to [1] : IF set to [1], Engine Operate Ign/Norm Left Down (Throttle) Toggle VA Mic
 	
-	int CenterJoystickMount			=0;		//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position
+	int CenterJoystickMount			=0;		//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position Select angle below
 	define JoystickAngle			0		//Joystick Axis Rotation ° (if you use Joystick center mounting [-15] should be a "good" default value, else left it at 0)
 	
-	int GFXVideo					=1;		//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
+	int GFXVideo					=0;		//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
 	int UseSteamScreenshot			=0;		//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
 											//Notice that apply, only, on normal screenshot (HD one Still be ED)
 
-	int GameMenuOnIDLE				=0;		//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
-	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
+	int GameMenuOnIDLE				=0;		//Game Menu on Throttle IDLE State
+	int AfterburnerDetent			=0;		//Set to [1] if you use Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
 	
 	int ExploreModeFire				=0;		//Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
 											//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with TG1ScanDelay and S2ScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
@@ -114,7 +114,7 @@
 //	LED SETTINGS																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//	--LED On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 // 5 LED's MAXIMUM---------------------------//
+//	--LED On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 OR MFD LED // 5 LED's MAXIMUM----------------//
 //	--LED On MFD-----------------Put RMFDLED1, RMFDLED2 (Right MFD LED's) OR LMFDLED1, LMFDLED2 (Left MFD LED's) to select wich one you want.-------------------//
 
 	define ToggleOptimalPIPModeLED              LED1
