@@ -42,15 +42,15 @@
 		//MACRO: Auto-Docking Request
 		mRequestCancelDock = CHAIN(
 			LOCK+
-			PULSE+TargetPanel,    D(2*MiniPulseDelay),
-			PULSE+UINextPanel,    D(2*MiniPulseDelay),
-			PULSE+UINextPanel,    D(2*MiniPulseDelay),
-			PULSE+UISelect,       D(2*MiniPulseDelay),
-			PULSE+UIDown,         D(2*MiniPulseDelay),
-			PULSE+UISelect,       D(2*MiniPulseDelay),
-			PULSE+UIPrevPanel,    D(2*MiniPulseDelay),
-			PULSE+UIPrevPanel,    D(2*MiniPulseDelay),
-			PULSE+UIBack,         D(2*MiniPulseDelay),
+			PULSE+TargetPanel,    D(MiniPulseDelay),
+			PULSE+UINextPanel,    D(MiniPulseDelay),
+			PULSE+UINextPanel,    D(MiniPulseDelay),
+			PULSE+UISelect,       D(MiniPulseDelay),
+			PULSE+UIDown,         D(MiniPulseDelay),
+			PULSE+UISelect,       D(MiniPulseDelay),
+			PULSE+UIPrevPanel,    D(MiniPulseDelay),
+			PULSE+UIPrevPanel,    D(MiniPulseDelay),
+			PULSE+UIBack,         D(MiniPulseDelay),
 			PULSE+SetSpeed0,
 			LOCK);
 

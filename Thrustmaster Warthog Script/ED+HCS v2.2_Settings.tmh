@@ -29,30 +29,31 @@
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PERSONAL SETTINGS																																			//
+//	Note :		When define : no ";" at the END of the Line			When int : "=(Value);" with ";" at the END of the Line										//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int DebugMode					=1;		//If [1] Target Script Editor Window will Display All Debug Msg
-	int DebugMMode					=1;		//If [1] Target Script Editor Window will Display Some Debug Msg
+	define DebugMode			1	//If [1] Target Script Editor Window will Display All Debug Msg, Else [0]
+	define DebugMMode			1	//If [1] Target Script Editor Window will Display Some Debug Msg, Else [0]
 
-	define Rudders					0		//[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
-	define USEMFD					0		//If you have one MFD, set this to 1 (Right MFD). If you have two MFDs, set it to 2 (Right & Left MFD). (Mapkey For MFD not configured yet)
+	define Rudders				0	//[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
+	define USEMFD				0	//If you have one MFD, set this to [1] (Right MFD). If you have two MFDs, set it to [2] (Right & Left MFD). (Mapkey For MFD not configured yet), Else [0]
 	
-	int HMD							=1;		//If HMD set to [1] (and set TrackIR to 0)
-	int TrackIR						=0;		//If TrackIR set to [1] (and set HMD to 0)
-	int VoiceAttack					=1;		//If VoiceAttack Used set to [1] : IF set to [1], Engine Operate Ign/Norm Left Down (Throttle) Toggle VA Mic
+	define HMD					1	//If HMD set to [1] (and set TrackIR to 0)
+	define TrackIR				0	//If TrackIR set to [1] (and set HMD to 0)
+	define VoiceAttack			1	//If VoiceAttack Used set to [1] : IF set to [1], Engine Operate Ign/Norm Left Down (Throttle) Toggle VA Mic, Else [0]
 	
-	int CenterJoystickMount			=0;		//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position Select angle below
-	define JoystickAngle			0		//Joystick Axis Rotation ° (if you use Joystick center mounting [-15] should be a "good" default value, else left it at 0)
+	define CenterJoystickMount	0	//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position Select angle below
+	define JoystickAngle		0	//Joystick Axis Rotation ° (if you use Joystick center mounting [-15] should be a "good" default value, else left it at 0)
 	
-	int GFXVideo					=0;		//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
-	int UseSteamScreenshot			=0;		//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
-											//Notice that apply, only, on normal screenshot (HD one Still be ED)
+	define GFXVideo				0	//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
+	define UseSteamScreenshot	0	//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
+									//Notice that apply, only, on normal screenshot (HD one Still be ED), Else [0]
 
-	int GameMenuOnIDLE				=0;		//Game Menu on Throttle IDLE State
-	int AfterburnerDetent			=0;		//Set to [1] if you use Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
+	define GameMenuOnIDLE		0	//Game Menu on Throttle IDLE State [1] to Enable it [0] to disable it
+	define AfterburnerDetent	0	//Set to [1] if you use Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){...., Else [0]
 	
-	int ExploreModeFire				=0;		//Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
-											//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with TG1ScanDelay and S2ScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
+	define ExploreModeFire		0	//Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
+									//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with TG1ScanDelay and S2ScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
 	
 //	------------Default Settings------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
 
@@ -96,7 +97,7 @@
 //	AXIS CURVES																																					//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	define FAOffCurve 2						//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
+	int FAOffCurve					=2;		//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
 	
 	//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
 	

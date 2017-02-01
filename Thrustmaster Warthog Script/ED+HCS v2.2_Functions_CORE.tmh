@@ -31,7 +31,7 @@
 	//PIP Management
 	int initPIPPower(int x=0, int y=0, int z=0){
 
-		// Check Wich Command to Send and if it need to be Send
+		// Check Which Command to Send and if it need to be Send
 		if(x == 0 & y == 0 & z == 0){if(vOptimalPIP != 0){vOptimalPIP = 0; vPIP=!vPIP;}}	//2 SYS 2 ENG 2 WEP (0)
 		else if(z != MID | z == 0){
 			if(y != 0){

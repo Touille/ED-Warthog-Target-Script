@@ -102,7 +102,7 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 
 ### EXPLORER MODE:
 
-***Thinking to make a mode wich restore all the Original ED Gameplay with on Switch (without all the advanced option (like optimalPIP, PIP Preset's, SecureRetract,...) instead of explorer mode. Let me know what you think.***
+***Thinking to make a mode wich restore all the Original ED Gameplay with one Switch (without all the advanced option (like optimalPIP, PIP Preset's, SecureRetract,...) instead of explorer mode. Let me know what you think.***
 
 - [x] Desactivate some advanced functions you don't need for Exploration with one switch: Automatic PIP Mode (for fire & hardpoints), Automatic retract Hardpoint when you stop fire,... (if activated). If switch off this mode, it will return to all your previous choices.
 - [ ] You don't need to keep fire key pressed to scan system or use Scan (System, wake...), just press and release. ( This function work on both Fire, chose wich you want to assign to scan in Settings File : ExploreModeFire , Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2 )

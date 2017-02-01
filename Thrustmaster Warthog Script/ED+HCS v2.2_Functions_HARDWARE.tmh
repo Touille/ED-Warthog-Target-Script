@@ -25,20 +25,20 @@
 	
 	//We, now, Use GameOutput to reduce overhead on software
 	
-	//FUNCTION: Toggle Throttle LED	Params = Toggle Name LED, Value(state) to Track and delay if you want the led flashing
+	//FUNCTION: Toggle LED	Params = Toggle Name LED, Value(state) to Track and delay if you want the led flashing
 	//Name LED can be chosen IN SETTINGS FILE according wich one you want to track   For Throttle : LED1, LED2, LED3, LED4, LED5   For Right MFD : RMFDLED1, RMFDLED2   For Left MFD : LMFDLED1, LMFDLED2	
 	//ex : initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo, 250); --> Toggle Flashing LED (chose wich one in settings) with 250ms delay (2 flash / sec) according the sNVidiaCaptureVideo state
 	int initLED(int t = 0, int v = 0, int ms = 0){
 		if(t!=0 & ms == 0){	//No Delay, Toggle LED ON/OFF
 
-			//Check Wich Device
+			//Check Which Device
 			if     (t == LED1 | t == LED2 | t == LED3 | t == LED4 | t == LED5)    {LED_DEVICE = &Throttle;}
 			else if(t == RMFDLED1 | t == RMFDLED1 | t == LMFDLED1 | t == LMFDLED2){LED_DEVICE = &RMFD;}
 			else{
 				if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFDLED1, RMFDLED2, LMFDLED1, LMFDLED2\x0a");
 			}
 			
-			//Check Wich LED Outpout
+			//Check Which LED Outpout
 			if     (t == LED1 | t == RMFDLED1 | t == LMFDLED1){LED_OUTPOUT = OUT_ID_LED_1;}
 			else if(t == LED2 | t == RMFDLED2 | t == LMFDLED2){LED_OUTPOUT = OUT_ID_LED_2;}
 			else if(t == LED3)                                {LED_OUTPOUT = OUT_ID_LED_3;}
