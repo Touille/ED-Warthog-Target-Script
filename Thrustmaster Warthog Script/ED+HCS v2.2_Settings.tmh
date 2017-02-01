@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.3b	2017/01
+//	V2.2.03.3b	2017/02
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -115,6 +115,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 //	--LED On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 // 5 LED's MAXIMUM---------------------------//
+//	--LED On MFD-----------------Put RMFDLED1, RMFDLED2 (Right MFD LED's) OR LMFDLED1, LMFDLED2 (Left MFD LED's) to select wich one you want.-------------------//
 
 	define ToggleOptimalPIPModeLED              LED1
 	define ToggleSecureRetractLED               LED2
@@ -146,8 +147,6 @@
 	define ToogleAMDCaptureVideoLED             0		//AMD Relive Capture
 	define ToogleAMDStreamingLED                0		//AMD Relive Streaming
 
-	
-		
 //	--LED Backlight (Value 0-255)--------------------------------------------------------------------------------------------------------------------------//
 
 	// 0 to 42		is OFF

@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.3b	2017/01
+//	V2.2.03.3b	2017/02
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -58,6 +58,10 @@
 	int flagHoverLED3;							//flashingLED3()
 	int flagHoverLED4;							//flashingLED4()
 	int flagHoverLED5;							//flashingLED5()
+	int flagHoverRMFDLED1;						//flashingRMFDLED1()
+	int flagHoverRMFDLED2;						//flashingRMFDLED2()
+	int flagHoverLMFDLED1;						//flashingLMFDLED1()
+	int flagHoverLMFDLED2;						//flashingLMFDLED2()
 	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	

@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.3b	2017/01
+//	V2.2.03.3b	2017/02
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,6 +33,10 @@
 			else if(t == LED3){toggleLED3(v);}
 			else if(t == LED4){toggleLED4(v);}
 			else if(t == LED5){toggleLED5(v);}
+			else if(t == RMFDLED1){toggleRMFDLED1(v);}
+			else if(t == RMFDLED2){toggleRMFDLED2(v);}
+			else if(t == LMFDLED1){toggleLMFDLED1(v);}
+			else if(t == LMFDLED2){toggleLMFDLED2(v);}
 			else{
 				if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4 or LED5\x0a");
 			}
@@ -43,6 +47,10 @@
 			else if(t == LED3){flagHoverLED3=!flagHoverLED3; flashingLED3(ms);}
 			else if(t == LED4){flagHoverLED4=!flagHoverLED4; flashingLED4(ms);}
 			else if(t == LED5){flagHoverLED5=!flagHoverLED5; flashingLED5(ms);}
+			else if(t == RMFDLED1){flagHoverRMFDLED1=!flagHoverRMFDLED1;flashingRMFDLED1(ms);}
+			else if(t == RMFDLED2){flagHoverRMFDLED2=!flagHoverRMFDLED2;flashingRMFDLED2(ms);}
+			else if(t == LMFDLED1){flagHoverLMFDLED1=!flagHoverLMFDLED1;flashingLMFDLED1(ms);}
+			else if(t == LMFDLED2){flagHoverLMFDLED2=!flagHoverLMFDLED2;flashingLMFDLED2(ms);}			
 			else{
 				if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4 or LED5\x0a");
 			}
@@ -57,7 +65,12 @@
 	int toggleLED3(int v = 0){GameOutput(&Throttle, OUT_ID_LED_3, v);}
 	int toggleLED4(int v = 0){GameOutput(&Throttle, OUT_ID_LED_4, v);}
 	int toggleLED5(int v = 0){GameOutput(&Throttle, OUT_ID_LED_5, v);}
-
+	
+	//FUNCTIONS: Toggle MFD LED
+	int toggleRMFDLED1(int v = 0){GameOutput(&RMFD, OUT_ID_LED_1, v);}
+	int toggleRMFDLED2(int v = 0){GameOutput(&RMFD, OUT_ID_LED_2, v);}
+	int toggleLMFDLED1(int v = 0){GameOutput(&LMFD, OUT_ID_LED_1, v);}
+	int toggleLMFDLED2(int v = 0){GameOutput(&LMFD, OUT_ID_LED_2, v);}
 
 	//FUNCTIONS: Flashing Throttle LED
 	int flashingLED1(int ms = 0){	//Throttle LED1
@@ -79,6 +92,24 @@
 	int flashingLED5(int ms = 0){	//Throttle LED5
 		if(flagHoverLED5 > 0){GameOutput(&Throttle, OUT_ID_LED_5, 2);DeferCall(ms, &flashingLED5, ms);	//Falshing LED
 		}else{GameOutput(&Throttle, OUT_ID_LED_5, 0);}	//LED OFF
+	}
+
+	//FUNCTIONS: Flashing MFD LED
+	int flashingRMFDLED1(int ms = 0){	//LED1
+		if(flagHoverRMFDLED1 > 0){GameOutput(&RMFD, OUT_ID_LED_1, 2);DeferCall(ms, &flashingRMFDLED1, ms);	//Falshing LED
+		}else{GameOutput(&RMFD, OUT_ID_LED_1, 0);}	//LED OFF
+	}
+	int flashingRMFDLED2(int ms = 0){	//LED2
+		if(flagHoverRMFDLED2 > 0){GameOutput(&RMFD, OUT_ID_LED_2, 2);DeferCall(ms, &flashingRMFDLED2, ms);	//Falshing LED
+		}else{GameOutput(&RMFD, OUT_ID_LED_2, 0);}	//LED OFF
+	}
+	int flashingLMFDLED1(int ms = 0){
+		if(flagHoverLMFDLED1 > 0){GameOutput(&LMFD, OUT_ID_LED_3, 2);DeferCall(ms, &flashingLMFDLED1, ms);	//Falshing LED
+		}else{GameOutput(&LMFD, OUT_ID_LED_3, 0);}	//LED OFF
+	}
+	int flashingLMFDLED2(int ms = 0){
+		if(flagHoverLMFDLED2 > 0){GameOutput(&LMFD, OUT_ID_LED_4, 2);DeferCall(ms, &flashingLMFDLED2, ms);	//Falshing LED
+		}else{GameOutput(&LMFD, OUT_ID_LED_4, 0);}	//LED OFF
 	}
 
 	//	-------------------------Set LED
