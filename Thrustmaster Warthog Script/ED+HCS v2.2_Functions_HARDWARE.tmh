@@ -80,19 +80,19 @@
 	int init_PANIC_LED(int ms = 0){
 		if(PANIC_LED > 0){
 			PANIC_LED = PANIC_LED - 1;
-			DeferCall(ms + 100 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED1));
-			DeferCall(ms + 2000, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED1));
-			DeferCall(ms + 300 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED2));
-			DeferCall(ms + 1800, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED2));
-			DeferCall(ms + 500 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED3));
-			DeferCall(ms + 1600, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED3));
-			DeferCall(ms + 700 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED4));
-			DeferCall(ms + 1400, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED4));
-			DeferCall(ms + 900 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED5));
-			DeferCall(ms + 1200, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED5));
+			DeferCall(ms*1 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED1));
+			DeferCall(ms*10, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED1));
+			DeferCall(ms*2 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED2));
+			DeferCall(ms*9 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED2));
+			DeferCall(ms*3 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED3));
+			DeferCall(ms*8 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED3));
+			DeferCall(ms*4 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED4));
+			DeferCall(ms*7 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED4));
+			DeferCall(ms*5 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED5));
+			DeferCall(ms*6 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED5));
 			//if(DebugMode){printf("PANIC LED\x0a");}
-			DeferCall(ms + 3500, &init_PANIC_LED, ms);
-		}else{PANIC_LED = 3;}
+			DeferCall(ms*11, &init_PANIC_LED, ms);
+		}else{PANIC_LED = 6;}
 	}
 
 //	-------------------------BACKLIGHT FUNCTIONS
@@ -109,15 +109,15 @@
 		else if(DebugMode){printf("BACKLIGHT_DEVICE Not Configured Correctly\x0a");}
 		
 		//Push BackLight Toggle Or Flashing?
-		if(ms == 0){	//No Dealy, Push BackLight Toggle
-			GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);
+		if(ms == 0){	//No Delay, Push BackLight Toggle
+			//GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);
 			if(v > 0)GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_BACKLIGHT, 1);
 			else     GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_BACKLIGHT, 0);
 			//if(DebugMode)printf("Backlight Throttle LED Set to %d\x0a", v);
 		}
 		else if(ms != 0 & v !=0){	//Delay, Push BackLight Flashing     If BackLight Value (v) if OFF (0) we don't see Flashing ...
 			if     (ms < 250) {ms = 250;}else if(ms > 2000){ms = 2000;}	//Flashing btw 250ms & 2000ms (2sec)
-			GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);
+			//GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);
 			if (BACKLIGHT_DEVICE == &Throttle){flagHover_T_BackLight   =!flagHover_T_BackLight   ; flashing_T_BackLight(ms)   ;}
 			else if(BACKLIGHT_DEVICE == &RMFD){flagHover_RMFD_BackLight=!flagHover_RMFD_BackLight; flashing_RMFD_BackLight(ms);}
 			else if(BACKLIGHT_DEVICE == &LMFD){flagHover_LMFD_BackLight=!flagHover_LMFD_BackLight; flashing_LMFD_BackLight(ms);}
@@ -166,7 +166,9 @@
 				if(DebugMode | DebugMMode)printf("No HMD Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
 				initBACKLIGHT(ThrottleLight);
 		}
-
+		
+		GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, vThrottleLightBackup);
+		
 		//Initiate LED Backlight power On MFD
 		if(USEMFD > 0){GameOutput(&RMFD, LED_INTENSITY, RMFDLight);GameOutput(&RMFD, OUT_ID_LED_BACKLIGHT, 1);}
 		if(USEMFD > 1){GameOutput(&LMFD, LED_INTENSITY, LMFDLight);GameOutput(&LMFD, OUT_ID_LED_BACKLIGHT, 1);}
@@ -213,6 +215,8 @@
 		//initLED(ToggleCameraLED, sCameraMode);
 		//initLED(ToggleGameMenuLED, sGameMenu);
 		//initLED(ToogleHeadLookLED, sHeadLook);
+		
+		init_PANIC_LED(100);
 		
 	}
 	

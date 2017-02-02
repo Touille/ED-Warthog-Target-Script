@@ -85,7 +85,7 @@
 	int vLMFDLightBackup;
 	int flagHover_LMFD_BackLight;
 	//------------For the Fun
-	int PANIC_LED = 3;
+	int PANIC_LED = 1;
 	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	

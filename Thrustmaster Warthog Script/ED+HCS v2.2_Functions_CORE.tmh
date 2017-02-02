@@ -277,8 +277,8 @@
 	int initEscapeFight(){
 		//TEST PANIC MODE
 		initBACKLIGHT(vThrottleLightBackup, 250);	//Throttle BackLigtt Flashing ON
-		init_PANIC_LED(1000);
-		DeferCall(12000, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(vThrottleLightBackup, 250);"));	//Throttle BackLigtt Flashing OFF, we need to Send it again to toggle the flag and stop the flashing
+		init_PANIC_LED(165);
+		DeferCall(11000, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(vThrottleLightBackup, 250);"));	//Throttle BackLigtt Flashing OFF, we need to Send it again to toggle the flag and stop the flashing
 		//END OF TEST
 		if(!SecureRetract){	//if SecureRetract is Disable
 			if(DebugMode | DebugMMode) printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");
