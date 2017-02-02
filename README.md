@@ -72,8 +72,8 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 - [ ] Support Toggle & Flashing MFD LED's
 - [ ] Support Toggle & Flashing Throttle & MFD's Backlight (For now, Flashing Throttle Backlight is only for Escape Fight : Autopilot Fonction (Panic Mode, for the Fun :) )
 - [x] Easy Led Configuration : You can chose what you want to be assigned (Just Put LED1,LED2 ... on what you want the LED to be : Check Settings file comments / LED SETTINGS to know more about How To ..)
-- [x] Throttle LED intensity On The Fly (S3 + Friction Control Axis)
-- [x] Throttle LED Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in settings file))
+- [x] Throttle Backlight intensity On The Fly (S3 + Friction Control Axis)
+- [x] Throttle Backlight Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in settings file))
 	
 ### PIP:
 
