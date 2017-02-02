@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3b 2017/02/01
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3b 2017/02/02
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -68,12 +68,12 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 
 ### LED:
 
-- [x] Support Throttle LED's
-- [ ] Support MFD LED's	
+- [x] Support Toggle & Flashing Throttle LED's (For now, Flashing LED is only configured for Capture video and streaming video LED (Shadowplay or Relive) if you activate this and change default LED to respective one in Settings file)
+- [ ] Support Toggle & Flashing MFD LED's
+- [ ] Support Toggle & Flashing Throttle & MFD's Backlight (For now, Flashing Throttle Backlight is only for Escape Fight : Autopilot Fonction (Panic Mode, for the Fun :) )
 - [x] Easy Led Configuration : You can chose what you want to be assigned (Just Put LED1,LED2 ... on what you want the LED to be : Check Settings file comments / LED SETTINGS to know more about How To ..)
 - [x] Throttle LED intensity On The Fly (S3 + Friction Control Axis)
 - [x] Throttle LED Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in settings file))
-- [ ] Support Flashing Led (for now, only configured for Capture video and streaming video LED (Shadowplay or Relive) if you activate this and change default LED to respective one in Settings file)
 	
 ### PIP:
 

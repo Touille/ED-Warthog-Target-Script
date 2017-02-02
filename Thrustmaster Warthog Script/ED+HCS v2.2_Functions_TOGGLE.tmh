@@ -26,12 +26,10 @@
 	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)
 	int initToggleIDLEonThrottle(){
 		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
-			if(Throttle[IDLELON]) sIDLE = 1;	//Throttle position is IDLE State =1
-			else                  sIDLE = 0;	//Throttle position is !IDLE State =0
+			if(Throttle[IDLELON]){sIDLE = 1; initBACKLIGHT(ThrottleLightOnIDLE);}
+			else                 {sIDLE = 0; initBACKLIGHT(vThrottleLightBackup);}
 			if(GameMenuOnIDLE)initGameMenu();	//If GameMenu on IDLE Option is 1, Launch Game Menu
-			if(sIDLE)ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, ThrottleLightOnIDLE));
-			else     ActKey(PULSE+KEYON+LED(&Throttle, LED_INTENSITY, vThrottleLightBackup));
-			if(ThrottleLightOnIDLE!=0)initLED(ToggleIDLEonThrottleLED, sIDLE);	//Put The LED ON Only if Throttle Backlight on IDLE is ON (If Off We don't see LED :) )
+			initLED(ToggleIDLEonThrottleLED, sIDLE);
 			if(DebugMode | DebugMMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);
 		}
 	}
@@ -91,11 +89,8 @@
 	//TOGGLE: Combined Fire	
 	int initToggleCombinedFire(){
 		sCombinedFire=!sCombinedFire;
-		if(sCombinedFire){
-			MapKey(&Joystick, TG2, CHAIN(PrimaryFire, SecondaryFire));	//Combine Primary & Secondary Fire on TG2
-		}else{
-			MapKey(&Joystick, TG2, 0);	//Separate Primary & Secondary Fire Press TG2 do Nothing
-		}
+		if(sCombinedFire){MapKey(&Joystick, TG2, CHAIN(PrimaryFire, SecondaryFire));}	//Combine Primary & Secondary Fire on TG2
+		else             {MapKey(&Joystick, TG2, 0);}									//Separate Primary & Secondary Fire Press TG2 do Nothing
 		initLED(ToggleCombinedFireLED, sCombinedFire);
 		if(DebugMode | DebugMMode) printf("Primary & Secondary Fire	[%d]	[COMBINED:[1] SEPARATE[0]]\x0a", sCombinedFire);
 	}

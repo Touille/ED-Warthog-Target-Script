@@ -23,110 +23,148 @@
 //	HARDWARE MAPPINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	//We, now, Use GameOutput to reduce overhead on software
+//	-------------------------LED FUNCTIONS
 	
-	//FUNCTION: Toggle LED	Params = Toggle Name LED, Value(state) to Track and delay if you want the led flashing
+	//FUNCTION: Toggle or Flashing LED : Params => Toggle Name LED, Value(state) to Track and delay if you want the led flashing
 	//Name LED can be chosen IN SETTINGS FILE according wich one you want to track   For Throttle : LED1, LED2, LED3, LED4, LED5   For Right MFD : RMFDLED1, RMFDLED2   For Left MFD : LMFDLED1, LMFDLED2	
 	//ex : initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo, 250); --> Toggle Flashing LED (chose wich one in settings) with 250ms delay (2 flash / sec) according the sNVidiaCaptureVideo state
 	int initLED(int t = 0, int v = 0, int ms = 0){
+		//Toggle LED
 		if(t!=0 & ms == 0){	//No Delay, Toggle LED ON/OFF
-
-			//Check Which Device
-			if     (t == LED1 | t == LED2 | t == LED3 | t == LED4 | t == LED5)    {LED_DEVICE = &Throttle;}
-			else if(t == RMFDLED1 | t == RMFDLED1 | t == LMFDLED1 | t == LMFDLED2){LED_DEVICE = &RMFD;}
-			else{
-				if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFDLED1, RMFDLED2, LMFDLED1, LMFDLED2\x0a");
-			}
-			
-			//Check Which LED Outpout
-			if     (t == LED1 | t == RMFDLED1 | t == LMFDLED1){LED_OUTPOUT = OUT_ID_LED_1;}
-			else if(t == LED2 | t == RMFDLED2 | t == LMFDLED2){LED_OUTPOUT = OUT_ID_LED_2;}
-			else if(t == LED3)                                {LED_OUTPOUT = OUT_ID_LED_3;}
-			else if(t == LED4)                                {LED_OUTPOUT = OUT_ID_LED_4;}
-			else if(t == LED5)                                {LED_OUTPOUT = OUT_ID_LED_5;}
-			else{
-				if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFDLED1, RMFDLED2, LMFDLED1, LMFDLED2\x0a");
-			}
-			
-			//Push LED Toggle
+		//Check Which Device
+			if     (t == LED1 | t == LED2 | t == LED3 | t == LED4 | t == LED5) LED_DEVICE = &Throttle;
+			else if(t == RMFDLED1 | t == RMFDLED1)                             LED_DEVICE = &RMFD;
+			else if(t == LMFDLED1 | t == LMFDLED2)                             LED_DEVICE = &LMFD;
+			else if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFDLED1, RMFDLED2, LMFDLED1, LMFDLED2\x0a");
+		//Check Which LED Outpout
+			if     (t == LED1 | t == RMFDLED1 | t == LMFDLED1)LED_OUTPOUT = OUT_ID_LED_1;
+			else if(t == LED2 | t == RMFDLED2 | t == LMFDLED2)LED_OUTPOUT = OUT_ID_LED_2;
+			else if(t == LED3)                                LED_OUTPOUT = OUT_ID_LED_3;
+			else if(t == LED4)                                LED_OUTPOUT = OUT_ID_LED_4;
+			else if(t == LED5)                                LED_OUTPOUT = OUT_ID_LED_5;
+			else if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFDLED1, RMFDLED2, LMFDLED1, LMFDLED2\x0a");
+		//Push LED Toggle
 			GameOutput(LED_DEVICE, LED_OUTPOUT, v);
-			
 		}
-		else if(t!= 0 & ms !=0){	//Delay Flashing LED
-			if     (ms < 250) {ms = 250 ;}else if(ms > 2000){ms = 2000;}	//Flashing btw 250ms & 2000ms (2sec) : you can change this value
-			if     (t == LED1)    {flagHoverLED1=!flagHoverLED1; flashingLED1(ms);}
-			else if(t == LED2)    {flagHoverLED2=!flagHoverLED2; flashingLED2(ms);}
-			else if(t == LED3)    {flagHoverLED3=!flagHoverLED3; flashingLED3(ms);}
-			else if(t == LED4)    {flagHoverLED4=!flagHoverLED4; flashingLED4(ms);}
-			else if(t == LED5)    {flagHoverLED5=!flagHoverLED5; flashingLED5(ms);}
-			else if(t == RMFDLED1){flagHoverRMFDLED1=!flagHoverRMFDLED1;flashingRMFDLED1(ms);}
-			else if(t == RMFDLED2){flagHoverRMFDLED2=!flagHoverRMFDLED2;flashingRMFDLED2(ms);}
-			else if(t == LMFDLED1){flagHoverLMFDLED1=!flagHoverLMFDLED1;flashingLMFDLED1(ms);}
-			else if(t == LMFDLED2){flagHoverLMFDLED2=!flagHoverLMFDLED2;flashingLMFDLED2(ms);}			
-			else{
-				if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFDLED1, RMFDLED2, LMFDLED1, LMFDLED2\x0a");
-			}
+		//Or Push LED Flashing
+		else if(t!= 0 & ms !=0){	//Delay, Flashing LED
+			if     (ms < 250) {ms = 250;}else if(ms > 2000){ms = 2000;}	//Flashing btw 250ms & 2000ms (2sec)
+			if     (t == LED1)    {flagHoverLED1=!flagHoverLED1; flashing_T_LED1(ms);}
+			else if(t == LED2)    {flagHoverLED2=!flagHoverLED2; flashing_T_LED2(ms);}
+			else if(t == LED3)    {flagHoverLED3=!flagHoverLED3; flashing_T_LED3(ms);}
+			else if(t == LED4)    {flagHoverLED4=!flagHoverLED4; flashing_T_LED4(ms);}
+			else if(t == LED5)    {flagHoverLED5=!flagHoverLED5; flashing_T_LED5(ms);}
+			else if(t == RMFDLED1){flagHoverRMFDLED1=!flagHoverRMFDLED1;flashing_RMFD_LED1(ms);}
+			else if(t == RMFDLED2){flagHoverRMFDLED2=!flagHoverRMFDLED2;flashing_RMFD_LED2(ms);}
+			else if(t == LMFDLED1){flagHoverLMFDLED1=!flagHoverLMFDLED1;flashing_LMFD_LED1(ms);}
+			else if(t == LMFDLED2){flagHoverLMFDLED2=!flagHoverLMFDLED2;flashing_LMFD_LED2(ms);}
+			else if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFDLED1, RMFDLED2, LMFDLED1, LMFDLED2\x0a");
+		}
+		//else if(DebugMode) printf("LED SET	[%d]	Value	[%d]\x0a", t, v);
+	}
+
+	//FUNCTIONS: Flashing Throttle LED's
+	int flashing_T_LED1(int ms = 0){if(flagHover_T_LED1 > 0){GameOutput(&Throttle, OUT_ID_LED_1, 2);DeferCall(ms, &flashing_T_LED1, ms);} else {GameOutput(&Throttle, OUT_ID_LED_1, 0);}}
+	int flashing_T_LED2(int ms = 0){if(flagHover_T_LED2 > 0){GameOutput(&Throttle, OUT_ID_LED_2, 2);DeferCall(ms, &flashing_T_LED2, ms);} else {GameOutput(&Throttle, OUT_ID_LED_2, 0);}}
+	int flashing_T_LED3(int ms = 0){if(flagHover_T_LED3 > 0){GameOutput(&Throttle, OUT_ID_LED_3, 2);DeferCall(ms, &flashing_T_LED3, ms);} else {GameOutput(&Throttle, OUT_ID_LED_3, 0);}}
+	int flashing_T_LED4(int ms = 0){if(flagHover_T_LED4 > 0){GameOutput(&Throttle, OUT_ID_LED_4, 2);DeferCall(ms, &flashing_T_LED4, ms);} else {GameOutput(&Throttle, OUT_ID_LED_4, 0);}}
+	int flashing_T_LED5(int ms = 0){if(flagHover_T_LED5 > 0){GameOutput(&Throttle, OUT_ID_LED_5, 2);DeferCall(ms, &flashing_T_LED5, ms);} else {GameOutput(&Throttle, OUT_ID_LED_5, 0);}}
+
+	//FUNCTIONS: Flashing MFD's LED's
+	int flashing_RMFD_LED1(int ms = 0){if(flagHover_RMFD_LED1 > 0){GameOutput(&RMFD, OUT_ID_LED_1, 2);DeferCall(ms, &flashing_RMFD_LED1, ms);} else {GameOutput(&RMFD, OUT_ID_LED_1, 0);}}
+	int flashing_RMFD_LED2(int ms = 0){if(flagHover_RMFD_LED2 > 0){GameOutput(&RMFD, OUT_ID_LED_2, 2);DeferCall(ms, &flashing_RMFD_LED2, ms);} else {GameOutput(&RMFD, OUT_ID_LED_2, 0);}}
+	int flashing_LMFD_LED1(int ms = 0){if(flagHover_LMFD_LED1 > 0){GameOutput(&LMFD, OUT_ID_LED_1, 2);DeferCall(ms, &flashing_LMFD_LED1, ms);} else {GameOutput(&LMFD, OUT_ID_LED_1, 0);}}
+	int flashing_LMFD_LED2(int ms = 0){if(flagHover_LMFD_LED2 > 0){GameOutput(&LMFD, OUT_ID_LED_2, 2);DeferCall(ms, &flashing_LMFD_LED2, ms);} else {GameOutput(&LMFD, OUT_ID_LED_2, 0);}}
+	
+	//FUNCTIONS: PANIC LED STATES (For the FUN :) )
+	int init_PANIC_LED(int ms = 0){
+		if(PANIC_LED > 0){
+			PANIC_LED = PANIC_LED - 1;
+			DeferCall(ms + 100 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED1));
+			DeferCall(ms + 2000, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED1));
+			DeferCall(ms + 300 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED2));
+			DeferCall(ms + 1800, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED2));
+			DeferCall(ms + 500 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED3));
+			DeferCall(ms + 1600, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED3));
+			DeferCall(ms + 700 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED4));
+			DeferCall(ms + 1400, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED4));
+			DeferCall(ms + 900 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED5));
+			DeferCall(ms + 1200, &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED5));
+			//if(DebugMode){printf("PANIC LED\x0a");}
+			DeferCall(ms + 3500, &init_PANIC_LED, ms);
+		}else{PANIC_LED = 3;}
+	}
+
+//	-------------------------BACKLIGHT FUNCTIONS
+
+	//FUNCTION: Toggle or Flashing BackLight : Params => Value(see below : Check which device (v =...)) and delay if you want the Backlight flash
+	//ex : initBACKLIGHT(vThrottleLightBackup, 500); --> Throttle BackLight(backup) Flashing  with 500ms delay
+	int initBACKLIGHT(int v = 0, int ms = 0){
+		if     (v < 0)    {v = 0;}   else if(v > 255)  {v = 255;}	//If v is out of Standard value : Replace with min or max value
+	
+		//Check which Device
+		if     (v == vThrottleLight | v == vThrottleLightBackup | v == ThrottleLightOnIDLE)BACKLIGHT_DEVICE = &Throttle;
+		else if(v == vRMFDeLight    | v == vRMFDLightBackup)                               BACKLIGHT_DEVICE = &RMFD;
+		else if(v == vLMFDeLight    | v == vLMFDLightBackup)                               BACKLIGHT_DEVICE = &LMFD;
+		else if(DebugMode){printf("BACKLIGHT_DEVICE Not Configured Correctly\x0a");}
+		
+		//Push BackLight Toggle Or Flashing?
+		if(ms == 0){	//No Dealy, Push BackLight Toggle
+			GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);
+			if(v > 0)GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_BACKLIGHT, 1);
+			else     GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_BACKLIGHT, 0);
+			//if(DebugMode)printf("Backlight Throttle LED Set to %d\x0a", v);
+		}
+		else if(ms != 0 & v !=0){	//Delay, Push BackLight Flashing     If BackLight Value (v) if OFF (0) we don't see Flashing ...
+			if     (ms < 250) {ms = 250;}else if(ms > 2000){ms = 2000;}	//Flashing btw 250ms & 2000ms (2sec)
+			GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);
+			if (BACKLIGHT_DEVICE == &Throttle){flagHover_T_BackLight   =!flagHover_T_BackLight   ; flashing_T_BackLight(ms)   ;}
+			else if(BACKLIGHT_DEVICE == &RMFD){flagHover_RMFD_BackLight=!flagHover_RMFD_BackLight; flashing_RMFD_BackLight(ms);}
+			else if(BACKLIGHT_DEVICE == &LMFD){flagHover_LMFD_BackLight=!flagHover_LMFD_BackLight; flashing_LMFD_BackLight(ms);}
+			else if(DebugMode){printf("Flashing BACKLIGHT_DEVICE Not Configured Correctly\x0a");}
+			//if(DebugMode)printf("Backlight Flashing Throttle LED Set to %d\x0a", v);
+		}
+		else if(DebugMode) printf("Trying to Flash OFF BackLight ???\x0a");
+	}
+	
+	//FUNCTIONS: Flashing Throttle BackLight
+	int flashing_T_BackLight(int ms = 0){	//Throttle BackLight
+		if(flagHover_T_BackLight > 0){GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 2);DeferCall(ms, &flashing_T_BackLight, ms);	//Falshing Throttle BackLight
 		}else{
-			//if(DebugMode) printf("LED SET	[%d]	Value	[%d]\x0a", t, v);
+			if(vThrottleLightBackup != 0)GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 1);	//Throttle BackLight ON
+			else                         GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 0);	//Throttle BackLight OFF
 		}
 	}
-
-	//FUNCTIONS: Flashing Throttle LED
-	int flashingLED1(int ms = 0){	//Throttle LED1
-		if(flagHoverLED1 > 0){GameOutput(&Throttle, OUT_ID_LED_1, 2);DeferCall(ms, &flashingLED1, ms);	//Falshing LED
-		}else{GameOutput(&Throttle, OUT_ID_LED_1, 0);}	//LED OFF
+	//FUNCTIONS: Flashing MFD BackLight
+	int flashing_RMFD_BackLight(int ms = 0){	//RMFD BackLight
+		if(flagHover_RMFD_BackLight > 0){GameOutput(&RMFD, OUT_ID_LED_BACKLIGHT, 2);DeferCall(ms, &flashing_RMFD_BackLight, ms);	//Falshing RMFD BackLight
+		}else{
+			if(vRMFDLightBackup != 0)GameOutput(&RMFD, OUT_ID_LED_BACKLIGHT, 1);	//RMFD BackLight ON
+			else                     GameOutput(&RMFD, OUT_ID_LED_BACKLIGHT, 0);	//RMFD BackLight OFF
+		}
 	}
-	int flashingLED2(int ms = 0){	//Throttle LED2
-		if(flagHoverLED2 > 0){GameOutput(&Throttle, OUT_ID_LED_2, 2);DeferCall(ms, &flashingLED2, ms);	//Falshing LED
-		}else{GameOutput(&Throttle, OUT_ID_LED_2, 0);}	//LED OFF
-	}
-	int flashingLED3(int ms = 0){	//Throttle LED3
-		if(flagHoverLED3 > 0){GameOutput(&Throttle, OUT_ID_LED_3, 2);DeferCall(ms, &flashingLED3, ms);	//Falshing LED
-		}else{GameOutput(&Throttle, OUT_ID_LED_3, 0);}	//LED OFF
-	}
-	int flashingLED4(int ms = 0){	//Throttle LED4
-		if(flagHoverLED4 > 0){GameOutput(&Throttle, OUT_ID_LED_4, 2);DeferCall(ms, &flashingLED4, ms);	//Falshing LED
-		}else{GameOutput(&Throttle, OUT_ID_LED_4, 0);}	//LED OFF
-	}
-	int flashingLED5(int ms = 0){	//Throttle LED5
-		if(flagHoverLED5 > 0){GameOutput(&Throttle, OUT_ID_LED_5, 2);DeferCall(ms, &flashingLED5, ms);	//Falshing LED
-		}else{GameOutput(&Throttle, OUT_ID_LED_5, 0);}	//LED OFF
-	}
-
-	//FUNCTIONS: Flashing MFD LED
-	int flashingRMFDLED1(int ms = 0){	//Right MFD LED1
-		if(flagHoverRMFDLED1 > 0){GameOutput(&RMFD, OUT_ID_LED_1, 2);DeferCall(ms, &flashingRMFDLED1, ms);	//Falshing LED
-		}else{GameOutput(&RMFD, OUT_ID_LED_1, 0);}	//LED OFF
-	}
-	int flashingRMFDLED2(int ms = 0){	//Right MFD LED2
-		if(flagHoverRMFDLED2 > 0){GameOutput(&RMFD, OUT_ID_LED_2, 2);DeferCall(ms, &flashingRMFDLED2, ms);	//Falshing LED
-		}else{GameOutput(&RMFD, OUT_ID_LED_2, 0);}	//LED OFF
-	}
-	int flashingLMFDLED1(int ms = 0){	//Left MFD LED1
-		if(flagHoverLMFDLED1 > 0){GameOutput(&LMFD, OUT_ID_LED_1, 2);DeferCall(ms, &flashingLMFDLED1, ms);	//Falshing LED
-		}else{GameOutput(&LMFD, OUT_ID_LED_1, 0);}	//LED OFF
-	}
-	int flashingLMFDLED2(int ms = 0){	//Left MFD LED2
-		if(flagHoverLMFDLED2 > 0){GameOutput(&LMFD, OUT_ID_LED_2, 2);DeferCall(ms, &flashingLMFDLED2, ms);	//Falshing LED
-		}else{GameOutput(&LMFD, OUT_ID_LED_2, 0);}	//LED OFF
-	}
-
-	//	-------------------------Set LED
+	int flashing_LMFD_BackLight(int ms = 0){	//LMFD BackLight
+		if(flagHover_LMFD_BackLight > 0){GameOutput(&LMFD, OUT_ID_LED_BACKLIGHT, 2);DeferCall(ms, &flashing_LMFD_BackLight, ms);	//Falshing LMFD BackLight
+		}else{
+			if(vLMFDLightBackup != 0)GameOutput(&LMFD, OUT_ID_LED_BACKLIGHT, 1);	//LMFD BackLight ON
+			else                     GameOutput(&LMFD, OUT_ID_LED_BACKLIGHT, 0);	//LMFD BackLight OFF
+		}
+	}	
+	
+//	-------------------------Set LED & THROTTLE BACLIGHT
 	int initLEDStates(){
 	
 		//Initiate LED Backlight power on Throttle (Value 0-255)
 		if(HMD){	//Set LED Backlight on Start If HMD
 				vThrottleLight = ThrottleLightHMD;
-				vThrottleLightBackup = ThrottleLightHMD;	//Backup the LED Backlight default value
+				vThrottleLightBackup = ThrottleLightHMD;	//Backup the LED BackLight default value
 				if(DebugMode | DebugMMode)printf("HMD -> Backlight IDLE Throttle LED Set to %d\x0a", ThrottleLightHMD);
-				GameOutput(&Throttle, LED_INTENSITY, ThrottleLightHMD);
-				GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 1);
+				initBACKLIGHT(ThrottleLightHMD);
 		}else{	//Set LED Backlight on Start
 				vThrottleLight = ThrottleLight;
-				vThrottleLightBackup = ThrottleLight;	//Backup the LED Backlight default value
+				vThrottleLightBackup = ThrottleLight;	//Backup the LED BackLight default value
 				if(DebugMode | DebugMMode)printf("No HMD Or TrackIR -> Backlight IDLE Throttle LED Set to %d\x0a", vThrottleLight);
-				GameOutput(&Throttle, LED_INTENSITY, ThrottleLight);
-				GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 1);
+				initBACKLIGHT(ThrottleLight);
 		}
 
 		//Initiate LED Backlight power On MFD
@@ -134,11 +172,11 @@
 		if(USEMFD > 1){GameOutput(&LMFD, LED_INTENSITY, LMFDLight);GameOutput(&LMFD, OUT_ID_LED_BACKLIGHT, 1);}
 
 		//Initiate LED status all OFF
-		GameOutput(&Throttle, OUT_ID_LED_1, 0);
-		GameOutput(&Throttle, OUT_ID_LED_2, 0);
-		GameOutput(&Throttle, OUT_ID_LED_3, 0);
-		GameOutput(&Throttle, OUT_ID_LED_4, 0);
-		GameOutput(&Throttle, OUT_ID_LED_5, 0);
+		GameOutput(&Throttle, OUT_ID_LED_1, 0);	//set Throttle LED 1 OFF
+		GameOutput(&Throttle, OUT_ID_LED_2, 0);	//set Throttle LED 2 OFF
+		GameOutput(&Throttle, OUT_ID_LED_3, 0);	//set Throttle LED 3 OFF
+		GameOutput(&Throttle, OUT_ID_LED_4, 0);	//set Throttle LED 4 OFF
+		GameOutput(&Throttle, OUT_ID_LED_5, 0);	//set Throttle LED 5 OFF
 		if(USEMFD > 0){
 			GameOutput(&RMFD, OUT_ID_LED_1, 0);	//set right MFD LED 1 OFF
 			GameOutput(&RMFD, OUT_ID_LED_2, 0);	//set right MFD LED 2 OFF
@@ -148,7 +186,7 @@
 			GameOutput(&LMFD, OUT_ID_LED_2, 0);	//set left MFD LED 2 OFF
 		}	
 
-		//Initiate Led State
+		//Initiate LED State
 		initLED(ToggleSupecruiseOnThrottleLED, SupecruiseOnThrottle);
 		initLED(ToggleRCorrectionLED, sRCorrection);
 		initLED(ToggleLandingGearLED, sGears);

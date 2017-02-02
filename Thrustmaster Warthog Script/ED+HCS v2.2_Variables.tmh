@@ -27,8 +27,6 @@
 	int vJoystickCurveProfile;					//initSetJoystickCurves()	initJoystickCurves()	initToggleEnhancedFAOFF()
 	int vJoystickCurveProfileBackup;			//initToggleEnhancedFAOFF()
 	int vThrottleCurveProfile;					//initSetThrottleCurves()
-	int vThrottleLight;							//initLEDStates()
-	int vThrottleLightBackup;					//initToggleIDLEonThrottle()	initLEDStates()	EventHandle()
 	
 	//Game
 	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
@@ -53,21 +51,41 @@
 	int vSecondaryFire;							//initSecondaryFire()
 	
 	//LED Management : initLED()
-	int LED_DEVICE;								//initLED()
-	int LED_OUTPOUT;							//initLED()
+	int LED_DEVICE;
+	int LED_OUTPOUT;
+	//------------Throttle
+	int flagHover_T_LED1;						//flashingLED1()
+	int flagHover_T_LED2;						//flashingLED2()
+	int flagHover_T_LED3;						//flashingLED3()
+	int flagHover_T_LED4;						//flashingLED4()
+	int flagHover_T_LED5;						//flashingLED5()
+	//------------Right MFD
 	define RMFDLED1			0x40				//Right MFD LED1
-	define RMFDLED2			0x400				//Right MFD LED2
+	define RMFDLED2			0x400				//Right MFD LED2	
+	int flagHover_RMFD_LED1;					//flashingRMFDLED1()
+	int flagHover_RMFD_LED2;					//flashingRMFDLED2()
+	//------------Left MFD
 	define LMFDLED1			0x50				//Left MFD LED1
-	define LMFDLED2			0x500				//Left MFD LED1		
-	int flagHoverLED1;							//flashingLED1()
-	int flagHoverLED2;							//flashingLED2()
-	int flagHoverLED3;							//flashingLED3()
-	int flagHoverLED4;							//flashingLED4()
-	int flagHoverLED5;							//flashingLED5()
-	int flagHoverRMFDLED1;						//flashingRMFDLED1()
-	int flagHoverRMFDLED2;						//flashingRMFDLED2()
-	int flagHoverLMFDLED1;						//flashingLMFDLED1()
-	int flagHoverLMFDLED2;						//flashingLMFDLED2()
+	define LMFDLED2			0x500				//Left MFD LED1	
+	int flagHover_LMFD_LED1;					//flashingLMFDLED1()
+	int flagHover_LMFD_LED2;					//flashingLMFDLED2()
+
+	//BACKLIGHT Management : initBACKLIGHT()
+	int BACKLIGHT_DEVICE;
+	//------------Throttle
+	int vThrottleLight;							//initLEDStates()
+	int vThrottleLightBackup;					//initToggleIDLEonThrottle()	initLEDStates()	EventHandle()
+	int flagHover_T_BackLight;
+	//------------Right MFD
+	int vRMFDLight;
+	int vRMFDLightBackup;
+	int flagHover_RMFD_BackLight;
+	//------------Left MFD
+	int vLMFDLight;
+	int vLMFDLightBackup;
+	int flagHover_LMFD_BackLight;
+	//------------For the Fun
+	int PANIC_LED = 3;
 	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	
