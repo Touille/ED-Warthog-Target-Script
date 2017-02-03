@@ -26,8 +26,8 @@
 	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)
 	int initToggleIDLEonThrottle(){
 		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
-			if(Throttle[IDLELON]){sIDLE = 1; initBACKLIGHT(ThrottleLightOnIDLE);}
-			else                 {sIDLE = 0; initBACKLIGHT(vThrottleLightBackup);}
+			if(Throttle[IDLELON]){sIDLE = 1; initBACKLIGHT(Throttle_BL, ThrottleLightOnIDLE);}
+			else                 {sIDLE = 0; initBACKLIGHT(Throttle_BL, vThrottleLightBackup);}
 			if(GameMenuOnIDLE)initGameMenu();	//If GameMenu on IDLE Option is 1, Launch Game Menu
 			initLED(ToggleIDLEonThrottleLED, sIDLE);
 			if(DebugMode | DebugMMode) printf("IDLE On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sIDLE);

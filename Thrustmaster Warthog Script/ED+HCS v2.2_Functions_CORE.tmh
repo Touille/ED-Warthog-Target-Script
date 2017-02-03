@@ -265,9 +265,7 @@
 		if(!SecureRetract & (sHardPoints | sCargo | sGears))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
 		else{
 			initSecureRectract();
-			if(OptimalPIPMode){
-				initPIPPower(ENG, SYS);	//4 ENG	2 SYS (1)
-			}
+			if(OptimalPIPMode){initPIPPower(ENG, SYS);}	//4 ENG	2 SYS (1)
 			ActKey(KEYON+PULSE+mSystemJump);
 			if(DebugMode | DebugMMode) printf("Engage System Jump\x0a");
 		}
@@ -276,9 +274,9 @@
 	//FUNCTION: Escape Fight	All we want is to Escape Fight so We don't check the OptimalPIPMode states, if you want, you can UnComment the 2 Lines to check Them
 	int initEscapeFight(){
 		//TEST PANIC MODE
-		initBACKLIGHT(vThrottleLightBackup, 250);	//Throttle BackLigtt Flashing ON
+		initBACKLIGHT(Throttle_BL, vThrottleLightBackup, 250);	//Throttle BackLigtt Flashing ON
 		init_PANIC_LED(165);
-		DeferCall(11000, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(vThrottleLightBackup, 250);"));	//Throttle BackLigtt Flashing OFF, we need to Send it again to toggle the flag and stop the flashing
+		DeferCall(11000, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, 250);"));	//Throttle BackLigtt Flashing OFF, we need to Send it again to toggle the flag and stop the flashing
 		//END OF TEST
 		if(!SecureRetract){	//if SecureRetract is Disable
 			if(DebugMode | DebugMMode) printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");
@@ -311,9 +309,7 @@
 		if(DebugMode) printf("Docking Initialisation\x0a");
 		initSecureRectract();
 		ActKey(KEYON+PULSE+mRequestCancelDock);
-		if(OptimalPIPMode){
-			DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
-		}
+		if(OptimalPIPMode){DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));}	//4 SYS 2 ENG (3)
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
