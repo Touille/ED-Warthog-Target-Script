@@ -174,7 +174,8 @@
 			DeferCall(ms*6 , &ActKey, KEYON+PULSE+LED(&Throttle, LED_ONOFF, LED_CURRENT^LED5));
 			//if(DebugMode){printf("PANIC LED\x0a");}
 			DeferCall(ms*11, &init_PANIC_LED, ms);
-		}else{PANIC_LED = 6;}
+		}
+		else{PANIC_LED = 6;}
 	}
 
 //	-------------------------BACKLIGHT FUNCTIONS
@@ -215,7 +216,8 @@
 	//FUNCTIONS: Flashing Throttle BackLight
 	int flashing_T_BL(int ms = 0){	//Throttle BackLight
 		if(flagHover_T_BL > 0){GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 2);DeferCall(ms, &flashing_T_BL, ms);	//Falshing Throttle BackLight
-		}else{
+		}
+		else{
 			if(vThrottleLightBackup != 0)GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 1);	//Throttle BackLight was ON
 			else                         GameOutput(&Throttle, OUT_ID_LED_BACKLIGHT, 0);	//Throttle BackLight wasOFF
 		}
@@ -223,14 +225,16 @@
 	//FUNCTIONS: Flashing MFD BackLight
 	int flashing_RMFD_BL(int ms = 0){	//RMFD BackLight
 		if(flagHover_RMFD_BL > 0){GameOutput(&RMFD, OUT_ID_LED_BACKLIGHT, 2);DeferCall(ms, &flashing_RMFD_BL, ms);	//Falshing RMFD BackLight
-		}else{
+		}
+		else{
 			if(vRMFDLightBackup != 0)GameOutput(&RMFD, OUT_ID_LED_BACKLIGHT, 1);	//RMFD BackLight was ON
 			else                     GameOutput(&RMFD, OUT_ID_LED_BACKLIGHT, 0);	//RMFD BackLight was OFF
 		}
 	}
 	int flashing_LMFD_BL(int ms = 0){	//LMFD BackLight
 		if(flagHover_LMFD_BL > 0){GameOutput(&LMFD, OUT_ID_LED_BACKLIGHT, 2);DeferCall(ms, &flashing_LMFD_BL, ms);	//Falshing LMFD BackLight
-		}else{
+		}
+		else{
 			if(vLMFDLightBackup != 0)GameOutput(&LMFD, OUT_ID_LED_BACKLIGHT, 1);	//LMFD BackLight was ON
 			else                     GameOutput(&LMFD, OUT_ID_LED_BACKLIGHT, 0);	//LMFD BackLight was OFF
 		}
@@ -274,7 +278,8 @@
 		if (DebugMode){
 			if(CenterJoystickMount & JoystickAngle != 0){
 				printf("Set	Joystick Curve Profile [%d]: Curve = [%d], Zoom = [%d]+Zsc[%f]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile], Zsc);
-			}else{
+			}
+			else{
 				printf("Set	Joystick Curve Profile [%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, JS_CURVE[vJoystickCurveProfile], JS_ZOOM[vJoystickCurveProfile]);
 			}
 			printf("Set	Slew     Curve Profile [%d]: Curve = [%d], Zoom = [%d]\x0a", vJoystickCurveProfile, SL_CURVE[vJoystickCurveProfile], SL_ZOOM[vJoystickCurveProfile]);
@@ -305,7 +310,8 @@
 		if(vThrottleCurveProfile){
 			if(!AfterburnerDetent)SetJCurve(&Throttle, THR_RIGHT, 50, 50);	//Without Warthog Physical Afterburner Detent
 			else                  SetJCurve(&Throttle, THR_RIGHT, 65, 95);	//Or With Detent. At 65% of the physical controller’s axis travel, the DirectX axis must have reached 95% of the axis value.
-		}else{
+		}
+		else{
 			if(ThrottleAxisRange)SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 2, -3);	//Full Range Precision
 			else                 SetSCurve(&Throttle, THR_RIGHT, 0, 0, 0, 3, -3);	//Forward only Precision
 		}

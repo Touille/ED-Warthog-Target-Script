@@ -38,19 +38,23 @@
 				if(y == SYS){
 					if     (x == ENG){if(vOptimalPIP != 1){vOptimalPIP = 1; vPIP=!vPIP;}}	//4 ENG	2 SYS (1)
 					else if(x == WEP){if(vOptimalPIP != 6){vOptimalPIP = 6; vPIP=!vPIP;}}	//4 WEP 2 SYS (6)
-				}else if(y == ENG){
+				}
+				else if(y == ENG){
 					if     (x == SYS){if(vOptimalPIP != 3){vOptimalPIP = 3; vPIP=!vPIP;}}	//4 SYS 2 ENG (3)
 					else if(x == WEP){if(vOptimalPIP != 5){vOptimalPIP = 5; vPIP=!vPIP;}}	//4 WEP 2 ENG (5)
-				}else if(y == WEP){
+				}
+				else if(y == WEP){
 					if     (x == SYS){if(vOptimalPIP != 4){vOptimalPIP = 4; vPIP=!vPIP;}}	//4 SYS 2 WEP (4)
 					else if(x == ENG){if(vOptimalPIP != 2){vOptimalPIP = 2; vPIP=!vPIP;}}	//4 ENG 2 WEP (2)
 				}
-			}else if(y == 0){
+			}
+			else if(y == 0){
 				if     (x == SYS){if(vOptimalPIP != 10){vOptimalPIP = 10; vPIP=!vPIP;}}		//4 SYS 1 ENG 1 WEP (10)
 				else if(x == ENG){if(vOptimalPIP != 11){vOptimalPIP = 11; vPIP=!vPIP;}}		//4 ENG 1 SYS 1 WEP (11)
 				else if(x == WEP){if(vOptimalPIP != 12){vOptimalPIP = 12; vPIP=!vPIP;}}		//4 WEP 1 SYS 1 ENG (12)
 			}
-		}else if(z == MID){	
+		}
+		else if(z == MID){	
 			if     (y == SYS & x == ENG | y == ENG & x == SYS){if(vOptimalPIP != 7){vOptimalPIP = 7; vPIP=!vPIP;}}	//3 SYS 3 ENG (7)
 			else if(y == ENG & x == WEP | y == WEP & x == ENG){if(vOptimalPIP != 8){vOptimalPIP = 8; vPIP=!vPIP;}}	//3 ENG 3 WEP (8)
 			else if(y == SYS | x == WEP | y == WEP | x == SYS){if(vOptimalPIP != 9){vOptimalPIP = 9; vPIP=!vPIP;}}	//3 SYS 3 WEP (9)
@@ -81,7 +85,8 @@
 			//With Lock
 			ActKey(KEYON+ CHAIN(LOCK+PULSE+ BalancePower, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPy, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPz, LOCK));
 		
-		}else{
+		}
+		else{
 			//if(DebugMode) printf("This PIP is Already Pushed	[%d]\x0a", vOptimalPIP);	
 		}			
 	}
@@ -104,7 +109,8 @@
 			else if(j == 10)initPIPPower(SYS);          //4 SYS 1 ENG 1 WEP (10)
 			else if(j == 11)initPIPPower(ENG);          //4 ENG 1 SYS 1 WEP (11)
 			else if(j == 12)initPIPPower(WEP);          //4 WEP 1 SYS 1 ENG (12)
-		}else{
+		}
+		else{
 			//if(DebugMode) printf("This PIP is Already OK	[%d]\x0a", vOptimalPIP);	
 		}
 	}
@@ -177,10 +183,8 @@
 			if(sExplorerMode & (ExploreModeFire == 0 | ExploreModeFire == 2)){
 				DeferCall(TG1ScanDelay, &ActKey, KEYON+UP+PrimaryFire);
 				//if(DebugMode) printf("TG1 Up ExplorerMode\x0a");
-			}else{
-				ActKey(KEYON+UP+PrimaryFire);
-				//if(DebugMode) printf("TG1 Up\x0a");
 			}
+			else{ActKey(KEYON+UP+PrimaryFire);}	//if(DebugMode) printf("TG1 Up\x0a");
 			vPrimaryFire=!vPrimaryFire;
 		}
 	}
@@ -196,10 +200,8 @@
 			if(sExplorerMode & (ExploreModeFire == 1 | ExploreModeFire == 2)){
 				DeferCall(S2ScanDelay, &ActKey, KEYON+UP+SecondaryFire);
 				//if(DebugMode) printf("S2  Up ExplorerMode\x0a");
-			}else{
-				ActKey(KEYON+UP+SecondaryFire);
-				//if(DebugMode) printf("S2  Up\x0a");
 			}
+			else{ActKey(KEYON+UP+SecondaryFire);}	//if(DebugMode) printf("S2  Up\x0a");
 			vSecondaryFire=!vSecondaryFire;
 		}
 	}
@@ -210,7 +212,7 @@
 	int initJettisonCargo(){
 		if(Throttle[APUON]){
 			if(sCargo){ActKey(KEYON+PULSE+JettisonAllCargo);if(DebugMode | DebugMMode) printf("Jettison All Cargo\x0a");}
-			else      {if(DebugMode | DebugMMode) printf("Jettison Need Cargo Scoop Open\x0a");}
+			else { if(DebugMode | DebugMMode) printf("Jettison Need Cargo Scoop Open\x0a");}
 		}
 	}
 
@@ -254,7 +256,8 @@
 			initSecureRectract();
 			ActKey(KEYON+PULSE+Supercruise);
 			if(DebugMode | DebugMMode) printf("SuperCruise On Throttle Engaged\x0a");
-		}else{
+		}
+		else{
 			ActKey(KEYON+PULSE+EngineBoost);
 			if(DebugMode | DebugMMode) printf("Engine Boost\x0a");
 		}
@@ -279,7 +282,7 @@
 		DeferCall(11000, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, 250);"));	//Throttle BackLigtt Flashing OFF, we need to Send it again to toggle the flag and stop the flashing
 		//END OF TEST
 		if(!SecureRetract){	//if SecureRetract is Disable
-			if(DebugMode | DebugMMode) printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");
+			if(DebugMode | DebugMMode){printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");}
 			SecureRetract=!SecureRetract;	//we Enable it
 			DeferCall(2000, &ActKey, KEYON+PULSE+EXEC("SecureRetract=!SecureRetract;")); //Then we Disable it after the initSecureRectract() below is done (2s should be ok)
 		}
@@ -332,36 +335,36 @@
 	
 	//FUNCTION: Capture Video
 	int initCaptureVideo(){
-		if       (GFXVideo == 1){	//Nvidia Shadowplay
+		if(GFXVideo == 1){	//Nvidia Shadowplay
 			sNVidiaCaptureVideo=!sNVidiaCaptureVideo;
 			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
 			initLED(NVidiaCaptureVideo_LED, sNVidiaCaptureVideo, 500);
 			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
-		}else if (GFXVideo == 2){	//AMD Relive
+		}
+		else if(GFXVideo == 2){	//AMD Relive
 			sAMDCaptureVideo=!sAMDCaptureVideo;
 			ActKey(KEYON+PULSE+AMDCaptureVideo);
 			initLED(AMDCaptureVideo_LED, sAMDCaptureVideo, 500);
 			if(DebugMode | DebugMMode)printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
-		}else{	//None
-			if(DebugMode | DebugMMode)printf("No Software selected for Capture Video\x0a");
 		}
+		else { if(DebugMode | DebugMMode)printf("No Software selected for Capture Video\x0a");}	//None
 	}
 
 	//FUNCTION: Streaming Video
 	int initStreamingVideo(){
-		if       (GFXVideo == 1){	//Nvidia Shadowplay
+		if(GFXVideo == 1){	//Nvidia Shadowplay
 			sNVidiaStreaming=!sNVidiaStreaming;
 			ActKey(KEYON+PULSE+NVidiaStreaming);
 			initLED(NVidiaStreaming_LED, sNVidiaStreaming, 250);
 			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Streaming [%d]\x0a", sNVidiaStreaming);
-		}else if (GFXVideo == 2){	//AMD Relive
+		}
+		else if(GFXVideo == 2){	//AMD Relive
 			sAMDStreaming=!sAMDStreaming;
 			ActKey(KEYON+PULSE+AMDStreaming);
 			initLED(AMDStreaming_LED, sAMDStreaming, 250);
 			if(DebugMode | DebugMMode)printf("AMD Relive Streaming [%d]\x0a", sAMDStreaming);
-		}else{	//None
-			if(DebugMode | DebugMMode)printf("No Software selected for Streaming\x0a");
 		}
+		else { if(DebugMode | DebugMMode)printf("No Software selected for Streaming\x0a");}	//None
 	}
 
 	//FUNCTION: Screenshot
@@ -374,7 +377,8 @@
 				ActKey(KEYON+PULSE+Screenshot);
 				if(DebugMode | DebugMMode)printf("Screenshot\x0a");
 			//}
-		}else{
+		}
+		else{
 			ActKey(KEYON+PULSE+TakeSteamScreenshot);
 			if(DebugMode | DebugMMode)printf("Steam Screenshot\x0a");
 		}
@@ -390,9 +394,8 @@
 				vVoice=!vVoice;
 				ActKey(KEYON+PULSE+vPTT);
 				if(DebugMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] [HOLD:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
-			}else{	//Talk [HOLD]
-				ActKey(KEYON+DOWN+vPTT);
 			}
+			else{ActKey(KEYON+DOWN+vPTT);}	//Talk [HOLD]
 		}
 		if(!Throttle[MSP] & !sPTTMode){	//Silence [HOLD]
 			vVoicePTT=!vVoicePTT;
