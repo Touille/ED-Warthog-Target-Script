@@ -191,9 +191,9 @@
 		else if(DebugMode){printf("BACKLIGHT_DEVICE Not Configured Correctly\x0a");}
 		
 		//Change Backlight Intensity?
-		if     (a == Throttle_BL){GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);}
-		else if(a == RMFD_BL    ){GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);}
-		else if(a == LMFD_BL    ){GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);}
+		if     (a == Throttle_BL & v != 0){GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);}
+		else if(a == RMFD_BL     & v != 0){GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);}
+		else if(a == LMFD_BL     & v != 0){GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);}
 
 		//Push BackLight Toggle Or Flashing?
 		if(ms == 0){	//No Delay, Push BackLight Toggle
