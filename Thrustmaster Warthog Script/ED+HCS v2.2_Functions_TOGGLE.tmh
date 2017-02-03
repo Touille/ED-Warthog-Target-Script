@@ -131,20 +131,22 @@
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sGears=!sGears;
 				if(DebugMode | DebugMMode)printf("Landing Gear SecureEscapeFight : Toggle the Switch\x0a");
-			}else{	//Or Change the flag status with the switch position
+			}
+			else{	//Or Change the flag status with the switch position
 				if(Throttle[EACON]) sGears = 1;	//Switch position is UP : Landing Gear Is Deployed
 				else                sGears = 0;	//Switch position is DOWN : Landing Gear Is Retracted
 			}
 			if(sGears & !vLG){	//vLG is there if initSecureRectract() initialise This
 				vLG=!vLG;	//Reset On The FLY : Just switch
 				ActKey(KEYON+PULSE+LandingGear);			
-			}else if (!sGears & vLG){	//vLG is there if initSecureRectract() initialise This
+			}
+			else if (!sGears & vLG){	//vLG is there if initSecureRectract() initialise This
 				vLG=!vLG;	//Reset On The FLY : Just switch
 				ActKey(KEYON+PULSE+LandingGear);
-			}else{
-				if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly\x0a");
 			}
-		}else{	//Reset The Flag On The FLY S3 + SWITCH
+			else{if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly\x0a");}
+		}
+		else{	//Reset The Flag On The FLY S3 + SWITCH
 			vLG=!vLG;
 			sGears=!sGears;
 			if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly with S3\x0a");
@@ -159,20 +161,22 @@
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sCargo=!sCargo;
 				if(DebugMode | DebugMMode)printf("Cargo Scoop SecureEscapeFight : Toggle the Switch\x0a");
-			}else{	//Or Change the flag status with the switch position
+			}
+			else{	//Or Change the flag status with the switch position
 				if(Throttle[RDRNRM]) sCargo = 1;	//Switch position is UP : Cargo Scoop Is Deployed
 				else                 sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
 			}
 			if(sCargo & !vCS){	//vCS is there if initSecureRectract() initialise This
 				vCS=!vCS;	//Reset On The FLY : Just switch
 				ActKey(KEYON+PULSE+CargoScoop);				
-			}else if(!sCargo & vCS){	//vCS is there if initSecureRectract() initialise This
+			}
+			else if(!sCargo & vCS){	//vCS is there if initSecureRectract() initialise This
 				vCS=!vCS;	//Reset On The FLY : Just switch
 				ActKey(KEYON+PULSE+CargoScoop);
-			}else{
-				if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly\x0a");
 			}
-		}else{	//Reset The Flag On The FLY S3 + SWITCH
+			else{if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly\x0a");}
+		}
+		else{	//Reset The Flag On The FLY S3 + SWITCH
 			vCS=!vCS;
 			sCargo=!sCargo;
 			if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly with S3\x0a");
@@ -205,12 +209,14 @@
 					initBackupPIPPower(OptimalPIPHPBackup);	//Backup Actual PIP Mode OptimalPIPHPBackup (2)
 					initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 				}
-			}else{
+			}
+			else{
 				if(OptimalPIPMode & !sExplorerMode){
 					initRestorePIPPower(vOptimalPIPHPBackup);	//Restore Previous PIP Mode
 				}
 			}
-		}else{	//Reset The Flag On The FLY S3 + SWITCH
+		}
+		else{	//Reset The Flag On The FLY S3 + SWITCH
 			sHardPoints=!sHardPoints;
 			if(DebugMode | DebugMMode) printf("Hardpoints Reset On The Fly with S3\x0a");
 		}
@@ -225,14 +231,13 @@
 			if(SilentRuningGameMode){	//Silent Runing [TOGGLE] Mode Ingame
 				if(HeatSinkonSilentRuning){
 					ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);	//Call The Heat Sink on Silent Running Macro
-				}else{
-					ActKey(KEYON+PULSE+SilentRunning);
 				}
+				else{ActKey(KEYON+PULSE+SilentRunning);}
 				if(DebugMode) printf("Silent Runing [TOGGLE]	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
-			}else{	//Silent Runing [HOLD] Mode Engage
-				ActKey(KEYON+DOWN+SilentRunning);
 			}
-		}else{
+			else{ActKey(KEYON+DOWN+SilentRunning);}	//Silent Runing [HOLD] Mode Engage
+		}
+		else{
 			if(!SilentRuningGameMode & sSilentRuning){		//Silent Runing [HOLD] Mode DisEngage
 				sSilentRuning=!sSilentRuning;
 				ActKey(KEYON+UP+SilentRunning);
@@ -256,7 +261,8 @@
 							initJoystickCurves();
 							if(DebugMode | DebugMMode) printf("Curve Profile Adjusted\x0a");
 						}
-					}else{	//FA [TOGGLE] Mode Second Pulse DisEngage	
+					}
+					else{	//FA [TOGGLE] Mode Second Pulse DisEngage	
 						vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 							initJoystickCurves();
@@ -266,7 +272,8 @@
 				}
 				ActKey(KEYON+PULSE+FlightAssist);
 				if(DebugMode) printf("EnhancedFAOFF [TOGGLE]	[%d]	[ENABLE:[1] DISABLE:[0]]	Rcorrection	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sFlightAssist, sRCorrection);
-			}else{	//FA [HOLD] Mode Ingame Engage
+			}
+			else{	//FA [HOLD] Mode Ingame Engage
 				if(sRCorrection){
 					vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
 					vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
@@ -277,7 +284,8 @@
 				}
 				ActKey(KEYON+DOWN+FlightAssist);
 			}
-		}else{
+		}
+		else{
 			if(!FlightAssistGameMode & sFlightAssist){	//FA [HOLD] Mode Ingame DisEngage
 				sFlightAssist=!sFlightAssist;
 				if(sRCorrection){
@@ -300,10 +308,10 @@
 			sRT=!sRT;
 			if(RFlightThrootleGameMode){	//TOGGLE
 				ActKey(KEYON+PULSE+ReverseThrottle);
-			}else{		//HOLD Key Down
-				ActKey(KEYON+DOWN+ReverseThrottle);
 			}
-		}else{	//HOLD Key Up
+			else{ActKey(KEYON+DOWN+ReverseThrottle);}	//HOLD Key Down
+		}
+		else{	//HOLD Key Up
 			if(!RFlightThrootleGameMode & sRT){
 				sRT=!sRT;
 				ActKey(KEYON+UP+ReverseThrottle);
@@ -325,15 +333,9 @@
 	int initToggleCamera(){
 		sCameraMode=!sCameraMode;
 		if(sSilentRuning){
-			if(!vSLonCamera){
-				vSLonCamera=!vSLonCamera;
-				//if(DebugMode)printf("vSLonCamera [%d]\x0a", vSLonCamera);
-			}
+			vSLonCamera=!vSLonCamera;
 			initToggleSilentRuning();	//If Silent Runing is Engaged, Disengade it
-			if(vSLonCamera){
-				vSLonCamera=!vSLonCamera;
-				//if(DebugMode)printf("vSLonCamera [%d]\x0a", vSLonCamera);
-			}
+			vSLonCamera=!vSLonCamera;
 		}
 		if(sCameraMode){	//Open The Camera Mode
 			if(OptimalPIPMode){
@@ -341,7 +343,8 @@
 				initPIPPower(SYS, ENG);	//4 SYS 2 ENG (3)
 			}
 			DeferCall(1000, &ActKey, KEYON+PULSE+mClassifiedCamera);	//Call The Camera Mode Macro
-		}else{	//Close The Camera Mode
+		}
+		else{	//Close The Camera Mode
 			ActKey(KEYON+PULSE+ClassifiedCamera);	//Push The Camera Mode Key
 			if(OptimalPIPMode){
 				DeferCall(1000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPCCBackup);"));	//Restore Previous PIP Mode If vOptimalPIPCCBackup != 4 SYS 2 ENG (3)
@@ -359,10 +362,10 @@
 				if(HeadLookGameMode){	//HeadLook [TOGGLE] Mode Ingame
 					ActKey(KEYON+PULSE+HeadLook);
 					if(DebugMode) printf("Head Look	[TOOGLE]	[%d]	[ON:[1] OFF:[0]]\x0a", sHeadLook);
-				}else{	//HeadLook [HOLD] Mode Ingame Engage
-					ActKey(KEYON+DOWN+HeadLook);
 				}
-			}else{
+				else{ActKey(KEYON+DOWN+HeadLook);}	//HeadLook [HOLD] Mode Ingame Engage
+			}
+			else{
 				if(!HeadLookGameMode & sHeadLook){	//HeadLook [HOLD] Mode Ingame DisEngage
 					sHeadLook=!sHeadLook;
 					ActKey(KEYON+UP+HeadLook);
@@ -387,7 +390,8 @@
 				initPIPPower(SYS, ENG);	//4 SYS 2 ENG (3)
 			}
 			ActKey(KEYON+PULSE+SetSpeed0);
-		}else{	//Close The Game Menu
+		}
+		else{	//Close The Game Menu
 			if(OptimalPIPMode){
 				DeferCall(6000, &ActKey, KEYON+PULSE+EXEC("initRestorePIPPower(vOptimalPIPGMBackup);"));	//Restore Previous PIP Mode If vOptimalPIPGMBackup != 4 SYS 2 ENG (3)
 			}
