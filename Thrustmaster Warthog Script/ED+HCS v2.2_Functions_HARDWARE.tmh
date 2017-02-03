@@ -119,11 +119,11 @@
 		else if(t!= 0 & ms !=0){	//LED Selected in Settings file & Delay, Flashing LED
 			if(v == 1){	//OFF or ON? If ON Flash LED
 				if     (ms < 250) {ms = 250;}else if(ms > 2000){ms = 2000;}	//Flashing btw 250ms & 2000ms (2sec)
-				if     (t == LED1)     {flagHoverLED1=!flagHoverLED1; flashing_T_LED1(ms);}
-				else if(t == LED2)     {flagHoverLED2=!flagHoverLED2; flashing_T_LED2(ms);}
-				else if(t == LED3)     {flagHoverLED3=!flagHoverLED3; flashing_T_LED3(ms);}
-				else if(t == LED4)     {flagHoverLED4=!flagHoverLED4; flashing_T_LED4(ms);}
-				else if(t == LED5)     {flagHoverLED5=!flagHoverLED5; flashing_T_LED5(ms);}
+				if     (t == LED1)     {flagHover_T_LED1=!flagHover_T_LED1; flashing_T_LED1(ms);}
+				else if(t == LED2)     {flagHover_T_LED2=!flagHover_T_LED2; flashing_T_LED2(ms);}
+				else if(t == LED3)     {flagHover_T_LED3=!flagHover_T_LED3; flashing_T_LED3(ms);}
+				else if(t == LED4)     {flagHover_T_LED4=!flagHover_T_LED4; flashing_T_LED4(ms);}
+				else if(t == LED5)     {flagHover_T_LED5=!flagHover_T_LED5; flashing_T_LED5(ms);}
 				else if(t == RMFD_LED1){flagHover_RMFD_LED1=!flagHover_RMFD_LED1;flashing_RMFD_LED1(ms);}
 				else if(t == RMFD_LED2){flagHover_RMFD_LED2=!flagHover_RMFD_LED2;flashing_RMFD_LED2(ms);}
 				else if(t == LMFD_LED1){flagHover_LMFD_LED1=!flagHover_LMFD_LED1;flashing_LMFD_LED1(ms);}
