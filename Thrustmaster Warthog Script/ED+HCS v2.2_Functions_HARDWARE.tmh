@@ -55,47 +55,48 @@
 
 		//Initiate LED State
 		//-------------------------------------------------------------------17
-		initLED(ToggleSupecruiseOnThrottleLED, SupecruiseOnThrottle);
-		initLED(ToggleRCorrectionLED, sRCorrection);
-		initLED(ToggleLandingGearLED, sGears);
-		initLED(ToggleCargoScoopLED, sCargo);
-		initLED(ToggleLightsLED, sLights);
-		initLED(ToggleHardpointsLED, sHardPoints);
-		initLED(ToggleCombinedFireLED, sCombinedFire);
-		initLED(TogglePTTLED, sPTTState);
-		initLED(ToggleVoicePTTLED, vVoicePTT);
-		initLED(TogglePTTModeLED, sPTTMode);
-		initLED(ToggleSilentRuningOFFonFireLED, SilentRuningOFFonFire);
-		initLED(ToggleHeatSinkonSilentRuningLED, HeatSinkonSilentRuning);
-		initLED(ToggleIDLEonThrottleLED, sIDLE);
-		initLED(ToggleOptimalPIPModeLED, OptimalPIPMode);
-		initLED(ToggleSecureRetractLED, SecureRetract);
-		initLED(ToggleStopFireRetractHardpointsLED, StopFireRetractHardpoints);
-		initLED(ToogleExplorerModeLED, sExplorerMode);
+		initLED(SupecruiseOnThrottle_LED, SupecruiseOnThrottle);
+		initLED(RCorrection_LED, sRCorrection);
+		initLED(LandingGear_LED, sGears);
+		initLED(CargoScoop_LED, sCargo);
+		initLED(Lights_LED, sLights);
+		initLED(Hardpoints_LED, sHardPoints);
+		initLED(CombinedFire_LED, sCombinedFire);
+		initLED(PTT_LED, sPTTState);
+		initLED(VoicePTT_LED, vVoicePTT, 500);
+		initLED(PTTMode_LED, sPTTMode);
+		initLED(SilentRuningOFFonFire_LED, SilentRuningOFFonFire);
+		initLED(HeatSinkOnSilentRuning_LED, HeatSinkonSilentRuning);
+		initLED(IDLEOnThrottle_LED, sIDLE);
+		initLED(OptimalPIPMode_LED, OptimalPIPMode);
+		initLED(SecureRetract_LED, SecureRetract);
+		initLED(StopFireRetractHardpoints_LED, StopFireRetractHardpoints);
+		initLED(ExplorerMode_LED, sExplorerMode);
 		//-------------------------------------------------------------------8
-		initLED(ToggleHardPointsonFireGameModeLED, HardPointsonFireGameMode);
-		initLED(ToggleFALED, sFlightAssist);
-		initLED(ToggleVALED, sVoiceAttack);
-		initLED(ToggleSilentRuningLED, sSilentRuning);
-		initLED(ToggleReverseThrottleLED, sRT);		
-		initLED(ToggleCameraLED, sCameraMode);
-		initLED(ToggleGameMenuLED, sGameMenu);
-		initLED(ToogleHeadLookLED, sHeadLook);
+		initLED(HardPointsonFireGameMode_LED, HardPointsonFireGameMode);
+		initLED(FA_LED, sFlightAssist);
+		initLED(VA_LED, sVoiceAttack);
+		initLED(SilentRuning_LED, sSilentRuning);
+		initLED(ReverseThrottle_LED, sRT);		
+		initLED(Camera_LED, sCameraMode);
+		initLED(GameMenu_LED, sGameMenu);
+		initLED(HeadLook_LED, sHeadLook);
 		//-------------------------------------------------------------------4
-		initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo, 500);
-		initLED(ToogleAMDCaptureVideoLED, sAMDCaptureVideo, 500);
-		initLED(ToogleNVidiaStreamingLED, sNVidiaStreaming, 250);
-		initLED(ToogleAMDStreamingLED, sAMDStreaming, 250);
+		initLED(NVidiaCaptureVideo_LED, sNVidiaCaptureVideo, 500);
+		initLED(AMDCaptureVideo_LED, sAMDCaptureVideo, 500);
+		initLED(NVidiaStreaming_LED, sNVidiaStreaming, 250);
+		initLED(AMDStreaming_LED, sAMDStreaming, 250);
 		//-------------------------------------------------------------------
 		init_PANIC_LED(100);
 		
 	}
 
-//	-------------------------LED FUNCTIONS : TODO --> ON/OFF -> FLASH -> ON/OFF, INSTEAD OF ON/OFF -> FLASH -> OFF
+//	-------------------------LED FUNCTIONS : TO DO --> ON/OFF -> FLASH -> ON/OFF, INSTEAD OF ON/OFF -> FLASH -> OFF
 
 	//FUNCTION: Toggle or Flashing LED : Params => Toggle Name LED, Value(state) to Track and delay if you want the led flashing
 	//Name LED can be chosen IN SETTINGS FILE according wich one you want to track   For Throttle : LED1, LED2, LED3, LED4, LED5   For Right MFD : RMFD_LED1, RMFD_LED2   For Left MFD : LMFD_LED1, LMFD_LED2	
-	//ex : initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo, 250); --> Toggle Flashing LED (chose wich one in settings) with 250ms delay (2 flash / sec) according the sNVidiaCaptureVideo state
+	//ex : initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo, 250); --> Flashing LED (chose wich one in settings) with 250ms delay (2 flash / sec) according the sNVidiaCaptureVideo state
+	//ex : initLED(LED1, 1, 125); --> Flashing LED1 with 125ms delay
 	int initLED(int t = 0, int v = 0, int ms = 0){
 		//Toggle LED
 		if(t!=0 & ms == 0){	//LED Selected in Settings file & No Delay, Toggle LED ON/OFF
@@ -180,6 +181,7 @@
 
 	//FUNCTION: Toggle or Flashing BackLight : Params =>Device(Throttle_BL,RMFD_BL, LMFD_BL), Value(0-255), Delay if you want the Backlight flash
 	//ex : initBACKLIGHT(Throttle_BL, vThrottleLightBackup, 500); --> Throttle BackLight(backup) Flashing  with 500ms delay
+	//ex : initBACKLIGHT(LMFD_BL, 150, 250); --> Left MFD BackLight Flashing with 150 intensity with 250ms delay
 	int initBACKLIGHT(int a = 0, int v = 0, int ms = 0){
 		if     (v < 0)    {v = 0;}   else if(v > 255)  {v = 255;}	//If v is out of Standard value : Replace with min or max value
 	
@@ -201,7 +203,7 @@
 			else     GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_BACKLIGHT, 0);
 		}
 		else if(ms != 0 & v !=0){	//Delay, Push BackLight Flashing     If BackLight Value (v) if OFF (0) we don't see Flashing ...
-			if     (ms < 250) {ms = 250;}else if(ms > 2000){ms = 2000;}	//Flashing btw 250ms & 2000ms (2sec)
+			if(ms < 250) {ms = 250;}else if(ms > 2000){ms = 2000;}	//Flashing btw 250ms & 2000ms (2sec)
 			if (BACKLIGHT_DEVICE == &Throttle){flagHover_T_BL   =!flagHover_T_BL   ; flashing_T_BL(ms)   ;}
 			else if(BACKLIGHT_DEVICE == &RMFD){flagHover_RMFD_BL=!flagHover_RMFD_BL; flashing_RMFD_BL(ms);}
 			else if(BACKLIGHT_DEVICE == &LMFD){flagHover_LMFD_BL=!flagHover_LMFD_BL; flashing_LMFD_BL(ms);}

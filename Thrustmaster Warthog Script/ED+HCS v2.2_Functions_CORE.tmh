@@ -45,7 +45,7 @@
 					if     (x == SYS){if(vOptimalPIP != 4){vOptimalPIP = 4; vPIP=!vPIP;}}	//4 SYS 2 WEP (4)
 					else if(x == ENG){if(vOptimalPIP != 2){vOptimalPIP = 2; vPIP=!vPIP;}}	//4 ENG 2 WEP (2)
 				}
-			}else if(y ==0){
+			}else if(y == 0){
 				if     (x == SYS){if(vOptimalPIP != 10){vOptimalPIP = 10; vPIP=!vPIP;}}		//4 SYS 1 ENG 1 WEP (10)
 				else if(x == ENG){if(vOptimalPIP != 11){vOptimalPIP = 11; vPIP=!vPIP;}}		//4 ENG 1 SYS 1 WEP (11)
 				else if(x == WEP){if(vOptimalPIP != 12){vOptimalPIP = 12; vPIP=!vPIP;}}		//4 WEP 1 SYS 1 ENG (12)
@@ -335,12 +335,12 @@
 		if       (GFXVideo == 1){	//Nvidia Shadowplay
 			sNVidiaCaptureVideo=!sNVidiaCaptureVideo;
 			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
-			initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo, 500);
+			initLED(NVidiaCaptureVideo_LED, sNVidiaCaptureVideo, 500);
 			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
 		}else if (GFXVideo == 2){	//AMD Relive
 			sAMDCaptureVideo=!sAMDCaptureVideo;
 			ActKey(KEYON+PULSE+AMDCaptureVideo);
-			initLED(ToogleAMDCaptureVideoLED, sAMDCaptureVideo, 500);
+			initLED(AMDCaptureVideo_LED, sAMDCaptureVideo, 500);
 			if(DebugMode | DebugMMode)printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
 		}else{	//None
 			if(DebugMode | DebugMMode)printf("No Software selected for Capture Video\x0a");
@@ -352,12 +352,12 @@
 		if       (GFXVideo == 1){	//Nvidia Shadowplay
 			sNVidiaStreaming=!sNVidiaStreaming;
 			ActKey(KEYON+PULSE+NVidiaStreaming);
-			initLED(ToogleNVidiaStreamingLED, sNVidiaStreaming, 250);
+			initLED(NVidiaStreaming_LED, sNVidiaStreaming, 250);
 			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Streaming [%d]\x0a", sNVidiaStreaming);
 		}else if (GFXVideo == 2){	//AMD Relive
 			sAMDStreaming=!sAMDStreaming;
 			ActKey(KEYON+PULSE+AMDStreaming);
-			initLED(ToogleAMDStreamingLED, sAMDStreaming, 250);
+			initLED(AMDStreaming_LED, sAMDStreaming, 250);
 			if(DebugMode | DebugMMode)printf("AMD Relive Streaming [%d]\x0a", sAMDStreaming);
 		}else{	//None
 			if(DebugMode | DebugMMode)printf("No Software selected for Streaming\x0a");
@@ -398,6 +398,6 @@
 			vVoicePTT=!vVoicePTT;
 			ActKey(KEYON+UP+vPTT);
 		}
-		initLED(ToggleVoicePTTLED, vVoicePTT);
+		initLED(VoicePTT_LED, vVoicePTT, 500);
 		if(DebugMode & !sPTTMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] PUSH:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
 	}	

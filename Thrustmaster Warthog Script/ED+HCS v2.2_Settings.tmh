@@ -50,7 +50,7 @@
 	define UseSteamScreenshot	0	//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
 									//Notice that apply, only, on normal screenshot (HD one Still be ED), Else [0]
 
-	define GameMenuOnIDLE		0	//Game Menu on Throttle IDLE State [1] to Enable it [0] to disable it
+	define GameMenuOnIDLE		0	//Game Menu on Throttle Hardware IDLE State [1] to Enable it [0] to disable it
 	define AfterburnerDetent	0	//Set to [1] if you use Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){...., Else [0]
 	
 	define ExploreModeFire		0	//Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
@@ -124,37 +124,37 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 //	--LED On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 OR MFD LED // 5 LED's MAXIMUM----------------//
-//	--LED On MFD-----------------Put RMFDLED1, RMFDLED2 (Right MFD LED's) OR LMFDLED1, LMFDLED2 (Left MFD LED's) to select wich one you want.-------------------//
+//	--LED On MFD-----------------Put RMFD_LED1, RMFD_LED2 (Right MFD LED's) OR LMFD_LED1, LMFD_LED2 (Left MFD LED's) to select wich one you want.-------------------//
 
-	define ToggleOptimalPIPModeLED              LED1
-	define ToggleSecureRetractLED               LED2
-	define ToggleSupecruiseOnThrottleLED        LED3
-	define ToggleSilentRuningOFFonFireLED       LED4
-	define ToggleStopFireRetractHardpointsLED   LED5	//Retract HardPoints When Fire OFF LED
-	define ToggleHardPointsonFireGameModeLED    0
-	define ToggleHeatSinkonSilentRuningLED      0
-	define ToggleLandingGearLED                 0
-	define ToggleCargoScoopLED                  0
-	define ToggleLightsLED                      0
-	define ToggleHardpointsLED                  0
-	define ToggleCombinedFireLED                0
-	define ToggleRCorrectionLED                 0
-	define ToggleCameraLED                      0
-	define TogglePTTLED                         0
-	define ToggleVoicePTTLED                    0
-	define TogglePTTModeLED                     0
-	define ToggleSilentRuningLED                0
-	define ToggleIDLEonThrottleLED              0		//IDLE LED Work only if ThrottleLEDOnIDLE != 0
-	define ToggleFALED                          0		//Flight Assist LED
-	define ToggleVALED                          0		//Voice Attack Mic LED
-	define ToggleReverseThrottleLED             0
-	define ToggleGameMenuLED                    0
-	define ToogleHeadLookLED                    0
-	define ToogleExplorerModeLED                0
-	define ToogleNVidiaCaptureVideoLED          0		//Nvidia Shadowplay Capture
-	define ToogleNVidiaStreamingLED             0		//Nvidia Shadowplay Streaming
-	define ToogleAMDCaptureVideoLED             0		//AMD Relive Capture
-	define ToogleAMDStreamingLED                0		//AMD Relive Streaming
+	define OptimalPIPMode_LED              LED1
+	define SecureRetract_LED               LED2
+	define SupecruiseOnThrottle_LED        LED3
+	define SilentRuningOFFonFire_LED       LED4
+	define StopFireRetractHardpoints_LED   LED5		//Retract HardPoints When Fire OFF LED
+	define HardPointsonFireGameMode_LED    0
+	define HeatSinkOnSilentRuning_LED      0
+	define LandingGear_LED                 0
+	define CargoScoop_LED                  0
+	define Lights_LED                      0
+	define Hardpoints_LED                  0
+	define CombinedFire_LED                0
+	define RCorrection_LED                 0
+	define Camera_LED                      0
+	define PTT_LED                         0
+	define VoicePTT_LED                    0
+	define PTTMode_LED                     0
+	define SilentRuning_LED                0
+	define IDLEOnThrottle_LED              0		//IDLE Hardware Throttle LED
+	define FA_LED                          0		//Flight Assist LED
+	define VA_LED                          0		//Voice Attack Mic LED
+	define ReverseThrottle_LED             0
+	define GameMenu_LED                    0
+	define HeadLook_LED                    0
+	define ExplorerMode_LED                0
+	define NVidiaCaptureVideo_LED          0		//Nvidia Shadowplay Capture
+	define NVidiaStreaming_LED             0		//Nvidia Shadowplay Streaming
+	define AMDCaptureVideo_LED             0		//AMD Relive Capture
+	define AMDStreaming_LED                0		//AMD Relive Streaming
 
 //	--LED Backlight (Value 0-255)-------------------------------------------------------------------------------------------------------------------------------//
 
@@ -167,7 +167,7 @@
 	// 215 to 255	is level 5	
 	define ThrottleLight		129		//Base Throttle LED Intensity
 	define ThrottleLightHMD		43		//Base Throttle LED Intensity when HMD Use
-	define ThrottleLightOnIDLE	0		//Base Throttle LED Intensity on Throttle IDLE State
+	define ThrottleLightOnIDLE	0		//Base Throttle LED Intensity on Hardware Throttle IDLE State
 	
 	//MFD's have 256 different levels of intensity,
 	// 0 to 255 : 129 for Mid Light
