@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.3b	2017/01
+//	V2.2.03.3b	2017/02
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,82 +21,90 @@
 //	SOFTWARE.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	BASE SETTINGS																																				//
+//	Note :		define : no ";" at the END of the Line																											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	define PulseTime 25					//PULSE+ Delay time 25
-	define DelayTime 75					//D() Delay time 75
-	define KBLayout KB_ENG				//Default Keyboard Layout KB_ENG
+	define PulseTime 25				//PULSE+ Delay time 25
+	define DelayTime 75				//D() Delay time 75
+	define KBLayout KB_ENG			//Default Keyboard Layout KB_ENG
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PERSONAL SETTINGS																																			//
+//	Note :		define : no ";" at the END of the Line																											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int DebugMode					=1;		//If [1] Target Script Editor Window will Display All Debug Msg
-	int DebugMMode					=1;		//If [1] Target Script Editor Window will Display Some Debug Msg
+	define DebugMode			1	//If [1] Target Script Editor Window will Display All Debug Msg, Else [0]
+	define DebugMMode			1	//If [1] Target Script Editor Window will Display Some Debug Msg, Else [0]
 
-	define Rudders					0		//[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
-	define USEMFD					0		//If you have one MFD, set this to 1 (Right MFD). If you have two MFDs, set it to 2 (Right & Left MFD). (Mapkey For MFD not configured yet)
+	define Rudders				0	//[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
+	define USEMFD				0	//If you have one MFD, set this to [1] (Right MFD). If you have two MFDs, set it to [2] (Right & Left MFD). (Mapkey For MFD not configured yet), Else [0]
 	
-	int HMD							=1;		//If HMD set to [1] (and set TrackIR to 0)
-	int TrackIR						=0;		//If TrackIR set to [1] (and set HMD to 0)
-	int VoiceAttack					=1;		//If VoiceAttack Used set to [1] : Engine Operate Ign/Norm Left Down Toggle VA Mic
+	define HMD					1	//If HMD set to [1] (and set TrackIR to 0)
+	define TrackIR				0	//If TrackIR set to [1] (and set HMD to 0)
+	define VoiceAttack			1	//If VoiceAttack Used set to [1] : IF set to [1], Engine Operate Ign/Norm Left Down (Throttle) Toggle VA Mic, Else [0]
 	
-	int CenterJoystickMount			=0;		//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position
-	define JoystickAngle			0		//Joystick Axis Rotation ° (if you use Joystick center mounting [-15] should be a "good" default value, else left it at 0)
+	define CenterJoystickMount	0	//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position Select angle below
+	define JoystickAngle		0	//Joystick Axis Rotation ° (if you use Joystick center mounting [-15] should be a "good" default value, else left it at 0)
 	
-	int GFXVideo					=1;		//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
-	int UseSteamScreenshot			=0;		//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
-											//Notice that apply, only, on normal screenshot (HD one Still be ED)
+	define GFXVideo				0	//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
+	define UseSteamScreenshot	0	//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
+									//Notice that apply, only, on normal screenshot (HD one Still be ED), Else [0]
 
-	int GameMenuOnIDLE				=0;		//initToggleIDLEonThrottle()	Game Menu on Throttle IDLE State
-	int AfterburnerDetent			=0;		//Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){....
+	define GameMenuOnIDLE		0	//Game Menu on Throttle Hardware IDLE State [1] to Enable it [0] to disable it
+	define AfterburnerDetent	0	//Set to [1] if you use Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){...., Else [0]
 	
-	int ExploreModeFire				=0;		//Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
-											//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with TG1ScanDelay and S2ScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
-	
-//	------------Default Settings------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
+	define ExploreModeFire		0	//Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
+									//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with TG1ScanDelay and S2ScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	------------Default States--------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
+//	Note :		int : "=(Value);" with ";" at the END of the Line																								//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//Throttle Engine Operate Ign/Norm Right UP
-	int OptimalPIPMode				=1;		//Automatic PIP Mode: When Hardpoint is Up or Down / When Escape Fight / When Fire...			[S]
-	int StopFireRetractHardpoints	=0;		//Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1					[L]
-	int SecureRetract				=1;		//Automatic Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump		[S3]+[S]
-	int sRCorrection				=1;		//Rotational Correction	[OFF:0, ON:1]															[S3]+[L]
+	int OptimalPIPMode				= 1 ;		//Automatic PIP Mode: When Hardpoint is Up or Down / When Escape Fight / When Fire...			[S]
+	int StopFireRetractHardpoints	= 0 ;		//Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1					[L]
+	int SecureRetract				= 1 ;		//Automatic Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump		[S3]+[S]
+	int sRCorrection				= 1 ;		//Rotational Correction	[OFF:0, ON:1]															[S3]+[L]
 	
 	//Throttle Engine Operate Ign/Norm Left UP
-	int sPTTState					=0;		//Internal / External Mic	[External:[0] Internal:[1]]		[S3]+[S]
-	int sPTTMode					=1;		//PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]			[S3]+[L]
+	int sPTTState					= 0 ;		//Internal / External Mic	[External:[0] Internal:[1]]		[S3]+[S]
+	int sPTTMode					= 1 ;		//PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]			[S3]+[L]
 	
 	//Throttle Arm Speedbrake BACK
-	int SupecruiseOnThrottle		=0;		//Supercruise if Boost when Throttle > 99%		[S3]
+	int SupecruiseOnThrottle		= 0 ;		//Supercruise if Boost when Throttle > 99%		[S3]
 
 	//Joystick Data Management Switch UP (DMS) Effect Apply only if SilentRuningGameMode is Set to [1]
-	int SilentRuningOFFonFire		=1;		//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}		[S]
-	int HeatSinkonSilentRuning		=0;		//initToggleHeatSinkonSilentRuning()	Automatic HeatSink On Silent Runing						[EL]
+	int SilentRuningOFFonFire		= 1 ;		//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}		[S]
+	int HeatSinkonSilentRuning		= 0 ;		//initToggleHeatSinkonSilentRuning()	Automatic HeatSink On Silent Runing						[EL]
 	
 	//Joystick Master Mode Control Button
-	int sCombinedFire				=0;		//Combined Fire on TG2		[OFF:0, ON:1]					[S]
+	int sCombinedFire				= 0 ;		//Combined Fire on TG2		[OFF:0, ON:1]					[S]
 
-
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	-------------------------Match This with ED Key binding Ingame (Left if you use Unmodified ED KeyBinding File include with this script)---------------------//
+//	Note :		int : "=(Value);" with ";" at the END of the Line																								//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int FlightAssistGameMode		=0;		//Flight Miscellaneous / Toggle Flight Assist		[HOLD:0, TOGGLE:1]
-//	int DriveAssistGameMode			=0;		//Driving / Drive Assist							[HOLD:0, TOGGLE:1]
+	int FlightAssistGameMode		= 0 ;		//Flight Miscellaneous / Toggle Flight Assist		[HOLD:0, TOGGLE:1]
+//	int DriveAssistGameMode			= 0 ;		//Driving / Drive Assist							[HOLD:0, TOGGLE:1]
 
-	int HardPointsonFireGameMode	=1;		//Weapons / Firing Deploys Hardpoints 				[OFF:0, ON:1]
-	int SilentRuningGameMode		=1;		//Cooling / Silent Runing							[HOLD:0, TOGGLE:1]
+	int HardPointsonFireGameMode	= 1 ;		//Weapons / Firing Deploys Hardpoints 				[OFF:0, ON:1]
+	int SilentRuningGameMode		= 1 ;		//Cooling / Silent Runing							[HOLD:0, TOGGLE:1]
 	
-	int RFlightThrootleGameMode		=0;		//Flight Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
-//	int RDriveThrootleGameMode		=0;		//Drive Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
+	int RFlightThrootleGameMode		= 0 ;		//Flight Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
+//	int RDriveThrootleGameMode		= 0 ;		//Drive Throttle / Forward Only Throttle Reverse	[HOLD:0, TOGGLE:1]
 
-	int ThrottleAxisRange			=0;		//Flight Throttle / Throttle Axis Range				[Forward only:0, Full Range:1]
+	int ThrottleAxisRange			= 0 ;		//Flight Throttle / Throttle Axis Range				[Forward only:0, Full Range:1]
 	
-	int HeadLookGameMode			=1;		//Driving Mode Switches & Mode Switches / HeadLock	[HOLD:0, TOGGLE:1]
+	int HeadLookGameMode			= 1 ;		//Driving Mode Switches & Mode Switches / HeadLock	[HOLD:0, TOGGLE:1]
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	AXIS CURVES																																					//
+//	Note :		When define : no ";" at the END of the Line			When int : "=(Value);" with ";" at the END of the Line										//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	define FAOffCurve 2						//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
+	int FAOffCurve					= 2 ;		//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
 	
 	//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
 	
@@ -111,85 +119,86 @@
 	define SL_DEADZONE 1					//Set the SL Deadzone.. use the Device Analyzer to validate
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	LED SETTINGS																																				//
+//	LED SETTINGS (29)																																				//
+//	Note :		define : no ";" at the END of the Line																											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//	--LED On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 // 5 LED's MAXIMUM---------------------------//
+//	--LED On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 OR MFD LED // 5 LED's MAXIMUM----------------//
+//	--LED On MFD-----------------Put RMFD_LED1, RMFD_LED2 (Right MFD LED's) OR LMFD_LED1, LMFD_LED2 (Left MFD LED's) to select wich one you want.-------------------//
 
-	define ToggleOptimalPIPModeLED              LED1
-	define ToggleSecureRetractLED               LED2
-	define ToggleSupecruiseOnThrottleLED        LED3
-	define ToggleSilentRuningOFFonFireLED       LED4
-	define ToggleStopFireRetractHardpointsLED   LED5	//Retract HardPoints When Fire OFF LED
-	define ToggleHardPointsonFireGameModeLED    0
-	define ToggleHeatSinkonSilentRuningLED      0
-	define ToggleLandingGearLED                 0
-	define ToggleCargoScoopLED                  0
-	define ToggleLightsLED                      0
-	define ToggleHardpointsLED                  0
-	define ToggleCombinedFireLED                0
-	define ToggleRCorrectionLED                 0
-	define ToggleCameraLED                      0
-	define TogglePTTLED                         0
-	define ToggleVoicePTTLED                    0
-	define TogglePTTModeLED                     0
-	define ToggleSilentRuningLED                0
-	define ToggleIDLEonThrottleLED              0		//IDLE LED Work only if ThrottleLEDOnIDLE != 0
-	define ToggleFALED                          0		//Flight Assist LED
-	define ToggleVALED                          0		//Voice Attack Mic LED
-	define ToggleReverseThrottleLED             0
-	define ToggleGameMenuLED                    0
-	define ToogleHeadLookLED                    0
-	define ToogleExplorerModeLED                0
-	define ToogleNVidiaCaptureVideoLED          0		//Nvidia Shadowplay Capture
-	define ToogleNVidiaStreamingLED             0		//Nvidia Shadowplay Streaming
-	define ToogleAMDCaptureVideoLED             0		//AMD Relive Capture
-	define ToogleAMDStreamingLED                0		//AMD Relive Streaming
+	define OptimalPIPMode_LED              LED1
+	define SecureRetract_LED               LED2
+	define SupecruiseOnThrottle_LED        LED3
+	define SilentRuningOFFonFire_LED       LED4
+	define StopFireRetractHardpoints_LED   LED5		//Retract HardPoints When Fire OFF LED
+	define HardPointsonFireGameMode_LED    0
+	define HeatSinkOnSilentRuning_LED      0
+	define LandingGear_LED                 0
+	define CargoScoop_LED                  0
+	define Lights_LED                      0
+	define Hardpoints_LED                  0
+	define CombinedFire_LED                0
+	define RCorrection_LED                 0
+	define Camera_LED                      0
+	define PTT_LED                         0
+	define VoicePTT_LED                    0
+	define PTTMode_LED                     0
+	define SilentRuning_LED                0
+	define IDLEOnThrottle_LED              0		//IDLE Hardware Throttle LED
+	define FA_LED                          0		//Flight Assist LED
+	define VA_LED                          0		//Voice Attack Mic LED
+	define ReverseThrottle_LED             0
+	define GameMenu_LED                    0
+	define HeadLook_LED                    0
+	define ExplorerMode_LED                0
+	define NVidiaCaptureVideo_LED          0		//Nvidia Shadowplay Capture
+	define NVidiaStreaming_LED             0		//Nvidia Shadowplay Streaming
+	define AMDCaptureVideo_LED             0		//AMD Relive Capture
+	define AMDStreaming_LED                0		//AMD Relive Streaming
 
-	
-		
-//	--LED Backlight (Value 0-255)--------------------------------------------------------------------------------------------------------------------------//
+//	--LED Backlight (Value 0-255)-------------------------------------------------------------------------------------------------------------------------------//
 
+	//Throttle offers 6 levels of intensity
 	// 0 to 42		is OFF
 	// 43 to 85		is level 1
 	// 86 to 128	is level 2
 	// 129 to 171	is level 3
 	// 172 to 214	is level 4
-	// 215 to 255	is level 5
+	// 215 to 255	is level 5	
+	define ThrottleLight		129		//Base Throttle LED Intensity
+	define ThrottleLightHMD		43		//Base Throttle LED Intensity when HMD Use
+	define ThrottleLightOnIDLE	0		//Base Throttle LED Intensity on Hardware Throttle IDLE State
 	
-	//Throttle
-	define ThrottleLight 		171				//Base Throttle LED Intensity
-	define ThrottleLightHMD 	85				//Base Throttle LED Intensity when HMD Use
-	define ThrottleLightOnIDLE	0				//Base Throttle LED Intensity on Throttle IDLE State
+	//MFD's have 256 different levels of intensity,
+	// 0 to 255 : 129 for Mid Light
+	define RMFDLight			129		//Right MFD backlight
+	define LMFDLight			129		//Light MFD backlight
 	
-	//MFD
-	define RMFDLight			129				//Right MFD backlight
-	define LMFDLight			129				//Light MFD backlight
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PRESS & PULSE DELAY SETTINGS																																//
+//	Note :		define : no ";" at the END of the Line																											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//PRESS DELAY (Keys)
-	define MiniPressDelay	150			//Shortest Delay 150
-	define ShortPressDelay	250			//Shorter Delay 250
-	define MediumPressDelay	350			//Medium Delay 350
-	define LongPressDelay	500			//Long Delay 500
-	define ExtraPressDelay	1500		//Longest Delay 1500
+	define MiniPressDelay	150		//Shortest Delay 150
+	define ShortPressDelay	250		//Shorter Delay 250
+	define MediumPressDelay	350		//Medium Delay 350
+	define LongPressDelay	500		//Long Delay 500
+	define ExtraPressDelay	1500	//Longest Delay 1500
 	
 	//PULSE DELAY (Macro/Other)
-	define MiniPulseDelay	150			//Shortest Delay 150
-	define ShortPulseDelay	250			//Shorter Delay 250
-	define MediumPulseDelay	350			//Medium Delay 350
-	define LongPulseDelay	500			//Long Delay 500
-	define ExtraPulseDelay	2000		//Longest Delay 2000
+	define MiniPulseDelay	150		//Shortest Delay 150
+	define ShortPulseDelay	250		//Shorter Delay 250
+	define MediumPulseDelay	350		//Medium Delay 350
+	define LongPulseDelay	500		//Long Delay 500
+	define ExtraPulseDelay	2000	//Longest Delay 2000
 
 	//FSD OFF DELAY MACRO: Safe System Jump
-	define FSDOFFDelay		25000		//When to Press 0 Speed Key after Engaging FSD (Safe System Jump) Delay 25000
+	define FSDOFFDelay		25000	//When to Press 0 Speed Key after Engaging FSD (Safe System Jump) Delay 25000
 	
 	//PIP DELAY
-	define PIPPressDelay	350			//PIP Press Key Delay 350
-	define PIPPulseDelay	25			//PIP Pulse Delay PIP Initialisation 25 (you can up it up to 75 if needed) initPIPPower()
+	define PIPPressDelay	350		//PIP Press Key Delay 350
+	define PIPPulseDelay	25		//PIP Pulse Delay PIP Initialisation 25 (you can up it up to 75 if needed) initPIPPower()
 	
 	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	define HeatSinkonSilentRuningDelay 8000

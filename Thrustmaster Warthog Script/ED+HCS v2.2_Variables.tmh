@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.3b	2017/01
+//	V2.2.03.3b	2017/02
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,14 +27,12 @@
 	int vJoystickCurveProfile;					//initSetJoystickCurves()	initJoystickCurves()	initToggleEnhancedFAOFF()
 	int vJoystickCurveProfileBackup;			//initToggleEnhancedFAOFF()
 	int vThrottleCurveProfile;					//initSetThrottleCurves()
-	int vThrottleLight;							//initLEDStates()
-	int vThrottleLightBackup;					//initToggleIDLEonThrottle()	initLEDStates()	EventHandle()
 	
 	//Game
 	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
 	int vLG;									//initToggleLandingGear()
 	int vCS;									//initToggleCargoScoop()
-	int vFA;									//initToggleEnhancedFAOFF()			Flight Assist [TOGGLE] Mode Ingame
+	int vFA;									//initToggleEnhancedFAOFF()		Flight Assist [TOGGLE] Mode Ingame
 	
 	//initVoicePTT()	
 	int vVoicePTT;
@@ -53,15 +51,49 @@
 	int vSecondaryFire;							//initSecondaryFire()
 	
 	//LED Management : initLED()
-	int flagHoverLED1;							//flashingLED1()
-	int flagHoverLED2;							//flashingLED2()
-	int flagHoverLED3;							//flashingLED3()
-	int flagHoverLED4;							//flashingLED4()
-	int flagHoverLED5;							//flashingLED5()
+	int LED_DEVICE;
+	int LED_OUTPOUT;
+	//------------Throttle
+	int flagHover_T_LED1;						//flashing_T_LED1()
+	int flagHover_T_LED2;						//flashing_T_LED2()
+	int flagHover_T_LED3;						//flashing_T_LED3()
+	int flagHover_T_LED4;						//flashing_T_LED4()
+	int flagHover_T_LED5;						//flashing_T_LED5()
+	//------------Right MFD
+	define RMFD_LED1			0x40			//Right MFD LED1
+	define RMFD_LED2			0x400			//Right MFD LED2	
+	int flagHover_RMFD_LED1;					//flashing_RMFD_LED1()
+	int flagHover_RMFD_LED2;					//flashing_RMFD_LED2()
+	//------------Left MFD
+	define LMFD_LED1			0x50			//Left MFD LED1
+	define LMFD_LED2			0x500			//Left MFD LED1	
+	int flagHover_LMFD_LED1;					//flashing_LMFD_LED1()
+	int flagHover_LMFD_LED2;					//flashing_LMFD_LED2()
+
+	//BACKLIGHT Management : initBACKLIGHT()
+	int BACKLIGHT_DEVICE;
+	//------------Throttle
+	define Throttle_BL			0x60
+//	int vThrottleLight;
+	int vThrottleLightBackup;					
+	int flagHover_T_BL;							//flashing_T_BL()
+	//------------Right MFD
+	define RMFD_BL				0x70
+//	int vRMFDLight;
+	int vRMFDLightBackup;
+	int flagHover_RMFD_BL;						//flashing_RMFD_BL()
+	//------------Left MFD
+	define LMFD_BL				0x80
+//	int vLMFDLight;
+	int vLMFDLightBackup;
+	int flagHover_LMFD_BL;						//flashing_LMFD_BL()
+	//------------For the Fun
+	int PANIC_LED = 1;
 	
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//initPIPPower()
+//	int MCrew;
 	int vOptimalPIP;
 	int vPIP;
 	int PIPx, PIPy, PIPz;

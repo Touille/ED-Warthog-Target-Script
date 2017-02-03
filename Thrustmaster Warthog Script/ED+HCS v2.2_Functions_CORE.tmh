@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.3b	2017/01
+//	V2.2.03.3b	2017/02
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,7 +31,7 @@
 	//PIP Management
 	int initPIPPower(int x=0, int y=0, int z=0){
 
-		// Check Wich Command to Send and if it need to be Send
+		// Check Which Command to Send and if it need to be Send
 		if(x == 0 & y == 0 & z == 0){if(vOptimalPIP != 0){vOptimalPIP = 0; vPIP=!vPIP;}}	//2 SYS 2 ENG 2 WEP (0)
 		else if(z != MID | z == 0){
 			if(y != 0){
@@ -45,7 +45,7 @@
 					if     (x == SYS){if(vOptimalPIP != 4){vOptimalPIP = 4; vPIP=!vPIP;}}	//4 SYS 2 WEP (4)
 					else if(x == ENG){if(vOptimalPIP != 2){vOptimalPIP = 2; vPIP=!vPIP;}}	//4 ENG 2 WEP (2)
 				}
-			}else if(y ==0){
+			}else if(y == 0){
 				if     (x == SYS){if(vOptimalPIP != 10){vOptimalPIP = 10; vPIP=!vPIP;}}		//4 SYS 1 ENG 1 WEP (10)
 				else if(x == ENG){if(vOptimalPIP != 11){vOptimalPIP = 11; vPIP=!vPIP;}}		//4 ENG 1 SYS 1 WEP (11)
 				else if(x == WEP){if(vOptimalPIP != 12){vOptimalPIP = 12; vPIP=!vPIP;}}		//4 WEP 1 SYS 1 ENG (12)
@@ -265,9 +265,7 @@
 		if(!SecureRetract & (sHardPoints | sCargo | sGears))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
 		else{
 			initSecureRectract();
-			if(OptimalPIPMode){
-				initPIPPower(ENG, SYS);	//4 ENG	2 SYS (1)
-			}
+			if(OptimalPIPMode){initPIPPower(ENG, SYS);}	//4 ENG	2 SYS (1)
 			ActKey(KEYON+PULSE+mSystemJump);
 			if(DebugMode | DebugMMode) printf("Engage System Jump\x0a");
 		}
@@ -275,6 +273,11 @@
 
 	//FUNCTION: Escape Fight	All we want is to Escape Fight so We don't check the OptimalPIPMode states, if you want, you can UnComment the 2 Lines to check Them
 	int initEscapeFight(){
+		//TEST PANIC MODE
+		initBACKLIGHT(Throttle_BL, vThrottleLightBackup, 250);	//Throttle BackLigtt Flashing ON
+		init_PANIC_LED(165);
+		DeferCall(11000, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, 250);"));	//Throttle BackLigtt Flashing OFF, we need to Send it again to toggle the flag and stop the flashing
+		//END OF TEST
 		if(!SecureRetract){	//if SecureRetract is Disable
 			if(DebugMode | DebugMMode) printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");
 			SecureRetract=!SecureRetract;	//we Enable it
@@ -306,9 +309,7 @@
 		if(DebugMode) printf("Docking Initialisation\x0a");
 		initSecureRectract();
 		ActKey(KEYON+PULSE+mRequestCancelDock);
-		if(OptimalPIPMode){
-			DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
-		}
+		if(OptimalPIPMode){DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));}	//4 SYS 2 ENG (3)
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -334,12 +335,12 @@
 		if       (GFXVideo == 1){	//Nvidia Shadowplay
 			sNVidiaCaptureVideo=!sNVidiaCaptureVideo;
 			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
-			initLED(ToogleNVidiaCaptureVideoLED, sNVidiaCaptureVideo, 250);
+			initLED(NVidiaCaptureVideo_LED, sNVidiaCaptureVideo, 500);
 			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
 		}else if (GFXVideo == 2){	//AMD Relive
 			sAMDCaptureVideo=!sAMDCaptureVideo;
 			ActKey(KEYON+PULSE+AMDCaptureVideo);
-			initLED(ToogleAMDCaptureVideoLED, sAMDCaptureVideo, 250);
+			initLED(AMDCaptureVideo_LED, sAMDCaptureVideo, 500);
 			if(DebugMode | DebugMMode)printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
 		}else{	//None
 			if(DebugMode | DebugMMode)printf("No Software selected for Capture Video\x0a");
@@ -351,12 +352,12 @@
 		if       (GFXVideo == 1){	//Nvidia Shadowplay
 			sNVidiaStreaming=!sNVidiaStreaming;
 			ActKey(KEYON+PULSE+NVidiaStreaming);
-			initLED(ToogleNVidiaStreamingLED, sNVidiaStreaming, 250);
+			initLED(NVidiaStreaming_LED, sNVidiaStreaming, 250);
 			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Streaming [%d]\x0a", sNVidiaStreaming);
 		}else if (GFXVideo == 2){	//AMD Relive
 			sAMDStreaming=!sAMDStreaming;
 			ActKey(KEYON+PULSE+AMDStreaming);
-			initLED(ToogleAMDStreamingLED, sAMDStreaming, 250);
+			initLED(AMDStreaming_LED, sAMDStreaming, 250);
 			if(DebugMode | DebugMMode)printf("AMD Relive Streaming [%d]\x0a", sAMDStreaming);
 		}else{	//None
 			if(DebugMode | DebugMMode)printf("No Software selected for Streaming\x0a");
@@ -397,6 +398,6 @@
 			vVoicePTT=!vVoicePTT;
 			ActKey(KEYON+UP+vPTT);
 		}
-		initLED(ToggleVoicePTTLED, vVoicePTT);
+		initLED(VoicePTT_LED, vVoicePTT, 500);
 		if(DebugMode & !sPTTMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] PUSH:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
 	}	
