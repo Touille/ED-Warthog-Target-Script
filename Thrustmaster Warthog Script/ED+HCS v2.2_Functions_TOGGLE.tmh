@@ -89,7 +89,7 @@
 	int initToggleSuperCruiseMode(){
 		SupecruiseOnThrottle=!SupecruiseOnThrottle;
 		initLED(SupecruiseOnThrottle_LED, SupecruiseOnThrottle);
-		if(DebugMode | DebugMMode) printf("Supecruise On Throttle	[%d]	[ON:[1] OFF:[0]]\x0a", SupecruiseOnThrottle);
+		if(DebugMode | DebugMMode) printf("Supecruise On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SupecruiseOnThrottle);
 	}
 	
 	//TOGGLE: Combined Fire	

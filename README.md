@@ -95,6 +95,8 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 - [x] 3 Joystick Curve Switchable On The Fly (Slew stick is include in this function) Switch In Game With Throttle FLAPS
 - [x] 2 Throttle Curve Switchable On The Fly (normal & precison). Can be switched On & Off On The Fly (S3 (Joystick Nosewhell Steering Button) + Press RED Button on Throttle Arm)
 - [x] Enhanced Joystick Curves tailored for Flight Assist Off (Joystick Curve will return to previous state when FAON is release)
+- [ ] Support Joystick Axis trimming :  memorize the X and Y axis position and calculate the difference to the
+center of the axis, and then  apply it to the X and Y axis (Throttle Coolie Switch [S3]UP to engage, [S3]DOWN to reset : Check Chart)
 
 ### AUTOPILOT MODE:
 

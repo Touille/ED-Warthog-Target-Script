@@ -285,7 +285,7 @@
 		DeferCall(11000, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, 250);"));	//Throttle BackLigtt Flashing OFF, we need to Send it again to toggle the flag and stop the flashing
 		//END OF TEST
 		if(!SecureRetract){	//if SecureRetract is Disable
-			if(DebugMode | DebugMMode) printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");
+			if(DebugMode) printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");
 			SecureRetract=!SecureRetract;	//we Enable it
 			DeferCall(2000, &ActKey, KEYON+PULSE+EXEC("SecureRetract=!SecureRetract;")); //Then we Disable it after the initSecureRectract() below is done (2s should be ok)
 		}
@@ -310,7 +310,7 @@
 
 	//FUNCTION: Request Docking
 	int initRCDocking(){
-		if(DebugMode) printf("Docking Initialisation\x0a");
+		if(DebugMode | DebugMMode) printf("Docking Initialisation\x0a");
 		initSecureRectract();
 		ActKey(KEYON+PULSE+mRequestCancelDock);
 		if(OptimalPIPMode) DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)

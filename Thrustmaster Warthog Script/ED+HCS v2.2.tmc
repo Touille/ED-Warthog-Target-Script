@@ -67,15 +67,24 @@ int main()
 	// Initiate Axis Mappings
 	if(DebugMode | DebugMMode) printf("Initialising Joystick Axis\x0a"); initJoystickAxis();
 	if(DebugMode | DebugMMode) printf("Initialising Throttle Axis\x0a"); initThrottleAxis();
-	if(Rudders == 2){if(DebugMode | DebugMMode) printf("Initialising Rudders Axis\x0a"); initRudders();}	
+	if(Rudders == 2){
+		if(DebugMode | DebugMMode) printf("Initialising Rudders Axis\x0a");
+		initRudders();
+	}	
 	
 	// Initiate Curve Mappings
 	if(DebugMode | DebugMMode) printf("Initialising Joystick Curve\x0a"); initSetJoystickCurves();
 	if(DebugMode | DebugMMode) printf("Initialising Throttle Curve\x0a"); initSetThrottleCurves();
 	
 	//Initiate MFD
-	if(USEMFD > 0){if(DebugMode | DebugMMode) printf("Initialising Right MFD\x0a"); initRightMFD();}
-	if(USEMFD > 1){if(DebugMode | DebugMMode) printf("Initialising Left MFD\x0a"); initLeftMFD();}
+	if(USEMFD > 0){
+		if(DebugMode | DebugMMode) printf("Initialising Right MFD\x0a");
+		initRightMFD();
+	}
+	if(USEMFD > 1){
+		if(DebugMode | DebugMMode) printf("Initialising Left MFD\x0a");
+		initLeftMFD();
+	}
 
 	// Initiate Led State
 	if(DebugMode | DebugMMode) printf("Initialising LED States\x0a"); initLEDStates();
@@ -183,8 +192,8 @@ int main()
 	MapKeyIO(&Throttle, MSR, TEMPO(PULSE+FighterHoldFire, PULSE+FighterAggressive, LongPressDelay), PULSE+SelectWingman3);										// RIGHT
 	
 	//	-------------------------Coolie Hat Switch	
-	MapKey(&Throttle, CSU, ThrustUp);																				// UP
-	MapKey(&Throttle, CSD, ThrustDown);																				// DOWN
+	MapKeyIO(&Throttle, CSU, EXEC("TrimDXAxis(DX_X_AXIS, CURRENT);TrimDXAxis(DX_Y_AXIS, CURRENT);"), ThrustUp);		// UP
+	MapKeyIO(&Throttle, CSD, EXEC("TrimDXAxis(DX_X_AXIS, SET(0));TrimDXAxis(DX_Y_AXIS, SET(0));"), ThrustDown);		// DOWN
 	MapKey(&Throttle, CSL, ThrustLeft);																				// LEFT
 	MapKey(&Throttle, CSR, ThrustRight);																			// RIGHT
 
