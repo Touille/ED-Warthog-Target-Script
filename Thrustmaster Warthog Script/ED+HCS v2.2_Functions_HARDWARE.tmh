@@ -329,11 +329,6 @@
 	//Set Default Throttle Axis
 	int initThrottleAxis(){	
 		MapAxis(&Throttle, THR_RIGHT, DX_Z_AXIS,      AXIS_NORMAL, MAP_ABSOLUTE);		// Set Right Throttle
-		
-		//If Hardware AfetrBurner Detent is used and SuperCruise On Throttle is enable, we don't need to push button to engage Supercruise : we just push up Throttle pass detent :)
-		if(SupecruiseOnThrottle & AfterburnerDetent) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,80,100), PULSE+Supercruise, 0));
-		else                                         KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0), 0, 0));
-		
 		MapAxis(&Throttle, THR_LEFT , 0,              AXIS_NORMAL, MAP_ABSOLUTE);		// Set Left Throttle / DX_ZROT_AXIS / We don't Use It Yet In ED
 		MapAxis(&Throttle, THR_FC   , DX_SLIDER_AXIS, AXIS_NORMAL, MAP_ABSOLUTE);		// Set Friction Control Axis Curve (Sensor Range Zoom Scaling) 
 		SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));		// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
