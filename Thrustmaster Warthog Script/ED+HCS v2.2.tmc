@@ -44,7 +44,7 @@ int main()
 	Configure(&TWCSThrottle, MODE_EXCLUDED);
 
 	//Rudders
-	if(Rudders < 2)Configure(&TFRPRudder, MODE_EXCLUDED);
+	if(Rudders < 2) Configure(&TFRPRudder, MODE_EXCLUDED);
 	else Configure(&TFRPRudder, MODE_FILTERED);
 
 	//MFD
@@ -62,34 +62,34 @@ int main()
 	SetKBRate(PulseTime, DelayTime);
 	SetKBLayout(KBLayout);
 	
-	if(DebugMode | DebugMMode)printf("-------------------------Hardware Initialisation--------------------------\x0a");
+	if(DebugMode | DebugMMode) printf("-------------------------Hardware Initialisation--------------------------\x0a");
 
 	// Initiate Axis Mappings
-	if(DebugMode | DebugMMode)printf("Initialising Joystick Axis\x0a");initJoystickAxis();
-	if(DebugMode | DebugMMode)printf("Initialising Throttle Axis\x0a");initThrottleAxis();
-	if(Rudders == 2){if(DebugMode | DebugMMode)printf("Initialising Rudders Axis\x0a");initRudders();}	
+	if(DebugMode | DebugMMode) printf("Initialising Joystick Axis\x0a"); initJoystickAxis();
+	if(DebugMode | DebugMMode) printf("Initialising Throttle Axis\x0a"); initThrottleAxis();
+	if(Rudders == 2){if(DebugMode | DebugMMode) printf("Initialising Rudders Axis\x0a"); initRudders();}	
 	
 	// Initiate Curve Mappings
-	if(DebugMode | DebugMMode)printf("Initialising Joystick Curve\x0a");initSetJoystickCurves();
-	if(DebugMode | DebugMMode)printf("Initialising Throttle Curve\x0a");initSetThrottleCurves();
+	if(DebugMode | DebugMMode) printf("Initialising Joystick Curve\x0a"); initSetJoystickCurves();
+	if(DebugMode | DebugMMode) printf("Initialising Throttle Curve\x0a"); initSetThrottleCurves();
 	
 	//Initiate MFD
-	if(USEMFD > 0){if(DebugMode | DebugMMode)printf("Initialising Right MFD\x0a");initRightMFD();}
-	if(USEMFD > 1){if(DebugMode | DebugMMode)printf("Initialising Left MFD\x0a");initLeftMFD();}
+	if(USEMFD > 0){if(DebugMode | DebugMMode) printf("Initialising Right MFD\x0a"); initRightMFD();}
+	if(USEMFD > 1){if(DebugMode | DebugMMode) printf("Initialising Left MFD\x0a"); initLeftMFD();}
 
 	// Initiate Led State
-	if(DebugMode | DebugMMode)printf("Initialising LED States\x0a");initLEDStates();
+	if(DebugMode | DebugMMode) printf("Initialising LED States\x0a"); initLEDStates();
 
 	// Initiate Custom & PIP Functions (ED+HCS_Macros_v2.2.tmh)
 	initCustomCommands();
 	
-	if(DebugMode)initPrintState();
+	if(DebugMode) initPrintState();
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.2.03.3b----2017/02/03------------------------\x0a");
+	printf("--------------------------V2.2.03.3b----2017/02/04------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -325,7 +325,7 @@ int main()
 //		MapKey(&RMFD, BRTD, 0);
 //		MapKey(&RMFD, CONU, 0);
 //		MapKey(&RMFD, COND, 0);
-		if(DebugMode)printf("...Done\x0a");
+		if(DebugMode) printf("...Done\x0a");
 	}
 	
 	//Set Left MFD
@@ -356,7 +356,7 @@ int main()
 //		MapKey(&LMFD, BRTD, 0);
 //		MapKey(&LMFD, CONU, 0);
 //		MapKey(&LMFD, COND, 0);
-		if(DebugMode)printf("...Done\x0a");
+		if(DebugMode) printf("...Done\x0a");
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
