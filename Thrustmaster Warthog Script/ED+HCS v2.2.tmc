@@ -379,7 +379,7 @@ int EventHandle(int type, alias o, int x)
 	// Throttle: LED On-The-FLy Backlight Control
 	if(&o == &Throttle & x == THR_FC & Joystick[S3]){
 		vThrottleLightBackup = (AxisVal(Throttle[THR_FC], &axdata) - 32766) / 256 * -1;	//HOLD S3 on Joystick & Move Friction Control Axis
-		ActKey(PULSE+KEYON+LED (&Throttle, LED_INTENSITY, vThrottleLightBackup));
+		initBACKLIGHT(Throttle_BL, vThrottleLightBackup);
 	}
 	
 	// Combine rudder toe brakes into new axis, mapped to DX_THROTTLE_AXIS

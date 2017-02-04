@@ -88,6 +88,7 @@
 	//TOGGLE: Supecruise On Throttle Mode
 	int initToggleSuperCruiseMode(){
 		SupecruiseOnThrottle=!SupecruiseOnThrottle;
+		initThrottleAxis();
 		initLED(SupecruiseOnThrottle_LED, SupecruiseOnThrottle);
 		if(DebugMode | DebugMMode) printf("Supecruise On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SupecruiseOnThrottle);
 	}
