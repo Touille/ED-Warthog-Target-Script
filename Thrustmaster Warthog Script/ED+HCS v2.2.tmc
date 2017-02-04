@@ -192,17 +192,17 @@ int main()
 	MapKeyIO(&Throttle, MSR, TEMPO(PULSE+FighterHoldFire, PULSE+FighterAggressive, LongPressDelay), PULSE+SelectWingman3);										// RIGHT
 	
 	//	-------------------------Coolie Hat Switch	
-	MapKeyIO(&Throttle, CSU, EXEC("TrimDXAxis(DX_X_AXIS, CURRENT);TrimDXAxis(DX_Y_AXIS, CURRENT);"), ThrustUp);		// UP
-	MapKeyIO(&Throttle, CSD, EXEC("TrimDXAxis(DX_X_AXIS, SET(0));TrimDXAxis(DX_Y_AXIS, SET(0));"), ThrustDown);		// DOWN
-	MapKey(&Throttle, CSL, ThrustLeft);																				// LEFT
-	MapKey(&Throttle, CSR, ThrustRight);																			// RIGHT
+	MapKeyIO(&Throttle, CSU, TEMPO(EXEC("TrimDXAxis(DX_Y_AXIS, - Trim_INC);"), EXEC("TrimDXAxis(DX_X_AXIS, CURRENT);TrimDXAxis(DX_Y_AXIS, CURRENT);"), LongPressDelay),   ThrustUp);		// UP
+	MapKeyIO(&Throttle, CSD, TEMPO(EXEC("TrimDXAxis(DX_Y_AXIS,   Trim_INC);"), EXEC("TrimDXAxis(DX_X_AXIS, SET(0));TrimDXAxis(DX_Y_AXIS, SET(0));"),   LongPressDelay), ThrustDown);		// DOWN
+	MapKeyIO(&Throttle, CSL, EXEC("TrimDXAxis(DX_X_AXIS, -Trim_INC);"),  ThrustLeft);																				// LEFT
+	MapKeyIO(&Throttle, CSR, EXEC("TrimDXAxis(DX_X_AXIS,  Trim_INC);"), ThrustRight);																			// RIGHT
 
 //--THROTTLE ARM SWITCH-----------------------------------------------------------------------------------------------------------------------------------------//
 
 	//	-------------------------Speedbrake
 	MapKey  (&Throttle, SPDF, TEMPO(EXEC("initFrameShiftDrive();"), EXEC("initSystemJump();"), ExtraPressDelay));												// Switch FORWARD
 //	MapKey  (&Throttle, SPDM, 0);																																// Switch MIDDLE	
-	MapKeyIO(&Throttle, SPDB,  EXEC("initToggleSuperCruiseMode();"), TEMPO(EXEC("initThrottleBoost();"), EXEC("initSuperCruise();"), LongPressDelay));			// Switch BACK HOLD
+	MapKeyIO(&Throttle, SPDB, EXEC("initToggleSuperCruiseMode();"), TEMPO(EXEC("initThrottleBoost();"), EXEC("initSuperCruise();"), LongPressDelay));			// Switch BACK HOLD
 
 	//	-------------------------Boat Switch
 	MapKey(&Throttle, BSF, PULSE+GalaxyMap);																		// Switch FORWARD

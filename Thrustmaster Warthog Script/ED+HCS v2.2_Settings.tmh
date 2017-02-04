@@ -105,6 +105,7 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	int FAOffCurve					= 2 ;		//Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
+	int Trim_INC					= 20 ;		//Trim Incrementation : The trim provides 2048 values (+/- 1024) to cover the full axis range.
 	
 	//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
 	
