@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3R 2017/02/05
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.4b 2017/02/05
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
