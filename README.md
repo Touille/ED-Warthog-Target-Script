@@ -55,7 +55,7 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 - [x] HMD / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity.
 - [ ] Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction (if misaligned with game states just switch (it's should work) Or Press S3 + Switch)
 - [x] Easy Debug Msg OFF (Debugmode OFF (0) Or ON (1) In Settings File)
-- [x] Supercruise On Throttle when boosting if throttle at 100%. (Can be switched ON/OFF On The Fly). If you use Hardware Afterburner Detent, it's even better: you don't need to push boosting key, you just need to pass detent to supercruise.
+- [ ] Supercruise On Throttle when throttle > 99% (Can be switched ON/OFF On The Fly, Disable by default). If you use Hardware Afterburner Detent you need to pass detent to supercruise.
 - [x] Game Menu Up on Idle Throttle states. (Off by Default)
 - [x] Secure Retract Mode : Automatic Retract of Hardpoint Gear and cargo  when engaging Escape Fight Mode, Supercruise, FrameshiftDrive,...
 - [x] Dual stage trigger Combined Fire on Triger 1 to allow combined Primary & Secondary fire or for the trigger to be separated to Primary fire only. Can be switched ON/OFF On The Fly

@@ -219,8 +219,25 @@
 		}
 	}
 
+	//FUNCTION: Engine Boost
+	int initThrottleBoost(){
+//		if(OptimalPIPMode){
+//			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
+//			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
+//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
+//		}
+		initSecureRectract();
+		ActKey(KEYON+PULSE+EngineBoost);
+		if(DebugMode | DebugMMode) printf("Engine Boost\x0a");
+	}
+
 	//FUNCTION: Init Supercruise
 	int initSuperCruise(){
+//		if(OptimalPIPMode){
+//			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
+//			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
+//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
+//		}	
 		initSecureRectract();
 		ActKey(KEYON+PULSE+Supercruise);
 		if(DebugMode | DebugMMode) printf("Engage SuperCruise\x0a");
@@ -228,6 +245,11 @@
 	
 	//FUNCTION: Init FrameShiftDrive
 	int initFrameShiftDrive(){
+//		if(OptimalPIPMode){
+//			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
+//			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
+//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
+//		}	
 		initSecureRectract();
 		ActKey(KEYON+PULSE+FrameShiftDrive);
 		if(DebugMode | DebugMMode) printf("Engage FSD\x0a");
@@ -248,24 +270,6 @@
 		}
 	}
 	
-	//FUNCTION: Engine Boost Or Use Supercruise while boosting if Throttle is 100%
-	int initThrottleBoost(){
-//		if(OptimalPIPMode){
-//			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
-//			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
-//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
-//		}
-		if(SupecruiseOnThrottle & AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){	//Throttle All the Way Up & SupecruiseOnThrottle is Actived?
-			initSecureRectract();
-			ActKey(KEYON+PULSE+Supercruise);
-			if(DebugMode | DebugMMode) printf("SuperCruise On Throttle Engaged\x0a");
-		}
-		else{
-			ActKey(KEYON+PULSE+EngineBoost);
-			if(DebugMode | DebugMMode) printf("Engine Boost\x0a");
-		}
-	}
-
 	//FUNCTION: SystemJump
 	int initSystemJump(){
 		if(!SecureRetract & (sHardPoints | sCargo | sGears))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed

@@ -88,11 +88,12 @@
 	//TOGGLE: Supecruise On Throttle Mode
 	int initToggleSuperCruiseMode(){
 		SupecruiseOnThrottle=!SupecruiseOnThrottle;
-
-		//If Hardware AfetrBurner Detent is used and SuperCruise On Throttle is enable, we don't need to push button to engage Supercruise : we just push up Throttle pass detent :)
-		if(SupecruiseOnThrottle & AfterburnerDetent) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,80,100), PULSE+Supercruise, 0));
-		else                                         KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0), 0, 0));		
-		
+		//If No Hardware AfetrBurner Detent & SupecruiseOnThrottle Enable SuperCruise if Throttle > 99% axis
+		if     (SupecruiseOnThrottle & !AfterburnerDetent) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,99,100), EXEC("initSecureRectract();ActKey(KEYON+PULSE+Supercruise);"), 0));
+		//If Hardware AfetrBurner Detent  & SupecruiseOnThrottle Enable SuperCruise if Throttle > 80% axis
+		else if(SupecruiseOnThrottle &  AfterburnerDetent) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,80,100), EXEC("initSecureRectract();ActKey(KEYON+PULSE+Supercruise);"), 0));
+		//Do nothing on axis
+		else                                               KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0), 0, 0));
 		initLED(SupecruiseOnThrottle_LED, SupecruiseOnThrottle);
 		if(DebugMode | DebugMMode) printf("Supecruise On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SupecruiseOnThrottle);
 	}

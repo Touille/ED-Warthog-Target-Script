@@ -29,8 +29,7 @@
 
 //	-------------------------INITIALISATION OF LED & THROTTLE BACKLIGHT
 	int initLEDStates(){
-	
-		
+
 		if(HMD){	//Initiate Throttle Backlight with HMD
 			vThrottleLightBackup = ThrottleLightHMD;
 			initBACKLIGHT(Throttle_BL, ThrottleLightHMD);
