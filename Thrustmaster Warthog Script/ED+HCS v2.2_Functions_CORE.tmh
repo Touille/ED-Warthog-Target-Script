@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.3b	2017/02
+//	V2.2.03.3R	2017/02
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -96,22 +96,22 @@
 		if(j != vOptimalPIP){	// Send Good Backup PIPS only if previous PIP Swith is != of Backuped Value
 			//if(DebugMode){printf("Reset PIP ?: PIPRestore [%d] vOptimalPIP [%d]\x0a", j, vOptimalPIP);}
 			if(DebugMode) printf("Restore Previous PIP [%d] (preset PIP 1-12)\x0a",j);
-			if     (j == 0) initPIPPower();             //2 SYS 2 ENG 2 WEP (0)
-			else if(j == 1) initPIPPower(ENG,SYS);      //4 ENG	2 SYS (1)
-			else if(j == 2) initPIPPower(ENG,WEP);      //4 ENG 2 WEP (2)
-			else if(j == 3) initPIPPower(SYS,ENG);      //4 SYS 2 ENG (3)
-			else if(j == 4) initPIPPower(SYS,WEP);      //4 SYS 2 WEP (4)
-			else if(j == 5) initPIPPower(WEP,ENG);      //4 WEP 2 ENG (5)
-			else if(j == 6) initPIPPower(WEP,SYS);      //4 WEP 2 SYS (6)
-			else if(j == 7) initPIPPower(SYS,ENG,MID);  //3 SYS 3 ENG (7)
-			else if(j == 8) initPIPPower(ENG,WEP,MID);  //3 ENG 3 WEP (8)
-			else if(j == 9) initPIPPower(SYS,WEP,MID);  //3 SYS 3 WEP (9)	
-			else if(j == 10)initPIPPower(SYS);          //4 SYS 1 ENG 1 WEP (10)
-			else if(j == 11)initPIPPower(ENG);          //4 ENG 1 SYS 1 WEP (11)
-			else if(j == 12)initPIPPower(WEP);          //4 WEP 1 SYS 1 ENG (12)
+			if     (j == 0)  initPIPPower();             //2 SYS 2 ENG 2 WEP (0)
+			else if(j == 1)  initPIPPower(ENG,SYS);      //4 ENG	2 SYS (1)
+			else if(j == 2)  initPIPPower(ENG,WEP);      //4 ENG 2 WEP (2)
+			else if(j == 3)  initPIPPower(SYS,ENG);      //4 SYS 2 ENG (3)
+			else if(j == 4)  initPIPPower(SYS,WEP);      //4 SYS 2 WEP (4)
+			else if(j == 5)  initPIPPower(WEP,ENG);      //4 WEP 2 ENG (5)
+			else if(j == 6)  initPIPPower(WEP,SYS);      //4 WEP 2 SYS (6)
+			else if(j == 7)  initPIPPower(SYS,ENG,MID);  //3 SYS 3 ENG (7)
+			else if(j == 8)  initPIPPower(ENG,WEP,MID);  //3 ENG 3 WEP (8)
+			else if(j == 9)  initPIPPower(SYS,WEP,MID);  //3 SYS 3 WEP (9)	
+			else if(j == 10) initPIPPower(SYS);          //4 SYS 1 ENG 1 WEP (10)
+			else if(j == 11) initPIPPower(ENG);          //4 ENG 1 SYS 1 WEP (11)
+			else if(j == 12) initPIPPower(WEP);          //4 WEP 1 SYS 1 ENG (12)
 		}
 		else{
-			//if(DebugMode) printf("This PIP is Already OK	[%d]\x0a", vOptimalPIP);	
+			//if(DebugMode)printf("This PIP is Already OK	[%d]\x0a", vOptimalPIP);	
 		}
 	}
 	
@@ -146,7 +146,7 @@
 				if(DebugMode) printf("Shut Down Silent Runing\x0a");
 				initToggleSilentRuning();
 			}
-			if(HardPointsonFireGameMode & !sHardPoints){initToggleHardpoints();}	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
+			if(HardPointsonFireGameMode & !sHardPoints) initToggleHardpoints();	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
 			if(OptimalPIPMode & !sExplorerMode){	//Backup Actual PIP Mode
 				initBackupPIPPower(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
 				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
@@ -158,10 +158,8 @@
 		initSecondaryFire();
 		
 		if(!Joystick[TG1] & !Joystick[S2]){
-			if(OptimalPIPMode & !sExplorerMode){	//Restore Previous PIP Mode	
-				initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
-			}
-			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !sExplorerMode){initToggleHardpoints();}//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
+			if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
+			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !sExplorerMode) initToggleHardpoints();//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
 			if(vSilentRuningBackup!=0){	//Restore Silent Runing if it was running before fire
 				vSilentRuningBackup = 0;
 				if(DebugMode) printf("Restore Silent Runing\x0a");				
@@ -184,7 +182,7 @@
 				DeferCall(TG1ScanDelay, &ActKey, KEYON+UP+PrimaryFire);
 				//if(DebugMode) printf("TG1 Up ExplorerMode\x0a");
 			}
-			else{ActKey(KEYON+UP+PrimaryFire);}	//if(DebugMode) printf("TG1 Up\x0a");
+			else ActKey(KEYON+UP+PrimaryFire);	//if(DebugMode) printf("TG1 Up\x0a");
 			vPrimaryFire=!vPrimaryFire;
 		}
 	}
@@ -201,7 +199,7 @@
 				DeferCall(S2ScanDelay, &ActKey, KEYON+UP+SecondaryFire);
 				//if(DebugMode) printf("S2  Up ExplorerMode\x0a");
 			}
-			else{ActKey(KEYON+UP+SecondaryFire);}	//if(DebugMode) printf("S2  Up\x0a");
+			else ActKey(KEYON+UP+SecondaryFire);	//if(DebugMode) printf("S2  Up\x0a");
 			vSecondaryFire=!vSecondaryFire;
 		}
 	}
@@ -211,13 +209,35 @@
 	//FUNCTION: Jettison All Cargo	
 	int initJettisonCargo(){
 		if(Throttle[APUON]){
-			if(sCargo){ActKey(KEYON+PULSE+JettisonAllCargo);if(DebugMode | DebugMMode) printf("Jettison All Cargo\x0a");}
-			else { if(DebugMode | DebugMMode) printf("Jettison Need Cargo Scoop Open\x0a");}
+			if(sCargo){
+				ActKey(KEYON+PULSE+JettisonAllCargo);
+				if(DebugMode | DebugMMode) printf("Jettison All Cargo\x0a");
+			}
+			else{
+				if(DebugMode | DebugMMode) printf("Jettison Need Cargo Scoop Open\x0a");
+			}
 		}
+	}
+
+	//FUNCTION: Engine Boost
+	int initThrottleBoost(){
+//		if(OptimalPIPMode){
+//			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
+//			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
+//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
+//		}
+		initSecureRectract();
+		ActKey(KEYON+PULSE+EngineBoost);
+		if(DebugMode | DebugMMode) printf("Engine Boost\x0a");
 	}
 
 	//FUNCTION: Init Supercruise
 	int initSuperCruise(){
+//		if(OptimalPIPMode){
+//			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
+//			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
+//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
+//		}	
 		initSecureRectract();
 		ActKey(KEYON+PULSE+Supercruise);
 		if(DebugMode | DebugMMode) printf("Engage SuperCruise\x0a");
@@ -225,6 +245,11 @@
 	
 	//FUNCTION: Init FrameShiftDrive
 	int initFrameShiftDrive(){
+//		if(OptimalPIPMode){
+//			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
+//			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
+//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
+//		}	
 		initSecureRectract();
 		ActKey(KEYON+PULSE+FrameShiftDrive);
 		if(DebugMode | DebugMMode) printf("Engage FSD\x0a");
@@ -238,37 +263,19 @@
 	int initSecureRectract(){
 		if(SecureRetract & (sHardPoints | sCargo | sGears)){	//only if SecureRetract is ON & HardPoints or C Scoop Or L Gears is Deployed
 			vSecureEscapeFight=!vSecureEscapeFight;
-			if(sHardPoints)initToggleHardpoints();
-			if(sGears)     initToggleLandingGear();
-			if(sCargo)     initToggleCargoScoop();
+			if(sHardPoints) initToggleHardpoints();
+			if(sGears)      initToggleLandingGear();
+			if(sCargo)      initToggleCargoScoop();
 			vSecureEscapeFight=!vSecureEscapeFight;
 		}
 	}
 	
-	//FUNCTION: Engine Boost Or Use Supercruise while boosting if Throttle is 100%
-	int initThrottleBoost(){
-//		if(OptimalPIPMode){
-//			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
-//			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
-//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
-//		}
-		if(SupecruiseOnThrottle & AxisVal(Throttle[THR_RIGHT], &axdata) >= 32767){	//Throttle All the Way Up & SupecruiseOnThrottle is Actived?
-			initSecureRectract();
-			ActKey(KEYON+PULSE+Supercruise);
-			if(DebugMode | DebugMMode) printf("SuperCruise On Throttle Engaged\x0a");
-		}
-		else{
-			ActKey(KEYON+PULSE+EngineBoost);
-			if(DebugMode | DebugMMode) printf("Engine Boost\x0a");
-		}
-	}
-
 	//FUNCTION: SystemJump
 	int initSystemJump(){
 		if(!SecureRetract & (sHardPoints | sCargo | sGears))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
 		else{
 			initSecureRectract();
-			if(OptimalPIPMode){initPIPPower(ENG, SYS);}	//4 ENG	2 SYS (1)
+			if(OptimalPIPMode) initPIPPower(ENG, SYS);	//4 ENG	2 SYS (1)
 			ActKey(KEYON+PULSE+mSystemJump);
 			if(DebugMode | DebugMMode) printf("Engage System Jump\x0a");
 		}
@@ -282,7 +289,7 @@
 		DeferCall(11000, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, 250);"));	//Throttle BackLigtt Flashing OFF, we need to Send it again to toggle the flag and stop the flashing
 		//END OF TEST
 		if(!SecureRetract){	//if SecureRetract is Disable
-			if(DebugMode | DebugMMode){printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");}
+			if(DebugMode) printf("Secure Retract was OFF we switch it to ON for 2 sec for Escaping Fight\x0a");
 			SecureRetract=!SecureRetract;	//we Enable it
 			DeferCall(2000, &ActKey, KEYON+PULSE+EXEC("SecureRetract=!SecureRetract;")); //Then we Disable it after the initSecureRectract() below is done (2s should be ok)
 		}
@@ -300,19 +307,17 @@
 		ActKey(KEYON+PULSE+mEscapeFight);
 		if(sSilentRuning){		//Disable Silent Runing previouly Enable
 			DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));
-			if(vSLonEscapeFight){
-				DeferCall(5000, &ActKey, KEYON+PULSE+EXEC("vSLonEscapeFight=!vSLonEscapeFight;"));
-			}
+			if(vSLonEscapeFight) DeferCall(5000, &ActKey, KEYON+PULSE+EXEC("vSLonEscapeFight=!vSLonEscapeFight;"));
 		}
 		if(DebugMode | DebugMMode) printf("Escape Mode Engaged : CHECK IF GEARS AND CARGO STATE IS OK (SWITCH CS and LG) \x0a");
 	}
 
 	//FUNCTION: Request Docking
 	int initRCDocking(){
-		if(DebugMode) printf("Docking Initialisation\x0a");
+		if(DebugMode | DebugMMode) printf("Docking Initialisation\x0a");
 		initSecureRectract();
 		ActKey(KEYON+PULSE+mRequestCancelDock);
-		if(OptimalPIPMode){DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));}	//4 SYS 2 ENG (3)
+		if(OptimalPIPMode) DeferCall(3000, &ActKey, KEYON+PULSE+EXEC("initPIPPower(SYS, ENG);"));	//4 SYS 2 ENG (3)
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -323,14 +328,23 @@
 	int initFPSCONNECTION(){
 		ActKey(KEYON+PULSE+ShowFramerate);
 		ActKey(KEYON+PULSE+ShowConnectionStatus);
-		if(DebugMode)printf("FPS & CONNECTION STATUS\x0a");
+		if(DebugMode) printf("FPS & CONNECTION STATUS\x0a");
 	}
 	
 	//FUNCTION: Head Center
 	int initHeadCenter(){
-		if     (HMD)    {ActKey(KEYON+PULSE+HMDCenter); if(DebugMode)printf("HMD Center\x0a");}
-		else if(TrackIR){ActKey(KEYON+PULSE+TrackIRCenter); if(DebugMode)printf("TrackIR Center\x0a");}
-		else            {ActKey(KEYON+PULSE+UIFocus); if(DebugMode)printf("UI Focus\x0a");}
+		if(HMD){
+			ActKey(KEYON+PULSE+HMDCenter);
+			if(DebugMode) printf("HMD Center\x0a");
+		}
+		else if(TrackIR){
+			ActKey(KEYON+PULSE+TrackIRCenter);
+			if(DebugMode) printf("TrackIR Center\x0a");
+		}
+		else{
+			ActKey(KEYON+PULSE+UIFocus);
+			if(DebugMode) printf("UI Focus\x0a");
+		}
 	}
 	
 	//FUNCTION: Capture Video
@@ -339,15 +353,17 @@
 			sNVidiaCaptureVideo=!sNVidiaCaptureVideo;
 			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
 			initLED(NVidiaCaptureVideo_LED, sNVidiaCaptureVideo, 500);
-			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
+			if(DebugMode | DebugMMode) printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
 		}
 		else if(GFXVideo == 2){	//AMD Relive
 			sAMDCaptureVideo=!sAMDCaptureVideo;
 			ActKey(KEYON+PULSE+AMDCaptureVideo);
 			initLED(AMDCaptureVideo_LED, sAMDCaptureVideo, 500);
-			if(DebugMode | DebugMMode)printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
+			if(DebugMode | DebugMMode) printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
 		}
-		else { if(DebugMode | DebugMMode)printf("No Software selected for Capture Video\x0a");}	//None
+		else{
+			if(DebugMode | DebugMMode) printf("No Software selected for Capture Video\x0a");	//None
+		}
 	}
 
 	//FUNCTION: Streaming Video
@@ -356,15 +372,17 @@
 			sNVidiaStreaming=!sNVidiaStreaming;
 			ActKey(KEYON+PULSE+NVidiaStreaming);
 			initLED(NVidiaStreaming_LED, sNVidiaStreaming, 250);
-			if(DebugMode | DebugMMode)printf("NVidia ShadowPlay Streaming [%d]\x0a", sNVidiaStreaming);
+			if(DebugMode | DebugMMode) printf("NVidia ShadowPlay Streaming [%d]\x0a", sNVidiaStreaming);
 		}
 		else if(GFXVideo == 2){	//AMD Relive
 			sAMDStreaming=!sAMDStreaming;
 			ActKey(KEYON+PULSE+AMDStreaming);
 			initLED(AMDStreaming_LED, sAMDStreaming, 250);
-			if(DebugMode | DebugMMode)printf("AMD Relive Streaming [%d]\x0a", sAMDStreaming);
+			if(DebugMode | DebugMMode) printf("AMD Relive Streaming [%d]\x0a", sAMDStreaming);
 		}
-		else { if(DebugMode | DebugMMode)printf("No Software selected for Streaming\x0a");}	//None
+		else{
+			if(DebugMode | DebugMMode) printf("No Software selected for Streaming Video\x0a");	//None
+		}
 	}
 
 	//FUNCTION: Screenshot
@@ -375,12 +393,12 @@
 			//	if(DebugMode)printf("HD Screenshot\x0a");
 			//}else{
 				ActKey(KEYON+PULSE+Screenshot);
-				if(DebugMode | DebugMMode)printf("Screenshot\x0a");
+				if(DebugMode | DebugMMode) printf("Screenshot\x0a");
 			//}
 		}
 		else{
 			ActKey(KEYON+PULSE+TakeSteamScreenshot);
-			if(DebugMode | DebugMMode)printf("Steam Screenshot\x0a");
+			if(DebugMode | DebugMMode) printf("Steam Screenshot\x0a");
 		}
 	}
 	
@@ -395,7 +413,7 @@
 				ActKey(KEYON+PULSE+vPTT);
 				if(DebugMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] [HOLD:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
 			}
-			else{ActKey(KEYON+DOWN+vPTT);}	//Talk [HOLD]
+			else ActKey(KEYON+DOWN+vPTT);	//Talk [HOLD]
 		}
 		if(!Throttle[MSP] & !sPTTMode){	//Silence [HOLD]
 			vVoicePTT=!vVoicePTT;

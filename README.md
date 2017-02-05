@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3b 2017/02/02
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.3R 2017/02/05
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -55,7 +55,7 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 - [x] HMD / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity.
 - [ ] Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction (if misaligned with game states just switch (it's should work) Or Press S3 + Switch)
 - [x] Easy Debug Msg OFF (Debugmode OFF (0) Or ON (1) In Settings File)
-- [x] Supercruise On Throttle when boosting if throttle at 100%. (Can be switched ON/OFF On The Fly)
+- [ ] Supercruise On Throttle when throttle > 99% (Can be switched ON/OFF On The Fly, Disable by default). If you use Hardware Afterburner Detent you need to pass detent to supercruise.
 - [x] Game Menu Up on Idle Throttle states. (Off by Default)
 - [x] Secure Retract Mode : Automatic Retract of Hardpoint Gear and cargo  when engaging Escape Fight Mode, Supercruise, FrameshiftDrive,...
 - [x] Dual stage trigger Combined Fire on Triger 1 to allow combined Primary & Secondary fire or for the trigger to be separated to Primary fire only. Can be switched ON/OFF On The Fly
@@ -95,6 +95,8 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 - [x] 3 Joystick Curve Switchable On The Fly (Slew stick is include in this function) Switch In Game With Throttle FLAPS
 - [x] 2 Throttle Curve Switchable On The Fly (normal & precison). Can be switched On & Off On The Fly (S3 (Joystick Nosewhell Steering Button) + Press RED Button on Throttle Arm)
 - [x] Enhanced Joystick Curves tailored for Flight Assist Off (Joystick Curve will return to previous state when FAON is release)
+- [ ] Support Joystick Axis trimming :  memorize the X and Y axis position and calculate the difference to the
+center of the axis, and then  apply it to the X and Y axis (Throttle Coolie Switch [S3]UP to engage, [S3]DOWN to reset : Check Chart) OR Trim Old Way with Offset you can chose in Setting (Trim_INC)(Check Throttle Chart)
 
 ### AUTOPILOT MODE:
 
