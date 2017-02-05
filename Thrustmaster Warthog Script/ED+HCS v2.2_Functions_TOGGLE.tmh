@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.3b	2017/02
+//	V2.2.03.3R	2017/02
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -88,11 +88,11 @@
 	//TOGGLE: Supecruise On Throttle Mode
 	int initToggleSuperCruiseMode(){
 		SupecruiseOnThrottle=!SupecruiseOnThrottle;
-		//If No Hardware AfetrBurner Detent & SupecruiseOnThrottle Enable SuperCruise if Throttle > 99% axis
+		//If No Hardware AfetrBurner Detent & SupecruiseOnThrottle is Enable : SuperCruise if Throttle > 99% axis
 		if     (SupecruiseOnThrottle & !AfterburnerDetent) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,99,100), EXEC("initSecureRectract();ActKey(KEYON+PULSE+Supercruise);"), 0));
-		//If Hardware AfetrBurner Detent  & SupecruiseOnThrottle Enable SuperCruise if Throttle > 80% axis
+		//If Hardware AfetrBurner Detent  & SupecruiseOnThrottle is Enable : SuperCruise if Throttle > 80% axis
 		else if(SupecruiseOnThrottle &  AfterburnerDetent) KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0,80,100), EXEC("initSecureRectract();ActKey(KEYON+PULSE+Supercruise);"), 0));
-		//Do nothing on axis
+		//If SupecruiseOnThrottle is Disable : Do nothing on axis
 		else                                               KeyAxis(&Throttle, THR_RIGHT, 0, AXMAP1(LIST(0), 0, 0));
 		initLED(SupecruiseOnThrottle_LED, SupecruiseOnThrottle);
 		if(DebugMode | DebugMMode) printf("Supecruise On Throttle	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", SupecruiseOnThrottle);
