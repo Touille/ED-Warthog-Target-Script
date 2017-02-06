@@ -12,7 +12,7 @@
 ### INSTALATION:
 
 * The Warthog Script can be run from any location. All files from __Thrustmaster Warthog Script__ folder need to be in the same folder.
-* Copy the Elite Dangerous Binds Profile __ED+HCS V2.2.03.3b.1.8.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
+* Copy the Elite Dangerous Binds Profile __ED+HCS V2.X.X.XX.1.8.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
 ```
 \Users\<User>\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
 ```

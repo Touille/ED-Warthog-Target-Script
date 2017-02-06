@@ -39,40 +39,41 @@
 	define Rudders				0	//[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
 	define USEMFD				0	//If you have one MFD, set this to [1] (Right MFD). If you have two MFDs, set it to [2] (Right & Left MFD). (Mapkey For MFD not configured yet), Else [0]
 	
-	define HMD					1	//If HMD set to [1] (and set TrackIR to 0)
-	define TrackIR				0	//If TrackIR set to [1] (and set HMD to 0)
+	define HMD					1	//If you use HMD set to [1] (and set TrackIR to 0), Else [0]
+	define TrackIR				0	//If you use TrackIR set to [1] (and set HMD to 0), Else [0]
 	define VoiceAttack			1	//If VoiceAttack Used set to [1] : IF set to [1], Engine Operate Ign/Norm Left Down (Throttle) Toggle VA Mic, Else [0]
 	
-	define CenterJoystickMount	0	//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position Select angle below
-	define JoystickAngle		0	//Joystick Axis Rotation ° (if you use Joystick center mounting [-15] should be a "good" default value, else left it at 0)
+	define CenterJoystickMount	0	//[0] Default Axis / [1] to Rotate Joystick Axis account for center mounting position : Select angle below (JoystickAngle)
+	define JoystickAngle		0	//Joystick Axis Rotation ° (if you use Joystick center mounting, [-15] should be a "good" default value, else left it at 0)
 	
 	define GFXVideo				0	//If you use Nvidia Shadowplay Set to [1] If you use AMD Relive Set to [2] If you use None Set to [0]
 	define UseSteamScreenshot	0	//If you want to use Steam to take Screenshot instead of ED Set it to [1] AND Map L_ALT+F12 (instead of F12) to your Steam ScreenShot Key : Steam -> Settings -> In-Game
 									//Notice that apply, only, on normal screenshot (HD one Still be ED), Else [0]
 
 	define GameMenuOnIDLE		0	//Game Menu on Throttle Hardware IDLE State [1] to Enable it [0] to disable it
-	define AfterburnerDetent	0	//Set to [1] if you use Hardware throttle Afterburner Detent You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){...., Else [0]
+	define AfterburnerDetent	0	//Set to [1] if you use Hardware throttle Afterburner Detent. You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){...., Else [0]
+									//That option change Throttle Curve and how SupercruiseOnThrottle work(Instead of 99%(hardware) throotle to engage supercruise it will reduce to 80%(hardware), around the hardware detent)
 	
 	define ExploreModeFire		0	//Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
 									//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with TG1ScanDelay and S2ScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	------------Default States--------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
-//	Note :		int : "=(Value);" with ";" at the END of the Line																								//
+//	Note :		int : "= (Value ;" with ";" at the END of the Line																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//Throttle Engine Operate Ign/Norm Right UP
 	int OptimalPIPMode				= 1 ;		//Automatic PIP Mode: When Hardpoint is Up or Down / When Escape Fight / When Fire...			[S]
 	int StopFireRetractHardpoints	= 0 ;		//Stop Firing Retract Hardpoints Only if HardPointsonFireGameMode is Set to 1					[L]
-	int SecureRetract				= 1 ;		//Automatic Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump		[S3]+[S]
-	int sRCorrection				= 1 ;		//Rotational Correction	[OFF:0, ON:1]															[S3]+[L]
+	int SecureRetract				= 1 ;		//Automatic Rectract Landing Gear, Cargo Scoop and Hardpoints for Escape Fight, System Jump,...	[S3]+[S]
+	int sRCorrection				= 1 ;		//Rotational Correction	[OFF:0, ON:1] (FA Joystick curve change only if Rcorrection is enable)	[S3]+[L]
 	
 	//Throttle Engine Operate Ign/Norm Left UP
 	int sPTTState					= 0 ;		//Internal / External Mic	[External:[0] Internal:[1]]		[S3]+[S]
 	int sPTTMode					= 1 ;		//PTT Or PTP 				[HOLD:[0] TOGGLE:[1]]			[S3]+[L]
 	
 	//Throttle Arm Speedbrake BACK
-	int SupecruiseOnThrottle		= 0 ;		//Supercruise if Boost when Throttle > 99%		[S3]
+	int SupecruiseOnThrottle		= 0 ;		//Supercruise if Boost when Throttle > 99%(hardware) (or 80%(hardware) if AfterburnerDetent is set to [1])	[S3]
 
 	//Joystick Data Management Switch UP (DMS) Effect Apply only if SilentRuningGameMode is Set to [1]
 	int SilentRuningOFFonFire		= 1 ;		//initToggleSilentRuningOFFonFire()	Silent Runing OFF when Fire [1] Stay ON When Fire {0]}		[S]
@@ -120,12 +121,12 @@
 	define SL_DEADZONE 1					//Set the SL Deadzone.. use the Device Analyzer to validate
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	LED SETTINGS (29)																																				//
+//	LED SETTINGS (29)																																			//
 //	Note :		define : no ";" at the END of the Line																											//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//	--LED On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 OR MFD LED // 5 LED's MAXIMUM----------------//
-//	--LED On MFD-----------------Put RMFD_LED1, RMFD_LED2 (Right MFD LED's) OR LMFD_LED1, LMFD_LED2 (Left MFD LED's) to select wich one you want.-------------------//
+//	--LED's On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 OR MFD LED // 5 LED's MAXIMUM--------------//
+//	--LED's On MFD-----------------Put RMFD_LED1, RMFD_LED2 (Right MFD LED's) OR LMFD_LED1, LMFD_LED2 (Left MFD LED's) to select wich one you want.-------------//
 
 	define OptimalPIPMode_LED              LED1
 	define SecureRetract_LED               LED2
