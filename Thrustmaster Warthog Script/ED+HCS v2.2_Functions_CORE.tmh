@@ -352,13 +352,13 @@
 		if(GFXVideo == 1){	//Nvidia Shadowplay
 			sNVidiaCaptureVideo=!sNVidiaCaptureVideo;
 			ActKey(KEYON+PULSE+NVidiaCaptureVideo);
-			initLED(NVidiaCaptureVideo_LED, sNVidiaCaptureVideo, 500);
+			initLED(NVidiaCaptureVideo_LED, sNVidiaCaptureVideo);
 			if(DebugMode | DebugMMode) printf("NVidia ShadowPlay Capture Video [%d]\x0a", sNVidiaCaptureVideo);
 		}
 		else if(GFXVideo == 2){	//AMD Relive
 			sAMDCaptureVideo=!sAMDCaptureVideo;
 			ActKey(KEYON+PULSE+AMDCaptureVideo);
-			initLED(AMDCaptureVideo_LED, sAMDCaptureVideo, 500);
+			initLED(AMDCaptureVideo_LED, sAMDCaptureVideo);
 			if(DebugMode | DebugMMode) printf("AMD Relive Capture Video [%d]\x0a", sAMDCaptureVideo);
 		}
 		else{
@@ -371,13 +371,13 @@
 		if(GFXVideo == 1){	//Nvidia Shadowplay
 			sNVidiaStreaming=!sNVidiaStreaming;
 			ActKey(KEYON+PULSE+NVidiaStreaming);
-			initLED(NVidiaStreaming_LED, sNVidiaStreaming, 250);
+			initLED(NVidiaStreaming_LED, sNVidiaStreaming);
 			if(DebugMode | DebugMMode) printf("NVidia ShadowPlay Streaming [%d]\x0a", sNVidiaStreaming);
 		}
 		else if(GFXVideo == 2){	//AMD Relive
 			sAMDStreaming=!sAMDStreaming;
 			ActKey(KEYON+PULSE+AMDStreaming);
-			initLED(AMDStreaming_LED, sAMDStreaming, 250);
+			initLED(AMDStreaming_LED, sAMDStreaming);
 			if(DebugMode | DebugMMode) printf("AMD Relive Streaming [%d]\x0a", sAMDStreaming);
 		}
 		else{
@@ -419,6 +419,6 @@
 			vVoicePTT=!vVoicePTT;
 			ActKey(KEYON+UP+vPTT);
 		}
-		initLED(VoicePTT_LED, vVoicePTT, 500);
+		initLED(VoicePTT_LED, vVoicePTT);
 		if(DebugMode & !sPTTMode) printf("Mic Toggle [%d] [Actived[1] DesActived[0] / PTT [%d] [External:[0]Internal:[1]] / Mode [%d] PUSH:[0] TOGGLE:[1]]\x0a", vVoicePTT, sPTTState, sPTTMode);
 	}	
