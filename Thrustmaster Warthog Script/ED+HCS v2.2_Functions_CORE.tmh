@@ -36,7 +36,7 @@
 		else if(z != MID | z == 0){
 			if(y != 0){
 				if(y == SYS){
-					if     (x == ENG){if(vOptimalPIP != 1){vOptimalPIP = 1; vPIP=!vPIP;}}	//4 ENG	2 SYS (1)
+					if     (x == ENG){if(vOptimalPIP != 1){vOptimalPIP = 1; vPIP=!vPIP;}}	//4 ENG 2 SYS (1)
 					else if(x == WEP){if(vOptimalPIP != 6){vOptimalPIP = 6; vPIP=!vPIP;}}	//4 WEP 2 SYS (6)
 				}
 				else if(y == ENG){
@@ -50,7 +50,7 @@
 			}
 			else if(y == 0){
 				if     (x == SYS){if(vOptimalPIP != 10){vOptimalPIP = 10; vPIP=!vPIP;}}		//4 SYS 1 ENG 1 WEP (10)
-				else if(x == ENG){if(vOptimalPIP != 11){vOptimalPIP = 11; vPIP=!vPIP;}}		//4 ENG 1 SYS 1 WEP (11)
+				else if(x == ENG){if(vOptimalPIP != 11){vOptimalPIP = 11; vPIP=!vPIP;}}		//4 ENG 1 WEP 1 SYS (11)
 				else if(x == WEP){if(vOptimalPIP != 12){vOptimalPIP = 12; vPIP=!vPIP;}}		//4 WEP 1 SYS 1 ENG (12)
 			}
 		}
@@ -236,7 +236,7 @@
 //		if(OptimalPIPMode){
 //			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
 //			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
-//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
+//			DeferCall(10000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
 //		}	
 		initSecureRectract();
 		ActKey(KEYON+PULSE+Supercruise);
@@ -248,7 +248,7 @@
 //		if(OptimalPIPMode){
 //			initBackupPIPPower(OptimalPIPBoostBackup);	//Backup Actual PIP Mode OptimalPIPBoostBackup   (6)
 //			initPIPPower(ENG, SYS);	//4 ENG 2 SYS (1)
-//			DeferCall(2000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
+//			DeferCall(10000, &initRestorePIPPower, vOptimalPIPBoostBackup);	//Restore Previous PIP Mode If vOptimalPIPBoostBackup != 4 ENG 2 SYS (1)
 //		}	
 		initSecureRectract();
 		ActKey(KEYON+PULSE+FrameShiftDrive);

@@ -137,13 +137,16 @@ int main()
 	//	-------------------------Trim Switch
 	
 	// UP		PIPS[Short: 4xENG 1SYS 1WEP,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP	S3: 3xSYS 3xWEP]
-	MapKeyIO(&Joystick, H1U, EXEC("initPIPPower(SYS,WEP,MID);"),TEMPO(EXEC("initPIPPower(ENG);"), TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));
+//	MapKeyIO(&Joystick, H1U, EXEC("initPIPPower(SYS,WEP,MID);"),TEMPO(EXEC("initPIPPower(ENG);"), TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));
+	MapKeyIO(&Joystick, H1U, PULSE+PowerEng, TEMPO(EXEC("initPIPPower(ENG);"), TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));
 	// DOWN		PIPS[Short: Balance,	Med: Cycle 3xSYS 3xWEP / 3xENG 3xWEP / 3ENG 3xSYS]
 	MapKey  (&Joystick, H1D, TEMPO(EXEC("initPIPPower();"), SEQ(EXEC("initPIPPower(SYS,WEP,MID);"),EXEC("initPIPPower(ENG,WEP,MID);"), EXEC("initPIPPower(ENG,SYS,MID);")), PIPPressDelay));	
 	// LEFT		PIPS[Short: 4xSYS 1ENG 1WEP,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP	S3: 3ENG 3xSYS]
-	MapKeyIO(&Joystick, H1L, EXEC("initPIPPower(SYS,ENG,MID);"),TEMPO(EXEC("initPIPPower(SYS);"), TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));
+//	MapKeyIO(&Joystick, H1L, EXEC("initPIPPower(SYS,ENG,MID);"),TEMPO(EXEC("initPIPPower(SYS);"), TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));
+	MapKeyIO(&Joystick, H1L, PULSE+PowerSys, TEMPO(EXEC("initPIPPower(SYS);"), TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));
 	// RIGHT	PIPS[Short: 4xWEP 1SYS 1ENG,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS	S3: 3xENG 3xWEP]
-	MapKeyIO(&Joystick, H1R, EXEC("initPIPPower(ENG,WEP,MID);"),TEMPO(EXEC("initPIPPower(WEP);"), TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));
+//	MapKeyIO(&Joystick, H1R, EXEC("initPIPPower(ENG,WEP,MID);"),TEMPO(EXEC("initPIPPower(WEP);"), TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));
+	MapKeyIO(&Joystick, H1R, PULSE+PowerWep, TEMPO(EXEC("initPIPPower(WEP);"), TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));
 
 	//	-------------------------Target Management Switch (TMS)
 	MapKey  (&Joystick, H2U, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay));								// UP

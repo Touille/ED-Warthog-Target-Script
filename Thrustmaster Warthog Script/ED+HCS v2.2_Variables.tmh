@@ -93,7 +93,7 @@
 //	--PIP Management--------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	//initPIPPower()
-//	int MCrew;
+//	int M_Crew;
 	int vOptimalPIP;
 	int vPIP;
 	int PIPx, PIPy, PIPz;
