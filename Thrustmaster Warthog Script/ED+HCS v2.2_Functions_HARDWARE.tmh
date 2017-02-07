@@ -129,59 +129,41 @@
 		}
 		
 		//Or Push LED Flashing
-		else if(t!= 0 & ms !=0){	//LED  & Delay Selected in Settings file, Flashing LED
+		else if(t!= 0 & ms !=0){	//LED & Delay Selected in Settings file, Flashing LED
 				
 			//Flashing btw 250ms & 2000ms (2sec)
 			if(ms < 250) ms = 250;
 			else if(ms > 2000) ms = 2000;
 				
-			if(v == 0){	//OFF Flash LED
-
-				//Push LED Flashing OFF
-				if     (t == LED1 & flagHover_T_LED1)     {flagHover_T_LED1=!flagHover_T_LED1; flashing_T_LED1(ms);}
-				else if(t == LED2 & flagHover_T_LED2)     {flagHover_T_LED2=!flagHover_T_LED2; flashing_T_LED2(ms);}
-				else if(t == LED3 & flagHover_T_LED3)     {flagHover_T_LED3=!flagHover_T_LED3; flashing_T_LED3(ms);}
-				else if(t == LED4 & flagHover_T_LED4)     {flagHover_T_LED4=!flagHover_T_LED4; flashing_T_LED4(ms);}
-				else if(t == LED5 & flagHover_T_LED5)     {flagHover_T_LED5=!flagHover_T_LED5; flashing_T_LED5(ms);}
-				else if(t == RMFD_LED1 & flagHover_RMFD_LED1){flagHover_RMFD_LED1=!flagHover_RMFD_LED1;flashing_RMFD_LED1(ms);}
-				else if(t == RMFD_LED2 & flagHover_RMFD_LED2){flagHover_RMFD_LED2=!flagHover_RMFD_LED2;flashing_RMFD_LED2(ms);}
-				else if(t == LMFD_LED1 & flagHover_LMFD_LED1){flagHover_LMFD_LED1=!flagHover_LMFD_LED1;flashing_LMFD_LED1(ms);}
-				else if(t == LMFD_LED2 & flagHover_LMFD_LED2){flagHover_LMFD_LED2=!flagHover_LMFD_LED2;flashing_LMFD_LED2(ms);}
-				else{
-					if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFD_LED1, RMFD_LED2, LMFD_LED1, LMFD_LED2\x0a");
-				}
+			//Push Throttle LED's Flashing ON/OFF
+			if     (t == LED1 & ((v == 0 & flagHover_T_LED1) | (v == 1 & !flagHover_T_LED1))){flagHover_T_LED1=!flagHover_T_LED1; flashing_T_LED1(ms);}
+			else if(t == LED2 & ((v == 0 & flagHover_T_LED2) | (v == 1 & !flagHover_T_LED2))){flagHover_T_LED2=!flagHover_T_LED2; flashing_T_LED2(ms);}
+			else if(t == LED3 & ((v == 0 & flagHover_T_LED3) | (v == 1 & !flagHover_T_LED3))){flagHover_T_LED3=!flagHover_T_LED3; flashing_T_LED3(ms);}
+			else if(t == LED4 & ((v == 0 & flagHover_T_LED4) | (v == 1 & !flagHover_T_LED4))){flagHover_T_LED4=!flagHover_T_LED4; flashing_T_LED4(ms);}
+			else if(t == LED5 & ((v == 0 & flagHover_T_LED5) | (v == 1 & !flagHover_T_LED5))){flagHover_T_LED5=!flagHover_T_LED5; flashing_T_LED5(ms);}
+			//Push MFD LED's Flashing ON/OFF
+			else if(t == RMFD_LED1 & ((v == 0 & flagHover_RMFD_LED1) | (v == 1 & !flagHover_RMFD_LED1))){flagHover_RMFD_LED1=!flagHover_RMFD_LED1; flashing_RMFD_LED1(ms);}
+			else if(t == RMFD_LED2 & ((v == 0 & flagHover_RMFD_LED2) | (v == 1 & !flagHover_RMFD_LED2))){flagHover_RMFD_LED2=!flagHover_RMFD_LED2; flashing_RMFD_LED2(ms);}
+			else if(t == LMFD_LED1 & ((v == 0 & flagHover_LMFD_LED1) | (v == 1 & !flagHover_LMFD_LED1))){flagHover_LMFD_LED1=!flagHover_LMFD_LED1; flashing_LMFD_LED1(ms);}
+			else if(t == LMFD_LED2 & ((v == 0 & flagHover_LMFD_LED2) | (v == 1 & !flagHover_LMFD_LED2))){flagHover_LMFD_LED2=!flagHover_LMFD_LED2; flashing_LMFD_LED2(ms);}
+			else{
+				if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFD_LED1, RMFD_LED2, LMFD_LED1, LMFD_LED2\x0a");
 			}
-			else if(v == 1){	//ON Flash LED
-
-				//Push LED Flashing ON
-				if     (t == LED1 & !flagHover_T_LED1)     {flagHover_T_LED1=!flagHover_T_LED1; flashing_T_LED1(ms);}
-				else if(t == LED2 & !flagHover_T_LED2)     {flagHover_T_LED2=!flagHover_T_LED2; flashing_T_LED2(ms);}
-				else if(t == LED3 & !flagHover_T_LED3)     {flagHover_T_LED3=!flagHover_T_LED3; flashing_T_LED3(ms);}
-				else if(t == LED4 & !flagHover_T_LED4)     {flagHover_T_LED4=!flagHover_T_LED4; flashing_T_LED4(ms);}
-				else if(t == LED5 & !flagHover_T_LED5)     {flagHover_T_LED5=!flagHover_T_LED5; flashing_T_LED5(ms);}
-				else if(t == RMFD_LED1 & !flagHover_RMFD_LED1){flagHover_RMFD_LED1=!flagHover_RMFD_LED1;flashing_RMFD_LED1(ms);}
-				else if(t == RMFD_LED2 & !flagHover_RMFD_LED2){flagHover_RMFD_LED2=!flagHover_RMFD_LED2;flashing_RMFD_LED2(ms);}
-				else if(t == LMFD_LED1 & !flagHover_LMFD_LED1){flagHover_LMFD_LED1=!flagHover_LMFD_LED1;flashing_LMFD_LED1(ms);}
-				else if(t == LMFD_LED2 & !flagHover_LMFD_LED2){flagHover_LMFD_LED2=!flagHover_LMFD_LED2;flashing_LMFD_LED2(ms);}
-				else{
-					if(DebugMode) printf("LED should be LED1, LED2, LED3, LED4, LED5 OR RMFD_LED1, RMFD_LED2, LMFD_LED1, LMFD_LED2\x0a");
-				}
-			}			
 		}
 	}
 
 	//FUNCTIONS: Flashing Throttle LED's (FOR NOW THEY WILL RETURN TO 0 (OFF) STATES : WILL CHECK LATER TO MAKE THEM ON/OFF -> FLASH -> ON/OFF, INSTEAD OF ON/OFF -> FLASH -> OFF)
-	int flashing_T_LED1   (int ms = 0){ if(flagHover_T_LED1 > 0)   {GameOutput(&Throttle, OUT_ID_LED_1, 2);DeferCall(ms, &flashing_T_LED1, ms);} else {GameOutput(&Throttle, OUT_ID_LED_1, 0);}}
-	int flashing_T_LED2   (int ms = 0){ if(flagHover_T_LED2 > 0)   {GameOutput(&Throttle, OUT_ID_LED_2, 2);DeferCall(ms, &flashing_T_LED2, ms);} else {GameOutput(&Throttle, OUT_ID_LED_2, 0);}}
-	int flashing_T_LED3   (int ms = 0){ if(flagHover_T_LED3 > 0)   {GameOutput(&Throttle, OUT_ID_LED_3, 2);DeferCall(ms, &flashing_T_LED3, ms);} else {GameOutput(&Throttle, OUT_ID_LED_3, 0);}}
-	int flashing_T_LED4   (int ms = 0){ if(flagHover_T_LED4 > 0)   {GameOutput(&Throttle, OUT_ID_LED_4, 2);DeferCall(ms, &flashing_T_LED4, ms);} else {GameOutput(&Throttle, OUT_ID_LED_4, 0);}}
-	int flashing_T_LED5   (int ms = 0){ if(flagHover_T_LED5 > 0)   {GameOutput(&Throttle, OUT_ID_LED_5, 2);DeferCall(ms, &flashing_T_LED5, ms);} else {GameOutput(&Throttle, OUT_ID_LED_5, 0);}}
+	int flashing_T_LED1(int ms = 0){if(flagHover_T_LED1 > 0){GameOutput(&Throttle, OUT_ID_LED_1, 2); DeferCall(ms, &flashing_T_LED1, ms);}else GameOutput(&Throttle, OUT_ID_LED_1, 0);}
+	int flashing_T_LED2(int ms = 0){if(flagHover_T_LED2 > 0){GameOutput(&Throttle, OUT_ID_LED_2, 2); DeferCall(ms, &flashing_T_LED2, ms);}else GameOutput(&Throttle, OUT_ID_LED_2, 0);}
+	int flashing_T_LED3(int ms = 0){if(flagHover_T_LED3 > 0){GameOutput(&Throttle, OUT_ID_LED_3, 2); DeferCall(ms, &flashing_T_LED3, ms);}else GameOutput(&Throttle, OUT_ID_LED_3, 0);}
+	int flashing_T_LED4(int ms = 0){if(flagHover_T_LED4 > 0){GameOutput(&Throttle, OUT_ID_LED_4, 2); DeferCall(ms, &flashing_T_LED4, ms);}else GameOutput(&Throttle, OUT_ID_LED_4, 0);}
+	int flashing_T_LED5(int ms = 0){if(flagHover_T_LED5 > 0){GameOutput(&Throttle, OUT_ID_LED_5, 2); DeferCall(ms, &flashing_T_LED5, ms);}else GameOutput(&Throttle, OUT_ID_LED_5, 0);}
 
 	//FUNCTIONS: Flashing MFD's LED's (FOR NOW THEY WILL RETURN TO 0 (OFF) STATES : WILL CHECK LATER TO MAKE THEM ON/OFF -> FLASH -> ON/OFF, INSTEAD OF ON/OFF -> FLASH -> OFF)
-	int flashing_RMFD_LED1(int ms = 0){ if(flagHover_RMFD_LED1 > 0){GameOutput(&RMFD, OUT_ID_LED_1, 2); DeferCall(ms, &flashing_RMFD_LED1, ms);} else {GameOutput(&RMFD, OUT_ID_LED_1, 0);}}
-	int flashing_RMFD_LED2(int ms = 0){ if(flagHover_RMFD_LED2 > 0){GameOutput(&RMFD, OUT_ID_LED_2, 2); DeferCall(ms, &flashing_RMFD_LED2, ms);} else {GameOutput(&RMFD, OUT_ID_LED_2, 0);}}
-	int flashing_LMFD_LED1(int ms = 0){ if(flagHover_LMFD_LED1 > 0){GameOutput(&LMFD, OUT_ID_LED_1, 2); DeferCall(ms, &flashing_LMFD_LED1, ms);} else {GameOutput(&LMFD, OUT_ID_LED_1, 0);}}
-	int flashing_LMFD_LED2(int ms = 0){ if(flagHover_LMFD_LED2 > 0){GameOutput(&LMFD, OUT_ID_LED_2, 2); DeferCall(ms, &flashing_LMFD_LED2, ms);} else {GameOutput(&LMFD, OUT_ID_LED_2, 0);}}
+	int flashing_RMFD_LED1(int ms = 0){if(flagHover_RMFD_LED1 > 0){GameOutput(&RMFD, OUT_ID_LED_1, 2); DeferCall(ms, &flashing_RMFD_LED1, ms);}else GameOutput(&RMFD, OUT_ID_LED_1, 0);}
+	int flashing_RMFD_LED2(int ms = 0){if(flagHover_RMFD_LED2 > 0){GameOutput(&RMFD, OUT_ID_LED_2, 2); DeferCall(ms, &flashing_RMFD_LED2, ms);}else GameOutput(&RMFD, OUT_ID_LED_2, 0);}
+	int flashing_LMFD_LED1(int ms = 0){if(flagHover_LMFD_LED1 > 0){GameOutput(&LMFD, OUT_ID_LED_1, 2); DeferCall(ms, &flashing_LMFD_LED1, ms);}else GameOutput(&LMFD, OUT_ID_LED_1, 0);}
+	int flashing_LMFD_LED2(int ms = 0){if(flagHover_LMFD_LED2 > 0){GameOutput(&LMFD, OUT_ID_LED_2, 2); DeferCall(ms, &flashing_LMFD_LED2, ms);}else GameOutput(&LMFD, OUT_ID_LED_2, 0);}
 	
 	//FUNCTIONS: PANIC LED STATES (For the FUN :) )
 	int init_PANIC_LED(int ms = 0){

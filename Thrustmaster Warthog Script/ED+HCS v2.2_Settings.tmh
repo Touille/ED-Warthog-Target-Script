@@ -127,10 +127,10 @@
 
 //	--LED's On Throttle------------Put LED1, LED2, LED3, LED4 or LED5 to select wich one you want. Other should be 0 OR MFD LED // 5 LED's MAXIMUM--------------//
 //	--LED's On MFD-----------------Put RMFD_LED1, RMFD_LED2 (Right MFD LED's) OR LMFD_LED1, LMFD_LED2 (Left MFD LED's) to select wich one you want.-------------//
-//	!!AFTER THE NAME OF LED YOU SHOULD ALWAYS PUT : ", DELAY" note the "," -> if you want LED flashing DELAY Should be > 150, if you don't want Flashing Put 0!!//
+//	!!!!AFTER THE NAME OF LED YOU SHOULD ALWAYS PUT : ", DELAY" note the "," -> if you want LED flashing (DELAY(250-2000)), if you don't want Flashing Put 0!!!!//
 //	--ex LED1, 0 : LED1 On throttle without flashing          LED5, 250 : LED5 On throttle with flashing
 
-	define OptimalPIPMode_LED              LED1, 500
+	define OptimalPIPMode_LED              LED1, 0
 	define SecureRetract_LED               LED2, 0
 	define SupecruiseOnThrottle_LED        LED3, 0
 	define SilentRuningOFFonFire_LED       LED4, 0
