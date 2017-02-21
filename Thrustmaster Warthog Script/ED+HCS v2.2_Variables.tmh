@@ -49,6 +49,8 @@
 	//initFire()
 	int vPrimaryFire;							//initPrimaryFire()
 	int vSecondaryFire;							//initSecondaryFire()
+	int vScanPrimaryFire;
+	int vScanSecondaryFire;
 	
 	//LED Management : initLED()
 	int LED_DEVICE;

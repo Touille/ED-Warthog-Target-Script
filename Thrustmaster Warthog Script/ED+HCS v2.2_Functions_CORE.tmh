@@ -151,6 +151,14 @@
 				initBackupPIPPower(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
 				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 			}
+			if((Joystick[TG1] | Joystick[TG2]) & Joystick[S3] & !vScanPrimaryFire){
+				vScanPrimaryFire=!vScanPrimaryFire;
+				if(DebugMode) printf("vScanPrimaryFire	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", vScanPrimaryFire);
+			}
+			if((Joystick[S2] | Joystick[TG2]) & Joystick[S3] & !vScanSecondaryFire){
+				vScanSecondaryFire=!vScanSecondaryFire;
+				if(DebugMode) printf("vScanSecondaryFire	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", vScanSecondaryFire);
+			}
 		}
 		
 		//Fire !!
@@ -172,15 +180,20 @@
 
 	//FUNCTION: init PrimaryFire
 	int initPrimaryFire(){
-		if(Joystick[TG1] & !vPrimaryFire){
+		if((Joystick[TG1] | Joystick[TG2]) & !vPrimaryFire){
 			ActKey(KEYON+DOWN+PrimaryFire);
 			vPrimaryFire=!vPrimaryFire;
 			//if(DebugMode) printf("TG1 Down\x0a");
 		}
 		else if(!Joystick[TG1] & vPrimaryFire){
-			if(sExplorerMode & (ExploreModeFire == 0 | ExploreModeFire == 2)){
+			if(sExplorerMode & !vScanPrimaryFire & (ExploreModeFire == 0 | ExploreModeFire == 2)){
 				DeferCall(TG1ScanDelay, &ActKey, KEYON+UP+PrimaryFire);
 				//if(DebugMode) printf("TG1 Up ExplorerMode\x0a");
+			}
+			else if(vScanPrimaryFire){
+				DeferCall(TG1ScanDelay, &ActKey, KEYON+UP+PrimaryFire);
+				DeferCall(TG1ScanDelay + 200, &ActKey, KEYON+UP+EXEC("vScanPrimaryFire=!vScanPrimaryFire;"));
+				if(DebugMode) printf("TG1 Up ScanMode\x0a");
 			}
 			else ActKey(KEYON+UP+PrimaryFire);	//if(DebugMode) printf("TG1 Up\x0a");
 			vPrimaryFire=!vPrimaryFire;
@@ -189,15 +202,20 @@
 	
 	//FUNCTION: init SecondaryFire
 	int initSecondaryFire(){
-		if(Joystick[S2] & !vSecondaryFire){
+		if((Joystick[S2] | Joystick[TG2]) & !vSecondaryFire){
 			ActKey(KEYON+DOWN+SecondaryFire);
 			vSecondaryFire=!vSecondaryFire;
 			//if(DebugMode) printf("S2  Down\x0a");
 		}
 		else if(!Joystick[S2] & vSecondaryFire){
-			if(sExplorerMode & (ExploreModeFire == 1 | ExploreModeFire == 2)){
+			if(sExplorerMode & !vScanSecondaryFire & (ExploreModeFire == 1 | ExploreModeFire == 2)){
 				DeferCall(S2ScanDelay, &ActKey, KEYON+UP+SecondaryFire);
 				//if(DebugMode) printf("S2  Up ExplorerMode\x0a");
+			}
+			else if(vScanSecondaryFire){
+				DeferCall(S2ScanDelay, &ActKey, KEYON+UP+SecondaryFire);
+				DeferCall(S2ScanDelay + 200, &ActKey, KEYON+UP+EXEC("vScanSecondaryFire=!vScanSecondaryFire;"));
+				if(DebugMode) printf("S2  Up ScanMode\x0a");
 			}
 			else ActKey(KEYON+UP+SecondaryFire);	//if(DebugMode) printf("S2  Up\x0a");
 			vSecondaryFire=!vSecondaryFire;

@@ -101,8 +101,14 @@
 	//TOGGLE: Combined Fire	
 	int initToggleCombinedFire(){
 		sCombinedFire=!sCombinedFire;
-		if(sCombinedFire) MapKey(&Joystick, TG2, CHAIN(PrimaryFire, SecondaryFire));	//Combine Primary & Secondary Fire on TG2
-		else              MapKey(&Joystick, TG2, 0);									//Separate Primary & Secondary Fire Press TG2 do Nothing
+		if(sCombinedFire){	//Combine Primary & Secondary Fire on TG2
+			MapKey (&Joystick, TG2, EXEC("initFire();"));
+			MapKeyR(&Joystick, TG2, EXEC("initFire();"));
+		}
+		else{	//Separate Primary & Secondary Fire Press TG2 do Nothing
+			MapKey (&Joystick, TG2, 0);
+			MapKeyR(&Joystick, TG2, 0);
+		}
 		initLED(CombinedFire_LED, sCombinedFire);
 		if(DebugMode | DebugMMode) printf("Primary & Secondary Fire	[%d]	[COMBINED:[1] SEPARATE[0]]\x0a", sCombinedFire);
 	}

@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.4b 2017/02/07
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.4b 2017/02/21
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -107,4 +107,4 @@ center of the axis, and then  apply it to the X and Y axis (Throttle Coolie Swit
 ***Thinking to make a mode wich restore all the Original ED Gameplay with one Switch (without all the advanced option (like optimalPIP, PIP Preset's, SecureRetract,...) instead of explorer mode. Let me know what you think.***
 
 - [x] Desactivate some advanced functions you don't need for Exploration with one switch: Automatic PIP Mode (for fire & hardpoints), Automatic retract Hardpoint when you stop fire,... (if activated). If switch off this mode, it will return to all your previous choices.
-- [ ] You don't need to keep fire key pressed to scan system or use Scan (System, wake...), just press and release. ( This function work on both Fire, chose wich you want to assign to scan in Settings File : ExploreModeFire , Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2 )
+- [ ] You don't need to keep fire key pressed to scan system or use Scan (System, wake...),            **If Explorer mode is enable**, just press and release.( This function work on both Fire, chose wich you want to assign to scan in Settings File : ExploreModeFire , Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2 ). **If Explorer mode is disable**, you can also  use this function : Press [S3] & Fire 1 or/and Fire 2. (Warning : check TG1ScanDelay & S2ScanDelay in setting File. by default TG1ScanDelay is 6sec (system scan) and S2ScanDelay is 11sec (other scan))

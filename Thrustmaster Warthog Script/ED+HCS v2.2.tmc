@@ -89,7 +89,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.2.03.4b----2017/02/08------------------------\x0a");
+	printf("--------------------------V2.2.03.4b----2017/02/21------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -111,7 +111,8 @@ int main()
 	MapKey (&Joystick, TG1, EXEC("initFire();"));
 	MapKeyR(&Joystick, TG1, EXEC("initFire();"));
 
-	MapKey(&Joystick, TG2, 0);	// Reseved for initCombinedFire()
+	MapKey (&Joystick, TG2, 0);	// Reseved for initCombinedFire()
+	MapKeyR(&Joystick, TG2, 0);	// Reseved for initCombinedFire()	
 
 	MapKey(&Joystick, S1, TEMPO(EXEC("initToggleCombinedFire();"), EXEC("initToggleHardpoints();"), LongPressDelay));
 
