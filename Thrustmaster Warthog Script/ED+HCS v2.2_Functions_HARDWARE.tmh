@@ -147,7 +147,10 @@
 			else if(t == LMFD_LED1 & ((v == 0 & flagHover_LMFD_LED1) | (v == 1 & !flagHover_LMFD_LED1))){flagHover_LMFD_LED1=!flagHover_LMFD_LED1; flashing_LMFD_LED1(ms);}
 			else if(t == LMFD_LED2 & ((v == 0 & flagHover_LMFD_LED2) | (v == 1 & !flagHover_LMFD_LED2))){flagHover_LMFD_LED2=!flagHover_LMFD_LED2; flashing_LMFD_LED2(ms);}
 			else{
-				//if(DebugMode) printf("c.LED should be LED1, LED2, LED3, LED4, LED5 OR RMFD_LED1, RMFD_LED2, LMFD_LED1, LMFD_LED2\x0a");
+				if(DebugMode){
+					if(t == LED1 | t == LED2 | t == LED3 | t == LED4 | t == LED5 | t == RMFD_LED1 | t == RMFD_LED2 | t == LMFD_LED1 | t == LMFD_LED2) printf("No LED should flash now\x0a");
+					else printf("c.LED should be LED1, LED2, LED3, LED4, LED5 OR RMFD_LED1, RMFD_LED2, LMFD_LED1, LMFD_LED2\x0a");
+				}
 			}
 		}
 	}

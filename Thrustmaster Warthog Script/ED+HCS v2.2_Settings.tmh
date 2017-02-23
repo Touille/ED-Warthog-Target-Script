@@ -207,7 +207,7 @@
 	//HeatSink On Silent Runing Deploy Delay if HeatSinkOnSilentRuning is set to [1]
 	define HeatSinkonSilentRuningDelay 8000
 	
-	//Scan Delay (keep key pressed for ...sec) when Explorer mode is [1] OR when you presse Triger [TG1] or [S]2 whit [S3] pressed)
+	//Scan Delay (keep key pressed for ...sec) when Explorer mode is [1] OR when you presse Triger [TG1] or [S2] whit [S3] pressed)
 	//Ingame, Sytem Scan is 5s and other scan are 10s we put 1 more sec to be sure
 	define TG1ScanDelay     6000    //ExploreModeFire 0 or 2 TG1 Delay
 	define S2ScanDelay      11000   //ExploreModeFire 1 or 2 S2  Delay
