@@ -220,7 +220,7 @@
 	
 	//TOGGLE: HardPoints	
 	int initToggleHardpoints(){
-		if(!Joystick[S3]){
+		if(!Joystick[S3] | (Joystick[S3] & Joystick[TG1]) | (Joystick[S3] & Joystick[S2])){ // No [S3] Pressed OR automatic fire with [S3]?
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This Just Display Msg (Hardpoint is Mapped on Button : No Position)
 				if(DebugMode | DebugMMode) printf("HardPoints SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}
@@ -236,7 +236,7 @@
 				if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPHPBackup);	//Restore Previous PIP Mode
 			}
 		}
-		else{	//Reset The Flag On The FLY S3 + SWITCH
+		else if(Joystick[S3] & (!Joystick[TG1] | !Joystick[S2])){	//Reset The Flag On The FLY S3 + SWITCH
 			sHardPoints=!sHardPoints;
 			if(DebugMode | DebugMMode) printf("Hardpoints Reset On The Fly with S3\x0a");
 		}
