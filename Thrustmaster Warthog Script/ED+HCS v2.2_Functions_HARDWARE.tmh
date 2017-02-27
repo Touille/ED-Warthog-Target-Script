@@ -357,8 +357,14 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//Set Rudders Axis
-	int initRudders(){
-		MapAxis(&TFRPRudder, TRUDDER,  DX_Z_AXIS, AXIS_NORMAL,   MAP_ABSOLUTE);
-		MapAxis(&TFRPRudder, TRPLEFT,  DX_X_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
-		MapAxis(&TFRPRudder, TRPRIGHT, DX_Y_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
+//	int initRudders(){
+//		MapAxis(&TFRPRudder, TRUDDER,  DX_Z_AXIS, AXIS_NORMAL,   MAP_ABSOLUTE);
+//		MapAxis(&TFRPRudder, TRPLEFT,  DX_X_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
+//		MapAxis(&TFRPRudder, TRPRIGHT, DX_Y_AXIS, AXIS_REVERSED, MAP_ABSOLUTE);
+//	}
+
+	int initSetTFRPCurves(){
+		SetSCurve(&TFRPRudder, TRPRIGHT, 0, 20, 0, 0, 0); //Right Toe Brake
+		SetSCurve(&TFRPRudder, TRPLEFT,  0, 20, 0, 0, 0); //Left Toe Brake
+		SetSCurve(&TFRPRudder, TRUDDER,  0, 10, 0, 0, 0); //Rudder Pedals
 	}

@@ -67,11 +67,18 @@ int main()
 	// Initiate Axis Mappings
 	if(DebugMode | DebugMMode) printf("Initialising Joystick Axis\x0a"); initJoystickAxis();
 	if(DebugMode | DebugMMode) printf("Initialising Throttle Axis\x0a"); initThrottleAxis();
-	if(Rudders == 2){if(DebugMode | DebugMMode) printf("Initialising Rudders Axis\x0a"); initRudders();}	
+	if(Rudders == 2){
+		if(DebugMode | DebugMMode) printf("Initialising Rudders Axis\x0a");
+//		initRudders();
+	}	
 	
 	// Initiate Curve Mappings
 	if(DebugMode | DebugMMode) printf("Initialising Joystick Curve\x0a"); initSetJoystickCurves();
 	if(DebugMode | DebugMMode) printf("Initialising Throttle Curve\x0a"); initSetThrottleCurves();
+	if(Rudders == 2){		
+		if(DebugMode | DebugMMode) printf("Initialising TFRPRudders Curve\x0a");
+		initSetTFRPCurves();
+	}	
 	
 	//Initiate MFD
 	if(USEMFD > 0){if(DebugMode | DebugMMode) printf("Initialising Right MFD\x0a"); initRightMFD();}
@@ -366,7 +373,8 @@ int main()
 
 int EventHandle(int type, alias o, int x)
 {
-	int TRPCOMBO;
+	int TRPCOMBO; 
+	int Differential_Toe;
 	
 	// Throttle: LED On-The-FLy Backlight Control
 	if(&o == &Throttle & x == THR_FC & Joystick[S3]){
@@ -375,20 +383,41 @@ int EventHandle(int type, alias o, int x)
 	}
 	
 	// Combine rudder toe brakes into new axis, mapped to DX_THROTTLE_AXIS
-	if (&o == &TFRPRudder & (x == TRPLEFT | x == TRPRIGHT)) {
-		if (TFRPRudder[TRPLEFT] < TFRPRudder[TRPRIGHT]) TRPCOMBO = TFRPRudder[TRPRIGHT];
-		else                                            TRPCOMBO = TFRPRudder[TRPLEFT];
-		DXAxis (DX_THROTTLE_AXIS, -TRPCOMBO);
-	}
+//	if (&o == &TFRPRudder & (x == TRPLEFT | x == TRPRIGHT)) {
+//		if (TFRPRudder[TRPLEFT] < TFRPRudder[TRPRIGHT]) TRPCOMBO = TFRPRudder[TRPRIGHT];
+//		else                                            TRPCOMBO = TFRPRudder[TRPLEFT];
+//		DXAxis (DX_THROTTLE_AXIS, -TRPCOMBO);
+//	}
 	
 	//Map the MODE_FILTERED TFRP through Target; we can Trim, set deadzones, J/Scurves, etc.
-	if (&o == &TFRPRudder) {
+//	if (&o == &TFRPRudder) {
+//		GetAxisData(&o, x);
+//		axdata.val = AxisVal(o[x], &axdata);
+//		if(x == TRPLEFT | x == TRPRIGHT) axdata.val = -axdata.val;	//Reverse the Toe Brakes, TM why u do dis??
+//		//axdata.locked = 1;										//Uncomment to disable pedals but keep TRPCOMBO axis
+//		if(!axdata.locked & !axdata.relative) GameOutput(&o, x, axdata.val);
+//	}
+	//You may have to comment out the GameOutput line of Differential_Toe to get the combo to map in game
+	if(&o == &TFRPRudder){
 		GetAxisData(&o, x);
 		axdata.val = AxisVal(o[x], &axdata);
-		if(x == TRPLEFT | x == TRPRIGHT) axdata.val = -axdata.val;	//Reverse the Toe Brakes, TM why u do dis??
-		//axdata.locked = 1;										//Uncomment to disable pedals but keep TRPCOMBO axis
+		if(x == TRPLEFT | x == TRPRIGHT){
+			axdata.locked = 1;
+			Differential_Toe = -TFRPRudder[TRPRIGHT]/2 + TFRPRudder[TRPLEFT]/2;
+			
+			//apply curves/deadzones and output data
+			Differential_Toe = AxisVal(Differential_Toe, &axdata);
+			GameOutput(&o, TRPRIGHT, Differential_Toe);
+			
+			if(TFRPRudder[TRPLEFT] < TFRPRudder[TRPRIGHT]) TRPCOMBO = TFRPRudder[TRPRIGHT];
+			else TRPCOMBO = TFRPRudder[TRPLEFT];
+			
+			//apply curves/deadzones and output data
+			TRPCOMBO = AxisVal(TRPCOMBO, &axdata);
+			GameOutput (&o, TRPLEFT, -TRPCOMBO);
+		}
 		if(!axdata.locked & !axdata.relative) GameOutput(&o, x, axdata.val);
-		
 	}
+
 	else DefaultMapping(&o, x);
 }
