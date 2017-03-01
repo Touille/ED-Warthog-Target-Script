@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.4b 2017/02/21
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.4b 2017/03/01
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -64,6 +64,7 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 - [ ] Rotate Joystick Axis to account for center Joystick mounting position (CenterJoystickMount & JoystickAngle)
 - [ ] Nvidia Shadowplay and AMD Relive Video Capture and Streaming Support. (By Default, they are Disable)
 - [ ] Steam Screenshot Support. (For Normal Screenshot only : Off by Default)
+- [ ] Possibility to change some key in settings file : (modifier key, FA key, secondary Fire key, Toggle Hardpoint Key)
 
 
 ### LED:
