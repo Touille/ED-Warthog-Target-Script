@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.4b	2017/02
+//	V2.2.03.4b	2017/03
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -96,7 +96,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.2.03.4b----2017/02/25------------------------\x0a");
+	printf("--------------------------V2.2.03.4b----2017/03/01------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -107,7 +107,7 @@ int main()
 //	Shift States // Modifier don't touch this																													//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	SetShiftButton(&Joystick, S3, &Throttle, APPAT, APALT);
+	SetShiftButton(&Joystick, ModifierKey, &Throttle, APPAT, APALT);
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MAP JOYSTICK CONTROLS																																		//
@@ -121,27 +121,27 @@ int main()
 	MapKey (&Joystick, TG2, 0);	// Reseved for initCombinedFire()
 	MapKeyR(&Joystick, TG2, 0);	// Reseved for initCombinedFire()	
 
-	MapKey(&Joystick, S1, TEMPO(EXEC("initToggleCombinedFire();"), EXEC("initToggleHardpoints();"), LongPressDelay));
+	MapKey(&Joystick, ToggleHardpointKey, TEMPO(EXEC("initToggleCombinedFire();"), EXEC("initToggleHardpoints();"), LongPressDelay));
 
-	MapKey (&Joystick, S2, EXEC("initFire();"));
-	MapKeyR(&Joystick, S2, EXEC("initFire();"));
+	MapKey (&Joystick, SecondaryFireKey, EXEC("initFire();"));
+	MapKeyR(&Joystick, SecondaryFireKey, EXEC("initFire();"));
 
-	//MapKey(&Joystick, S3, 0);	// Modifier S3 don't touch this
+	//MapKey(&Joystick, ModifierKey, 0);	// Modifier ModifierKey don't touch this
 	
-	MapKey (&Joystick, S4, EXEC(" initToggleEnhancedFAOFF();"));
-	MapKeyR(&Joystick, S4, EXEC(" initToggleEnhancedFAOFF();"));
+	MapKey (&Joystick, FlightAssistKey, EXEC(" initToggleEnhancedFAOFF();"));
+	MapKeyR(&Joystick, FlightAssistKey, EXEC(" initToggleEnhancedFAOFF();"));
 
 //--JOYSTICK HAT------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//	-------------------------Trim Switch
 	
-	// UP		PIPS[Short: 4xENG 1SYS 1WEP,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP	S3: 3xSYS 3xWEP]
+	// UP		PIPS[Short: 4xENG 1SYS 1WEP,	Med: 4xENG 2xSYS,	Long: 4xENG 2xWEP	ModifierKey: 3xSYS 3xWEP]
 	MapKeyIO(&Joystick, H1U, PULSE+PowerEng, TEMPO(EXEC("initPIPPower(ENG);"), TEMPO(EXEC("initPIPPower(ENG,SYS);"), EXEC("initPIPPower(ENG,WEP);"), PIPPressDelay), PIPPressDelay));
 	// DOWN		PIPS[Short: Balance,	Med: Cycle 3xSYS 3xWEP / 3xENG 3xWEP / 3ENG 3xSYS]
 	MapKey  (&Joystick, H1D, TEMPO(EXEC("initPIPPower();"), SEQ(EXEC("initPIPPower(SYS,WEP,MID);"),EXEC("initPIPPower(ENG,WEP,MID);"), EXEC("initPIPPower(ENG,SYS,MID);")), PIPPressDelay));	
-	// LEFT		PIPS[Short: 4xSYS 1ENG 1WEP,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP	S3: 3ENG 3xSYS]
+	// LEFT		PIPS[Short: 4xSYS 1ENG 1WEP,	Med: 4xSYS 2xENG,	Long: 4xSYS 2xWEP	ModifierKey: 3ENG 3xSYS]
 	MapKeyIO(&Joystick, H1L, PULSE+PowerSys, TEMPO(EXEC("initPIPPower(SYS);"), TEMPO(EXEC("initPIPPower(SYS,ENG);"), EXEC("initPIPPower(SYS,WEP);"), PIPPressDelay), PIPPressDelay));
-	// RIGHT	PIPS[Short: 4xWEP 1SYS 1ENG,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS	S3: 3xENG 3xWEP]
+	// RIGHT	PIPS[Short: 4xWEP 1SYS 1ENG,	Med: 4xWEP 2xENG,	Long: 4xWEP 2xSYS	ModifierKey: 3xENG 3xWEP]
 	MapKeyIO(&Joystick, H1R, PULSE+PowerWep, TEMPO(EXEC("initPIPPower(WEP);"), TEMPO(EXEC("initPIPPower(WEP,ENG);"), EXEC("initPIPPower(WEP,SYS);"), PIPPressDelay), PIPPressDelay));
 
 	//	-------------------------Target Management Switch (TMS)
@@ -160,9 +160,9 @@ int main()
 	//	-------------------------Countermeasures Management Switch (CMS)
 	MapKey  (&Joystick, H4U, UIUp);																	// UP		UI UP
 	MapKey  (&Joystick, H4D, UIDown);																// DOWN		UI DOWN
-	MapKeyIO(&Joystick, H4L, UIPrevPanel, UILeft);													// LEFT		UI LEFT,	[S3]+ Previous Panel
-	MapKeyIO(&Joystick, H4R, UINextPanel, UIRight);													// RIGHT	UI RIGHT,	[S3]+ Next Panel
-	MapKeyIO(&Joystick, H4P, UIBack, UISelect);														// PUSH		UI SELECT,	[S3]+[S] UI BACK
+	MapKeyIO(&Joystick, H4L, UIPrevPanel, UILeft);													// LEFT		UI LEFT,	[ModifierKey]+ Previous Panel
+	MapKeyIO(&Joystick, H4R, UINextPanel, UIRight);													// RIGHT	UI RIGHT,	[ModifierKey]+ Next Panel
+	MapKeyIO(&Joystick, H4P, UIBack, UISelect);														// PUSH		UI SELECT,	[ModifierKey]+[S] UI BACK
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MAP THROTTLE ARM CONTROLS																																	//
@@ -377,8 +377,8 @@ int EventHandle(int type, alias o, int x)
 	int Differential_Toe;
 	
 	// Throttle: LED On-The-FLy Backlight Control
-	if(&o == &Throttle & x == THR_FC & Joystick[S3]){
-		vThrottleLightBackup = (AxisVal(Throttle[THR_FC], &axdata) - 32766) / 256 * -1;	//HOLD S3 on Joystick & Move Friction Control Axis
+	if(&o == &Throttle & x == THR_FC & Joystick[ModifierKey]){
+		vThrottleLightBackup = (AxisVal(Throttle[THR_FC], &axdata) - 32766) / 256 * -1;	//HOLD ModifierKey on Joystick & Move Friction Control Axis
 		initBACKLIGHT(Throttle_BL, vThrottleLightBackup);
 	}
 	
@@ -397,7 +397,8 @@ int EventHandle(int type, alias o, int x)
 //		//axdata.locked = 1;										//Uncomment to disable pedals but keep TRPCOMBO axis
 //		if(!axdata.locked & !axdata.relative) GameOutput(&o, x, axdata.val);
 //	}
-	//You may have to comment out the GameOutput line of Differential_Toe to get the combo to map in game
+
+	//Map the MODE_FILTERED TFRP through Target; we can Trim, set deadzones, J/Scurves, etc.
 	if(&o == &TFRPRudder){
 		GetAxisData(&o, x);
 		axdata.val = AxisVal(o[x], &axdata);
@@ -407,7 +408,7 @@ int EventHandle(int type, alias o, int x)
 			
 			//apply curves/deadzones and output data
 			Differential_Toe = AxisVal(Differential_Toe, &axdata);
-			GameOutput(&o, TRPRIGHT, Differential_Toe);
+			GameOutput(&o, TRPRIGHT, Differential_Toe);	//Comment out this line (//) to get the combo to map in game, then Uncomment
 			
 			if(TFRPRudder[TRPLEFT] < TFRPRudder[TRPRIGHT]) TRPCOMBO = TFRPRudder[TRPRIGHT];
 			else TRPCOMBO = TFRPRudder[TRPLEFT];

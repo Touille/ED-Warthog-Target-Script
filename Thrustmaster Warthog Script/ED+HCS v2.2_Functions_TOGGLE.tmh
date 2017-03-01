@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.4b	2017/02
+//	V2.2.03.4b	2017/03
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,7 +25,7 @@
 	
 	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)
 	int initToggleIDLEonThrottle(){
-		if(!Joystick[S3]){	//Reset On The FLY S3 + SWITCH
+		if(!Joystick[ModifierKey]){	//Reset On The FLY ModifierKey + SWITCH
 			if(Throttle[IDLELON]){
 				sIDLE = 1;
 				initBACKLIGHT(Throttle_BL, ThrottleLightOnIDLE);
@@ -42,7 +42,7 @@
 	
 	//TOGGLE: Explorer Mode
 	int initToggleExplorerMode(){
-		if(!Joystick[S3]){
+		if(!Joystick[ModifierKey]){
 			if(Throttle[EFLNORM]) sExplorerMode = 1;	//Switch position is UP : Explorer Mode Is ON
 			else                  sExplorerMode = 0;	//Switch position is DOWN : Explorer Mode Is OFF
 			initLED(ExplorerMode_LED, sExplorerMode);
@@ -145,7 +145,7 @@
 
 	//TOGGLE: Landing Gear
 	int initToggleLandingGear(){
-		if(!Joystick[S3]){
+		if(!Joystick[ModifierKey]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sGears=!sGears;
 				if(DebugMode | DebugMMode) printf("Landing Gear SecureEscapeFight : Toggle the Switch\x0a");
@@ -166,10 +166,10 @@
 				if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly\x0a");
 			}
 		}
-		else{	//Reset The Flag On The FLY S3 + SWITCH
+		else{	//Reset The Flag On The FLY ModifierKey + SWITCH
 			vLG=!vLG;
 			sGears=!sGears;
-			if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly with S3\x0a");
+			if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly with ModifierKey\x0a");
 		}
 		initLED(LandingGear_LED, sGears);
 		if(DebugMode) printf("Landing Gear	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sGears);
@@ -177,7 +177,7 @@
 	
 	//TOGGLE: Cargo Scoop	
 	int initToggleCargoScoop(){
-		if(!Joystick[S3]){
+		if(!Joystick[ModifierKey]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sCargo=!sCargo;
 				if(DebugMode | DebugMMode) printf("Cargo Scoop SecureEscapeFight : Toggle the Switch\x0a");
@@ -198,10 +198,10 @@
 				if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly\x0a");
 			}
 		}
-		else{	//Reset The Flag On The FLY S3 + SWITCH
+		else{	//Reset The Flag On The FLY ModifierKey + SWITCH
 			vCS=!vCS;
 			sCargo=!sCargo;
-			if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly with S3\x0a");
+			if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly with ModifierKey\x0a");
 		}
 		initLED(CargoScoop_LED, sCargo);
 		if(DebugMode) printf("Cargo Scoop	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sCargo);
@@ -209,7 +209,7 @@
 
 	//TOGGLE: Light	
 	int initToggleLights(){
-		if(!Joystick[S3]){
+		if(!Joystick[ModifierKey]){
 			if(Throttle[EFRNORM]) sLights = 1;	//Switch position is UP : Light Is ON
 			else                  sLights = 0;	//Switch position is DOWN : Light Is OFF
 			ActKey(KEYON+PULSE+ShipLights);
@@ -220,7 +220,7 @@
 	
 	//TOGGLE: HardPoints	
 	int initToggleHardpoints(){
-		if(!Joystick[S3] | (Joystick[S3] & Joystick[TG1]) | (Joystick[S3] & Joystick[S2])){ // No [S3] Pressed OR automatic fire with [S3]?
+		if(!Joystick[ModifierKey] | (Joystick[ModifierKey] & Joystick[TG1]) | (Joystick[ModifierKey] & Joystick[SecondaryFireKey])){ // No [ModifierKey] Pressed OR automatic fire with [ModifierKey]?
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This Just Display Msg (Hardpoint is Mapped on Button : No Position)
 				if(DebugMode | DebugMMode) printf("HardPoints SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}
@@ -236,9 +236,9 @@
 				if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPHPBackup);	//Restore Previous PIP Mode
 			}
 		}
-		else if(Joystick[S3] & (!Joystick[TG1] | !Joystick[S2])){	//Reset The Flag On The FLY S3 + SWITCH
+		else if(Joystick[ModifierKey] & (!Joystick[TG1] | !Joystick[SecondaryFireKey])){	//Reset The Flag On The FLY ModifierKey + SWITCH
 			sHardPoints=!sHardPoints;
-			if(DebugMode | DebugMMode) printf("Hardpoints Reset On The Fly with S3\x0a");
+			if(DebugMode | DebugMMode) printf("Hardpoints Reset On The Fly with ModifierKey\x0a");
 		}
 		initLED(Hardpoints_LED, sHardPoints);
 		if(DebugMode) printf("HardPoints	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sHardPoints);
@@ -246,7 +246,7 @@
 
 	//TOGGLE: Silent Runing
 	int initToggleSilentRuning(){
-		if(Joystick[H3D] | Joystick[TG1] | Joystick[S2] | vSLonFire | vSLonEscapeFight | vSLonGameMenu | vSLonCamera){
+		if(Joystick[H3D] | Joystick[TG1] | Joystick[SecondaryFireKey] | vSLonFire | vSLonEscapeFight | vSLonGameMenu | vSLonCamera){
 			sSilentRuning=!sSilentRuning;
 			if(SilentRuningGameMode){	//Silent Runing [TOGGLE] Mode Ingame
 				if(HeatSinkonSilentRuning) ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);	//Call The Heat Sink on Silent Running Macro
@@ -267,7 +267,7 @@
 
 	//TOGGLE: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
 	int initToggleEnhancedFAOFF(){
-		if(Joystick[S4]){
+		if(Joystick[FlightAssistKey]){
 			sFlightAssist=!sFlightAssist;
 			if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
 				vFA=!vFA;

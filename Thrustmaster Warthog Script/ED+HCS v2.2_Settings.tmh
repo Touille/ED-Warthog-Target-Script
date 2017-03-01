@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.4b	2017/02
+//	V2.2.03.4b	2017/03
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,6 +37,9 @@
 	define DebugMMode           1   //If [1] Target Script Editor Window will Display Some Debug Msg, Else [0]
 
 	define Rudders              0   //[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
+	                                //If you use T.Flight rudders you need to Comment out one line  to get the combo to map in game, then Uncomment it 
+	                                //in ED+HCS v2.2.tmc in int EventHandle(int type, alias o, int x){...
+	
 	define USEMFD               0   //If you have one MFD, set this to [1] (Right MFD). If you have two MFDs, set it to [2] (Right & Left MFD). (Mapkey For MFD not configured yet), Else [0]
 	
 	define HMD                  1   //If you use HMD set to [1] (and set TrackIR to 0), Else [0]
@@ -55,8 +58,21 @@
 									//That option change Throttle Curve and how SupercruiseOnThrottle work(Instead of 99%(hardware) throotle to engage supercruise it will reduce to 80%(hardware), around the hardware detent)
 	
 	define ExploreModeFire      0   //Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
-									//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with TG1ScanDelay and S2ScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
+									//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with PrimaryFireKeyScanDelay and SecondaryKeyScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	PERSONAL SETTINGS Default Keys																																//
+//	Note : you can chose betwen S1,S2,S3 and S4. All key's must be different AND All Key's should be there														//
+//	Note :		define : no ";" at the END of the Line																											//
+//	Default Order to match the include Thrustmaster Warthog Chart are : ModifierKey S3, FlightAssistKey S4, SecondaryFireKey S2 and ToggleHardpointKey S1		//
+//	You can see Button Name in Warthog_button_num.png from Thrustmaster Warthog Chart directory																	//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	define ModifierKey          S3
+	define FlightAssistKey      S4
+	define SecondaryFireKey     S2
+	define ToggleHardpointKey   S1
+	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	------------Default States--------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
 //	Note :		int : "= (Value ;" with ";" at the END of the Line																								//
@@ -119,7 +135,7 @@
 	short SL_CURVE[] = {-1, 0,  2};         //Negative values make the axis more sensitive around the center, while positive values provide better control in the center position
 	short SL_ZOOM[]  = { 1, 0, -1};         //Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
 	define SL_DEADZONE 1                    //Set the SL Deadzone.. use the Device Analyzer to validate
-	
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	LED SETTINGS (29)																																			//
 //	Note :		define : no ";" at the END of the Line																											//
@@ -209,8 +225,8 @@
 	
 	//Scan Delay (keep key pressed for ...sec) when Explorer mode is [1] OR when you presse Triger [TG1] or [S2] whit [S3] pressed)
 	//Ingame, Sytem Scan is 5s and other scan are 10s we put 1 more sec to be sure
-	define TG1ScanDelay     6000    //ExploreModeFire 0 or 2 TG1 Delay
-	define S2ScanDelay      11000   //ExploreModeFire 1 or 2 S2  Delay
+	define PrimaryFireKeyScanDelay     6000    //ExploreModeFire 0 or 2 TG1 Delay
+	define SecondaryFireKeyScanDelay      11000   //ExploreModeFire 1 or 2 S2  Delay
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	REPORT STATES																																				//

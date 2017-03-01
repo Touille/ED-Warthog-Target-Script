@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.4b	2017/02
+//	V2.2.03.4b	2017/03
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -139,7 +139,7 @@
 	
 	//FUNCTION: Init Fire
 	int initFire(){
-		if(Joystick[TG1] | Joystick[S2]){
+		if(Joystick[TG1] | Joystick[SecondaryFireKey]){
 			if(SilentRuningOFFonFire & sSilentRuning & !vSLonFire){	//ShutDown Silent Runing if it running
 				vSLonFire=!vSLonFire;
 				vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
@@ -151,9 +151,9 @@
 				initBackupPIPPower(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
 				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 			}
-			if(Joystick[S3]){
+			if(Joystick[ModifierKey]){
 				if(Joystick[TG1] & !vScanPrimaryFire) vScanPrimaryFire=!vScanPrimaryFire;
-				if((Joystick[S2] | (Joystick[TG2] & sCombinedFire)) & !vScanSecondaryFire) vScanSecondaryFire=!vScanSecondaryFire;
+				if((Joystick[SecondaryFireKey] | (Joystick[TG2] & sCombinedFire)) & !vScanSecondaryFire) vScanSecondaryFire=!vScanSecondaryFire;
 			}
 		}
 		
@@ -161,7 +161,7 @@
 		initPrimaryFire();
 		initSecondaryFire();
 		
-		if(!Joystick[TG1] & !Joystick[S2]){
+		if(!Joystick[TG1] & !Joystick[SecondaryFireKey]){
 			if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
 			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !sExplorerMode) initToggleHardpoints();//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
 			if(vSilentRuningBackup!=0){	//Restore Silent Runing if it was running before fire
@@ -179,10 +179,10 @@
 		if((Joystick[TG1] | (Joystick[TG2] & sCombinedFire)) & !vPrimaryFire){
 			ActKey(KEYON+DOWN+PrimaryFire);
 			vPrimaryFire=!vPrimaryFire;
-			//if(DebugMode) printf("TG1 Down\x0a");
+			//if(DebugMode) printf("PrimaryFire Down\x0a");
 		}
 		else if(!Joystick[TG1] & vPrimaryFire){
-			if((sExplorerMode & !vScanPrimaryFire & (ExploreModeFire == 0 | ExploreModeFire == 2)) | vScanPrimaryFire) DeferCall(TG1ScanDelay, &ActKey, KEYON+UP+PrimaryFire);
+			if((sExplorerMode & !vScanPrimaryFire & (ExploreModeFire == 0 | ExploreModeFire == 2)) | vScanPrimaryFire) DeferCall(PrimaryFireKeyScanDelay, &ActKey, KEYON+UP+PrimaryFire);
 			else ActKey(KEYON+UP+PrimaryFire);	//if(DebugMode) printf("TG1 Up\x0a");
 			if(vScanPrimaryFire) vScanPrimaryFire=!vScanPrimaryFire;
 			vPrimaryFire=!vPrimaryFire;
@@ -191,14 +191,14 @@
 	
 	//FUNCTION: init SecondaryFire
 	int initSecondaryFire(){
-		if((Joystick[S2] | (Joystick[TG2] & sCombinedFire)) & !vSecondaryFire){
+		if((Joystick[SecondaryFireKey] | (Joystick[TG2] & sCombinedFire)) & !vSecondaryFire){
 			ActKey(KEYON+DOWN+SecondaryFire);
 			vSecondaryFire=!vSecondaryFire;
-			//if(DebugMode) printf("S2  Down\x0a");
+			//if(DebugMode) printf("SecondaryFireKey  Down\x0a");
 		}
-		else if(!Joystick[S2] & vSecondaryFire){
-			if((sExplorerMode & !vScanSecondaryFire & (ExploreModeFire == 1 | ExploreModeFire == 2)) | vScanSecondaryFire) DeferCall(S2ScanDelay, &ActKey, KEYON+UP+SecondaryFire);
-			else ActKey(KEYON+UP+SecondaryFire);	//if(DebugMode) printf("S2  Up\x0a");
+		else if(!Joystick[SecondaryFireKey] & vSecondaryFire){
+			if((sExplorerMode & !vScanSecondaryFire & (ExploreModeFire == 1 | ExploreModeFire == 2)) | vScanSecondaryFire) DeferCall(SecondaryFireKeyScanDelay, &ActKey, KEYON+UP+SecondaryFire);
+			else ActKey(KEYON+UP+SecondaryFire);	//if(DebugMode) printf("SecondaryFireKey  Up\x0a");
 			if(vScanSecondaryFire) vScanSecondaryFire=!vScanSecondaryFire;
 			vSecondaryFire=!vSecondaryFire;
 		}
