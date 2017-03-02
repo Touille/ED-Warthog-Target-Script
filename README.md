@@ -64,7 +64,7 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 - [ ] Rotate Joystick Axis to account for center Joystick mounting position (CenterJoystickMount & JoystickAngle)
 - [ ] Nvidia Shadowplay and AMD Relive Video Capture and Streaming Support. (By Default, they are Disable)
 - [ ] Steam Screenshot Support. (For Normal Screenshot only : Off by Default)
-- [ ] Possibility to change some key in settings file : (modifier key, FA key, secondary Fire key, Toggle Hardpoint Key)
+- [ ] Possibility to swap some Joystick key in settings file : (Modifier key, FA key, Secondary Fire key, Toggle Hardpoint Key)
 
 
 ### LED:
