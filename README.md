@@ -1,10 +1,10 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.2.03.4b 2017/03/01
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.3.00.1b 2017/03/02
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
-## 
+
 ***Special thanks go out to Aussiedroid, DarKcyde0, WraithMG11235, Synkc, Solarfly and Farinhir***
-## 
+
 
 - [x] Complete
 - [ ] Implemented / Need More Test
@@ -12,19 +12,20 @@
 ### INSTALATION:
 
 * The Warthog Script can be run from any location. All files from __Thrustmaster Warthog Script__ folder need to be in the same folder.
-* Copy the Elite Dangerous Binds Profile __ED+HCS V2.X.X.XX.1.8.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
+* Copy the Elite Dangerous Binds Profile __ED+HCS V2.X.XX.XX.2.0.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
 ```
 \Users\<User>\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
 ```
-
-* Just Drag&Drop __ED+HCS v2.2.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
+* Just Drag&Drop __ED+HCS v2.3.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
 * Most commands can be tested prior to starting the game in Target Script Editor using the Debug Message, Event Tester and Device Analyzer.
+* Launch Elite Dangerous, Options, Controls and chose the correct Binds Profile __ED+HCS V2.X.XX.XX.2.0.binds__
+* Play :)
 
 ### BEFORE FLYING:
 
 ***First, I'm sorry for my English, as it is not my native language. You are Welcome to help me on my English Skill, and, obviously, with my Coding Skill (it is, also, not my native language) ;)***
 
-__All the Settings are in the Settings File.__
+__All the Settings are in the Settings File__ : **ED+HCS v2.3_Settings.tmh**
 
 __The Command's are on the Joystick and Throttle Chart : [S]ShortPress, [L]LongPress, [EL]ExtraLongPress, [S3]Modifier Key on Joystick__
 
@@ -52,7 +53,7 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 ### FEATURES:
 
 - [ ] Support MFD (2), Rudders and T.Flight rudders (NOT TESTED YET)
-- [x] HMD / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Led Intensity.
+- [x] HMD / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Throttle Led Intensity.
 - [ ] Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction (if misaligned with game states just switch (it's should work) Or Press S3 + Switch)
 - [x] Easy Debug Msg OFF (Debugmode OFF (0) Or ON (1) In Settings File)
 - [ ] Supercruise On Throttle when throttle > 99% (Can be switched ON/OFF On The Fly, Disable by default). If you use Hardware Afterburner Detent you need to pass detent to supercruise.
@@ -79,7 +80,7 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 ### PIP:
 
 - [x] Automatic PIP Mode (Backup & Restrore previous PIP Mode) When Deploy or Retract Hardpoints, Escape Fight, Fire, Game Menu,... Can be switched ON/OFF On The Fly
-- [x] PIP Management Hat Switch offering 12 different presets depending how long you hold down the button.
+- [x] PIP Management Hat Switch offering 12 different presets depending how long you hold down the Hat Button.
 
 ### PTT:
 

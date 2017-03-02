@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.4b	2017/03
+//	V2.3.00.1b	2017/03
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,7 +38,7 @@
 
 	define Rudders              0   //[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
 	                                //If you use T.Flight rudders you need to Comment out one line  to get the combo to map in game, then Uncomment it 
-	                                //in ED+HCS v2.2.tmc in int EventHandle(int type, alias o, int x){...
+	                                //in ED+HCS v2.3.tmc in int EventHandle(int type, alias o, int x){...
 	
 	define USEMFD               0   //If you have one MFD, set this to [1] (Right MFD). If you have two MFDs, set it to [2] (Right & Left MFD). (Mapkey For MFD not configured yet), Else [0]
 	

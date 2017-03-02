@@ -1,0 +1,206 @@
+//	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
+//	V2.3.00.1b	2017/03
+//	Distributed freely under the MIT License.
+//	
+//	Permission is hereby granted, free of charge, to any person obtaining a copy
+//	of this software and associated documentation files (the "Software"), to deal
+//	in the Software without restriction, including without limitation the rights
+//	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//	copies of the Software, and to permit persons to whom the Software is
+//	furnished to do so, subject to the following conditions:
+//	
+//	The above copyright notice and this permission notice shall be included in all
+//	copies or substantial portions of the Software.
+//	
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//	SOFTWARE.
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	BINDINGS	(Note: Not all Bindings are used directly in this script, even though they are listed below. Where applicable, they're mapped directly in ED.)	//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	//WEAPON CONTROL
+	define PrimaryFire              DX1                     // DX1
+	define SecondaryFire            DX2                     // DX2
+	define NextFireGroup            USB_PERIOD              // .			[HCS]
+	define PrevFireGroup            USB_COMMA               // ,			[HCS]
+	define DeployHardpoints         USB_U                   // U			[HCS]
+	
+	//TARGET CONTROL
+	define SelectTargetAhead        USB_T                   // T			[HCS]
+	define SelectNextShip           USB_G                   // G			[HCS]
+	define SelectPrevShip           USB_B                   // B			[HCS]
+	define SelectHighestThreat      USB_Y                   // Y			[HCS]
+	define SelectNextHostileShip    USB_H                   // H			[HCS]
+	define SelectPrevHostileShip    USB_N                   // N			[HCS]
+	define SelectNextSubsystem      USB_I                   // I			[HCS]
+	define SelectPrevSubsystem      USB_K                   // K			[HCS]
+	define SelectNextSystemInRoute  USB_M                   // M			[HCS]
+
+	//FLIGHT CONTROL
+	define RotationalCorrection     USB_F4                  // F4
+	define FlightAssist             USB_Z                   // Z			[HCS]
+	define ThrustUp                 USB_R                   // R			[HCS]
+	define ThrustDown               USB_F                   // F			[HCS]
+	define ThrustLeft               USB_Q                   // Q			[HCS]
+	define ThrustRight              USB_E                   // E			[HCS]
+	define EngineBoost              USB_TAB                 // TAB			[HCS]
+	define FrameShiftDrive          USB_J                   // J			[HCS]
+	define Supercruise              USB_KP_SLASH            // NUMPAD /		[HCS]
+	define SetSpeedNeg100           USB_KP_HYPHEN           // NUMPAD -		[HCS]
+	define SetSpeedNeg75            USB_KP_9                // NUMPAD 9		[HCS]
+	define SetSpeedNeg50            USB_KP_8                // NUMPAD 8		[HCS]
+	define SetSpeedNeg25            USB_KP_7                // NUMPAD 7		[HCS]
+	define SetSpeed0                USB_X                   // X			[HCS]
+	define SetSpeed25               USB_KP_1                // NUMPAD 1		[HCS]
+	define SetSpeed50               USB_KP_2                // NUMPAD 2		[HCS]
+	define SetSpeed75               USB_KP_3                // NUMPAD 3		[HCS]
+	define SetSpeed100              USB_KP_PLUS             // NUMPAD +		[HCS]
+	define IncreaseThrottle         USB_W                   // W			[HCS]
+	define DecreaseThrottle         USB_S                   // S			[HCS]
+	define ReverseThrottle          L_CTL+USB_R             // L_CTRL+R
+
+	//SRV CONTROLS
+	define SRVHandbrake             USB_X                   // X			[HCS]
+	define SRVTurret                USB_U                   // U			[HCS]
+	define SRVVerticalThrust        USB_SPACEBAR            // Space		[HCS]
+	define SRVRecallDismissShip     L_ALT+USB_X             // L_ALT+X		[HCS]
+
+	//WINGS & FIGHTERS
+	define SelectWingman1           USB_8                   // 8			[HCS]
+	define SelectWingman2           USB_9                   // 9			[HCS]
+	define SelectWingman3           USB_0                   // 0			[HCS]
+	define WingmanTarget            USB_RIGHTCONTROL        // R_CTRL		[HCS]
+	define WingmanNavlock           USB_RIGHTSHIFT          // R_SHIFT		[HCS]
+	define FighterDock              L_ALT+USB_B             // L_ALT+B		[HCS]
+	define FighterDefensive         L_ALT+USB_D             // L_ALT+D		[HCS]
+	define FighterAggressive        L_ALT+USB_A             // L_ALT+A		[HCS]
+	define FighterFocus             L_ALT+USB_T             // L_ALT+T		[HCS]
+	define FighterHoldFire          L_ALT+USB_H             // L_ALT+H		[HCS]
+	define FighterHoldPosition      L_ALT+USB_S             // L_ALT+S		[HCS]
+	define FighterFollow            L_ALT+USB_F             // L_ALT+F		[HCS]
+	define FighterOrders            L_ALT+USB_O             // L_ALT+O
+
+	//SHIP SYSTEMS
+	define CargoScoop               USB_HOME                // HOME			[HCS]
+	define JettisonAllCargo         USB_END                 // END			[HCS]
+	define LandingGear              USB_L                   // L			[HCS]
+	define ShipLights               USB_INSERT              // INSERT		[HCS]
+	define IncreseSensorZoom        USB_PAGEUP              // PAGE UP		[HCS]
+	define DecreaseSensorZoom       USB_PAGEDOWN            // PAGE DOWN	[HCS]
+	define PowerEng                 USB_UPARROW             // UP Arrow		[HCS]
+	define PowerWep                 USB_RIGHTARROW          // RIGHT Arrow	[HCS]
+	define PowerSys                 USB_LEFTARROW           // LEFT Arrow	[HCS]
+	define BalancePower             USB_DOWNARROW           // DOWN Arrow	[HCS]
+	
+	//COOLING & ECM
+	define SilentRunning            USB_DELETEFORWARD       // DELETE		[HCS]
+	define DeployHeatSink           USB_V                   // V			[HCS]
+	define UseShieldCell            USB_NONUSPOUND          // #			[HCS]
+	define FireChaffLauncher        USB_C                   // C			[HCS]
+	define ChargeECM                L_CTL+USB_E             // CTRL+E
+	
+	//UI NAVIGATION
+	define UIFocus                  L_SHIFT                 // L_SHIFT		[HCS]
+	define UISelect                 USB_SPACEBAR            // Space		[HCS]
+	define UIBack                   USB_DELETEORBACKSPACE   // Backspace	[HCS]
+	define UIUp                     USB_W                   // W			[HCS]
+	define UIDown                   USB_S                   // S			[HCS]
+	define UILeft                   USB_A                   // A			[HCS]
+	define UIRight                  USB_D                   // D			[HCS]
+	define UINextPanel              USB_E                   // E			[HCS]
+	define UIPrevPanel              USB_Q                   // Q			[HCS]
+	define TargetPanel              USB_1                   // 1			[HCS]
+	define SystemPanel              USB_4                   // 4			[HCS]
+	define CommsPanel               USB_2                   // 2			[HCS]
+	define QuickCommsPanel          USB_RETURNORENTER       // Enter		[HCS]
+	define RolePanel                USB_3                   // 3			[HCS]
+	define UIEscape                 USB_ESCAPE              // Escape
+	define SystemMap                USB_SEMICOLON           // :			[HCS]
+	define GalaxyMap                USB_SLASH               // /			[HCS]
+	define GameMenu                 USB_P                   // P			[HCS]
+	
+	//MISCELLANEOUS
+	define MicrophoneMute           USB_BACKSLASH           // \			[HCS]
+	define InternalVoiceCommsPTT    USB_SLASH               // /
+	define ClassifiedCamera         USB_F1                  // F1			[HCS]
+	define OrbitalLines             USB_EQUALSIGN           // =			[HCS]
+	define HideShipGUI              L_CTL+L_ALT+USB_G       // CTRL+ALT+G
+	define ShowFramerate            L_CTL+USB_F             // CTRL+F
+	define ShowConnectionStatus     L_CTL+USB_B             // CTRL+B
+	define ShowCQCScoreboard        L_CTL+USB_C             // CTRL+C
+	define Screenshot               USB_F10                 // F10
+	define HighResScreenshot        L_ALT+USB_F10           // ALT-F10
+	define ChangeWeaponColor        L_ALT+USB_KP_1          // ALT+NUMPAD 1
+	define ChangeEngineColor        L_ALT+USB_KP_2          // ALT+NUMPAD 2
+	
+	//MULTI-CREW
+	
+	//CLASSIFIED CAMERA
+	
+	//HEADLOOK
+	define HeadLook                 USB_KP_5				//USB[0x5D]				// NUMPAD 5
+//	define LookUp                   DXHATUP					// <Disabled>
+//	define LookDown                 DXHATDOWN				// <Disabled>
+//	define LookLeft                 DXHATLEFT				// <Disabled>
+//	define LookRight                DXHATRIGHT				// <Disabled>
+
+//----EXTERNAL BINDINGS-----------------------------------------------------------------------------------------------------------------------------------------//
+
+	//HMD
+	define HMDCenter                USB_F12					//USB[0x45]				// F12			[HCS]
+
+	//TRACKIR
+	define TrackIRCenter            USB_END					//USB[0x4D]				// END
+	define TrackIRPause             USB_PAUSE				//USB[0x48]				// PAUSE
+
+	//TS3, MUMBLE, VENTRILO,...
+	define ExternalVoiceCommsPTT    USB_GRAVEACCENTANDTILDE	//USB[0x35]				// ~			(Map this to your Ventrilo/Mumble/Skype/TS3/... PTT Key)
+
+	//VOICE ATTACK
+	define ToggleVoiceAttackMic     L_ALT+USB_F2			//L_ALT+USB[0x3B]		// ALT+F2
+//	define ToggleVoiceAttackGlobal  L_ALT+USB_V				//L_ALT+USB[0x19]		// <Disabled> (ALT)+V
+
+	//STEAM
+	define TakeSteamScreenshot      L_ALT+USB_F12			//L_ALT+USB[0x45]		//  L_ALT+F12	(Map L_ALT+F12 to your Steam ScreenShot Key : Steam -> Settings -> In-Game)
+//	define ShowSteamOverlay         L_SHIFT+USB_TAB			//L_SHIFT+USB[0x2B]		// <Disabled> SHIFT+TAB
+
+	//NVIDIA SHADOWPLAY
+	define NVidiaCaptureVideo       L_ALT+USB_F9
+	define NVidiaStreaming          L_ALT+USB_F8
+
+	//AMD RELIVE
+	define AMDCaptureVideo          L_CTL+L_SHIFT+USB_R
+	define AMDStreaming             L_CTL+L_SHIFT+USB_G
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// REFERENCE: DEFAULT THRUSTMASTER WARTHOG DX MAPPINGS //																										//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//																																								//
+//	JOYSTICK:	//			//	Trim Control: //		//	TMS Hat:	//		//	DMS Hat:	//		//	CMS Hat:	//										//
+//	------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	TG1 = DX1					H1U = DXHATUP				H2U = DX7				H3U = DX11				H4U = DX15											//
+//	TG2 = DX6					H1D = DXHATDOWN				H2D = DX9				H3D = DX13				H4D = DX17											//
+//	S1 = DX5					H1L = DXHATLEFT				H2L = DX10				H3L = DX14				H4L = DX18											//
+//	S2 = DX2					H1R = DXHATRIGHT			H2R = DX8				H3R = DX12				H4R = DX16											//
+//	S3 = DX3																								H4P (Hat4 pressed down) = DX19						//
+//	S4 = DX4																																					//
+//	------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//																																								//
+//	THROTTLE:	//			//	Mic Switch:	//			//	Coolie Hat Switch:	//	Autopilot Switches:	//	Engine Fuel Flow: // FLAPS:	//	//	IDLE:	//		//
+//	------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	SC (slew pressed in) = DX1	MSP (mic pressed in) = DX2	CSU = DXHATUP			APENG = DX26			EFLNORM = DX16		FLAPU = DX22	IDLERON = DX29	//
+//	LTB = DX15					MSU = DX3					CSR = DXHATRIGHT		APPAT = DX27			EOLMOTOR = DX18		FLAPD = DX23	IDLELON = DX30	//
+//	SPDF = DX7					MSR = DX4					CSD = DXHATDOWN			APALT = DX28			EFRNORM = DX17										//
+//	SPDB = DX8					MSD = DX5					CSL = DXHATLEFT									EORMOTOR = DX19										//
+//	BSF = DX9					MSL = DX6																														//
+//	BSB = DX10																																					//
+//	CHF = DX11				//	EAC On/Off:	//	//	Engine Oper Ign/Norm:	//	//	APU Start Switch:	//	RDR/NORM:	//	//	Landing Gear/Warning:	//		//
+//	CHB = DX12				------------------------------------------------------------------------------------------------------------------------------------//
+//	PSF = DX13				//	EACON = DX24		EOLIGN = DX31					APUON = DX20			RDRNRM = DX25		LDGH = DX21						//
+//	PSB = DX14				//	EORIGN = DX32																													//
+//	------------------------------------------------------------------------------------------------------------------------------------------------------------//

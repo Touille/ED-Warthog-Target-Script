@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.2.03.4b	2017/03
+//	V2.3.00.1b	2017/03
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,14 +24,14 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 include "target.tmh"
-include "ED+HCS v2.2_Variables.tmh"
-include "ED+HCS v2.2_Settings.tmh"
-include "ED+HCS v2.2_USBKey.ttm"
-include "ED+HCS v2.2_KeyBindings.ttm"
-include "ED+HCS v2.2_Macros.tmh"
-include "ED+HCS v2.2_Functions_HARDWARE.tmh"
-include "ED+HCS v2.2_Functions_TOGGLE.tmh"
-include "ED+HCS v2.2_Functions_CORE.tmh"
+include "ED+HCS v2.3_Variables.tmh"
+include "ED+HCS v2.3_Settings.tmh"
+include "ED+HCS v2.3_USBKey.ttm"
+include "ED+HCS v2.3_KeyBindings.ttm"
+include "ED+HCS v2.3_Macros.tmh"
+include "ED+HCS v2.3_Functions_HARDWARE.tmh"
+include "ED+HCS v2.3_Functions_TOGGLE.tmh"
+include "ED+HCS v2.3_Functions_CORE.tmh"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 int main()
@@ -87,7 +87,7 @@ int main()
 	// Initiate Led State
 	if(DebugMode | DebugMMode) printf("Initialising LED States\x0a"); initLEDStates();
 
-	// Initiate Custom & PIP Functions (ED+HCS_Macros_v2.2.tmh)
+	// Initiate Custom Macros Functions (ED+HCS_Macros_v2.3.tmh)
 	initCustomCommands();
 	
 	if(DebugMode) initPrintState();
@@ -96,7 +96,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.2.03.4b----2017/03/01------------------------\x0a");
+	printf("--------------------------V2.3.00.1b----2017/03/02------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
