@@ -154,13 +154,9 @@
 				if(Throttle[EACON]) sGears = 1;	//Switch position is UP : Landing Gear Is Deployed
 				else                sGears = 0;	//Switch position is DOWN : Landing Gear Is Retracted
 			}
-			if(sGears & !vLG){	//vLG is there if initSecureRectract() initialise This
+			if((sGears & !vLG) | (!sGears & vLG)){	//vLG is there if initSecureRectract() initialise This
 				vLG=!vLG;	//Reset On The FLY : Just switch
 				ActKey(KEYON+PULSE+LandingGear);			
-			}
-			else if (!sGears & vLG){	//vLG is there if initSecureRectract() initialise This
-				vLG=!vLG;	//Reset On The FLY : Just switch
-				ActKey(KEYON+PULSE+LandingGear);
 			}
 			else{
 				if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly\x0a");
@@ -186,13 +182,9 @@
 				if(Throttle[RDRNRM]) sCargo = 1;	//Switch position is UP : Cargo Scoop Is Deployed
 				else                 sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
 			}
-			if(sCargo & !vCS){	//vCS is there if initSecureRectract() initialise This
+			if((sCargo & !vCS) | (!sCargo & vCS)){	//vCS is there if initSecureRectract() initialise This
 				vCS=!vCS;	//Reset On The FLY : Just switch
 				ActKey(KEYON+PULSE+CargoScoop);				
-			}
-			else if(!sCargo & vCS){	//vCS is there if initSecureRectract() initialise This
-				vCS=!vCS;	//Reset On The FLY : Just switch
-				ActKey(KEYON+PULSE+CargoScoop);
 			}
 			else{
 				if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly\x0a");
