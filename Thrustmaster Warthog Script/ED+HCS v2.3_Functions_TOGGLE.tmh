@@ -29,10 +29,14 @@
 			if(Throttle[IDLELON]){
 				sIDLE = 1;
 				initBACKLIGHT(Throttle_BL, ThrottleLightOnIDLE);
+				if(USEMFD > 0)initBACKLIGHT(RMFD_BL, RMFDLightOnIDLE);
+				if(USEMFD > 1)initBACKLIGHT(LMFD_BL, LMFDLightOnIDLE);				
 			}
 			else{
 				sIDLE = 0;
 				initBACKLIGHT(Throttle_BL, vThrottleLightBackup);
+				if(USEMFD > 0)initBACKLIGHT(RMFD_BL, vRMFDLightBackup);
+				if(USEMFD > 1)initBACKLIGHT(LMFD_BL, vLMFDLightBackup);
 			}
 			if(GameMenuOnIDLE) initGameMenu();	//If GameMenu on IDLE Option is 1, Launch Game Menu
 			initLED(IDLEOnThrottle_LED, sIDLE);

@@ -192,7 +192,9 @@
 	//MFD's have 256 different levels of intensity,
 	// 0 to 255 : 129 for Mid Light
 	define RMFDLight            129     //Right MFD backlight
-	define LMFDLight            129     //Light MFD backlight
+	define RMFDLightOnIDLE      0       //Right MFD backlight on Hardware Throttle IDLE State
+	define LMFDLight            129     //Left  MFD backlight
+	define LMFDLightOnIDLE      0       //Left  MFD backlight on Hardware Throttle IDLE State
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PRESS & PULSE DELAY SETTINGS																																//

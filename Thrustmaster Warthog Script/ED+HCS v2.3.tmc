@@ -96,7 +96,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.3.00.1b----2017/03/02------------------------\x0a");
+	printf("--------------------------V2.3.00.1b----2017/03/03------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -375,11 +375,17 @@ int EventHandle(int type, alias o, int x)
 {
 	int TRPCOMBO; 
 	int Differential_Toe;
+	int THR_FC_AxisLight;
 	
-	// Throttle: LED On-The-FLy Backlight Control
-	if(&o == &Throttle & x == THR_FC & Joystick[ModifierKey]){
-		vThrottleLightBackup = (AxisVal(Throttle[THR_FC], &axdata) - 32766) / 256 * -1;	//HOLD ModifierKey on Joystick & Move Friction Control Axis
+	// Throttle & MFD : On-The-FLy Backlight Control
+	if(&o == &Throttle & x == THR_FC & Joystick[ModifierKey]){	//HOLD ModifierKey on Joystick & Move Throttle Friction Control Axis
+		THR_FC_AxisLight = (AxisVal(Throttle[THR_FC], &axdata) - 32766) / 256 * -1;
+		vThrottleLightBackup = THR_FC_AxisLight;
+		vRMFDLightBackup     = THR_FC_AxisLight;
+		vLMFDLightBackup     = THR_FC_AxisLight;
 		initBACKLIGHT(Throttle_BL, vThrottleLightBackup);
+		initBACKLIGHT(RMFD_BL, vRMFDLightBackup);
+		initBACKLIGHT(LMFD_BL, vLMFDLightBackup);
 	}
 	
 	// Combine rudder toe brakes into new axis, mapped to DX_THROTTLE_AXIS
