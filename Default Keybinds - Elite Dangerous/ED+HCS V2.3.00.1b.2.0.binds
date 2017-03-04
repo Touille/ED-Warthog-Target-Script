@@ -135,7 +135,7 @@
 		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</ThrottleAxis>
-	<ThrottleRange Value="" />
+	<ThrottleRange Value="Bindings_ThrottleForewardOnly" />
 	<ToggleReverseThrottleInput>
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="Keyboard" Key="Key_R">
@@ -1028,15 +1028,15 @@
 	</OpenOrders>
 	<VanityCameraScrollLeft>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_Comma" />
 	</VanityCameraScrollLeft>
 	<VanityCameraScrollRight>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_Period" />
 	</VanityCameraScrollRight>
 	<ToggleFreeCam>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_F1" />
+		<Secondary Device="Keyboard" Key="Key_T" />
 	</ToggleFreeCam>
 	<VanityCameraOne>
 		<Primary Device="{NoDevice}" Key="" />
@@ -1076,7 +1076,10 @@
 	</VanityCameraNine>
 	<FreeCamToggleHUD>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_LeftAlt">
+			<Modifier Device="Keyboard" Key="Key_LeftControl" />
+			<Modifier Device="Keyboard" Key="Key_G" />
+		</Secondary>
 	</FreeCamToggleHUD>
 	<FreeCamSpeedInc>
 		<Primary Device="{NoDevice}" Key="" />
@@ -1095,11 +1098,11 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamZoomOut>
 	<MoveFreeCamY>
-		<Binding Device="{NoDevice}" Key="" />
-		<Inverted Value="0" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_ZAxis" />
+		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</MoveFreeCamY>
-	<ThrottleRangeFreeCam Value="" />
+	<ThrottleRangeFreeCam Value="Bindings_ThrottleForewardOnly" />
 	<ToggleReverseThrottleInputFreeCam>
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="{NoDevice}" Key="" />
@@ -1120,11 +1123,11 @@
 	</MoveFreeCamX>
 	<MoveFreeCamRight>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_E" />
 	</MoveFreeCamRight>
 	<MoveFreeCamLeft>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_Q" />
 	</MoveFreeCamLeft>
 	<MoveFreeCamZ>
 		<Binding Device="{NoDevice}" Key="" />
@@ -1143,15 +1146,15 @@
 	</MoveFreeCamDownAxis>
 	<MoveFreeCamUp>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_R" />
 	</MoveFreeCamUp>
 	<MoveFreeCamDown>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_F" />
 	</MoveFreeCamDown>
 	<PitchCamera>
-		<Binding Device="{NoDevice}" Key="" />
-		<Inverted Value="0" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_YAxis" />
+		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</PitchCamera>
 	<PitchCameraMouse Value="" />
@@ -1165,7 +1168,7 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</PitchCameraDown>
 	<YawCamera>
-		<Binding Device="{NoDevice}" Key="" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RXAxis" />
 		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</YawCamera>
@@ -1181,8 +1184,8 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</YawCameraRight>
 	<RollCamera>
-		<Binding Device="{NoDevice}" Key="" />
-		<Inverted Value="0" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_XAxis" />
+		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</RollCamera>
 	<RollCameraLeft>
@@ -1207,7 +1210,7 @@
 	</FixCameraWorldToggle>
 	<QuitCamera>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_M" />
 	</QuitCamera>
 	<ToggleAdvanceMode>
 		<Primary Device="{NoDevice}" Key="" />
@@ -1215,19 +1218,19 @@
 	</ToggleAdvanceMode>
 	<FStopDec>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_8" />
 	</FStopDec>
 	<FStopInc>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_0" />
 	</FStopInc>
 	<FocusDistanceInc>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_RightControl" />
 	</FocusDistanceInc>
 	<FocusDistanceDec>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_9" />
 	</FocusDistanceDec>
 	<CommanderCreator_Undo>
 		<Primary Device="{NoDevice}" Key="" />
