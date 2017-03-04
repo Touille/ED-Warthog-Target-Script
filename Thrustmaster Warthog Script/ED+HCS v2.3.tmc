@@ -205,12 +205,12 @@ int main()
 	);
 	MapKeyIOUMD(&Joystick, H2L,	// LEFT
 		0, PULSE+FC_Lock_To_Vehicle,
-		PULSE+SelectPrevSubsystem, TEMPO(PULSE+SelectPrevHostileShip, PULSE+SelectPrevShip, LongPressDelay),
+		PULSE+SelectPrevSubsystem, TEMPO(PULSE+SelectPrevShip, PULSE+SelectPrevHostileShip, LongPressDelay),
 		0, 0
 	);
 	MapKeyIOUMD(&Joystick, H2R,	// RIGHT
 		0, PULSE+FC_Lock_To_World,
-		PULSE+SelectNextSubsystem, TEMPO(PULSE+SelectNextHostileShip, PULSE+SelectNextShip, LongPressDelay),
+		PULSE+SelectNextSubsystem, TEMPO(PULSE+SelectNextShip, PULSE+SelectNextHostileShip, LongPressDelay),
 		0, 0
 	);
 	
