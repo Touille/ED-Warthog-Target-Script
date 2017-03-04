@@ -1104,10 +1104,10 @@
 	</MoveFreeCamY>
 	<ThrottleRangeFreeCam Value="Bindings_ThrottleForewardOnly" />
 	<ToggleReverseThrottleInputFreeCam>
-		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_LeftControl">
+		<Primary Device="Keyboard" Key="Key_LeftControl">
 			<Modifier Device="Keyboard" Key="Key_R" />
-		</Secondary>
+		</Primary>
+		<Secondary Device="{NoDevice}" Key="" />
 		<ToggleOn Value="0" />
 	</ToggleReverseThrottleInputFreeCam>
 	<MoveFreeCamForward>
@@ -1228,11 +1228,11 @@
 	</FStopInc>
 	<FocusDistanceInc>
 		<Primary Device="Keyboard" Key="Key_RightControl" />
-		<Secondary Device="Keyboard" Key="Key_RightControl" />
+		<Secondary Device="{NoDevice}" Key="" />
 	</FocusDistanceInc>
 	<FocusDistanceDec>
 		<Primary Device="Keyboard" Key="Key_9" />
-		<Secondary Device="Keyboard" Key="Key_9" />
+		<Secondary Device="{NoDevice}" Key="" />
 	</FocusDistanceDec>
 	<CommanderCreator_Undo>
 		<Primary Device="{NoDevice}" Key="" />

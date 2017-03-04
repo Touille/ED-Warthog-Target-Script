@@ -139,8 +139,62 @@
 	define ChangeEngineColor        L_ALT+USB_KP_2          // ALT+NUMPAD 2
 	
 	//MULTI-CREW
+//	define MC_Mode_Toggle
+//	define MC_Yaw_Left
+//	define MC_Yaw_Right
+//	define MC_Pitch_Up
+//	define MC_Pitch_Down
+//	define MC_FOV_OUT
+//	define MC_FOV_IN
+//	define MC_Cycle_UI_Forwards
+//	define MC_Cycle_UI_Backwards
 	
-	//CLASSIFIED CAMERA
+	//CAMERA SUITE
+//	define Previous_Camera
+//	define Next_Camera
+//	define Enter_Free_Camera
+//	define Camera_1
+//	define Camera_2
+//	define Camera_3
+//	define Camera_4
+//	define Camera_5
+//	define Camera_6
+//	define Camera_7
+//	define Camera_8
+//	define Camera_9
+
+	//FREE CAMERA
+//	define FC_Toggle_HUD
+//	define FC_Increase_Speed
+//	define FC_Decrease_Speed
+//	define FC_Zoom_IN
+//	define FC_Zoom_OUT
+//	define FC_Move_Forward
+//	define FC_Move_Backward
+//	define FC_Move_Left
+//	define FC_Move_Right
+//	define FC_Move_Up
+//	define FC_Move_Down
+//	define FC_Pitch_Up
+//	define FC_Pitch_Down
+//	define FC_Yaw_Left
+//	define FC_Yaw_Right
+//	define FC_Roll_Left
+//	define FC_Roll_Right
+//	define FC_Toggle_Rotation_Lock
+//	define FC_Lock_To_Vehicle
+//	define FC_Lock_To_World
+//	define FC_Exit_Free_Camera
+//	define FC_Zoom_Dof_Toggle
+//	define FC_Increase_Blur
+//	define FC_Decrease_Blur
+//	define FC_Increase_Focus_Distance
+//	define FC_Decrease_Focus_Distance
+
+	//HOLO-ME
+//	define HM_Undo
+//	define HM_Redo
+//	define HM_Toggle_Mouse_Rotation
 	
 //----EXTERNAL BINDINGS-----------------------------------------------------------------------------------------------------------------------------------------//
 
