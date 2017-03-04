@@ -1039,39 +1039,39 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</ToggleFreeCam>
 	<VanityCameraOne>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_1" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</VanityCameraOne>
 	<VanityCameraTwo>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_2" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</VanityCameraTwo>
 	<VanityCameraThree>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_3" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</VanityCameraThree>
 	<VanityCameraFour>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_4" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</VanityCameraFour>
 	<VanityCameraFive>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_5" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</VanityCameraFive>
 	<VanityCameraSix>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_6" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</VanityCameraSix>
 	<VanityCameraSeven>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_7" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</VanityCameraSeven>
 	<VanityCameraEight>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_8" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</VanityCameraEight>
 	<VanityCameraNine>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_9" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</VanityCameraNine>
 	<FreeCamToggleHUD>
@@ -1082,19 +1082,19 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamToggleHUD>
 	<FreeCamSpeedInc>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_Numpad_9" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamSpeedInc>
 	<FreeCamSpeedDec>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_Numpad_7" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamSpeedDec>
 	<FreeCamZoomIn>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_Numpad_3" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamZoomIn>
 	<FreeCamZoomOut>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_Numpad_1" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamZoomOut>
 	<MoveFreeCamY>
@@ -1111,11 +1111,11 @@
 		<ToggleOn Value="0" />
 	</ToggleReverseThrottleInputFreeCam>
 	<MoveFreeCamForward>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_UpArrow" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</MoveFreeCamForward>
 	<MoveFreeCamBackwards>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_DownArrow" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</MoveFreeCamBackwards>
 	<MoveFreeCamX>
@@ -1219,19 +1219,19 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</ToggleAdvanceMode>
 	<FStopDec>
-		<Primary Device="Keyboard" Key="Key_8" />
+		<Primary Device="Keyboard" Key="Key_Numpad_4" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FStopDec>
 	<FStopInc>
-		<Primary Device="Keyboard" Key="Key_0" />
+		<Primary Device="Keyboard" Key="Key_Numpad_6" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FStopInc>
 	<FocusDistanceInc>
-		<Primary Device="Keyboard" Key="Key_RightControl" />
+		<Primary Device="Keyboard" Key="Key_Numpad_8" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FocusDistanceInc>
 	<FocusDistanceDec>
-		<Primary Device="Keyboard" Key="Key_9" />
+		<Primary Device="Keyboard" Key="Key_Numpad_2" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FocusDistanceDec>
 	<CommanderCreator_Undo>

@@ -150,46 +150,46 @@
 //	define MC_Cycle_UI_Backwards
 	
 	//CAMERA SUITE
-//	define Previous_Camera
-//	define Next_Camera
-//	define Enter_Free_Camera
-//	define Camera_1
-//	define Camera_2
-//	define Camera_3
-//	define Camera_4
-//	define Camera_5
-//	define Camera_6
-//	define Camera_7
-//	define Camera_8
-//	define Camera_9
+	define Previous_Camera            USB_COMMA               // ,
+	define Next_Camera                USB_PERIOD              // .
+	define Enter_Free_Camera          USB_T                   // T
+//	define Camera_1                   USB_1                   // 1
+//	define Camera_2                   USB_2                   // 2
+//	define Camera_3                   USB_3                   // 3
+//	define Camera_4                   USB_4                   // 4
+//	define Camera_5                   USB_5                   // 5
+//	define Camera_6                   USB_6                   // 6
+//	define Camera_7                   USB_7                   // 7
+//	define Camera_8                   USB_8                   // 8
+//	define Camera_9                   USB_9                   // 9
 
 	//FREE CAMERA
-//	define FC_Toggle_HUD
-//	define FC_Increase_Speed
-//	define FC_Decrease_Speed
-//	define FC_Zoom_IN
-//	define FC_Zoom_OUT
-//	define FC_Move_Forward
-//	define FC_Move_Backward
-//	define FC_Move_Left
-//	define FC_Move_Right
-//	define FC_Move_Up
-//	define FC_Move_Down
+//	define FC_Toggle_HUD              L_CTL+L_ALT+USB_G       // CTRL+ALT+G
+	define FC_Increase_Speed          USB_KP_9                // NUMPAD 9
+	define FC_Decrease_Speed          USB_KP_7                // NUMPAD 7
+	define FC_Zoom_IN                 USB_KP_3                // NUMPAD 3
+	define FC_Zoom_OUT                USB_KP_1                // NUMPAD 1
+	define FC_Move_Forward            USB_UPARROW             // Up Arrow
+	define FC_Move_Backward           USB_DOWNARROW           // Down Arrow
+//	define FC_Move_Left               USB_Q                   // Q
+//	define FC_Move_Right              USB_E                   // E
+//	define FC_Move_Up                 USB_R                   // R
+//	define FC_Move_Down               USB_F                   // F
 //	define FC_Pitch_Up
 //	define FC_Pitch_Down
 //	define FC_Yaw_Left
 //	define FC_Yaw_Right
 //	define FC_Roll_Left
 //	define FC_Roll_Right
-//	define FC_Toggle_Rotation_Lock
-//	define FC_Lock_To_Vehicle
-//	define FC_Lock_To_World
-//	define FC_Exit_Free_Camera
-//	define FC_Zoom_Dof_Toggle
-//	define FC_Increase_Blur
-//	define FC_Decrease_Blur
-//	define FC_Increase_Focus_Distance
-//	define FC_Decrease_Focus_Distance
+//	define FC_Toggle_Rotation_Lock....DX3
+	define FC_Lock_To_Vehicle         USB_N                   // N
+	define FC_Lock_To_World           USB_H                   // H
+	define FC_Exit_Free_Camera        USB_M                   // M
+	define FC_Zoom_Dof_Toggle         USB_SPACEBAR            // Space
+	define FC_Increase_Blur           USB_KP_6                // NUMPAD 6
+	define FC_Decrease_Blur           USB_KP_4                // NUMPAD 4
+	define FC_Increase_Focus_Distance USB_KP_8                // NUMPAD 8
+	define FC_Decrease_Focus_Distance USB_KP_2                // NUMPAD 2
 
 	//HOLO-ME
 //	define HM_Undo

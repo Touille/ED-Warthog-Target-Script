@@ -75,8 +75,9 @@
 	
 		//MACRO: Classified (External) 'Debug' Camera
 		mClassifiedCamera = CHAIN(
-			PULSE+SetSpeed0,        D(ShortPulseDelay),
-			PULSE+ClassifiedCamera, D(LongPulseDelay),
-			PULSE+SPC);
+			PULSE+SetSpeed0,        D(ShortPulseDelay),	//If you don't want speed return to 0 when engaging camera mode comment this line (//)
+			PULSE+ClassifiedCamera, D(LongPulseDelay)
+			//,PULSE+SPC
+			);
 	
 	}
