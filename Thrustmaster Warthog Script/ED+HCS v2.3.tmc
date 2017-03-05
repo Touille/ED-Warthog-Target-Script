@@ -107,7 +107,7 @@ int main()
 //	Shift States // Modifier don't touch this																													//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	SetShiftButton(&Joystick, ModifierKey, &Throttle, APPAT, APALT, IOTOGGLE+UDTOGGLE);
+	SetShiftButton(&Joystick, ModifierKey, &Throttle, APPAT, APALT);
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MAP JOYSTICK CONTROLS																																		//
@@ -274,10 +274,26 @@ int main()
 	);
 	
 	//	-------------------------Coolie Hat Switch	
-	MapKeyIO(&Throttle, CSU, TEMPO(EXEC("TrimDXAxis(DX_Y_AXIS, - Trim_INC);"), EXEC("TrimDXAxis(DX_X_AXIS, CURRENT);TrimDXAxis(DX_Y_AXIS, CURRENT);"), LongPressDelay),   ThrustUp);	// UP
-	MapKeyIO(&Throttle, CSD, TEMPO(EXEC("TrimDXAxis(DX_Y_AXIS,   Trim_INC);"), EXEC("TrimDXAxis(DX_X_AXIS, SET(0));TrimDXAxis(DX_Y_AXIS, SET(0));"),   LongPressDelay), ThrustDown);	// DOWN
-	MapKeyIO(&Throttle, CSL, EXEC("TrimDXAxis(DX_X_AXIS, -Trim_INC);"),  ThrustLeft);																									// LEFT
-	MapKeyIO(&Throttle, CSR, EXEC("TrimDXAxis(DX_X_AXIS,  Trim_INC);"), ThrustRight);																									// RIGHT
+	MapKeyIOUMD(&Throttle, CSU,	// UP
+		0, 0,
+		TEMPO(EXEC("TrimDXAxis(DX_Y_AXIS, - Trim_INC);"), EXEC("TrimDXAxis(DX_X_AXIS, CURRENT);TrimDXAxis(DX_Y_AXIS, CURRENT);"), LongPressDelay), ThrustUp,
+		0, 0
+	);
+	MapKeyIOUMD(&Throttle, CSD,	// DOWN
+		0, 0,
+		TEMPO(EXEC("TrimDXAxis(DX_Y_AXIS,   Trim_INC);"), EXEC("TrimDXAxis(DX_X_AXIS, SET(0));TrimDXAxis(DX_Y_AXIS, SET(0));"), LongPressDelay), ThrustDown,
+		0, 0
+	);
+	MapKeyIOUMD(&Throttle, CSL,	// LEFT
+		0, 0,
+		EXEC("TrimDXAxis(DX_X_AXIS, -Trim_INC);"),  ThrustLeft,
+		0, 0
+	);
+	MapKeyIOUMD(&Throttle, CSR,	// RIGHT
+		0, 0,
+		EXEC("TrimDXAxis(DX_X_AXIS,  Trim_INC);"), ThrustRight,
+		0, 0
+	);
 
 //--THROTTLE ARM SWITCH-----------------------------------------------------------------------------------------------------------------------------------------//
 
