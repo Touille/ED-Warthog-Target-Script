@@ -52,32 +52,35 @@
 			PULSE+UIPrevPanel,    D(MiniPulseDelay),
 			PULSE+UIBack,         D(MiniPulseDelay),
 			PULSE+SetSpeed0,
-			LOCK);
+			LOCK
+		);
 
 		//MACRO: System Jump
 		mSystemJump = CHAIN(
 			PULSE+SelectNextSystemInRoute,  D(ShortPulseDelay),
 			PULSE+SetSpeed100,              D(ExtraPulseDelay),
 			EXEC("initFrameShiftDrive();"), D(FSDOFFDelay),
-			PULSE+SetSpeed0);
+			PULSE+SetSpeed0
+		);
 			
 		//MACRO: Escape Fight
 		mEscapeFight = CHAIN(
 			PULSE+SetSpeed100, D(MediumPulseDelay),
 			PULSE+EngineBoost, D(LongPulseDelay),
 			PULSE+EngineBoost, D(LongPulseDelay),
-			EXEC("initSuperCruise();"));
+			EXEC("initSuperCruise();")
+		);
 			
 		//MACRO: Heat Sink on Silence Runing
 		mHeatSinkonSilentRuning = CHAIN(
 			PULSE+SilentRunning, D(HeatSinkonSilentRuningDelay),
-			PULSE+DeployHeatSink);
+			PULSE+DeployHeatSink
+		);
 	
-		//MACRO: Classified (External) 'Debug' Camera
+		//MACRO: Free Camera (External)
 		mClassifiedCamera = CHAIN(
 			PULSE+SetSpeed0,        D(ShortPulseDelay),	//If you don't want speed return to 0 when engaging camera mode comment this line (//)
 			PULSE+ClassifiedCamera, D(LongPulseDelay)
-			//,PULSE+SPC
-			);
+		);
 	
 	}
