@@ -57,7 +57,7 @@
 		else if(z == MID){	
 			if     (y == SYS & x == ENG | y == ENG & x == SYS){if(vOptimalPIP != 7){vOptimalPIP = 7; vPIP=!vPIP;}}	//3 SYS 3 ENG (7)
 			else if(y == ENG & x == WEP | y == WEP & x == ENG){if(vOptimalPIP != 8){vOptimalPIP = 8; vPIP=!vPIP;}}	//3 ENG 3 WEP (8)
-			else if(y == SYS | x == WEP | y == WEP | x == SYS){if(vOptimalPIP != 9){vOptimalPIP = 9; vPIP=!vPIP;}}	//3 SYS 3 WEP (9)
+			else if(y == SYS & x == WEP | y == WEP & x == SYS){if(vOptimalPIP != 9){vOptimalPIP = 9; vPIP=!vPIP;}}	//3 SYS 3 WEP (9)
 		}
 		if(vPIP){	//If Previous Command is NOT the same as the New one, Push Command
 			vPIP=!vPIP;

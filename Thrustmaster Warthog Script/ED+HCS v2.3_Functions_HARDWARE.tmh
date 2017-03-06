@@ -107,55 +107,52 @@
 	
 	int initLED(int t = 0, int ms = 0, int v = 0){
 		
-		//Toggle LED
-		if(t!=0 & ms == 0){	//LED Selected in Settings file & No Delay, Toggle LED ON/OFF
+		if(t !=0){
 
-			//Check Which Device
-			if     (t == LED1 | t == LED2 | t == LED3 | t == LED4 | t == LED5) LED_DEVICE = &Throttle;
-			else if(t == RMFD_LED1 | t == RMFD_LED2)                           LED_DEVICE = &RMFD;
-			else if(t == LMFD_LED1 | t == LMFD_LED2)                           LED_DEVICE = &LMFD;
-			else{
-				if(DebugMode) printf("a.LED should be LED1, LED2, LED3, LED4, LED5 OR RMFD_LED1, RMFD_LED2, LMFD_LED1, LMFD_LED2\x0a");
+			//Toggle LED
+			if(ms == 0){	//LED Selected in Settings file & No Delay, Toggle LED ON/OFF
+
+				//Check Which Device
+				if     (t == LED1 | t == LED2 | t == LED3 | t == LED4 | t == LED5) LED_DEVICE = &Throttle;
+				else if(t == RMFD_LED1 | t == RMFD_LED2)                           LED_DEVICE = &RMFD;
+				else if(t == LMFD_LED1 | t == LMFD_LED2)                           LED_DEVICE = &LMFD;
+
+				//Check Which LED Outpout
+				if     (t == LED1 | t == LMFD_LED1 | t == RMFD_LED1) LED_OUTPOUT = OUT_ID_LED_1;
+				else if(t == LED2 | t == LMFD_LED2 | t == RMFD_LED2) LED_OUTPOUT = OUT_ID_LED_2;
+				else if(t == LED3)                                   LED_OUTPOUT = OUT_ID_LED_3;
+				else if(t == LED4)                                   LED_OUTPOUT = OUT_ID_LED_4;
+				else if(t == LED5)                                   LED_OUTPOUT = OUT_ID_LED_5;
+
+				//Push LED Toggle
+				GameOutput(LED_DEVICE, LED_OUTPOUT, v);
 			}
-		
-			//Check Which LED Outpout
-			if     (t == LED1 | t == LMFD_LED1 | t == RMFD_LED1) LED_OUTPOUT = OUT_ID_LED_1;
-			else if(t == LED2 | t == LMFD_LED2 | t == RMFD_LED2) LED_OUTPOUT = OUT_ID_LED_2;
-			else if(t == LED3)                                   LED_OUTPOUT = OUT_ID_LED_3;
-			else if(t == LED4)                                   LED_OUTPOUT = OUT_ID_LED_4;
-			else if(t == LED5)                                   LED_OUTPOUT = OUT_ID_LED_5;
-			else{
-				if(DebugMode) printf("b.LED should be LED1, LED2, LED3, LED4, LED5 OR RMFD_LED1, RMFD_LED2, LMFD_LED1, LMFD_LED2\x0a");
-			}
-			
-			//Push LED Toggle
-			GameOutput(LED_DEVICE, LED_OUTPOUT, v);
-		}
-		
-		//Or Push LED Flashing
-		else if(t!= 0 & ms !=0){	//LED & Delay Selected in Settings file, Flashing LED
-				
-			//Flashing btw 250ms & 2000ms (2sec)
-			if(ms < 250) ms = 250;
-			else if(ms > 2000) ms = 2000;
-				
-			//Push Throttle LED's Flashing ON/OFF
-			if     (t == LED1 & ((v == 0 & flagHover_T_LED1) | (v == 1 & !flagHover_T_LED1))){flagHover_T_LED1=!flagHover_T_LED1; flashing_T_LED1(ms);}
-			else if(t == LED2 & ((v == 0 & flagHover_T_LED2) | (v == 1 & !flagHover_T_LED2))){flagHover_T_LED2=!flagHover_T_LED2; flashing_T_LED2(ms);}
-			else if(t == LED3 & ((v == 0 & flagHover_T_LED3) | (v == 1 & !flagHover_T_LED3))){flagHover_T_LED3=!flagHover_T_LED3; flashing_T_LED3(ms);}
-			else if(t == LED4 & ((v == 0 & flagHover_T_LED4) | (v == 1 & !flagHover_T_LED4))){flagHover_T_LED4=!flagHover_T_LED4; flashing_T_LED4(ms);}
-			else if(t == LED5 & ((v == 0 & flagHover_T_LED5) | (v == 1 & !flagHover_T_LED5))){flagHover_T_LED5=!flagHover_T_LED5; flashing_T_LED5(ms);}
-			//Push MFD LED's Flashing ON/OFF
-			else if(t == RMFD_LED1 & ((v == 0 & flagHover_RMFD_LED1) | (v == 1 & !flagHover_RMFD_LED1))){flagHover_RMFD_LED1=!flagHover_RMFD_LED1; flashing_RMFD_LED1(ms);}
-			else if(t == RMFD_LED2 & ((v == 0 & flagHover_RMFD_LED2) | (v == 1 & !flagHover_RMFD_LED2))){flagHover_RMFD_LED2=!flagHover_RMFD_LED2; flashing_RMFD_LED2(ms);}
-			else if(t == LMFD_LED1 & ((v == 0 & flagHover_LMFD_LED1) | (v == 1 & !flagHover_LMFD_LED1))){flagHover_LMFD_LED1=!flagHover_LMFD_LED1; flashing_LMFD_LED1(ms);}
-			else if(t == LMFD_LED2 & ((v == 0 & flagHover_LMFD_LED2) | (v == 1 & !flagHover_LMFD_LED2))){flagHover_LMFD_LED2=!flagHover_LMFD_LED2; flashing_LMFD_LED2(ms);}
-			else{
-				if(DebugMode){
-					if(t == LED1 | t == LED2 | t == LED3 | t == LED4 | t == LED5 | t == RMFD_LED1 | t == RMFD_LED2 | t == LMFD_LED1 | t == LMFD_LED2) printf("No LED should flash now\x0a");
-					else printf("c.LED should be LED1, LED2, LED3, LED4, LED5 OR RMFD_LED1, RMFD_LED2, LMFD_LED1, LMFD_LED2\x0a");
+
+			//Or Push LED Flashing
+			else if(ms !=0){	//LED & Delay Selected in Settings file, Flashing LED
+
+				//Flashing btw 250ms & 2000ms (2sec)
+				if(ms < 250) ms = 250;
+				else if(ms > 2000) ms = 2000;
+
+				//Push Throttle LED's Flashing ON/OFF
+				if     (t == LED1 & ((v == 0 & flagHover_T_LED1) | (v == 1 & !flagHover_T_LED1))){flagHover_T_LED1=!flagHover_T_LED1; flashing_T_LED1(ms);}
+				else if(t == LED2 & ((v == 0 & flagHover_T_LED2) | (v == 1 & !flagHover_T_LED2))){flagHover_T_LED2=!flagHover_T_LED2; flashing_T_LED2(ms);}
+				else if(t == LED3 & ((v == 0 & flagHover_T_LED3) | (v == 1 & !flagHover_T_LED3))){flagHover_T_LED3=!flagHover_T_LED3; flashing_T_LED3(ms);}
+				else if(t == LED4 & ((v == 0 & flagHover_T_LED4) | (v == 1 & !flagHover_T_LED4))){flagHover_T_LED4=!flagHover_T_LED4; flashing_T_LED4(ms);}
+				else if(t == LED5 & ((v == 0 & flagHover_T_LED5) | (v == 1 & !flagHover_T_LED5))){flagHover_T_LED5=!flagHover_T_LED5; flashing_T_LED5(ms);}
+				//Push MFD LED's Flashing ON/OFF
+				else if(t == RMFD_LED1 & ((v == 0 & flagHover_RMFD_LED1) | (v == 1 & !flagHover_RMFD_LED1))){flagHover_RMFD_LED1=!flagHover_RMFD_LED1; flashing_RMFD_LED1(ms);}
+				else if(t == RMFD_LED2 & ((v == 0 & flagHover_RMFD_LED2) | (v == 1 & !flagHover_RMFD_LED2))){flagHover_RMFD_LED2=!flagHover_RMFD_LED2; flashing_RMFD_LED2(ms);}
+				else if(t == LMFD_LED1 & ((v == 0 & flagHover_LMFD_LED1) | (v == 1 & !flagHover_LMFD_LED1))){flagHover_LMFD_LED1=!flagHover_LMFD_LED1; flashing_LMFD_LED1(ms);}
+				else if(t == LMFD_LED2 & ((v == 0 & flagHover_LMFD_LED2) | (v == 1 & !flagHover_LMFD_LED2))){flagHover_LMFD_LED2=!flagHover_LMFD_LED2; flashing_LMFD_LED2(ms);}
+				else{
+					if(DebugMode) printf("No LED should flash now\x0a");
 				}
 			}
+		}
+		else{
+			//if(DebugMode) printf("LED Name Set to 0\x0a");
 		}
 	}
 
@@ -212,42 +209,41 @@
 	
 	int initBACKLIGHT(int a = 0, int v = 0, int ms = 0){
 		
-		//If v is out of Standard value : Replace with min or max value
-		if(v < 0) v = 0;
-		else if(v > 255) v = 255;
-	
-		//Check which Device
-		if     (a == Throttle_BL) BACKLIGHT_DEVICE = &Throttle;
-		else if(a == RMFD_BL    ) BACKLIGHT_DEVICE = &RMFD;
-		else if(a == LMFD_BL    ) BACKLIGHT_DEVICE = &LMFD;
-		else{
-			if(DebugMode) printf("BACKLIGHT_DEVICE Not Configured Correctly\x0a");
-		}
+		if(a == Throttle_BL | (a == RMFD_BL & USEMFD > 0) | (a == LMFD_BL & USEMFD > 1)){
 		
-		//Change Backlight Intensity?
-		if((a == Throttle_BL | (a == RMFD_BL & USEMFD > 0) | (a == LMFD_BL & USEMFD > 1)) & v != 0) GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);
-
-		//Push BackLight Toggle Or Flashing?
-		if(ms == 0){	//No Delay, Push BackLight Toggle ON/OFF
-			if(v > 0) GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_BACKLIGHT, 1);
-			else      GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_BACKLIGHT, 0);
-		}
-		else if(ms != 0 & v !=0){	//Delay, Push BackLight Flashing
-			
-			//Flashing btw 250ms & 2000ms (2sec)
-			if(ms < 250) ms = 250;
-			else if(ms > 2000) ms = 2000;
-			
-			//Push BackLight Flashing
-			if(BACKLIGHT_DEVICE == &Throttle) {flagHover_T_BL   =!flagHover_T_BL   ; flashing_T_BL(ms)   ;}
-			else if(BACKLIGHT_DEVICE == &RMFD){flagHover_RMFD_BL=!flagHover_RMFD_BL; flashing_RMFD_BL(ms);}
-			else if(BACKLIGHT_DEVICE == &LMFD){flagHover_LMFD_BL=!flagHover_LMFD_BL; flashing_LMFD_BL(ms);}
-			else{
-				if(DebugMode) printf("Flashing BACKLIGHT_DEVICE Not Configured Correctly\x0a");
+			//If v is out of Standard value : Replace with min or max value
+			if(v < 0) v = 0;
+			else if(v > 255) v = 255;
+	
+			//Check which Device
+			if     (a == Throttle_BL) BACKLIGHT_DEVICE = &Throttle;
+			else if(a == RMFD_BL    ) BACKLIGHT_DEVICE = &RMFD;
+			else                      BACKLIGHT_DEVICE = &LMFD;
+		
+			//Change Backlight Intensity?
+			if(v != 0){ //If Backlight = 0 (v =0) we switch OFF Backlight see below
+				GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);
 			}
-		}
-		else{
-			if(DebugMode) printf("Trying to Flash OFF State BackLight ???\x0a");
+
+			//Push BackLight Toggle Or Flashing?
+			if(ms == 0){	//No Delay, Push BackLight Toggle ON/OFF
+				if(v > 0) GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_BACKLIGHT, 1); //Baclight ON
+				else      GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_BACKLIGHT, 0); //Baclight OFF
+			}
+			else if(ms != 0 & v !=0){	//Delay, Push BackLight Flashing only if Backlight is ON
+			
+				//Flashing btw 250ms & 2000ms (2sec)
+				if(ms < 250) ms = 250;
+				else if(ms > 2000) ms = 2000;
+			
+				//Push BackLight Flashing
+				if(BACKLIGHT_DEVICE == &Throttle) {flagHover_T_BL   =!flagHover_T_BL   ; flashing_T_BL(ms)   ;}
+				else if(BACKLIGHT_DEVICE == &RMFD){flagHover_RMFD_BL=!flagHover_RMFD_BL; flashing_RMFD_BL(ms);}
+				else                              {flagHover_LMFD_BL=!flagHover_LMFD_BL; flashing_LMFD_BL(ms);}
+			}
+			else{
+				if(DebugMode) printf("Trying to Flash OFF State BackLight ???\x0a");
+			}
 		}
 	}
 	
