@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.3.00.1b 2017/03/02
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.3.00.1b 2017/03/06
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -62,7 +62,7 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 - [x] Dual stage trigger Combined Fire on Triger 1 to allow combined Primary & Secondary fire or for the trigger to be separated to Primary fire only. Can be switched ON/OFF On The Fly
 - [x] Support [Toggle] & [Hold] mode for Game Settings : Reverse Throttle, Flight Assist & Silent Runing (Check Settings File : Default is Reverse Throttle [HOLD],  Flight Assist [HOLD], Silent Runing [TOGGLE]. If you want to change this : Modify in ED AND in the Settings file xxxGameMode)
 - [x] Enhanced Functions Like Game Menu (Set Speed to 0, put silence runing off, PIP to tank then open game menu...when game menu is closed, restore previous PIP Mode...), System jump (target next system in route, Retract hardpoint if needed, Frameshift drive, then in Warp, set speed to 0 (safe next system entrance) ...More advanced functions will come later
-- [ ] Rotate Joystick Axis to account for center Joystick mounting position (CenterJoystickMount & JoystickAngle)
+- [x] Rotate Joystick Axis to account for center Joystick mounting position (CenterJoystickMount & JoystickAngle)
 - [ ] Nvidia Shadowplay and AMD Relive Video Capture and Streaming Support. (By Default, they are Disable)
 - [ ] Steam Screenshot Support. (For Normal Screenshot only : Off by Default)
 - [ ] Possibility to swap some Joystick key in settings file : (Modifier key, FA key, Secondary Fire key, Toggle Hardpoint Key)
@@ -70,9 +70,9 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 
 ### LED:
 
-- [ ] Support Toggle & Flashing Throttle LED's
-- [ ] Support Toggle & Flashing MFD LED's
-- [ ] Support Toggle & Flashing Throttle & MFD's Backlight (For now, Flashing Throttle Backlight is only for Escape Fight : Autopilot Fonction (Panic Mode, for the Fun :) )
+- [x] Support Toggle & Flashing Throttle LED's
+- [x] Support Toggle & Flashing MFD LED's
+- [x] Support Toggle & Flashing Throttle & MFD's Backlight (For now, Flashing Throttle Backlight is only for Escape Fight : Autopilot Fonction (Panic Mode, for the Fun :) )
 - [x] Easy Led Configuration : You can chose what you want to be assigned (Check Settings file comments / LED SETTINGS to know more about How To ..)
 - [x] Throttle Backlight intensity On The Fly (S3 + Friction Control Axis)
 - [x] Throttle Backlight Intensity on Idle Throttle states. (Setup In Settings File. Default is Backlight Throttle LED is OFF (ThrottleLEDOnIDLE in settings file))
