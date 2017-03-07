@@ -289,9 +289,9 @@
 
 	//Joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
 	int initSetJoystickCurves(){
-		if     (Throttle[FLAPU]) vJoystickCurveProfile = 0;	// Flaps UP
-		else if(Throttle[FLAPD]) vJoystickCurveProfile = 2;	// Flaps DOWN
-		else                     vJoystickCurveProfile = 1;	// Flaps MIDDLE
+		if     (Throttle[T3_FLAPS_UP_Key])   vJoystickCurveProfile = 0;	// Flaps UP
+		else if(Throttle[T3_FLAPS_DOWN_Key]) vJoystickCurveProfile = 2;	// Flaps DOWN
+		else                                 vJoystickCurveProfile = 1;	// Flaps MIDDLE
 		initJoystickCurves();
 	}
 	
@@ -335,7 +335,7 @@
 		SetCustomCurve(&Throttle, THR_FC, LIST(0,0, 33,25, 66,50, 80,75, 100,100));		// (OPTIONAL OVERRIDE) (Linear Recommended in ED) *LIST(Axis physical position, Axis output Value)
 	}
 	
-	//Set Throttle Curve two different presets are selectable On The Fly (ModifierKey + RED Button on Throttle Arm)
+	//Set Throttle Curve two different presets are selectable On The Fly (P_Modifier_Key + RED Button on Throttle Arm)
 	int initSetThrottleCurves(){
 		vThrottleCurveProfile=!vThrottleCurveProfile;
 		if(vThrottleCurveProfile){

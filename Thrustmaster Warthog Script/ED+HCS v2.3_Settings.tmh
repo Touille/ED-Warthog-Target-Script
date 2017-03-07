@@ -61,19 +61,6 @@
 									//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with PrimaryFireKeyScanDelay and SecondaryKeyScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	PERSONAL SETTINGS Default Keys																																//
-//	Note : you can chose betwen S1,S2,S3 and S4. All key's must be different AND All Key's should be there														//
-//	Note :		define : no ";" at the END of the Line																											//
-//	Default Order to match the include Thrustmaster Warthog Chart are : ModifierKey S3, FlightAssistKey S4, SecondaryFireKey S2 and ToggleHardpointKey S1		//
-//	You can see Button Name in Warthog_button_num.png from Thrustmaster Warthog Chart directory																	//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	define ModifierKey          S3
-	define FlightAssistKey      S4
-	define SecondaryFireKey     S2
-	define ToggleHardpointKey   S1
-	
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	------------Default States--------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
 //	Note :		int : "= (Value ;" with ";" at the END of the Line																								//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -230,6 +217,110 @@
 	define PrimaryFireKeyScanDelay     6000    //ExploreModeFire 0 or 2 TG1 Delay
 	define SecondaryFireKeyScanDelay      11000   //ExploreModeFire 1 or 2 S2  Delay
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//WARNING !!!!!!!!!!!!!!!!! I Suggest to Keep this setting at default value WIll remove this line when you will be able to make change without to much trouble	//
+//	PERSONAL SETTINGS Take Care with this Modifications, Default Keys Binding from chart will not match if you change this !!									//
+//	Note : All key's must be different AND All Key's should be there																							//
+//	Note : !!!SWAP SAME TYPE ONLY AND ON THE SAME HARDWARE : JOYSTICK OR THROTTLE (will Add posibility to swap betwen joystick and throttle later)!!!			//
+//	Note :		define : no ";" at the END of the Line																											//
+//	You can see Button Name in Warthog_button_num.png from Thrustmaster Warthog Chart directory																	//
+//	You can find PSD File in Github Wiki Pages if you want to make your charts																					//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+//Push Button : P
+	//----------------------------------Joystick Push Button (Default)(S1, S2, S3, S4, H4P)
+		define P_ToggleHardpoint_Key        S1      //S1 (& Combined Fire)
+		define P_SecondaryFire_Key          S2      //S2	
+		define P_Modifier_Key               S3      //S3
+		define P_FlightAssist_Key           S4      //S4
+		define P_UISelect_Key               H4P     //H4P (& UIBack)
+	//----------------------------------Throttle Push Button (Default)(LTB, MSP, SC,LDGH, APENG)
+		//----------------------------------Throttle Arm Push Button (Default)(LTB, MSP, SC)
+		define P_ReverseThrottle_Key        LTB     //LTB (& Change Throttle Curve)
+		define P_VoicePTT_Key               MSP     //MSP
+		define P_HeadLock_Key               SC      //SC
+		//----------------------------------Throttle Base Push Button (Default)(LDGH, APENG)
+		define P_HeadCenter_Key             LDGH    //LDGH  (& ScreenShot & video)
+		define P_EscapeFight_Key            APENG   //APENG (& Request Docking)
+
+//Toggle 2 Positions : T2 We Use only UP postion (if it's not UP position, it's obviously DOWN one ;) )
+	//----------------------------------Throttle Base Toggle(2) (Default)(EACON, RDRNRM, EFRNORM, EFLNORM, APUON)
+		define T2_LandingGear_Key           EACON   //EACON
+		define T2_CargoScoop_Key            RDRNRM  //RDRNRM
+		define T2_ToggleExplorerMode_Key    EFLNORM //EFLNORM
+		define T2_ToggleLight_Key           EFRNORM //EFRNORM
+		define T2_JettisonCargo_Key         APUON   //APUON
+	
+//Toggle 3 Positions : T3
+	//----------------------------------Throttle Arm Toggle(3)
+		//	-------------------------Pinky Throttle(PSF/PSM/PSB)
+		define T3_Pinky_FWRD_Key             PSF       //PSF
+		define T3_Pinky_MIDLE_Key            PSM       //PSM
+		define T3_Pinky_BACK_Key             PSB       //PSB
+		//	-------------------------Speedbrake(SPDF/SPDM/SPDB)
+		define T3_Speedbrake_FWRD_Key        SPDF      //SPDF
+		define T3_Speedbrake_MIDLE_Key       SPDM      //SPDM
+		define T3_Speedbrake_BACK_Key        SPDB      //SPDB
+		//	-------------------------Boat Switch(BSF/BSM/BSB)
+		define T3_Boat_FWRD_Key              BSF       //BSF
+		define T3_Boat_MIDLE_Key             BSM       //BSM
+		define T3_Boat_BACK_Key              BSB       //BSB
+		//	-------------------------China Hat(CHF/CHM/CHB)
+		define T3_China_FWRD_Key             CHF       //CHF
+		define T3_China_MIDLE_Key            CHM       //CHM
+		define T3_China_BACK_Key             CHB       //CHB
+	//----------------------------------Throttle Base Toggle(3)
+		//	-------------------------Engine Operate Ign/Norm LEFT(EOLIGN/EOLNORM/EOLMOTOR)
+		define T3_EngineLeft_UP_Key          EOLIGN    //EOLIGN
+		define T3_EngineLeft_MIDLE_Key       EOLNORM   //EOLNORM
+		define T3_EngineLeft_DOWN_Key        EOLMOTOR  //EOLMOTOR
+		//	-------------------------Engine Operate Ign/Norm RIGHT(EORIGN/EORNORM/EORMOTOR)
+		define T3_EngineRight_UP_Key         EORIGN    //EORIGN
+		define T3_EngineRight_MIDLE_Key      EORNORM   //EORNORM
+		define T3_EngineRight_DOWN_Key       EORMOTOR  //EORMOTOR
+		//	-------------------------FLAPS(FLAPU/FLAPM/FLAPD)
+		define T3_FLAPS_UP_Key               FLAPU     //FLAPU
+		define T3_FLAPS_MIDLE_Key            FLAPM     //FLAPM
+		define T3_FLAPS_DOWN_Key             FLAPD     //FLAPD
+		//	-------------------------Autopilot Select Switch(APPAT/APAH/APALT) !!!!!!!!!!!MODIFIER 2 Toggle
+		define T3_Autopilot_UP_Key           APPAT     //APPAT
+		define T3_Autopilot_MIDLE_Key        APAH      //APAH
+		define T3_Autopilot_DOWN_Key         APALT     //APALT
+	
+//HAT : H
+	//----------------------------------Joystick HAT(HxU(UP), HxD(DOWN), HxR(RIGHT), HxL(LEFT))
+		//Trim Switch H1
+		define H_PIP_UP        H1U     //H1U
+		define H_PIP_DOWN      H1D     //H1D
+		define H_PIP_LEFT      H1L     //H1L
+		define H_PIP_RIGHT     H1R     //H1R
+		//TMS H2
+		define H_Target_UP     H2U     //H2U
+		define H_Target_DOWN   H2D     //H2D
+		define H_Target_LEFT   H2L     //H2L
+		define H_Target_RIGHT  H2R     //H2R
+		//DMS H3
+		define H_Data_UP       H3U     //H3U
+		define H_Data_DOWN     H3D     //H3D
+		define H_Data_LEFT     H3L     //H3L
+		define H_Data_RIGHT    H3R     //H3R
+		//CMS H4
+		define H_UI_UP         H4U     //H4U
+		define H_UI_DOWN       H4D     //H4D
+		define H_UI_LEFT       H4L     //H4L
+		define H_UI_RIGHT      H4R     //H4R
+	//----------------------------------Throttle HAT(CSU,CSD,CSL,CSR / MSU,MSD,MSL,MSR)
+		//Coolie Switch CS
+		define H_Thrust_UP     CSU     //CSU
+		define H_Thrust_DOWN   CSD     //CSD
+		define H_Thrust_LEFT   CSL     //CSL
+		define H_Thrust_RIGHT  CSR     //CSR
+		//Mic Switch HAT MS
+		define H_Wingman_UP    MSU     //MSU
+		define H_Wingman_DOWN  MSD     //MSD
+		define H_Wingman_LEFT  MSL     //MSL
+		define H_Wingman_RIGHT MSR     //MSR
+	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	REPORT STATES																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//

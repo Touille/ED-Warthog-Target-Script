@@ -139,7 +139,7 @@
 	
 	//FUNCTION: Init Fire
 	int initFire(){
-		if(Joystick[TG1] | Joystick[SecondaryFireKey]){
+		if(Joystick[TG1] | Joystick[P_SecondaryFire_Key]){
 			if(SilentRuningOFFonFire & sSilentRuning & !vSLonFire){	//ShutDown Silent Runing if it running
 				vSLonFire=!vSLonFire;
 				vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
@@ -151,9 +151,9 @@
 				initBackupPIPPower(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
 				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 			}
-			if(Joystick[ModifierKey]){
+			if(Joystick[P_Modifier_Key]){
 				if(Joystick[TG1] & !vScanPrimaryFire) vScanPrimaryFire=!vScanPrimaryFire;
-				if((Joystick[SecondaryFireKey] | (Joystick[TG2] & sCombinedFire)) & !vScanSecondaryFire) vScanSecondaryFire=!vScanSecondaryFire;
+				if((Joystick[P_SecondaryFire_Key] | (Joystick[TG2] & sCombinedFire)) & !vScanSecondaryFire) vScanSecondaryFire=!vScanSecondaryFire;
 			}
 		}
 		
@@ -161,7 +161,7 @@
 		initPrimaryFire();
 		initSecondaryFire();
 		
-		if(!Joystick[TG1] & !Joystick[SecondaryFireKey]){
+		if(!Joystick[TG1] & !Joystick[P_SecondaryFire_Key]){
 			if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
 			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !sExplorerMode) initToggleHardpoints();//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
 			if(vSilentRuningBackup!=0){	//Restore Silent Runing if it was running before fire
@@ -191,14 +191,14 @@
 	
 	//FUNCTION: init SecondaryFire
 	int initSecondaryFire(){
-		if((Joystick[SecondaryFireKey] | (Joystick[TG2] & sCombinedFire)) & !vSecondaryFire){
+		if((Joystick[P_SecondaryFire_Key] | (Joystick[TG2] & sCombinedFire)) & !vSecondaryFire){
 			ActKey(KEYON+DOWN+SecondaryFire);
 			vSecondaryFire=!vSecondaryFire;
-			//if(DebugMode) printf("SecondaryFireKey  Down\x0a");
+			//if(DebugMode) printf("P_SecondaryFire_Key  Down\x0a");
 		}
-		else if(!Joystick[SecondaryFireKey] & vSecondaryFire){
+		else if(!Joystick[P_SecondaryFire_Key] & vSecondaryFire){
 			if((sExplorerMode & !vScanSecondaryFire & (ExploreModeFire == 1 | ExploreModeFire == 2)) | vScanSecondaryFire) DeferCall(SecondaryFireKeyScanDelay, &ActKey, KEYON+UP+SecondaryFire);
-			else ActKey(KEYON+UP+SecondaryFire);	//if(DebugMode) printf("SecondaryFireKey  Up\x0a");
+			else ActKey(KEYON+UP+SecondaryFire);	//if(DebugMode) printf("P_SecondaryFire_Key  Up\x0a");
 			if(vScanSecondaryFire) vScanSecondaryFire=!vScanSecondaryFire;
 			vSecondaryFire=!vSecondaryFire;
 		}
@@ -208,7 +208,7 @@
 
 	//FUNCTION: Jettison All Cargo	
 	int initJettisonCargo(){
-		if(Throttle[APUON]){
+		if(Throttle[T2_JettisonCargo_Key]){
 			if(sCargo){
 				ActKey(KEYON+PULSE+JettisonAllCargo);
 				if(DebugMode | DebugMMode) printf("Jettison All Cargo\x0a");
@@ -406,7 +406,7 @@
 	int initVoicePTT(){
 		if     (sPTTState) vPTT = InternalVoiceCommsPTT;	//External Mic
 		else if(!sPTTState)vPTT = ExternalVoiceCommsPTT;	//Internal Mic
-		if(Throttle[MSP]){
+		if(Throttle[P_VoicePTT_Key]){
 			vVoicePTT=!vVoicePTT;
 			if(sPTTMode){	//TOGGLE
 				vVoice=!vVoice;
@@ -415,7 +415,7 @@
 			}
 			else ActKey(KEYON+DOWN+vPTT);	//Talk [HOLD]
 		}
-		if(!Throttle[MSP] & !sPTTMode){	//Silence [HOLD]
+		if(!Throttle[P_VoicePTT_Key] & !sPTTMode){	//Silence [HOLD]
 			vVoicePTT=!vVoicePTT;
 			ActKey(KEYON+UP+vPTT);
 		}
