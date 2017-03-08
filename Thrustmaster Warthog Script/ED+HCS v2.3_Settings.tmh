@@ -221,7 +221,7 @@
 //WARNING !!!!!!!!!!!!!!!!! I Suggest to Keep this setting at default value WIll remove this line when you will be able to make change without to much trouble	//
 //	PERSONAL SETTINGS Take Care with this Modifications, Default Keys Binding from chart will not match if you change this !!									//
 //	Note : All key's must be different AND All Key's should be there																							//
-//	Note : !!!SWAP SAME TYPE ONLY AND ON THE SAME HARDWARE : JOYSTICK OR THROTTLE (will Add posibility to swap betwen joystick and throttle later)!!!			//
+//	Note : !!!SWAP SAME TYPE ONLY AND ON THE SAME DEVICE : JOYSTICK OR THROTTLE (will Add posibility to swap betwen joystick and throttle later)!!!			//
 //	Note :		define : no ";" at the END of the Line																											//
 //	You can see Button Name in Warthog_button_num.png from Thrustmaster Warthog Chart directory																	//
 //	You can find PSD File in Github Wiki Pages if you want to make your charts																					//
@@ -229,97 +229,102 @@
 
 //Push Button : P
 	//----------------------------------Joystick Push Button (Default)(S1, S2, S3, S4, H4P)
-		define P_ToggleHardpoint_Key        S1      //S1 (& Combined Fire)
-		define P_SecondaryFire_Key          S2      //S2	
-		define P_Modifier_Key               S3      //S3
-		define P_FlightAssist_Key           S4      //S4
-		define P_UISelect_Key               H4P     //H4P (& UIBack)
+		define P_S1             S1          //S1
+		define P_S2             S2          //S2	
+		define P_S3             S3          //S3
+		define P_S4             S4          //S4
+		define P_H4P            H4P         //H4P
 	//----------------------------------Throttle Push Button (Default)(LTB, MSP, SC,LDGH, APENG)
 		//----------------------------------Throttle Arm Push Button (Default)(LTB, MSP, SC)
-		define P_ReverseThrottle_Key        LTB     //LTB (& Change Throttle Curve)
-		define P_VoicePTT_Key               MSP     //MSP
-		define P_HeadLock_Key               SC      //SC
+		define P_LTB            LTB         //LTB
+		define P_MSP            MSP         //MSP
+		define P_SC             SC          //SC
 		//----------------------------------Throttle Base Push Button (Default)(LDGH, APENG)
-		define P_HeadCenter_Key             LDGH    //LDGH  (& ScreenShot & video)
-		define P_EscapeFight_Key            APENG   //APENG (& Request Docking)
+		define P_LDGH           LDGH       //LDGH
+		define P_APENG          APENG      //APENG
 
-//Toggle 2 Positions : T2 We Use only UP postion (if it's not UP position, it's obviously DOWN one ;) )
+//Toggle 2 Positions : T2
 	//----------------------------------Throttle Base Toggle(2) (Default)(EACON, RDRNRM, EFRNORM, EFLNORM, APUON)
-		define T2_LandingGear_Key           EACON   //EACON
-		define T2_CargoScoop_Key            RDRNRM  //RDRNRM
-		define T2_ToggleExplorerMode_Key    EFLNORM //EFLNORM
-		define T2_ToggleLight_Key           EFRNORM //EFRNORM
-		define T2_JettisonCargo_Key         APUON   //APUON
+		define T2_EACON         EACON      //EACON
+		define T2_EACOFF        EACOFF     //EACOFF
+		define T2_RDRNRM        RDRNRM     //RDRNRM
+		define T2_RDRDIS        RDRDIS     //RDRDIS
+		define T2_EFLNORM       EFLNORM    //EFLNORM
+		define T2_EFLOVER       EFLOVER    //EFLOVER
+		define T2_EFRNORM       EFRNORM    //EFRNORM
+		define T2_EFROVER       EFROVER    //EFROVER
+		define T2_APUON         APUON      //APUON
+		define T2_APUOFF        APUOFF     //APUOFF
 	
 //Toggle 3 Positions : T3
 	//----------------------------------Throttle Arm Toggle(3)
 		//	-------------------------Pinky Throttle(PSF/PSM/PSB)
-		define T3_Pinky_FWRD_Key             PSF       //PSF
-		define T3_Pinky_MIDLE_Key            PSM       //PSM
-		define T3_Pinky_BACK_Key             PSB       //PSB
+		define T3_PS_FWRD        PSF       //PSF
+		define T3_PS_MIDLE       PSM       //PSM
+		define T3_PS_BACK        PSB       //PSB
 		//	-------------------------Speedbrake(SPDF/SPDM/SPDB)
-		define T3_Speedbrake_FWRD_Key        SPDF      //SPDF
-		define T3_Speedbrake_MIDLE_Key       SPDM      //SPDM
-		define T3_Speedbrake_BACK_Key        SPDB      //SPDB
+		define T3_SPD_FWRD       SPDF      //SPDF
+		define T3_SPD_MIDLE      SPDM      //SPDM
+		define T3_SPD_BACK       SPDB      //SPDB
 		//	-------------------------Boat Switch(BSF/BSM/BSB)
-		define T3_Boat_FWRD_Key              BSF       //BSF
-		define T3_Boat_MIDLE_Key             BSM       //BSM
-		define T3_Boat_BACK_Key              BSB       //BSB
+		define T3_BS_FWRD        BSF       //BSF
+		define T3_BS_MIDLE       BSM       //BSM
+		define T3_BS_BACK        BSB       //BSB
 		//	-------------------------China Hat(CHF/CHM/CHB)
-		define T3_China_FWRD_Key             CHF       //CHF
-		define T3_China_MIDLE_Key            CHM       //CHM
-		define T3_China_BACK_Key             CHB       //CHB
+		define T3_CH_FWRD        CHF       //CHF
+		define T3_CH_MIDLE       CHM       //CHM
+		define T3_CH_BACK        CHB       //CHB
 	//----------------------------------Throttle Base Toggle(3)
 		//	-------------------------Engine Operate Ign/Norm LEFT(EOLIGN/EOLNORM/EOLMOTOR)
-		define T3_EngineLeft_UP_Key          EOLIGN    //EOLIGN
-		define T3_EngineLeft_MIDLE_Key       EOLNORM   //EOLNORM
-		define T3_EngineLeft_DOWN_Key        EOLMOTOR  //EOLMOTOR
+		define T3_EOL_UP         EOLIGN    //EOLIGN
+		define T3_EOL_MIDLE      EOLNORM   //EOLNORM
+		define T3_EOL_DOWN       EOLMOTOR  //EOLMOTOR
 		//	-------------------------Engine Operate Ign/Norm RIGHT(EORIGN/EORNORM/EORMOTOR)
-		define T3_EngineRight_UP_Key         EORIGN    //EORIGN
-		define T3_EngineRight_MIDLE_Key      EORNORM   //EORNORM
-		define T3_EngineRight_DOWN_Key       EORMOTOR  //EORMOTOR
+		define T3_EOR_UP         EORIGN    //EORIGN
+		define T3_EOR_MIDLE      EORNORM   //EORNORM
+		define T3_EOR_BACK       EORMOTOR  //EORMOTOR
 		//	-------------------------FLAPS(FLAPU/FLAPM/FLAPD)
-		define T3_FLAPS_UP_Key               FLAPU     //FLAPU
-		define T3_FLAPS_MIDLE_Key            FLAPM     //FLAPM
-		define T3_FLAPS_DOWN_Key             FLAPD     //FLAPD
+		define T3_FLAP_UP        FLAPU     //FLAPU
+		define T3_FLAP_MIDLE     FLAPM     //FLAPM
+		define T3_FLAP_DOWN      FLAPD     //FLAPD
 		//	-------------------------Autopilot Select Switch(APPAT/APAH/APALT) !!!!!!!!!!!MODIFIER 2 Toggle
-		define T3_Autopilot_UP_Key           APPAT     //APPAT
-		define T3_Autopilot_MIDLE_Key        APAH      //APAH
-		define T3_Autopilot_DOWN_Key         APALT     //APALT
+		define T3_AP_UP          APPAT     //APPAT
+		define T3_AP_MIDLE       APAH      //APAH
+		define T3_AP_DOWN        APALT     //APALT
 	
 //HAT : H
 	//----------------------------------Joystick HAT(HxU(UP), HxD(DOWN), HxR(RIGHT), HxL(LEFT))
 		//Trim Switch H1
-		define H_PIP_UP        H1U     //H1U
-		define H_PIP_DOWN      H1D     //H1D
-		define H_PIP_LEFT      H1L     //H1L
-		define H_PIP_RIGHT     H1R     //H1R
+		define H_H1_UP           H1U     //H1U
+		define H_H1_DOWN         H1D     //H1D
+		define H_H1_LEFT         H1L     //H1L
+		define H_H1_RIGHT        H1R     //H1R
 		//TMS H2
-		define H_Target_UP     H2U     //H2U
-		define H_Target_DOWN   H2D     //H2D
-		define H_Target_LEFT   H2L     //H2L
-		define H_Target_RIGHT  H2R     //H2R
+		define H_H2_UP           H2U     //H2U
+		define H_H2_DOWN         H2D     //H2D
+		define H_H2_LEFT         H2L     //H2L
+		define H_H2_RIGHT        H2R     //H2R
 		//DMS H3
-		define H_Data_UP       H3U     //H3U
-		define H_Data_DOWN     H3D     //H3D
-		define H_Data_LEFT     H3L     //H3L
-		define H_Data_RIGHT    H3R     //H3R
+		define H_H3_UP           H3U     //H3U
+		define H_H3_DOWN         H3D     //H3D
+		define H_H3_LEFT         H3L     //H3L
+		define H_H3_RIGHT        H3R     //H3R
 		//CMS H4
-		define H_UI_UP         H4U     //H4U
-		define H_UI_DOWN       H4D     //H4D
-		define H_UI_LEFT       H4L     //H4L
-		define H_UI_RIGHT      H4R     //H4R
+		define H_H4_UP           H4U     //H4U
+		define H_H4_DOWN         H4D     //H4D
+		define H_H4_LEFT         H4L     //H4L
+		define H_H4_RIGHT        H4R     //H4R
 	//----------------------------------Throttle HAT(CSU,CSD,CSL,CSR / MSU,MSD,MSL,MSR)
 		//Coolie Switch CS
-		define H_Thrust_UP     CSU     //CSU
-		define H_Thrust_DOWN   CSD     //CSD
-		define H_Thrust_LEFT   CSL     //CSL
-		define H_Thrust_RIGHT  CSR     //CSR
+		define H_CS_UP           CSU     //CSU
+		define H_CS_DOWN         CSD     //CSD
+		define H_CS_LEFT         CSL     //CSL
+		define H_CS_RIGHT        CSR     //CSR
 		//Mic Switch HAT MS
-		define H_Wingman_UP    MSU     //MSU
-		define H_Wingman_DOWN  MSD     //MSD
-		define H_Wingman_LEFT  MSL     //MSL
-		define H_Wingman_RIGHT MSR     //MSR
+		define H_MS_UP           MSU     //MSU
+		define H_MS_DOWN         MSD     //MSD
+		define H_MS_LEFT         MSL     //MSL
+		define H_MS_RIGHT        MSR     //MSR
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	REPORT STATES																																				//

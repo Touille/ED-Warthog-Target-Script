@@ -25,7 +25,7 @@
 	
 	//TOGGLE: Menu and LED OFF on Idle (Check PERSONAL SETTINGS in Settings File)
 	int initToggleIDLEonThrottle(){
-		if(!Joystick[P_Modifier_Key]){	//Reset On The FLY P_Modifier_Key + SWITCH
+		if(!Joystick[P_S3]){	//Reset On The FLY P_S3 + SWITCH
 			if(Throttle[IDLELON]){
 				sIDLE = 1;
 				initBACKLIGHT(Throttle_BL, ThrottleLightOnIDLE);
@@ -46,8 +46,8 @@
 	
 	//TOGGLE: Explorer Mode
 	int initToggleExplorerMode(){
-		if(!Joystick[P_Modifier_Key]){
-			if(Throttle[T2_ToggleExplorerMode_Key]) sExplorerMode = 1;	//Switch position is UP : Explorer Mode Is ON
+		if(!Joystick[P_S3]){
+			if(Throttle[T2_EFLNORM]) sExplorerMode = 1;	//Switch position is UP : Explorer Mode Is ON
 			else                                    sExplorerMode = 0;	//Switch position is DOWN : Explorer Mode Is OFF
 			initLED(ExplorerMode_LED, sExplorerMode);
 			if(DebugMode | DebugMMode) printf("Explorer Mode	[%d]	[ON:[1] OFF:[0]]\x0a", sExplorerMode);
@@ -149,13 +149,13 @@
 
 	//TOGGLE: Landing Gear
 	int initToggleLandingGear(){
-		if(!Joystick[P_Modifier_Key]){
+		if(!Joystick[P_S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sGears=!sGears;
 				if(DebugMode | DebugMMode) printf("Landing Gear SecureEscapeFight : Toggle the Switch\x0a");
 			}
 			else{	//Or Change the flag status with the switch position
-				if(Throttle[T2_LandingGear_Key]) sGears = 1;	//Switch position is UP : Landing Gear Is Deployed
+				if(Throttle[T2_EACON]) sGears = 1;	//Switch position is UP : Landing Gear Is Deployed
 				else                             sGears = 0;	//Switch position is DOWN : Landing Gear Is Retracted
 			}
 			if((sGears & !vLG) | (!sGears & vLG)){	//vLG is there if initSecureRectract() initialise This
@@ -166,10 +166,10 @@
 				if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly\x0a");
 			}
 		}
-		else{	//Reset The Flag On The FLY P_Modifier_Key + SWITCH
+		else{	//Reset The Flag On The FLY P_S3 + SWITCH
 			vLG=!vLG;
 			sGears=!sGears;
-			if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly with P_Modifier_Key\x0a");
+			if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly with P_S3\x0a");
 		}
 		initLED(LandingGear_LED, sGears);
 		if(DebugMode) printf("Landing Gear	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sGears);
@@ -177,14 +177,14 @@
 	
 	//TOGGLE: Cargo Scoop	
 	int initToggleCargoScoop(){
-		if(!Joystick[P_Modifier_Key]){
+		if(!Joystick[P_S3]){
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
 				sCargo=!sCargo;
 				if(DebugMode | DebugMMode) printf("Cargo Scoop SecureEscapeFight : Toggle the Switch\x0a");
 			}
 			else{	//Or Change the flag status with the switch position
-				if(Throttle[T2_CargoScoop_Key]) sCargo = 1;	//Switch position is UP : Cargo Scoop Is Deployed
-				else                            sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
+				if(Throttle[T2_RDRNRM]) sCargo = 1;	//Switch position is UP : Cargo Scoop Is Deployed
+				else                    sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
 			}
 			if((sCargo & !vCS) | (!sCargo & vCS)){	//vCS is there if initSecureRectract() initialise This
 				vCS=!vCS;	//Reset On The FLY : Just switch
@@ -194,10 +194,10 @@
 				if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly\x0a");
 			}
 		}
-		else{	//Reset The Flag On The FLY P_Modifier_Key + SWITCH
+		else{	//Reset The Flag On The FLY P_S3 + SWITCH
 			vCS=!vCS;
 			sCargo=!sCargo;
-			if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly with P_Modifier_Key\x0a");
+			if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly with P_S3\x0a");
 		}
 		initLED(CargoScoop_LED, sCargo);
 		if(DebugMode) printf("Cargo Scoop	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sCargo);
@@ -205,9 +205,9 @@
 
 	//TOGGLE: Light	
 	int initToggleLights(){
-		if(!Joystick[P_Modifier_Key]){
-			if(Throttle[T2_ToggleLight_Key]) sLights = 1;	//Switch position is UP : Light Is ON
-			else                             sLights = 0;	//Switch position is DOWN : Light Is OFF
+		if(!Joystick[P_S3]){
+			if(Throttle[T2_EFRNORM]) sLights = 1;	//Switch position is UP : Light Is ON
+			else                     sLights = 0;	//Switch position is DOWN : Light Is OFF
 			ActKey(KEYON+PULSE+ShipLights);
 			initLED(Lights_LED, sLights);
 		}
@@ -216,7 +216,7 @@
 	
 	//TOGGLE: HardPoints	
 	int initToggleHardpoints(){
-		if(!Joystick[P_Modifier_Key] | (Joystick[P_Modifier_Key] & Joystick[TG1]) | (Joystick[P_Modifier_Key] & Joystick[P_SecondaryFire_Key])){ // No [P_Modifier_Key] Pressed OR automatic fire with [P_Modifier_Key]?
+		if(!Joystick[P_S3] | (Joystick[P_S3] & Joystick[TG1]) | (Joystick[P_S3] & Joystick[P_S2])){ // No [P_S3] Pressed OR automatic fire with [P_S3]?
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This Just Display Msg (Hardpoint is Mapped on Button : No Position)
 				if(DebugMode | DebugMMode) printf("HardPoints SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
 			}
@@ -232,9 +232,9 @@
 				if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPHPBackup);	//Restore Previous PIP Mode
 			}
 		}
-		else if(Joystick[P_Modifier_Key] & (!Joystick[TG1] | !Joystick[P_SecondaryFire_Key])){	//Reset The Flag On The FLY P_Modifier_Key + SWITCH
+		else if(Joystick[P_S3] & (!Joystick[TG1] | !Joystick[P_S2])){	//Reset The Flag On The FLY P_S3 + SWITCH
 			sHardPoints=!sHardPoints;
-			if(DebugMode | DebugMMode) printf("Hardpoints Reset On The Fly with P_Modifier_Key\x0a");
+			if(DebugMode | DebugMMode) printf("Hardpoints Reset On The Fly with P_S3\x0a");
 		}
 		initLED(Hardpoints_LED, sHardPoints);
 		if(DebugMode) printf("HardPoints	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sHardPoints);
@@ -242,7 +242,7 @@
 
 	//TOGGLE: Silent Runing
 	int initToggleSilentRuning(){
-		if(Joystick[H3D] | Joystick[TG1] | Joystick[P_SecondaryFire_Key] | vSLonFire | vSLonEscapeFight | vSLonGameMenu | vSLonCamera){
+		if(Joystick[H3D] | Joystick[TG1] | Joystick[P_S2] | vSLonFire | vSLonEscapeFight | vSLonGameMenu | vSLonCamera){
 			sSilentRuning=!sSilentRuning;
 			if(SilentRuningGameMode){	//Silent Runing [TOGGLE] Mode Ingame
 				if(HeatSinkonSilentRuning) ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);	//Call The Heat Sink on Silent Running Macro
@@ -263,7 +263,7 @@
 
 	//TOGGLE: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
 	int initToggleEnhancedFAOFF(){
-		if(Joystick[P_FlightAssist_Key]){
+		if(Joystick[P_S4]){
 			sFlightAssist=!sFlightAssist;
 			if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
 				vFA=!vFA;
@@ -318,7 +318,7 @@
 
 	//TOGGLE: Reverse Throttle
 	int initToggleReverseThrottle(){
-		if(Throttle[P_ReverseThrottle_Key]){
+		if(Throttle[P_LTB]){
 			sRT=!sRT;
 			if(RFlightThrootleGameMode) ActKey(KEYON+PULSE+ReverseThrottle);	//TOGGLE
 			else ActKey(KEYON+DOWN+ReverseThrottle);	//HOLD Key Down
@@ -367,7 +367,7 @@
 	//TOGGLE: Head Look
 	int initToogleHeadLook(){
 		if(!HMD & !TrackIR){
-			if(Throttle[P_HeadLock_Key]){
+			if(Throttle[P_SC]){
 				sHeadLook=!sHeadLook;
 				if(HeadLookGameMode){	//HeadLook [TOGGLE] Mode Ingame
 					ActKey(KEYON+PULSE+HeadLook);
