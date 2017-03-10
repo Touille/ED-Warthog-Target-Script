@@ -908,30 +908,37 @@
 	</HeadLookToggle_Buggy>
 	<MultiCrewToggleMode>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_M">
+			<Modifier Device="Keyboard" Key="Key_LeftControl" />
+			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
+		</Secondary>
 	</MultiCrewToggleMode>
 	<MultiCrewPrimaryFire>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_1" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</MultiCrewPrimaryFire>
 	<MultiCrewSecondaryFire>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_2" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</MultiCrewSecondaryFire>
 	<MultiCrewPrimaryUtilityFire>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_LeftControl">
+			<Modifier Device="Keyboard" Key="Key_Y" />
+		</Secondary>
 	</MultiCrewPrimaryUtilityFire>
 	<MultiCrewSecondaryUtilityFire>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_Z">
+			<Modifier Device="Keyboard" Key="Key_LeftControl" />
+		</Secondary>
 	</MultiCrewSecondaryUtilityFire>
 	<MultiCrewThirdPersonMouseXMode Value="" />
 	<MultiCrewThirdPersonMouseXDecay Value="0" />
 	<MultiCrewThirdPersonMouseYMode Value="" />
 	<MultiCrewThirdPersonMouseYDecay Value="0" />
 	<MultiCrewThirdPersonYawAxisRaw>
-		<Binding Device="{NoDevice}" Key="" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RXAxis" />
 		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</MultiCrewThirdPersonYawAxisRaw>
@@ -944,8 +951,8 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</MultiCrewThirdPersonYawRightButton>
 	<MultiCrewThirdPersonPitchAxisRaw>
-		<Binding Device="{NoDevice}" Key="" />
-		<Inverted Value="0" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RYAxis" />
+		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</MultiCrewThirdPersonPitchAxisRaw>
 	<MultiCrewThirdPersonPitchUpButton>
@@ -958,8 +965,8 @@
 	</MultiCrewThirdPersonPitchDownButton>
 	<MultiCrewThirdPersonMouseSensitivity Value="30.00000000" />
 	<MultiCrewThirdPersonFovAxisRaw>
-		<Binding Device="{NoDevice}" Key="" />
-		<Inverted Value="0" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_ZAxis" />
+		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</MultiCrewThirdPersonFovAxisRaw>
 	<MultiCrewThirdPersonFovOutButton>
@@ -972,11 +979,11 @@
 	</MultiCrewThirdPersonFovInButton>
 	<MultiCrewCockpitUICycleForward>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_D" />
 	</MultiCrewCockpitUICycleForward>
 	<MultiCrewCockpitUICycleBackward>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_A" />
 	</MultiCrewCockpitUICycleBackward>
 	<OrderRequestDock>
 		<Primary Device="{NoDevice}" Key="" />

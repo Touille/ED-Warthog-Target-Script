@@ -289,8 +289,8 @@
 
 	//Joystick Curve Profile Three different presets are selectable On The Fly (FLAP position)
 	int initSetJoystickCurves(){
-		if     (Throttle[T3_FLAP_UP])   vJoystickCurveProfile = 0;	// Flaps UP
-		else if(Throttle[T3_FLAP_DOWN]) vJoystickCurveProfile = 2;	// Flaps DOWN
+		if     (Throttle[T3_FLAPU])   vJoystickCurveProfile = 0;	// Flaps UP
+		else if(Throttle[T3_FLAPD]) vJoystickCurveProfile = 2;	// Flaps DOWN
 		else                            vJoystickCurveProfile = 1;	// Flaps MIDDLE
 		initJoystickCurves();
 	}

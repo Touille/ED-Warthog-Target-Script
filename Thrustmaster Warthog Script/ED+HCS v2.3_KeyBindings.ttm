@@ -139,15 +139,19 @@
 	define ChangeEngineColor        L_ALT+USB_KP_2          // ALT+NUMPAD 2
 	
 	//MULTI-CREW
-//	define MC_Mode_Toggle
+	define MC_Mode_Toggle           L_CTL+L_ALT+USB_M       // CTRL+ALT+M
+//	define MC_PrimaryFire
+//	define MC_SecondaryFire
+	define MC_Primary_Utility       L_CTL+USB_Y             // CTRL+Y
+	define MC_Secondary_Utility     L_CTL+USB_Z             // CTRL+Z
 //	define MC_Yaw_Left
 //	define MC_Yaw_Right
 //	define MC_Pitch_Up
 //	define MC_Pitch_Down
 //	define MC_FOV_OUT
 //	define MC_FOV_IN
-//	define MC_Cycle_UI_Forwards
-//	define MC_Cycle_UI_Backwards
+	define MC_Cycle_UI_Forwards     USB_D                   // D
+	define MC_Cycle_UI_Backwards    USB_A                   // A
 	
 	//CAMERA SUITE
 	define Previous_Camera            USB_COMMA               // ,

@@ -20,12 +20,6 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	MACRO VARIABLE INITALISATION																																//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning, mClassifiedCamera;
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	MACRO FUNCTIONS																																				//
 //		All delay can be edited in Settings file																												//
 //			D()					75			//Default Delay 75																									//
@@ -37,8 +31,10 @@
 //			FSDOFFDelay			25000		//When to Press 0 Speed Key after Engaging FSD (Safe System Jump) Delay 25000										//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
+	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning, mClassifiedCamera;
+	
 	int initCustomCommands(){
-
+	
 		//MACRO: Auto-Docking Request
 		mRequestCancelDock = CHAIN(
 			LOCK+
