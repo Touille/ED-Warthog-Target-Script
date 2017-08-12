@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Root PresetName="ED+HCS V2.3.00.1b" MajorVersion="2" MinorVersion="0">
+<Root PresetName="ED+HCS V2.3.11.1b" MajorVersion="2" MinorVersion="0">
 	<KeyboardLayout>en-GB</KeyboardLayout>
 	<MouseXMode Value="" />
 	<MouseXDecay Value="0" />
@@ -297,10 +297,6 @@
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="Keyboard" Key="Key_Equals" />
 	</OrbitLinesToggle>
-	<PhotoCameraToggle>
-		<Primary Device="Keyboard" Key="Key_F1" />
-		<Secondary Device="{NoDevice}" Key="" />
-	</PhotoCameraToggle>
 	<SelectTarget>
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="Keyboard" Key="Key_T" />
@@ -533,19 +529,19 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</FriendsMenu>
 	<UI_Up>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_T" />
 		<Secondary Device="Keyboard" Key="Key_W" />
 	</UI_Up>
 	<UI_Down>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_M" />
 		<Secondary Device="Keyboard" Key="Key_S" />
 	</UI_Down>
 	<UI_Left>
-		<Primary Device="Keyboard" Key="Key_Comma" />
+		<Primary Device="Keyboard" Key="Key_B" />
 		<Secondary Device="Keyboard" Key="Key_A" />
 	</UI_Left>
 	<UI_Right>
-		<Primary Device="Keyboard" Key="Key_Period" />
+		<Primary Device="Keyboard" Key="Key_G" />
 		<Secondary Device="Keyboard" Key="Key_D" />
 	</UI_Right>
 	<UI_Select>
@@ -561,11 +557,15 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</UI_Toggle>
 	<CycleNextPanel>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_I">
+			<Modifier Device="ThrustMasterWarthogCombined" Key="Joy_3" />
+		</Primary>
 		<Secondary Device="Keyboard" Key="Key_E" />
 	</CycleNextPanel>
 	<CyclePreviousPanel>
-		<Primary Device="{NoDevice}" Key="" />
+		<Primary Device="Keyboard" Key="Key_K">
+			<Modifier Device="ThrustMasterWarthogCombined" Key="Joy_3" />
+		</Primary>
 		<Secondary Device="Keyboard" Key="Key_Q" />
 	</CyclePreviousPanel>
 	<MouseHeadlook Value="1" />
@@ -576,6 +576,7 @@
 	<HeadlookMode Value="Bindings_HeadlookModeAccumulate" />
 	<HeadlookResetOnToggle Value="1" />
 	<HeadlookSensitivity Value="1.00000000" />
+	<HeadlookSmoothing Value="1" />
 	<HeadLookReset>
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="{NoDevice}" Key="" />
@@ -610,16 +611,16 @@
 	<HeadlookMotionSensitivity Value="1.00000000" />
 	<CamPitchAxis>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RYAxis" />
-		<Inverted Value="0" />
+		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</CamPitchAxis>
 	<CamPitchUp>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_T" />
+		<Secondary Device="{NoDevice}" Key="" />
 	</CamPitchUp>
 	<CamPitchDown>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_G" />
+		<Secondary Device="{NoDevice}" Key="" />
 	</CamPitchDown>
 	<CamYawAxis>
 		<Binding Device="{NoDevice}" Key="" />
@@ -675,19 +676,19 @@
 	</CamTranslateDown>
 	<CamZoomAxis>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RXAxis" />
-		<Inverted Value="1" />
+		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</CamZoomAxis>
 	<CamZoomIn>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_Z" />
+		<Secondary Device="{NoDevice}" Key="" />
 	</CamZoomIn>
 	<CamZoomOut>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_X" />
+		<Secondary Device="{NoDevice}" Key="" />
 	</CamZoomOut>
 	<CamTranslateZHold>
-		<Primary Device="ThrustMasterWarthogCombined" Key="Joy_3" />
+		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="{NoDevice}" Key="" />
 		<ToggleOn Value="0" />
 	</CamTranslateZHold>
@@ -865,10 +866,6 @@
 			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
 		</Secondary>
 	</RecallDismissShip>
-	<PhotoCameraToggle_Buggy>
-		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_F1" />
-	</PhotoCameraToggle_Buggy>
 	<UIFocus_Buggy>
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="Keyboard" Key="Key_LeftShift" />
@@ -1033,6 +1030,14 @@
 			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
 		</Secondary>
 	</OpenOrders>
+	<PhotoCameraToggle>
+		<Primary Device="Keyboard" Key="Key_F1" />
+		<Secondary Device="{NoDevice}" Key="" />
+	</PhotoCameraToggle>
+	<PhotoCameraToggle_Buggy>
+		<Primary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_F1" />
+	</PhotoCameraToggle_Buggy>
 	<VanityCameraScrollLeft>
 		<Primary Device="Keyboard" Key="Key_Comma" />
 		<Secondary Device="{NoDevice}" Key="" />
@@ -1096,14 +1101,6 @@
 		<Primary Device="Keyboard" Key="Key_Numpad_7" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamSpeedDec>
-	<FreeCamZoomIn>
-		<Primary Device="Keyboard" Key="Key_Numpad_3" />
-		<Secondary Device="{NoDevice}" Key="" />
-	</FreeCamZoomIn>
-	<FreeCamZoomOut>
-		<Primary Device="Keyboard" Key="Key_Numpad_1" />
-		<Secondary Device="{NoDevice}" Key="" />
-	</FreeCamZoomOut>
 	<MoveFreeCamY>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_ZAxis" />
 		<Inverted Value="1" />
@@ -1161,12 +1158,14 @@
 		<Primary Device="Keyboard" Key="Key_F" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</MoveFreeCamDown>
+	<PitchCameraMouse Value="" />
+	<YawCameraMouse Value="" />
 	<PitchCamera>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_YAxis" />
 		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</PitchCamera>
-	<PitchCameraMouse Value="" />
+	<FreeCamMouseSensitivity Value="5.00000000" />
 	<FreeCamMouseYDecay Value="1" />
 	<PitchCameraUp>
 		<Primary Device="{NoDevice}" Key="" />
@@ -1181,9 +1180,7 @@
 		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</YawCamera>
-	<YawCameraMouse Value="" />
 	<FreeCamMouseXDecay Value="1" />
-	<FreeCamMouseSensitivity Value="5.00000000" />
 	<YawCameraLeft>
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="{NoDevice}" Key="" />
@@ -1225,6 +1222,14 @@
 		<Primary Device="Keyboard" Key="Key_Space" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</ToggleAdvanceMode>
+	<FreeCamZoomIn>
+		<Primary Device="Keyboard" Key="Key_Numpad_3" />
+		<Secondary Device="{NoDevice}" Key="" />
+	</FreeCamZoomIn>
+	<FreeCamZoomOut>
+		<Primary Device="Keyboard" Key="Key_Numpad_1" />
+		<Secondary Device="{NoDevice}" Key="" />
+	</FreeCamZoomOut>
 	<FStopDec>
 		<Primary Device="Keyboard" Key="Key_Numpad_4" />
 		<Secondary Device="{NoDevice}" Key="" />
@@ -1233,14 +1238,6 @@
 		<Primary Device="Keyboard" Key="Key_Numpad_6" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FStopInc>
-	<FocusDistanceInc>
-		<Primary Device="Keyboard" Key="Key_Numpad_8" />
-		<Secondary Device="{NoDevice}" Key="" />
-	</FocusDistanceInc>
-	<FocusDistanceDec>
-		<Primary Device="Keyboard" Key="Key_Numpad_2" />
-		<Secondary Device="{NoDevice}" Key="" />
-	</FocusDistanceDec>
 	<CommanderCreator_Undo>
 		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="{NoDevice}" Key="" />
@@ -1254,7 +1251,7 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</CommanderCreator_Rotation_MouseToggle>
 	<CommanderCreator_Rotation>
-		<Binding Device="{NoDevice}" Key="" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RXAxis" />
 		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</CommanderCreator_Rotation>

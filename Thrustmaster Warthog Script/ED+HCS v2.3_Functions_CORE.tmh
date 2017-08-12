@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.3.00.1b	2017/03
+//	V2.3.11.1b	2017/08
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -78,13 +78,7 @@
 			else if(z == MID) PIPz = PIPy;
 			
 			// Send PIPS WIll keep both function if we need to reverse later (witout and with Lock)
-			
-			//Without Lock
-			//ActKey(KEYON+ CHAIN(PULSE+ BalancePower, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPy, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPz));
-			
-			//With Lock
 			ActKey(KEYON+ CHAIN(LOCK+PULSE+ BalancePower, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPy, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPx, D(PIPPulseDelay),PIPz, LOCK));
-		
 		}
 		else{
 			//if(DebugMode) printf("This PIP is Already Pushed	[%d]\x0a", vOptimalPIP);	

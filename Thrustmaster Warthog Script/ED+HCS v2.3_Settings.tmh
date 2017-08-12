@@ -1,5 +1,5 @@
 //	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.3.00.1b	2017/03
+//	V2.3.11.1b	2017/08
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -214,7 +214,7 @@
 	
 	//Scan Delay (keep key pressed for ...sec) when Explorer mode is [1] OR when you presse Triger [TG1] or [S2] whit [S3] pressed)
 	//Ingame, Sytem Scan is 5s and other scan are 10s we put 1 more sec to be sure
-	define PrimaryFireKeyScanDelay     6000    //ExploreModeFire 0 or 2 TG1 Delay
+	define PrimaryFireKeyScanDelay        6000    //ExploreModeFire 0 or 2 TG1 Delay
 	define SecondaryFireKeyScanDelay      11000   //ExploreModeFire 1 or 2 S2  Delay
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
