@@ -1106,7 +1106,7 @@
 		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</MoveFreeCamY>
-	<ThrottleRangeFreeCam Value="Bindings_ThrottleForewardOnly" />
+	<ThrottleRangeFreeCam Value="Bindings_ThrottleForewardOnlyFreeCam" />
 	<ToggleReverseThrottleInputFreeCam>
 		<Primary Device="Keyboard" Key="Key_LeftControl">
 			<Modifier Device="Keyboard" Key="Key_R" />
@@ -1191,7 +1191,7 @@
 	</YawCameraRight>
 	<RollCamera>
 		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_XAxis" />
-		<Inverted Value="1" />
+		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</RollCamera>
 	<RollCameraLeft>
