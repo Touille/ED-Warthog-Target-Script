@@ -1102,11 +1102,11 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamSpeedDec>
 	<MoveFreeCamY>
-		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_ZAxis" />
-		<Inverted Value="1" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RYAxis" />
+		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</MoveFreeCamY>
-	<ThrottleRangeFreeCam Value="Bindings_ThrottleForewardOnlyFreeCam" />
+	<ThrottleRangeFreeCam Value="" />
 	<ToggleReverseThrottleInputFreeCam>
 		<Primary Device="Keyboard" Key="Key_LeftControl">
 			<Modifier Device="Keyboard" Key="Key_R" />
@@ -1176,7 +1176,7 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</PitchCameraDown>
 	<YawCamera>
-		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RXAxis" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_XAxis" />
 		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</YawCamera>
@@ -1190,9 +1190,9 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</YawCameraRight>
 	<RollCamera>
-		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_XAxis" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RXAxis" />
 		<Inverted Value="0" />
-		<Deadzone Value="0.00000000" />
+		<Deadzone Value="0.25000000" />
 	</RollCamera>
 	<RollCameraLeft>
 		<Primary Device="{NoDevice}" Key="" />
@@ -1223,11 +1223,11 @@
 		<Secondary Device="{NoDevice}" Key="" />
 	</ToggleAdvanceMode>
 	<FreeCamZoomIn>
-		<Primary Device="Keyboard" Key="Key_Numpad_3" />
+		<Primary Device="Keyboard" Key="Key_Numpad_8" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamZoomIn>
 	<FreeCamZoomOut>
-		<Primary Device="Keyboard" Key="Key_Numpad_1" />
+		<Primary Device="Keyboard" Key="Key_Numpad_2" />
 		<Secondary Device="{NoDevice}" Key="" />
 	</FreeCamZoomOut>
 	<FStopDec>
