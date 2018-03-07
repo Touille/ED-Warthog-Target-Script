@@ -1,5 +1,5 @@
-//	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.3.11.1b	2017/08
+//	Copyright (C) 2018 Thomas Duployez (CMDR Touille)
+//	V3.0.2b	2018/03
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -59,6 +59,8 @@
 	
 	define ExploreModeFire      0   //Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
 									//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with PrimaryFireKeyScanDelay and SecondaryKeyScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
+
+//	define FAJoyMode			1	//Engage Flight Assist when Any Joystick Axis is 75% to 100%
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	------------Default States--------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
