@@ -28,7 +28,8 @@
 //			MediumPulseDelay	350			//Medium Delay 350																									//
 //			LongPulseDelay		500			//Long Delay 500																									//
 //			ExtraPulseDelay		2000		//Longest Delay 2000																								//
-//			FSDOFFDelay			25000		//When to Press 0 Speed Key after Engaging FSD (Safe System Jump) Delay 25000										//
+//			FSDOFFDelay			34000		//When to Press 0 Speed Key after Engaging FSD (Explorer System Jump)												//
+//			FSDJumpScanDelay	2000		//Delay to triger System Scan After Explorer System JUMP															//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
 	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning, mClassifiedCamera, mExplorerSystemJump;
