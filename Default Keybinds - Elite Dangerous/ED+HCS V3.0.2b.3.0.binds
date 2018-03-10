@@ -1278,26 +1278,26 @@
 	</CommanderCreator_Rotation>
 	<GalnetAudio_Play_Pause>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_P">
-			<Modifier Device="Keyboard" Key="Key_RightControl" />
+		<Secondary Device="Keyboard" Key="Key_Space">
+			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
 		</Secondary>
 	</GalnetAudio_Play_Pause>
 	<GalnetAudio_SkipForward>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_L">
-			<Modifier Device="Keyboard" Key="Key_RightControl" />
+		<Secondary Device="Keyboard" Key="Key_PageUp">
+			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
 		</Secondary>
 	</GalnetAudio_SkipForward>
 	<GalnetAudio_SkipBackward>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_SemiColon">
-			<Modifier Device="Keyboard" Key="Key_RightControl" />
+		<Secondary Device="Keyboard" Key="Key_PageDown">
+			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
 		</Secondary>
 	</GalnetAudio_SkipBackward>
 	<GalnetAudio_ClearQueue>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="Keyboard" Key="Key_C">
-			<Modifier Device="Keyboard" Key="Key_RightControl" />
+		<Secondary Device="Keyboard" Key="Key_End">
+			<Modifier Device="Keyboard" Key="Key_LeftAlt" />
 		</Secondary>
 	</GalnetAudio_ClearQueue>
 </Root>
