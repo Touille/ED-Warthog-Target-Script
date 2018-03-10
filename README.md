@@ -1,4 +1,4 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.3.11.1b 2017/08/22
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 3.0.2b 2018/03/07
 
 ![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
 
@@ -12,20 +12,20 @@
 ### INSTALATION:
 
 * The Warthog Script can be run from any location. All files from __Thrustmaster Warthog Script__ folder need to be in the same folder.
-* Copy the Elite Dangerous Binds Profile __ED+HCS V2.X.XX.XX.2.0.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
+* Copy the Elite Dangerous Binds Profile __ED+HCS V3.X.XX.XX.3.0.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
 ```
 \Users\<User>\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
 ```
-* Just Drag&Drop __ED+HCS v2.3.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
+* Just Drag&Drop __ED+HCS v3.0.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
 * Most commands can be tested prior to starting the game in Target Script Editor using the Debug Message, Event Tester and Device Analyzer.
-* Launch Elite Dangerous, Options, Controls and chose the correct Binds Profile __ED+HCS V2.X.XX.XX.2.0.binds__
+* Launch Elite Dangerous, Options, Controls and chose the correct Binds Profile __ED+HCS V3.X.XX.XX.3.0.binds__
 * Play :)
 
 ### BEFORE FLYING:
 
 ***First, I'm sorry for my English, as it is not my native language. You are Welcome to help me on my English Skill, and, obviously, with my Coding Skill (it is, also, not my native language) ;)***
 
-__All the Settings are in the Settings File__ : **ED+HCS v2.3_Settings.tmh**
+__All the Settings are in the Settings File__ : **ED+HCS v3.0_Settings.tmh**
 
 __The Command's are on the Joystick and Throttle Chart : [S]ShortPress, [L]LongPress, [EL]ExtraLongPress, [S3]Modifier Key on Joystick__
 
