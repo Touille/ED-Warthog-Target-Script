@@ -26,7 +26,7 @@
 	//WEAPON CONTROL
 	define PrimaryFire              DX1                     // DX1
 	define SecondaryFire            DX2                     // DX2
-	define NextFireGroup            USB_PERIOD              // .			[HCS]
+	define NextFireGroup            USB_PERIOD              // .
 	define PrevFireGroup            USB_COMMA               // ,			[HCS]
 	define DeployHardpoints         USB_U                   // U			[HCS]
 	
@@ -150,12 +150,12 @@
 //	define MC_Pitch_Down
 //	define MC_FOV_OUT
 //	define MC_FOV_IN
-	define MC_Cycle_UI_Forwards     USB_D                   // D
+	define MC_Cycle_UI_Forwards		USB_D                   // D
 	define MC_Cycle_UI_Backwards    USB_A                   // A
 	
 	//CAMERA SUITE
-	define Previous_Camera            USB_COMMA               // ,
-	define Next_Camera                USB_PERIOD              // .
+	define Previous_Camera       	  USB_COMMA               // ,
+	define Next_Camera            	  USB_PERIOD              // .
 	define Enter_Free_Camera          USB_T                   // T
 //	define Camera_1                   USB_1                   // 1
 //	define Camera_2                   USB_2                   // 2
@@ -199,6 +199,12 @@
 //	define HM_Undo
 //	define HM_Redo
 //	define HM_Toggle_Mouse_Rotation
+
+	//GALNET AUDIO
+//	define GA_Play_Pause				L_ALT+USB_SPACEBAR
+//	define GA_Skip_Forward				L_ALT+USB_PAGEUP
+//	define GA_Skip_Backward				L_ALT+USB_PAGEDOWN
+//	define GA_Clear_Queue				L_ALT+USB_END
 	
 //----EXTERNAL BINDINGS-----------------------------------------------------------------------------------------------------------------------------------------//
 
