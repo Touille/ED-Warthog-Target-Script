@@ -31,8 +31,7 @@
 //			FSDOFFDelay			25000		//When to Press 0 Speed Key after Engaging FSD (Safe System Jump) Delay 25000										//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning, mClassifiedCamera;
-	
+	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning, mClassifiedCamera, mExplorerSystemJump;
 	int initCustomCommands(){
 	
 		//MACRO: Auto-Docking Request
@@ -55,10 +54,18 @@
 		mSystemJump = CHAIN(
 			PULSE+SelectNextSystemInRoute,  D(ShortPulseDelay),
 			PULSE+SetSpeed100,              D(ExtraPulseDelay),
-			EXEC("initFrameShiftDrive();"), D(FSDOFFDelay),
-			PULSE+SetSpeed0
+			EXEC("initFrameShiftDrive();")
 		);
-			
+
+		//MACRO: Explorer Mode System Jump
+		mExplorerSystemJump = CHAIN(
+			PULSE+SelectNextSystemInRoute,  D(ShortPulseDelay),
+			PULSE+SetSpeed100,              D(ExtraPulseDelay),
+			EXEC("initFrameShiftDrive();"), D(FSDOFFDelay),
+			PULSE+SetSpeed0, 				D(FSDJumpScanDelay),
+			EXEC("initExplorerSystemScan();")
+		);
+		
 		//MACRO: Escape Fight
 		mEscapeFight = CHAIN(
 			PULSE+SetSpeed100, D(MediumPulseDelay),

@@ -274,8 +274,28 @@
 		else{
 			initSecureRectract();
 			if(OptimalPIPMode) initPIPPower(ENG, SYS);	//4 ENG	2 SYS (1)
-			ActKey(KEYON+PULSE+mSystemJump);
-			if(DebugMode | DebugMMode) printf("Engage System Jump\x0a");
+			if(!sExplorerMode){
+				ActKey(KEYON+PULSE+mSystemJump);
+				if(DebugMode | DebugMMode) printf("Engage System Jump\x0a");
+			}
+			else{
+				ActKey(KEYON+PULSE+mExplorerSystemJump);
+				if(DebugMode | DebugMMode) printf("Engage Explorer System Jump\x0a");
+			}
+		}
+	}
+
+	//FUNCTION: Explorer System Jump Scan
+	int initExplorerSystemScan(){
+		if(ExploreModeFire == 0 | ExploreModeFire == 2){
+			ActKey(KEYON+DOWN+PrimaryFire);
+			DeferCall(PrimaryFireKeyScanDelay, &ActKey, KEYON+UP+PrimaryFire);
+			if(DebugMode | DebugMMode) printf("Primary Fire Explorer Mode\x0a");
+		}
+		if(ExploreModeFire == 1 | ExploreModeFire == 2){
+			ActKey(KEYON+DOWN+SecondaryFire);
+			DeferCall(SecondaryFireKeyScanDelay, &ActKey, KEYON+UP+SecondaryFire);
+			if(DebugMode | DebugMMode) printf("Secondary Fire Explorer Mode\x0a");
 		}
 	}
 
