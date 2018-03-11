@@ -57,10 +57,14 @@
 	define AfterburnerDetent    0   //Set to [1] if you use Hardware throttle Afterburner Detent. You can change CurveValue in initSetThrottleCurves(), if(AfterburnerDetent){...., Else [0]
 									//That option change Throttle Curve and how SupercruiseOnThrottle work(Instead of 99%(hardware) throotle to engage supercruise it will reduce to 80%(hardware), around the hardware detent)
 	
+//	define FAJoyMode			1	//Engage Flight Assist when Any Joystick Axis is 75% to 100%
+
+	//Explorer Mode Settings MAKE SURE TO STAY IN NAVIGATION PANEL TO BE ABLE TO TAKE ADVANTAGE OF THIS WITHOUT ISSUE : ENG L Up throttle Switch UP
 	define ExploreModeFire      0   //Triger use for Scan : [0] is Tg1, [1] is S2, [2] is Tg1 and S2.   By default put your system scan on Tg1 and leave value to 0 Work only if ExplorerMode is Enable (throttle chart : switch UP)
 									//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with PrimaryFireKeyScanDelay and SecondaryKeyScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
+	define AutoDiscoveryScan	1	//Automatic Discovery Scan When entering System when you use System Jump whil explorer mode is ON
+	define TargetNearestStar	1	//Automatic Target Nearest Star when entering System when you use System Jump whil explorer mode is ON
 
-//	define FAJoyMode			1	//Engage Flight Assist when Any Joystick Axis is 75% to 100%
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	------------Default States--------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
@@ -213,7 +217,7 @@
 	
 	//FSD OFF / SCAN DELAY MACRO:
 	define FSDOFFDelay      34000   //Exit Explorer System Jump : When to Press 0 Speed Key after Engaging FSD (Explorer System Jump)
-	define FSDJumpScanDelay	2000	//Delay to triger System Scan After Explorer System Jump
+	define FSDJumpScanDelay	2000	//Delay to triger System Scan After Explorer System Jump (when entering your next system)
 	
 	//Scan Delay (keep key pressed for ...sec) when Explorer mode is [1] OR when you presse Triger [TG1] or [S2] whit [S3] pressed)
 	//Ingame, Sytem Scan is 5s and other scan are 10s we put 1 more sec to be sure

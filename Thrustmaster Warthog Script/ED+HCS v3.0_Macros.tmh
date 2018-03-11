@@ -32,7 +32,7 @@
 //			FSDJumpScanDelay	2000		//Delay to triger System Scan After Explorer System JUMP															//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	
-	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning, mClassifiedCamera, mExplorerSystemJump;
+	int mRequestCancelDock, mSystemJump, mEscapeFight, mHeatSinkonSilentRuning, mClassifiedCamera, mExplorerSystemJump, mTargetNearestStar;
 	int initCustomCommands(){
 	
 		//MACRO: Auto-Docking Request
@@ -60,11 +60,27 @@
 
 		//MACRO: Explorer Mode System Jump
 		mExplorerSystemJump = CHAIN(
-			PULSE+SelectNextSystemInRoute,  D(ShortPulseDelay),
-			PULSE+SetSpeed100,              D(ExtraPulseDelay),
-			EXEC("initFrameShiftDrive();"), D(FSDOFFDelay),
-			PULSE+SetSpeed0, 				D(FSDJumpScanDelay),
-			EXEC("initExplorerSystemScan();")
+			PULSE+SelectNextSystemInRoute,  	D(ShortPulseDelay),
+			PULSE+SetSpeed100,					D(ExtraPulseDelay),
+			EXEC("initFrameShiftDrive();"), 	D(FSDOFFDelay),
+			PULSE+SetSpeed0,					D(FSDJumpScanDelay),
+			EXEC("initExplorerSystemScan();"),	D(LongPulseDelay),
+			EXEC("initTargetNearestStar();")
+		);
+		
+		//MACRO: Target Nearest Star
+		mTargetNearestStar = CHAIN(
+			LOCK+
+			PULSE+TargetPanel,	D(MiniPulseDelay),
+			PULSE+UILeft,		D(MiniPulseDelay),
+			PULSE+UIUp,			D(MiniPulseDelay),
+			PULSE+UIUp,			D(MiniPulseDelay),
+			PULSE+UIUp,			D(MiniPulseDelay),
+			PULSE+UIRight,		D(MiniPulseDelay),
+			PULSE+UISelect,		D(MiniPulseDelay),
+			PULSE+UISelect,		D(MiniPulseDelay),
+			PULSE+UIBack,
+			LOCK
 		);
 		
 		//MACRO: Escape Fight

@@ -274,11 +274,11 @@
 		else{
 			initSecureRectract();
 			if(OptimalPIPMode) initPIPPower(ENG, SYS);	//4 ENG	2 SYS (1)
-			if(!sExplorerMode){
+			if(!sExplorerMode){	//Normal System Jump
 				ActKey(KEYON+PULSE+mSystemJump);
 				if(DebugMode | DebugMMode) printf("Engage System Jump\x0a");
 			}
-			else{
+			else{	//Explorer System Jump
 				ActKey(KEYON+PULSE+mExplorerSystemJump);
 				if(DebugMode | DebugMMode) printf("Engage Explorer System Jump\x0a");
 			}
@@ -287,15 +287,25 @@
 
 	//FUNCTION: Explorer System Jump Scan
 	int initExplorerSystemScan(){
-		if(ExploreModeFire == 0 | ExploreModeFire == 2){
-			ActKey(KEYON+DOWN+PrimaryFire);
-			DeferCall(PrimaryFireKeyScanDelay, &ActKey, KEYON+UP+PrimaryFire);
-			if(DebugMode | DebugMMode) printf("Primary Fire Explorer Mode\x0a");
+		if(AutoDiscoveryScan){
+			if(ExploreModeFire == 0 | ExploreModeFire == 2){
+				ActKey(KEYON+DOWN+PrimaryFire);
+				DeferCall(PrimaryFireKeyScanDelay, &ActKey, KEYON+UP+PrimaryFire);
+				if(DebugMode | DebugMMode) printf("Primary Fire Explorer Mode\x0a");
+			}
+			if(ExploreModeFire == 1 | ExploreModeFire == 2){
+				ActKey(KEYON+DOWN+SecondaryFire);
+				DeferCall(SecondaryFireKeyScanDelay, &ActKey, KEYON+UP+SecondaryFire);
+				if(DebugMode | DebugMMode) printf("Secondary Fire Explorer Mode\x0a");
+			}
 		}
-		if(ExploreModeFire == 1 | ExploreModeFire == 2){
-			ActKey(KEYON+DOWN+SecondaryFire);
-			DeferCall(SecondaryFireKeyScanDelay, &ActKey, KEYON+UP+SecondaryFire);
-			if(DebugMode | DebugMMode) printf("Secondary Fire Explorer Mode\x0a");
+	}
+
+	//FUNCTION: Explorer Target Nearest Star
+	int initTargetNearestStar(){
+		if(TargetNearestStar){
+			ActKey(KEYON+PULSE+mTargetNearestStar);
+			if(DebugMode | DebugMMode) printf("Target Nearest Star Explorer Mode\x0a");
 		}
 	}
 

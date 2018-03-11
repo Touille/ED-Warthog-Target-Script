@@ -26,7 +26,7 @@
 	//WEAPON CONTROL
 	define PrimaryFire              DX1                     // DX1
 	define SecondaryFire            DX2                     // DX2
-	define NextFireGroup            USB_PERIOD              // .
+	define NextFireGroup            USB_PERIOD              // .			[HCS]
 	define PrevFireGroup            USB_COMMA               // ,			[HCS]
 	define DeployHardpoints         USB_U                   // U			[HCS]
 	
