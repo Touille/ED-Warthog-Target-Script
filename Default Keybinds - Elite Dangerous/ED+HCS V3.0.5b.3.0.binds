@@ -615,31 +615,35 @@
 	<HeadlookMotionSensitivity Value="1.00000000" />
 	<yawRotateHeadlook Value="0" />
 	<CamPitchAxis>
-		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RYAxis" />
-		<Inverted Value="1" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_YAxis" />
+		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</CamPitchAxis>
 	<CamPitchUp>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_T">
+			<Modifier Device="Keyboard" Key="Key_RightControl" />
+		</Secondary>
 	</CamPitchUp>
 	<CamPitchDown>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_G">
+			<Modifier Device="Keyboard" Key="Key_RightControl" />
+		</Secondary>
 	</CamPitchDown>
 	<CamYawAxis>
-		<Binding Device="{NoDevice}" Key="" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_XAxis" />
 		<Inverted Value="0" />
 		<Deadzone Value="0.00000000" />
 	</CamYawAxis>
 	<CamYawLeft>
-		<Primary Device="Keyboard" Key="Key_Q" />
+		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="Keyboard" Key="Key_Q">
 			<Modifier Device="Keyboard" Key="Key_RightControl" />
 		</Secondary>
 	</CamYawLeft>
 	<CamYawRight>
-		<Primary Device="Keyboard" Key="Key_E" />
+		<Primary Device="{NoDevice}" Key="" />
 		<Secondary Device="Keyboard" Key="Key_E">
 			<Modifier Device="Keyboard" Key="Key_RightControl" />
 		</Secondary>
@@ -696,17 +700,21 @@
 		</Secondary>
 	</CamTranslateDown>
 	<CamZoomAxis>
-		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RXAxis" />
-		<Inverted Value="0" />
+		<Binding Device="ThrustMasterWarthogCombined" Key="Joy_RYAxis" />
+		<Inverted Value="1" />
 		<Deadzone Value="0.00000000" />
 	</CamZoomAxis>
 	<CamZoomIn>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_Z">
+			<Modifier Device="Keyboard" Key="Key_RightControl" />
+		</Secondary>
 	</CamZoomIn>
 	<CamZoomOut>
 		<Primary Device="{NoDevice}" Key="" />
-		<Secondary Device="{NoDevice}" Key="" />
+		<Secondary Device="Keyboard" Key="Key_X">
+			<Modifier Device="Keyboard" Key="Key_RightControl" />
+		</Secondary>
 	</CamZoomOut>
 	<CamTranslateZHold>
 		<Primary Device="{NoDevice}" Key="" />
