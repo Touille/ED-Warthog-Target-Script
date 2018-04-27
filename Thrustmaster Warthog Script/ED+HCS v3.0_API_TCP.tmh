@@ -1,0 +1,117 @@
+// ----------------------------------------------------- SOCKET STUFF --------------------------------
+
+// structures required by the socket library
+//struct WSAData 
+//{
+//	word wVersion;
+//	word wHighVersion;
+//	char szDescription[257];
+//	char szSystemStatus[257];
+//	word iMaxSockets;
+//	word iMaxUdpDg;
+//	int  lpVendorInfo;
+//}
+
+//struct sockaddr_in 
+//{
+//	word sin_family;
+//	word sin_port;
+//	char sin_addr_s_b1;
+//	char sin_addr_s_b2;
+//	char sin_addr_s_b3;
+//	char sin_addr_s_b4;
+//	char sin_zero[8];
+//}
+
+// socket functions
+//int WSAStartup(word version, int data){
+//	Map(&WSAStartup, GetProcAddress(ws2_32, "WSAStartup")); 
+//	return WSAStartup(version, data);
+//	}
+
+//int WSACleanup(){
+//	Map(&WSACleanup, GetProcAddress(ws2_32, "WSACleanup"));
+//	return WSACleanup();
+//	}
+
+//int socket(int af, int type, int protocol){
+//	Map(&socket, GetProcAddress(ws2_32, "socket"));
+//	return socket(af, type, protocol);
+//	}
+
+//int closesocket(int s){
+//	Map(&closesocket, GetProcAddress(ws2_32, "closesocket"));
+//	return closesocket(s);
+//	}
+
+//int connect(int socket, int name, int namelen){
+//	Map(&connect, GetProcAddress(ws2_32, "connect"));
+//	return connect(socket, name, namelen);
+//	}
+
+//int send(int socket, int buf, int len, int flags){
+//	Map(&send, GetProcAddress(ws2_32, "send"));
+//	return send(socket, buf, len, flags);
+//	}
+
+//int ws2_32;
+//WSAData data;
+//sockaddr_in addr = {2, 0xe803, 127, 0, 0, 1}; // AF_INET, port 1000 swapped, localhost IP
+
+//int InitSocket(){
+//	ws2_32 = LoadLibrary("ws2_32.dll");
+//	WSAStartup(2, &&data);
+//	//WSACleanup();  // should be called at exit, but there is no exit...
+//	//FreeLibrary(ws2_32);
+//}
+
+//struct TCPData{
+//	word size;
+//	int data;
+//}
+
+
+//This part send data : Only here for testing
+//TCPData tcpdata = {6};
+//int SendSocket(int data){
+//	tcpdata.data = data;
+//	int s = socket(2, 1, 6); // AF_INET, SOCK_STREAM, IPPROTO_TCP
+//	if(!connect(s, &&addr, sizeof(&addr))) send(s, &&tcpdata, tcpdata.size, 0);
+//	else printf("Cannot connect to TCP port 1000\xa");
+//	closesocket(s);
+//}
+
+
+
+// ----------------------------------------------------- DECODING API Status.Json FLAG --------------------------------
+
+//int jsonFlags = 16842765
+
+//flag constances
+//int flagDocked 		= 0x01;
+//int flagLanded 		= 0x02;
+//int flagLGear  		= 0x04;
+//int flagShield		= 0x08;
+//int flagSupercruise 	= 0x010:
+//int flagFA			= 0x020:
+//int flagHardPoint		= 0x040;
+//int flagInWing		= 0x080;
+//int flagLight			= 0x0100;
+//int flagCScoop		= 0x0200;
+//int flagSilentR		= 0x0400;
+//int flagScooping		= 0x0800;
+//int flagSRVHandbrake	= 0x01000;
+//int flagSRVTurret		= 0x02000;
+//int flagSRVUnderShip	= 0x04000;
+//int flagSRVDA			= 0x08000; //Drive Assist
+//int flagMassLocked	= 0x010000;
+//int flagFSDCharging	= 0x020000;
+//int flagFSDCooldown	= 0x040000;
+//int flagLowFuel		= 0x080000;
+//int flagOverHeating	= 0x0100000;
+//int flagHasLatLong	= 0x0200000; // ???????
+//int flagInDanger		= 0x0400000;
+//int flagInterdicted	= 0x0800000;
+//int flagInShip		= 0x01000000;
+//int flagInFighter		= 0x02000000;
+//int flagInSRV			= 0x04000000;

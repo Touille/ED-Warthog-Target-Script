@@ -32,6 +32,7 @@ include "ED+HCS v3.0_Macros.tmh"
 include "ED+HCS v3.0_Functions_HARDWARE.tmh"
 include "ED+HCS v3.0_Functions_TOGGLE.tmh"
 include "ED+HCS v3.0_Functions_CORE.tmh"
+include "ED+HCS v3.0_API_TCP.tmh"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 int main()
@@ -54,6 +55,10 @@ int main()
 	}
 
 	if(Init(&EventHandle)) return 1; // declare the event handler, return on error
+
+//	API test
+//	InitSocket();  //Function defined in ED+HCS_API_TCP.tmh
+//	RegisterGameCallback(1000, &TCPCallback);
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	BASE SETTINGS																																				//
@@ -519,6 +524,12 @@ int EventHandle(int type, alias o, int x)
 		}
 		if(!axdata.locked & !axdata.relative) GameOutput(&o, x, axdata.val);
 	}
+	
+//	API test
+//	int TCPCallback(int buf, int size) // receives an integer at TCP port 1000 and print it
+//	{	Map(&buf, buf);
+//  	printf("Received data: %d\xa", buf);
+//	}
 
 	else DefaultMapping(&o, x);
 }
