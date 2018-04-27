@@ -1,5 +1,5 @@
-//	Copyright (C) 2017 Thomas Duployez (CMDR Touille)
-//	V2.3.11.1b	2017/08
+//	Copyright (C) 2018 Thomas Duployez (CMDR Touille)
+//	V3.0.2b	2018/03
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,14 +24,14 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 include "target.tmh"
-include "ED+HCS v2.3_Variables.tmh"
-include "ED+HCS v2.3_Settings.tmh"
-include "ED+HCS v2.3_USBKey.ttm"
-include "ED+HCS v2.3_KeyBindings.ttm"
-include "ED+HCS v2.3_Macros.tmh"
-include "ED+HCS v2.3_Functions_HARDWARE.tmh"
-include "ED+HCS v2.3_Functions_TOGGLE.tmh"
-include "ED+HCS v2.3_Functions_CORE.tmh"
+include "ED+HCS v3.0_Variables.tmh"
+include "ED+HCS v3.0_Settings.tmh"
+include "ED+HCS v3.0_USBKey.ttm"
+include "ED+HCS v3.0_KeyBindings.ttm"
+include "ED+HCS v3.0_Macros.tmh"
+include "ED+HCS v3.0_Functions_HARDWARE.tmh"
+include "ED+HCS v3.0_Functions_TOGGLE.tmh"
+include "ED+HCS v3.0_Functions_CORE.tmh"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 int main()
@@ -96,7 +96,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V2.3.11.1b----2017/08/13------------------------\x0a");
+	printf("--------------------------V3.0.2b-------2017/03/07------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -299,7 +299,7 @@ int main()
 
 	//	-------------------------Speedbrake
 	MapKey  (&Throttle, T3_SPDF, TEMPO(EXEC("initFrameShiftDrive();"), EXEC("initSystemJump();"), ExtraPressDelay));												// Switch FORWARD
-//	MapKey  (&Throttle, T3_SPDM, 0);																															// Switch MIDDLE	
+//	MapKey  (&Throttle, T3_SPDM, 0);																																// Switch MIDDLE
 	MapKeyIO(&Throttle, T3_SPDB, EXEC("initToggleSuperCruiseMode();"), TEMPO(EXEC("initThrottleBoost();"), EXEC("initSuperCruise();"), LongPressDelay));			// Switch BACK HOLD
 
 	//	-------------------------Boat Switch
@@ -313,7 +313,7 @@ int main()
 	TEMPO(PULSE+DeployHeatSink, PULSE+ChargeECM, LongPressDelay),
 	PULSE+MC_Primary_Utility
 	);		
-//	MapKey(&Throttle, T3_CHM, 0);																					// Switch MIDDLE
+//	MapKey(&Throttle, T3_CHM, 0);																				// Switch MIDDLE
 	MapKeyUMD(&Throttle, T3_CHB,	// Switch BACK
 	TEMPO(PULSE+FireChaffLauncher, PULSE+UseShieldCell, LongPressDelay),
 	TEMPO(PULSE+FireChaffLauncher, PULSE+UseShieldCell, LongPressDelay),
@@ -498,22 +498,6 @@ int EventHandle(int type, alias o, int x)
 		initBACKLIGHT(LMFD_BL, vLMFDLightBackup);
 	}
 	
-	// Combine rudder toe brakes into new axis, mapped to DX_THROTTLE_AXIS
-//	if (&o == &TFRPRudder & (x == TRPLEFT | x == TRPRIGHT)) {
-//		if (TFRPRudder[TRPLEFT] < TFRPRudder[TRPRIGHT]) TRPCOMBO = TFRPRudder[TRPRIGHT];
-//		else                                            TRPCOMBO = TFRPRudder[TRPLEFT];
-//		DXAxis (DX_THROTTLE_AXIS, -TRPCOMBO);
-//	}
-	
-	//Map the MODE_FILTERED TFRP through Target; we can Trim, set deadzones, J/Scurves, etc.
-//	if (&o == &TFRPRudder) {
-//		GetAxisData(&o, x);
-//		axdata.val = AxisVal(o[x], &axdata);
-//		if(x == TRPLEFT | x == TRPRIGHT) axdata.val = -axdata.val;	//Reverse the Toe Brakes, TM why u do dis??
-//		//axdata.locked = 1;										//Uncomment to disable pedals but keep TRPCOMBO axis
-//		if(!axdata.locked & !axdata.relative) GameOutput(&o, x, axdata.val);
-//	}
-
 	//Map the MODE_FILTERED TFRP through Target; we can Trim, set deadzones, J/Scurves, etc.
 	if(&o == &TFRPRudder){
 		GetAxisData(&o, x);

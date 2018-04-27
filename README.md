@@ -1,6 +1,6 @@
-# Elite Dangerous Warthog Target Script (HCS Keys Binding) 2.3.11.1b 2017/08/12
+# Elite Dangerous Warthog Target Script (HCS Keys Binding) 3.0.2b 2018/03/07
 
-![ED LOGO](http://edassets.org/img/preview/elite-dangerous-logo_grey.png)
+![ED LOGO](https://www.elitedangerous.com/_assets/img/logo-elite-dangerous.png)
 
 
 ***Special thanks go out to Aussiedroid, DarKcyde0, WraithMG11235, Synkc, Solarfly and Farinhir***
@@ -12,20 +12,23 @@
 ### INSTALATION:
 
 * The Warthog Script can be run from any location. All files from __Thrustmaster Warthog Script__ folder need to be in the same folder.
-* Copy the Elite Dangerous Binds Profile __ED+HCS V2.X.XX.XX.2.0.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
+* Copy the Elite Dangerous Binds Profile __ED+HCS V3.X.XX.XX.3.0.binds__ from __Default Keybinds - Elite Dangerous__ Folder to:
 ```
 \Users\<User>\AppData\Local\Frontier Developments\Elite Dangerous\Options\Bindings
 ```
-* Just Drag&Drop __ED+HCS v2.3.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
+* Just Drag&Drop __ED+HCS v3.0.tmc__ to TARGET Script Editor and Run. (Default script path can also be set in the options). Always make sure the script is running prior to starting Elite Dangerous.
 * Most commands can be tested prior to starting the game in Target Script Editor using the Debug Message, Event Tester and Device Analyzer.
-* Launch Elite Dangerous, Options, Controls and chose the correct Binds Profile __ED+HCS V2.X.XX.XX.2.0.binds__
+* Launch Elite Dangerous, Options, Controls and chose the correct Binds Profile __ED+HCS V3.X.XX.XX.3.0.binds__
 * Play :)
-
+### WARNING : If you want to change Bindings keys IN GAME, Make sure to use ENG(UK) Keyboard layout in Wndows. If you did not, your Bindings file will be unusable with the script. (ED change some keys inside the file,  even if you don't change them, to the current windows keyboard layout)
+---
+---
+---
 ### BEFORE FLYING:
 
 ***First, I'm sorry for my English, as it is not my native language. You are Welcome to help me on my English Skill, and, obviously, with my Coding Skill (it is, also, not my native language) ;)***
 
-__All the Settings are in the Settings File__ : **ED+HCS v2.3_Settings.tmh**
+__All the Settings are in the Settings File__ : **ED+HCS v3.0_Settings.tmh**
 
 __The Command's are on the Joystick and Throttle Chart : [S]ShortPress, [L]LongPress, [EL]ExtraLongPress, [S3]Modifier Key on Joystick__
 
@@ -104,9 +107,10 @@ center of the axis, and then  apply it to the X and Y axis (Throttle Coolie Swit
 
 - [x] 3 Autopilot Mode : Easy Request and Cancel Docking procedure, Escape Fight and System Jump
 
-### EXPLORER MODE:
+### EXPLORER MODE (ENG L Throttle swith UP):
 
-***Thinking to make a mode wich restore all the Original ED Gameplay with one Switch (without all the advanced option (like optimalPIP, PIP Preset's, SecureRetract,...) instead of explorer mode. Let me know what you think.***
 
 - [x] Desactivate some advanced functions you don't need for Exploration with one switch: Automatic PIP Mode (for fire & hardpoints), Automatic retract Hardpoint when you stop fire,... (if activated). If switch off this mode, it will return to all your previous choices.
+- [ ] When You are in Explorer Mode Automatic System System Jump (long press speedbrake forward on your throttle arm) Work like this : target next system in route , set Full speed, then jump,  then, when you enter your next system, set throttle speed to 0, then automatically push the fire button for discovery scan (so check the settings file to put your discovery scan on fire 1 or fire 2 as it is in game), then automatically target the nearest star. __YOU CAN DESACTIVATE AUTO DISCOVERY SCAN AND AUTO TARGET NEAREST STAR IN SETTINGS FILE : AutoDiscoveryScan & TargetNearestStar options. 
+ PLEASE, IF YOU USE THIS, ALIGN TO YOU NEXT SYSTEM BEFORE PUSHING THE JUMP__ You can, also change delay Speed to 0 when entering system : FSDOFFDelay Or Automatic Scan when entering system : FSDJumpScanDelay 
 - [ ] You don't need to keep fire key pressed to scan system or use Scan (System, wake...),            **If Explorer mode is enable**, just press and release.( This function work on both Fire, chose wich you want to assign to scan in Settings File : ExploreModeFire , Triger use for Scan : 0 is Tg1, 1 is S2, 2 is Tg1 and S2 ). **If Explorer mode is disable**, you can also  use this function : Press [S3] & Fire 1 or/and Fire 2. (Warning : check TG1ScanDelay & S2ScanDelay in setting File. by default TG1ScanDelay is 6sec (system scan) and S2ScanDelay is 11sec (other scan))
