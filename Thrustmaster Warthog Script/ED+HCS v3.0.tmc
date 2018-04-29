@@ -1,5 +1,5 @@
 //	Copyright (C) 2018 Thomas Duployez (CMDR Touille)
-//	V3.0.2b	2018/03
+//	V3.0.2b	2018/05
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -56,9 +56,7 @@ int main()
 
 	if(Init(&EventHandle)) return 1; // declare the event handler, return on error
 
-//	API test
-//	InitSocket();  //Function defined in ED+HCS_API_TCP.tmh
-//	RegisterGameCallback(1000, &TCPCallback);
+	RegisterGameCallback(1000, &TCPCallback);	 // Attach TCPCallback procedure to TCP port 1000
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	BASE SETTINGS																																				//
@@ -101,7 +99,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V3.0.2b-------2017/03/07------------------------\x0a");
+	printf("--------------------------V3.0.2b-------2018/03/07------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -525,11 +523,25 @@ int EventHandle(int type, alias o, int x)
 		if(!axdata.locked & !axdata.relative) GameOutput(&o, x, axdata.val);
 	}
 	
-//	API test
-//	int TCPCallback(int buf, int size) // receives an integer at TCP port 1000 and print it
-//	{	Map(&buf, buf);
-//  	printf("Received data: %d\xa", buf);
-//	}
-
 	else DefaultMapping(&o, x);
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	TEST : Receive something through TCP port and do stuff with that																							//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	// receives an integer at TCP port 1000 and print it
+//	int TCPCallback(int buf, int size) // receives an integer at TCP port 1000 and print it
+//	{	Map(&buf, buf);
+// 		printf("Received data: %d\xa", buf);
+//	}
+	
+	// receives a string of characters at TCP port 1000 and print it
+	int TCPCallback(int buf, int size)
+	{
+    	char c;
+   		Map(&c, buf); Dim(&c, size + 1);
+   		c[size] = 0;
+    	printf("%s : %d bytes received\xa", &c, size);
+	}
+	
