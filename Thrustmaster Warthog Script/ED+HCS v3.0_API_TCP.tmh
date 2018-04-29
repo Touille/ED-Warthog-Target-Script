@@ -1,96 +1,13 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	TEST : Socket Stuff																																			//
+//	ED API Stuff																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-// structures required by the socket library
-//struct WSAData 
-//{
-//	word wVersion;
-//	word wHighVersion;
-//	char szDescription[257];
-//	char szSystemStatus[257];
-//	word iMaxSockets;
-//	word iMaxUdpDg;
-//	int  lpVendorInfo;
-//}
-
-//struct sockaddr_in 
-//{
-//	word sin_family;
-//	word sin_port;
-//	char sin_addr_s_b1;
-//	char sin_addr_s_b2;
-//	char sin_addr_s_b3;
-//	char sin_addr_s_b4;
-//	char sin_zero[8];
-//}
-
-// socket functions
-//int WSAStartup(word version, int data){
-//	Map(&WSAStartup, GetProcAddress(ws2_32, "WSAStartup")); 
-//	return WSAStartup(version, data);
-//	}
-
-//int WSACleanup(){
-//	Map(&WSACleanup, GetProcAddress(ws2_32, "WSACleanup"));
-//	return WSACleanup();
-//	}
-
-//int socket(int af, int type, int protocol){
-//	Map(&socket, GetProcAddress(ws2_32, "socket"));
-//	return socket(af, type, protocol);
-//	}
-
-//int closesocket(int s){
-//	Map(&closesocket, GetProcAddress(ws2_32, "closesocket"));
-//	return closesocket(s);
-//	}
-
-//int connect(int socket, int name, int namelen){
-//	Map(&connect, GetProcAddress(ws2_32, "connect"));
-//	return connect(socket, name, namelen);
-//	}
-
-//int send(int socket, int buf, int len, int flags){
-//	Map(&send, GetProcAddress(ws2_32, "send"));
-//	return send(socket, buf, len, flags);
-//	}
-
-//int ws2_32;
-//WSAData data;
-//sockaddr_in addr = {2, 0xe803, 127, 0, 0, 1}; // AF_INET (Address Family IPv4), port 1000 swapped, localhost IP
-
-//int InitSocket(){
-//	ws2_32 = LoadLibrary("ws2_32.dll");
-//	WSAStartup(2, &&data);
-//	//WSACleanup();  // should be called at exit, but there is no exit...
-//	//FreeLibrary(ws2_32);
-//}
-
-//struct TCPData{
-//	word size;
-//	int data;
-//}
-
-
-//This part send data : Only here for testing
-//TCPData tcpdata = {6};
-//int SendSocket(int data){
-//	tcpdata.data = data;
-//	int s = socket(2, 1, 6); // AF_INET, SOCK_STREAM, IPPROTO_TCP
-//	if(!connect(s, &&addr, sizeof(&addr))) send(s, &&tcpdata, tcpdata.size, 0);
-//	else printf("Cannot connect to TCP port 1000\xa");
-//	closesocket(s);
-//}
-
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	TEST : ED API Stuff																																		//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 // ----------------------------------------------------- DECODING API Status.Json FLAG --------------------------------
 
+
 //	//{ "timestamp":"2017-12-07T10:31:37Z", "event":"Status", "Flags":16842765, "Pips":[2,8,2], "FireGroup":0,"GuiFocus":5 }
+
 //int jsonFlags = 16842765
 
 //flag constances
@@ -121,3 +38,5 @@
 //int flagInShip		= 0x01000000;
 //int flagInFighter		= 0x02000000;
 //int flagInSRV			= 0x04000000;
+
+// ----------------------------------------------------- DECODING API Status.Json PIPS --------------------------------

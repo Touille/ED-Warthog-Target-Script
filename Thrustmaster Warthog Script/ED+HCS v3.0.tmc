@@ -532,7 +532,8 @@ int EventHandle(int type, alias o, int x)
 
 	// receives an integer at TCP port 1000 and print it
 //	int TCPCallback(int buf, int size) // receives an integer at TCP port 1000 and print it
-//	{	Map(&buf, buf);
+//	{	
+//		Map(&buf, buf);
 // 		printf("Received data: %d\xa", buf);
 //	}
 	
