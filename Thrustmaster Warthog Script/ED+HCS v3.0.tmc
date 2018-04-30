@@ -55,7 +55,7 @@ int main()
 	}
 
 	if(Init(&EventHandle)) return 1; // declare the event handler, return on error
-
+	
 	RegisterGameCallback(1000, &TCPCallback);	 // Attach TCPCallback procedure to TCP port 1000
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -94,7 +94,7 @@ int main()
 	initCustomCommands();
 	
 	if(DebugMode) initPrintState();
-
+	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -105,7 +105,13 @@ int main()
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
 	printf("-o/--o/-----Farinhir : The First CMDR to report Bug & FeedBack-----o/--o/-\x0a");
 	printf("--------------------------------------------------------------------------\x0a");
-
+	
+//Only there for testing API STuff
+	printf("--------You Should Remove this line below once API Stuff is tested--------\x0a");
+	initIsDocked();
+	initIsShield();
+	initIsLGear();
+	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	Shift States // Modifier don't touch this																													//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -531,7 +537,7 @@ int EventHandle(int type, alias o, int x)
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	// receives an integer at TCP port 1000 and print it
-//	int TCPCallback(int buf, int size) // receives an integer at TCP port 1000 and print it
+//	int TCPCallback(int buf, int size)
 //	{	
 //		Map(&buf, buf);
 // 		printf("Received data: %d\xa", buf);
@@ -540,9 +546,9 @@ int EventHandle(int type, alias o, int x)
 	// receives a string of characters at TCP port 1000 and print it
 	int TCPCallback(int buf, int size)
 	{
-    	char c;
+		char c;
    		Map(&c, buf); Dim(&c, size + 1);
    		c[size] = 0;
-    	printf("%s : %d bytes received\xa", &c, size);
+		printf("%s : %d bytes received\xa", &c, size);
 	}
 	

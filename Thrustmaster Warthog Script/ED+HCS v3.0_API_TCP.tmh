@@ -3,40 +3,84 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 
-// ----------------------------------------------------- DECODING API Status.Json FLAG --------------------------------
+// ----------------------------------------------------- DECODING API Status.Json FLAGS --------------------------------
 
 
 //	//{ "timestamp":"2017-12-07T10:31:37Z", "event":"Status", "Flags":16842765, "Pips":[2,8,2], "FireGroup":0,"GuiFocus":5 }
+//	//{ "timestamp":"2017-12-07T12:03:14Z", "event":"Status", "Flags":18874376, "Pips":[4,8,0], "FireGroup":0,"GuiFocus":0, "Latitude":-28.584963, "Longitude":6.826313, "Heading":109, "Altitude": 404 }
+//	//{ "timestamp":"2018-04-30T10:44:52Z", "event":"Status", "Flags":16777224, "Pips":[0,4,8], "FireGroup":2, "GuiFocus":0 }
+//	//{ "timestamp":"2018-04-30T10:45:32Z", "event":"Status", "Flags":16778564, "Pips":[0,4,8], "FireGroup":2, "GuiFocus":0 }
+ 
+int s_Flags = 16778564; //8 bytes
 
-//int jsonFlags = 16842765
+//----------------------flag constances
 
-//flag constances
-//int flagDocked 		= 0x01;
-//int flagLanded 		= 0x02;
-//int flagLGear  		= 0x04;
-//int flagShield		= 0x08;
-//int flagSupercruise 	= 0x010:
-//int flagFA			= 0x020:
-//int flagHardPoint		= 0x040;
-//int flagInWing		= 0x080;
-//int flagLight			= 0x0100;
-//int flagCScoop		= 0x0200;
-//int flagSilentR		= 0x0400;
-//int flagScooping		= 0x0800;
-//int flagSRVHandbrake	= 0x01000;
-//int flagSRVTurret		= 0x02000;
-//int flagSRVUnderShip	= 0x04000;
-//int flagSRVDA			= 0x08000; //Drive Assist
-//int flagMassLocked	= 0x010000;
-//int flagFSDCharging	= 0x020000;
-//int flagFSDCooldown	= 0x040000;
-//int flagLowFuel		= 0x080000;
-//int flagOverHeating	= 0x0100000;
-//int flagHasLatLong	= 0x0200000; // ???????
-//int flagInDanger		= 0x0400000;
-//int flagInterdicted	= 0x0800000;
-//int flagInShip		= 0x01000000;
-//int flagInFighter		= 0x02000000;
-//int flagInSRV			= 0x04000000;
+byte f_Docked 		= 0x01;
+byte f_Landed 		= 0x02;
+byte f_LGear  		= 0x04;
+byte f_Shield		= 0x08;
+byte f_Supercruise	= 0x010;
+byte f_FA			= 0x020;
+byte f_HardPoint	= 0x040;
+byte f_InWing		= 0x080;
+byte f_Light		= 0x0100;
+byte f_CScoop		= 0x0200;
+byte f_SilentR		= 0x0400;
+byte f_Scooping		= 0x0800;
+byte f_SRVHandbrake	= 0x01000;
+byte f_SRVTurret	= 0x02000;
+byte f_SRVUnderShip	= 0x04000;
+byte f_SRVDA		= 0x08000;
+byte f_MassLocked	= 0x010000;
+byte f_FSDCharging	= 0x020000;
+byte f_FSDCooldown	= 0x040000;
+byte f_LowFuel		= 0x080000;
+byte f_OverHeating	= 0x0100000;
+byte f_HasLatLong	= 0x0200000;
+byte f_InDanger		= 0x0400000;
+byte f_Interdicted	= 0x0800000;
+byte f_InShip		= 0x01000000;
+byte f_InFighter	= 0x02000000;
+byte f_InSRV		= 0x04000000;
+
+
+
+//----------------------flag test
+//if (s_Flags & f_Docked){};
+int initIsDocked(){
+	if (s_Flags & f_Docked) printf("Docked\x0a");
+	else printf("Not Docked\x0a");
+}
+//if (s_Flags & f_Landed){};
+//if (s_Flags & f_LGear){};
+int initIsLGear(){
+	if (s_Flags & f_LGear) printf("LGear Down\x0a");
+	else printf("LGear Up\x0a");
+}
+//if (s_Flags & fShield){};
+int initIsShield(){
+	if (s_Flags & f_Shield) printf("Shield Up\x0a");
+	else printf("Shield Down\x0a");
+}
+//if (s_Flags & f_Supercruise){};
+//if (s_Flags & f_FA){};
+//if (s_Flags & f_HardPoint){};
+//if (s_Flags & f_InWing){};
+//if (s_Flags & f_Light){};
+//if (s_Flags & f_CScoop){};
+//if (s_Flags & f_SilentR){};
+//if (s_Flags & f_Scooping){};
+//if (s_Flags & f_SRVHandbrake){};
+//if (s_Flags & f_SRVTurret){};
+//if (s_Flags & f_SRVUnderShip){};
+//if (s_Flags & f_SRVDA){};
+//if (s_Flags & f_FSDCharging | s_Flags & f_FSDCooldown | s_Flags & f_MassLocked){};
+//if (s_Flags & f_LowFuel){};
+//if (s_Flags & f_OverHeating){};
+//if (s_Flags & f_HasLatLong){};
+//if (s_Flags & f_InDanger){};
+//if (s_Flags & f_Interdicted){};
+//if (s_Flags & f_InShip | s_Flags & f_InFighter | s_Flags & f_InSRV){};
+
 
 // ----------------------------------------------------- DECODING API Status.Json PIPS --------------------------------
