@@ -544,12 +544,26 @@ int EventHandle(int type, alias o, int x)
 		Map(&c, buf); Dim(&c, size + 1);
  		c[size] = 0;
 		s_Flags = ieval(&c); // evaluate an expression in a char[] variable and returns the int result (0 if error)
-		printf("%s : %d bytes received\xa", &c, size);
-		printf("%d : s_Flags\xa", s_Flags);
-		//Only there for testing API STuff
+//		size_Flags = sizeof(&s_Flags);
+		//printf("%s : %d bytes received\xa", &c, size);
+		//printf("%d : s_Flags, %d bytes\xa", s_Flags, size_Flags);
+//		//Only there for testing API STuff
 		initIsDocked();
-		initIsShield();
+		initIsLanded();
 		initIsLGear();
+		initIsShield();
 		initIsSupercruise();
+		initIsFA();
 		initIsLight();
+		initIsHardPoints();
+		initIsCScoop();
+		initIsSilentR();
+		initIsScooping();
+		initIsLocked();
+		initIsLowFuel();
+		initIsOverHeating();
+		initIsHasLatLong();
+		initIsInDanger();
+		initIsInterdicted();
+		initIsIngame();
 	}
