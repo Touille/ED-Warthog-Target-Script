@@ -11,7 +11,9 @@
 //	//{ "timestamp":"2018-04-30T10:44:52Z", "event":"Status", "Flags":16777224, "Pips":[0,4,8], "FireGroup":2, "GuiFocus":0 }
 //	//{ "timestamp":"2018-04-30T10:45:32Z", "event":"Status", "Flags":16778564, "Pips":[0,4,8], "FireGroup":2, "GuiFocus":0 }
  
-int s_Flags = 16778564; //8 bytes
+//int s_Flags = 16778564; //8 bytes
+
+int s_Flags; 
 
 //----------------------flag constances
 
@@ -63,10 +65,18 @@ int initIsShield(){
 	else printf("Shield Down\x0a");
 }
 //if (s_Flags & f_Supercruise){};
+int initIsSupercruise(){
+	if (s_Flags & f_Supercruise) printf("In Supercruise\x0a");
+	else printf("Not In Supercruise\x0a");
+}
 //if (s_Flags & f_FA){};
 //if (s_Flags & f_HardPoint){};
 //if (s_Flags & f_InWing){};
 //if (s_Flags & f_Light){};
+int initIsLight(){
+	if (s_Flags & f_Light) printf("Light On\x0a");
+	else printf("Light Off\x0a");
+}
 //if (s_Flags & f_CScoop){};
 //if (s_Flags & f_SilentR){};
 //if (s_Flags & f_Scooping){};

@@ -106,12 +106,6 @@ int main()
 	printf("-o/--o/-----Farinhir : The First CMDR to report Bug & FeedBack-----o/--o/-\x0a");
 	printf("--------------------------------------------------------------------------\x0a");
 	
-//Only there for testing API STuff
-	printf("--------You Should Remove this line below once API Stuff is tested--------\x0a");
-	initIsDocked();
-	initIsShield();
-	initIsLGear();
-	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	Shift States // Modifier don't touch this																													//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -540,15 +534,22 @@ int EventHandle(int type, alias o, int x)
 //	int TCPCallback(int buf, int size)
 //	{	
 //		Map(&buf, buf);
-// 		printf("Received data: %d\xa", buf);
+//		printf("Received data: %d\xa", buf);
 //	}
 	
 	// receives a string of characters at TCP port 1000 and print it
 	int TCPCallback(int buf, int size)
 	{
 		char c;
-   		Map(&c, buf); Dim(&c, size + 1);
-   		c[size] = 0;
+		Map(&c, buf); Dim(&c, size + 1);
+ 		c[size] = 0;
+		s_Flags = ieval(&c); // evaluate an expression in a char[] variable and returns the int result (0 if error)
 		printf("%s : %d bytes received\xa", &c, size);
+		printf("%d : s_Flags\xa", s_Flags);
+		//Only there for testing API STuff
+		initIsDocked();
+		initIsShield();
+		initIsLGear();
+		initIsSupercruise();
+		initIsLight();
 	}
-	
