@@ -2,175 +2,174 @@
 //	ED API Stuff																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-
 // ----------------------------------------------------- DECODING API Status.Json FLAGS --------------------------------
-
-
-//	//{ "timestamp":"2017-12-07T10:31:37Z", "event":"Status", "Flags":16842765, "Pips":[2,8,2], "FireGroup":0,"GuiFocus":5 }
-//	//{ "timestamp":"2017-12-07T12:03:14Z", "event":"Status", "Flags":18874376, "Pips":[4,8,0], "FireGroup":0,"GuiFocus":0, "Latitude":-28.584963, "Longitude":6.826313, "Heading":109, "Altitude": 404 }
-//	//{ "timestamp":"2018-04-30T10:44:52Z", "event":"Status", "Flags":16777224, "Pips":[0,4,8], "FireGroup":2, "GuiFocus":0 }
-//	//{ "timestamp":"2018-04-30T10:45:32Z", "event":"Status", "Flags":16778564, "Pips":[0,4,8], "FireGroup":2, "GuiFocus":0 }
  
-int s_Flags;
+int Flags;
 //int size_Flags;
 
 //----------------------flag constances Bit
 
 //byte f_Docked 		= 0x00000001;
 //byte f_Landed 		= 0x00000002;
-//byte f_LGear  		= 0x00000004;
-//byte f_Shield		= 0x00000008;
+//byte f_LGearDown 		= 0x00000004;
+//byte f_ShieldUp		= 0x00000008;
 //byte f_Supercruise	= 0x00000010;
-//byte f_FA			= 0x00000020;
-//byte f_HardPoints	= 0x00000040;
-//byte f_InWing		= 0x00000080;
-//byte f_Light		= 0x00000100;
-//byte f_CScoop		= 0x00000200;
+//byte f_FAOff			= 0x00000020;
+//byte f_HardPoints		= 0x00000040;
+//byte f_InWing			= 0x00000080;
+//byte f_LightOn		= 0x00000100;
+//byte f_CScoop			= 0x00000200;
 //byte f_SilentR		= 0x00000400;
 //byte f_Scooping		= 0x00000800;
 //byte f_SRVHandbrake	= 0x00001000;
-//byte f_SRVTurret	= 0x00002000;
+//byte f_SRVTurret		= 0x00002000;
 //byte f_SRVUnderShip	= 0x00004000;
-//byte f_SRVDA		= 0x00008000;
-//byte f_MassLocked	= 0x00010000;
+//byte f_SRVDA			= 0x00008000;
+//byte f_MassLocked		= 0x00010000;
 //byte f_FSDCharging	= 0x00020000;
 //byte f_FSDCooldown	= 0x00040000;
 //byte f_LowFuel		= 0x00080000;
 //byte f_OverHeating	= 0x00100000;
-//byte f_HasLatLong	= 0x00200000;
+//byte f_HasLatLong		= 0x00200000;
 //byte f_InDanger		= 0x00400000;
 //byte f_Interdicted	= 0x00800000;
-//byte f_InShip		= 0x01000000;
-//byte f_InFighter	= 0x02000000;
-//byte f_InSRV		= 0x04000000;
+//byte f_InShip			= 0x01000000;
+//byte f_InFighter		= 0x02000000;
+//byte f_InSRV			= 0x04000000;
 
 //----------------------flag constances Value
 
-int f_Docked 		= 1;		//Docked, (on a landing pad)
-int f_Landed 		= 2;		//Landed, (on planet surface)
-int f_LGear  		= 4;		//Landing Gear Down
-int f_Shield		= 8;		//Shields Up
-int f_Supercruise	= 16;		//Supercruise
-int f_FA			= 32;		//FlightAssist Off
-int f_HardPoints	= 64;		//Hardpoints Deployed
-int f_InWing		= 128;		//In Wing
-int f_Light			= 256;		//LightsOn
-int f_CScoop		= 512;		//Cargo Scoop Deployed
-int f_SilentR		= 1024;		//Silent Running
-int f_Scooping		= 2048;		//Scooping Fuel
-int f_SRVHandbrake	= 4096;		//Srv Handbrake
-int f_SRVTurret		= 8192;		//Srv Turret
-int f_SRVUnderShip	= 16384;	//Srv UnderShip
-int f_SRVDA			= 32768;	//Srv DriveAssist
-int f_MassLocked	= 65536;	//Fsd MassLocked
-int f_FSDCharging	= 131072;	//Fsd Charging
-int f_FSDCooldown	= 262144;	//Fsd Cooldown
-int f_LowFuel		= 524288;	//Low Fuel ( < 25% )
-int f_OverHeating	= 1048576;	//Over Heating ( > 100% )
-int f_HasLatLong	= 2097152;	//Has Lat Long
-int f_InDanger		= 4194304;	//IsInDanger
-int f_Interdicted	= 8388608;	//Being Interdicted
-int f_InShip		= 16777216;	//In MainShip
-int f_InFighter		= 33554432;	//In Fighter
-int f_InSRV			= 67108864;	//In SRV
+int f_Docked 			= 1;			//Docked, (on a landing pad)
+int f_Landed 			= 2;			//Landed, (on planet surface)
+int f_LGearDown			= 4;			//Landing Gear Down
+int f_ShieldUp			= 8;			//Shields Up
+int f_Supercruise		= 16;			//Supercruise
+int f_FAOff				= 32;			//FlightAssist Off
+int f_HardPoints		= 64;			//Hardpoints Deployed
+int f_InWing			= 128;			//In Wing
+int f_LightOn			= 256;			//LightsOn
+int f_CScoop			= 512;			//Cargo Scoop Deployed
+int f_SilentR			= 1024;			//Silent Running
+int f_Scooping			= 2048;			//Scooping Fuel
+int f_SRVHandbrake		= 4096;			//Srv Handbrake
+int f_SRVTurret			= 8192;			//Srv Turret
+int f_SRVUnderShip		= 16384;		//Srv UnderShip
+int f_SRVDA				= 32768;		//Srv DriveAssist
+int f_MassLocked		= 65536;		//Fsd MassLocked
+int f_FSDCharging		= 131072;		//Fsd Charging
+int f_FSDCooldown		= 262144;		//Fsd Cooldown
+int f_LowFuel			= 524288;		//Low Fuel ( < 25% )
+int f_OverHeating		= 1048576;		//Over Heating ( > 100% )
+int f_HasLatLong		= 2097152;		//Has Lat Long
+int f_InDanger			= 4194304;		//IsInDanger
+int f_Interdicted		= 8388608;		//Being Interdicted
+int f_InShip			= 16777216;		//In MainShip
+int f_InFighter			= 33554432;		//In Fighter
+int f_InSRV				= 67108864;		//In SRV
 
 
 //----------------------flag test
-//if (s_Flags & f_Docked){};
+//if (Flags & f_Docked){};
 int initIsDocked(){
-	if (s_Flags & f_Docked) printf("Docked\x0a");
-	//else printf("Not Docked\x0a");
+	if (Flags & f_Docked) printf("Docked\x0a");
 }
-//if (s_Flags & f_Landed){};
+//if (Flags & f_Landed){};
 int initIsLanded(){
-	if (s_Flags & f_Landed) printf("Landed\x0a");
-	//else printf("Not Landed\x0a");
+	if (Flags & f_Landed) printf("Landed\x0a");
 }
-//if (s_Flags & f_LGear){};
+//if (Flags & f_LGearDown){};
 int initIsLGear(){
-	if (s_Flags & f_LGear) printf("LGear Down\x0a");
-	//else printf("LGear Up\x0a");
+	if (Flags & f_LGearDown) printf("LGear Down\x0a");
 }
-//if (s_Flags & fShield){};
+//if (Flags & fShieldUp){};
 int initIsShield(){
-	//if (s_Flags & f_Shield) printf("Shield Up\x0a");
-	if (s_Flags & f_Shield){}
+	if (Flags & f_ShieldUp){}
 	else printf("Shield Down\x0a");
 }
-//if (s_Flags & f_Supercruise){};
+//if (Flags & f_Supercruise){};
 int initIsSupercruise(){
-	if (s_Flags & f_Supercruise) printf("In Supercruise\x0a");
-	//else printf("Not In Supercruise\x0a");
+	if (Flags & f_Supercruise) printf("In Supercruise\x0a");
 }
-//if (s_Flags & f_FA){};
+//if (Flags & f_FAOff){};
 int initIsFA(){
-	if (s_Flags & f_FA) printf("FA OFF\x0a");
-	//else printf("FA On\x0a");
+	if (Flags & f_FAOff) printf("FA OFF\x0a");
 }
-//if (s_Flags & f_HardPoints){};
+//if (Flags & f_HardPoints){};
 int initIsHardPoints(){
-	if (s_Flags & f_HardPoints) printf("HardPoints Deployed\x0a");
-	//else printf("HardPoints Retracted\x0a");
+	if (Flags & f_HardPoints) printf("HardPoints Deployed\x0a");
 }
-//if (s_Flags & f_InWing){};
-//if (s_Flags & f_Light){};
+//if (Flags & f_InWing){};
+int initIsInWing(){
+	if (Flags & f_InWing) printf("In Wing\x0a");
+}
+//if (Flags & f_LightOn){};
 int initIsLight(){
-	if (s_Flags & f_Light) printf("Light On\x0a");
-	//else printf("Light Off\x0a");
+	if (Flags & f_LightOn) printf("Light On\x0a");
 }
-//if (s_Flags & f_CScoop){};
+//if (Flags & f_CScoop){};
 int initIsCScoop(){
-	if (s_Flags & f_CScoop) printf("CScoop Down\x0a");
-	//else printf("CScoop Up\x0a");
+	if (Flags & f_CScoop) printf("CScoop Down\x0a");
 }
-//if (s_Flags & f_SilentR){};
+//if (Flags & f_SilentR){};
 int initIsSilentR(){
-	if (s_Flags & f_SilentR) printf("SilentR On\x0a");
-	//else printf("SilentR Off\x0a");
+	if (Flags & f_SilentR) printf("SilentR On\x0a");
 }
-//if (s_Flags & f_Scooping){};
+//if (Flags & f_Scooping){};
 int initIsScooping(){
-	if (s_Flags & f_Scooping) printf("Scooping on\x0a");
-	//else printf("Scooping On\x0a");
+	if (Flags & f_Scooping) printf("Scooping\x0a");
 }
-//if (s_Flags & f_SRVHandbrake){};
-//if (s_Flags & f_SRVTurret){};
-//if (s_Flags & f_SRVUnderShip){};
-//if (s_Flags & f_SRVDA){};
-//if (s_Flags & f_FSDCharging | s_Flags & f_FSDCooldown | s_Flags & f_MassLocked){};
-int initIsLocked(){
-	if (s_Flags & f_FSDCharging | s_Flags & f_FSDCooldown | s_Flags & f_MassLocked) printf("Locked/FSD Cooldown\x0a");
-	//else printf("Not Locked/FSD Cooldown\x0a");
+//if (Flags & f_SRVHandbrake){};
+int initIsSRVHandbrake(){
+	if (Flags & f_SRVHandbrake) printf("SRVHandbrake on\x0a");
 }
-//if (s_Flags & f_LowFuel){};
+//if (Flags & f_SRVTurret){};
+int initIsSRVTurret(){
+	if (Flags & f_SRVTurret) printf("SRVTurret Deployed\x0a");
+}
+//if (Flags & f_SRVUnderShip){};
+int initIsSRVUnderShip(){
+	if (Flags & f_SRVUnderShip) printf("SRVUnderShip\x0a");
+}
+//if (Flags & f_SRVDA){};
+int initIsSRVDA(){
+	if (Flags & f_SRVDA) printf("SRVDA OFF\x0a");
+}
+//if (Flags & f_FSDCharging){};
+int initIsFSDCharging(){
+	if (Flags & f_FSDCharging) printf("FSD Charging\x0a");
+}
+//if (Flags & f_FSDCooldown){};
+int initIsFSDCooldown(){
+	if (Flags & f_FSDCooldown) printf("FSD Cooldown\x0a");
+}
+//if (Flags & f_MassLocked){};
+int initIsMassLocked(){
+	if (Flags & f_MassLocked) printf("Mass Locked\x0a");
+}
+//if (Flags & f_LowFuel){};
 int initIsLowFuel(){
-	if (s_Flags & f_LowFuel) printf("LowFuel < 25%\x0a");
-	//else printf("Fuel > 25%\x0a");
+	if (Flags & f_LowFuel) printf("LowFuel < 25%\x0a");
 }
-//if (s_Flags & f_OverHeating){};
+//if (Flags & f_OverHeating){};
 int initIsOverHeating(){
-	if (s_Flags & f_OverHeating) printf("OverHeating > 100%\x0a");
-	//else printf("Normal Heat\x0a");
+	if (Flags & f_OverHeating) printf("OverHeating > 100%\x0a");
 }
-//if (s_Flags & f_HasLatLong){};
+//if (Flags & f_HasLatLong){};
 int initIsHasLatLong(){
-	if (s_Flags & f_HasLatLong) printf("Approch Planet\x0a");
-	//else {}
+	if (Flags & f_HasLatLong) printf("Approch Planet\x0a");
 }
-//if (s_Flags & f_InDanger){};
+//if (Flags & f_InDanger){};
 int initIsInDanger(){
-	if (s_Flags & f_InDanger) printf("Warning : In Danger\x0a");
-	//else {}
+	if (Flags & f_InDanger) printf("Warning : In Danger\x0a");
 }
-//if (s_Flags & f_Interdicted){};
+//if (Flags & f_Interdicted){};
 int initIsInterdicted(){
-	if (s_Flags & f_Interdicted) printf("Warning : Interdicted\x0a");
-	//else {}
+	if (Flags & f_Interdicted) printf("Warning : Interdicted\x0a");
 }
-//if (s_Flags & f_InShip | s_Flags & f_InFighter | s_Flags & f_InSRV){};
+//if (Flags & f_InShip | Flags & f_InFighter | Flags & f_InSRV){};
 int initIsIngame(){
-	//if (s_Flags & f_InShip | s_Flags & f_InFighter | s_Flags & f_InSRV) printf("Ingame\x0a");
-	if (s_Flags & f_InShip | s_Flags & f_InFighter | s_Flags & f_InSRV){}
+	//if (Flags & f_InShip | Flags & f_InFighter | Flags & f_InSRV) printf("Ingame\x0a");
+	if (Flags & f_InShip | Flags & f_InFighter | Flags & f_InSRV){}
 	else printf("Not Ingame\x0a");
 }
 

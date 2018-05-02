@@ -541,10 +541,11 @@ int EventHandle(int type, alias o, int x)
 	int TCPCallback(int buf, int size)
 	{
 		char c;
-		Map(&c, buf); Dim(&c, size + 1);
+		Map(&c, buf);
+		Dim(&c, size + 1);
  		c[size] = 0;
-		s_Flags = ieval(&c); // evaluate an expression in a char[] variable and returns the int result (0 if error)
-//		size_Flags = sizeof(&s_Flags);
+		Flags = ieval(&c); // evaluate an expression in a char[] variable and returns the int result (0 if error)
+//		size_Flags = sizeof(&Flags);
 		//printf("%s : %d bytes received\xa", &c, size);
 		//printf("%d : s_Flags, %d bytes\xa", s_Flags, size_Flags);
 //		//Only there for testing API STuff
@@ -554,12 +555,19 @@ int EventHandle(int type, alias o, int x)
 		initIsShield();
 		initIsSupercruise();
 		initIsFA();
-		initIsLight();
 		initIsHardPoints();
+		initIsInWing();
+		initIsLight();
 		initIsCScoop();
 		initIsSilentR();
 		initIsScooping();
-		initIsLocked();
+		initIsSRVHandbrake();
+		initIsSRVTurret();
+		initIsSRVUnderShip();
+		initIsSRVDA();
+		initIsFSDCharging();
+		initIsFSDCooldown();
+		initIsMassLocked();
 		initIsLowFuel();
 		initIsOverHeating();
 		initIsHasLatLong();
