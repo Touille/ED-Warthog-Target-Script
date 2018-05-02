@@ -2,7 +2,7 @@ ED_API_over_TCP NEED to be placed in the same directory as Status.json and other
 
 \Users\....\Saved Games\Frontier Developments\Elite Dangerous\
 
-Please this file is only for testing purpose: it can crash and don't work for you (I have tested it on the computer AMD Ryzen and i7 4770k : I got one crash (the soft, not the computer ;) ))
+Please this file is only for testing purpose: it can crash and don't work for you (I have tested it on two computer AMD Ryzen and i7 4770k : I got one crash (the soft, not the computer ;) ))
 
 I Someone can help me on this part (C++ stuff) you are welcome :) I'm just starting to learn c++ some day ago ... so the code can have some BIG Noob mistake ....
 
