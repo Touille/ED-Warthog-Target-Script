@@ -35,6 +35,7 @@
 	
 	define DebugMode            1   //If [1] Target Script Editor Window will Display All Debug Msg, Else [0]
 	define DebugMMode           1   //If [1] Target Script Editor Window will Display Some Debug Msg, Else [0]
+	define DebugFlagsMode		1	//If [1] Target Script Editor Window will Display Flags States Msg, Else [0]
 
 	define Rudders              0   //[0] for no rudders, [1] for rudders, [2] for T.Flight rudders
 	                                //If you use T.Flight rudders you need to Comment out one line  to get the combo to map in game, then Uncomment it 
@@ -139,35 +140,61 @@
 //	!!!!AFTER THE NAME OF LED YOU SHOULD ALWAYS PUT : ", DELAY" note the "," -> if you want LED flashing (DELAY(250-2000)), if you don't want Flashing Put 0!!!!//
 //	--ex LED1, 0 : LED1 On throttle without flashing          LED5, 250 : LED5 On throttle with flashing
 
-	define OptimalPIPMode_LED              LED1, 0
-	define SecureRetract_LED               LED2, 0
-	define SupecruiseOnThrottle_LED        LED3, 0
-	define SilentRuningOFFonFire_LED       LED4, 0
-	define StopFireRetractHardpoints_LED   0			//Retract HardPoints When Fire OFF LED
-	define HardPointsonFireGameMode_LED    0
-	define HeatSinkOnSilentRuning_LED      0
-	define LandingGear_LED                 0
-	define CargoScoop_LED                  0
-	define Lights_LED                      0
-	define Hardpoints_LED                  0
-	define CombinedFire_LED                LED5, 250
-	define RCorrection_LED                 0
-	define Camera_LED                      0
-	define PTT_LED                         0
-	define VoicePTT_LED                    0
-	define PTTMode_LED                     0
-	define SilentRuning_LED                0
-	define IDLEOnThrottle_LED              0			//IDLE Hardware Throttle LED
-	define FA_LED                          0			//Flight Assist LED
-	define VA_LED                          0			//Voice Attack Mic LED
-	define ReverseThrottle_LED             0
-	define GameMenu_LED                    0
-	define HeadLook_LED                    0
-	define ExplorerMode_LED                0
-	define NVidiaCaptureVideo_LED          0			//Nvidia Shadowplay Capture
-	define NVidiaStreaming_LED             0			//Nvidia Shadowplay Streaming
-	define AMDCaptureVideo_LED             0			//AMD Relive Capture
-	define AMDStreaming_LED                0			//AMD Relive Streaming
+//	--LED Profile States----------------------------------------------------------------------------------------------------------------------------------------//
+
+	define OptimalPIPMode_LED				0
+	define SecureRetract_LED				0
+	define SupecruiseOnThrottle_LED			0
+	define SilentRuningOFFonFire_LED		0
+	define StopFireRetractHardpoints_LED	0			//Retract HardPoints When Fire OFF LED
+	define HardPointsonFireGameMode_LED		0
+	define HeatSinkOnSilentRuning_LED		0
+	define CombinedFire_LED					0
+	define RCorrection_LED					0
+	define Camera_LED						0
+	define PTT_LED							0
+	define VoicePTT_LED						0
+	define PTTMode_LED						0
+	define IDLEOnThrottle_LED				0			//IDLE Hardware Throttle LED
+	define VA_LED							0			//Voice Attack Mic LED
+	define ReverseThrottle_LED				0
+	define GameMenu_LED						0
+	define HeadLook_LED						0
+	define ExplorerMode_LED					0
+	define NVidiaCaptureVideo_LED			0			//Nvidia Shadowplay Capture
+	define NVidiaStreaming_LED				0			//Nvidia Shadowplay Streaming
+	define AMDCaptureVideo_LED				0			//AMD Relive Capture
+	define AMDStreaming_LED					0			//AMD Relive Streaming
+
+//	--LED Game States-------------------------------------------------------------------------------------------------------------------------------------------//
+	
+	define Docked_LED						0
+	define Landed_LED						0
+	define LandingGearDown_LED				LED3, 0
+	define ShieldUp_LED						0
+	define Supercruise_LED					0
+	define FlightAssistOff_LED				0			//Flight Assist LED
+	define HardpointsDeployed_LED			LED2, 0
+	define InWing_LED						0
+	define LightsOn_LED						LED5, 250
+	define CargoScoopDeployed_LED			LED1, 0
+	define SilentRuning_LED					LED4, 0
+	define ScoopingFuel_LED					0
+	define SrvHandbrake_LED					0
+	define SrvTurret_LED					0
+	define SrvUnderShip_LED					0
+	define SrvDriveAssist_LED				0
+	define FsdMassLocked_LED				0
+	define FsdCharging_LED					0
+	define FsdCooldown_LED					0
+	define LowFuel_LED 						0
+	define OverHeating_LED					0
+	define HasLatLong_LED					0
+	define IsInDanger_LED					0
+	define BeingInterdicted_LED				0
+	define InMainShip_LED					0
+	define InFighter_LED					0
+	define InSRV_LED						0
 
 //	--LED Backlight (Value 0-255)-------------------------------------------------------------------------------------------------------------------------------//
 
@@ -188,6 +215,10 @@
 	define RMFDLightOnIDLE      0       //Right MFD backlight on Hardware Throttle IDLE State
 	define LMFDLight            129     //Left  MFD backlight
 	define LMFDLightOnIDLE      0       //Left  MFD backlight on Hardware Throttle IDLE State
+	
+//	--Throttle Backlight Flashing Speed-------------------------------------------------------------------------------------------------------------------------//
+
+	define ThrottleLight_FSpeed	350		//Base Throttle LED Intensity delay	
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PRESS & PULSE DELAY SETTINGS																																//
@@ -349,11 +380,11 @@
 		printf("		Combine Pri+Sec Fire----------------------%d\x0a", sCombinedFire);
 		printf("		Retract HardPoints On Fire----------------%d\x0a", StopFireRetractHardpoints);
 //		printf("		Rotational Correction---------------------%d\x0a", sRCorrection);
-//		printf("		Landing Gears-----------------------------%d\x0a", sGears);
-//		printf("		Cargo Scoop-------------------------------%d\x0a", sCargo);
-//		printf("		Ship Lights-------------------------------%d\x0a", sLights);
+//		printf("		Landing Gears-----------------------------%d\x0a", s_LandingGearDown);
+//		printf("		Cargo Scoop-------------------------------%d\x0a", s_CargoScoopDeployed);
+//		printf("		Ship Lights-------------------------------%d\x0a", s_LightsOn);
 //		printf("		Classified CameraMode---------------------%d\x0a", sCameraMode);
-//		printf("		HardPoints--------------------------------%d\x0a", sHardPoints);
+//		printf("		HardPoints--------------------------------%d\x0a", s_HardpointsDeployed);
 //		printf("		Explorer Mode-----------------------------%d\x0a", sExplorerMode);
 		printf("--------------------------In Game Settings--------------------------------\x0a");
 		printf("		PPT------------------------HOLD/TOGGLE----%d\x0a", sPTTMode);

@@ -20,6 +20,29 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	Receive something through TCP port and do stuff with that																									//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+	// receives an integer at TCP port 1000 and print it
+//	int TCPCallback(int buf, int size)
+//	{	
+//		Map(&buf, buf);
+//		printf("Received data: %d\xa", buf);
+//	}
+	
+	// receives a string of characters at TCP port 1000 and print it
+	int TCPCallback(int buf, int size)
+	{
+		char c;
+		Map(&c, buf); Dim(&c, size + 1);
+		c[size] = 0;
+		Flags = ieval(&c); // evaluate an expression in a char[] variable and returns the int result (0 if error)
+		f_Check();
+//		//size_Flags = sizeof(&Flags);
+//		//printf("%s : %d bytes received\xa", &c, size);
+//		//printf("%d : s_Flags, %d bytes\xa", s_Flags, size_Flags);
+	}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	HARDWARE MAPPINGS																																			//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -64,10 +87,6 @@
 		//-------------------------------------------------------------------17
 		initLED(SupecruiseOnThrottle_LED, SupecruiseOnThrottle);
 		initLED(RCorrection_LED, sRCorrection);
-		initLED(LandingGear_LED, sGears);
-		initLED(CargoScoop_LED, sCargo);
-		initLED(Lights_LED, sLights);
-		initLED(Hardpoints_LED, sHardPoints);
 		initLED(CombinedFire_LED, sCombinedFire);
 		initLED(PTT_LED, sPTTState);
 		initLED(VoicePTT_LED, vVoicePTT);
@@ -81,9 +100,7 @@
 		initLED(ExplorerMode_LED, sExplorerMode);
 		//-------------------------------------------------------------------8
 		initLED(HardPointsonFireGameMode_LED, HardPointsonFireGameMode);
-		initLED(FA_LED, sFlightAssist);
 		initLED(VA_LED, sVoiceAttack);
-		initLED(SilentRuning_LED, sSilentRuning);
 		initLED(ReverseThrottle_LED, sRT);		
 		initLED(Camera_LED, sCameraMode);
 		initLED(GameMenu_LED, sGameMenu);
@@ -147,7 +164,7 @@
 				else if(t == LMFD_LED1 & ((v == 0 & flagHover_LMFD_LED1) | (v == 1 & !flagHover_LMFD_LED1))){flagHover_LMFD_LED1=!flagHover_LMFD_LED1; flashing_LMFD_LED1(ms);}
 				else if(t == LMFD_LED2 & ((v == 0 & flagHover_LMFD_LED2) | (v == 1 & !flagHover_LMFD_LED2))){flagHover_LMFD_LED2=!flagHover_LMFD_LED2; flashing_LMFD_LED2(ms);}
 				else{
-					if(DebugMode) printf("No LED should flash now\x0a");
+					//if(DebugMode) printf("No LED should flash now\x0a");
 				}
 			}
 		}
@@ -221,7 +238,7 @@
 			else                      BACKLIGHT_DEVICE = &LMFD;
 		
 			//Change Backlight Intensity?
-			if(v != 0){ //If Backlight = 0 (v =0) we switch OFF Backlight see below
+			if(v != 0){ //If Backlight = 0 (v = 0) we switch OFF Backlight see below
 				GameOutput(BACKLIGHT_DEVICE, OUT_ID_LED_INTENSITY, v);
 			}
 

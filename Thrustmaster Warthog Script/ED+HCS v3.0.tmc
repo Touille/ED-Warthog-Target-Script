@@ -57,7 +57,8 @@ int main()
 	if(Init(&EventHandle)) return 1; // declare the event handler, return on error
 	
 	RegisterGameCallback(1000, &TCPCallback);	 // Attach TCPCallback procedure to TCP port 1000
-
+	//system("spawn -w \"C:\\Users\\tomdu\\Saved Games\\Frontier Developments\\Elite Dangerous\" \"C:\\Users\\tomdu\\Saved Games\\Frontier Developments\\Elite Dangerous\\ED_API_over_TCP_RapidJSON.exe\"");
+	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	BASE SETTINGS																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -525,53 +526,3 @@ int EventHandle(int type, alias o, int x)
 	
 	else DefaultMapping(&o, x);
 }
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	TEST : Receive something through TCP port and do stuff with that																							//
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-	// receives an integer at TCP port 1000 and print it
-//	int TCPCallback(int buf, int size)
-//	{	
-//		Map(&buf, buf);
-//		printf("Received data: %d\xa", buf);
-//	}
-	
-	// receives a string of characters at TCP port 1000 and print it
-	int TCPCallback(int buf, int size)
-	{
-		char c;
-		Map(&c, buf);
-		Dim(&c, size + 1);
- 		c[size] = 0;
-		Flags = ieval(&c); // evaluate an expression in a char[] variable and returns the int result (0 if error)
-//		size_Flags = sizeof(&Flags);
-		//printf("%s : %d bytes received\xa", &c, size);
-		//printf("%d : s_Flags, %d bytes\xa", s_Flags, size_Flags);
-//		//Only there for testing API STuff
-		initIsDocked();
-		initIsLanded();
-		initIsLGear();
-		initIsShield();
-		initIsSupercruise();
-		initIsFA();
-		initIsHardPoints();
-		initIsInWing();
-		initIsLight();
-		initIsCScoop();
-		initIsSilentR();
-		initIsScooping();
-		initIsSRVHandbrake();
-		initIsSRVTurret();
-		initIsSRVUnderShip();
-		initIsSRVDA();
-		initIsFSDCharging();
-		initIsFSDCooldown();
-		initIsMassLocked();
-		initIsLowFuel();
-		initIsOverHeating();
-		initIsHasLatLong();
-		initIsInDanger();
-		initIsInterdicted();
-		initIsIngame();
-	}

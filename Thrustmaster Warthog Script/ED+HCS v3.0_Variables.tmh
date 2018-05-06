@@ -133,15 +133,7 @@
 	//Game
 	int sIDLE;					//initToggleIDLEonThrottle()		Throttle IDLE
 	int sRT;					//initToggleReverseThrottle()		Reverse Throttle
-	int sFlightAssist;			//initToggleEnhancedFAOFF()	initAxisUpdateFA()		Flight Assist
 	int sGameMenu;				//initGameMenu()					Game Menu
 	int sHeadLook;				//initToogleHeadLook()				Head Look
 	int sExplorerMode;			//initToggleExplorerMode()			Desactivate Functions for Exploring (OptimalPIPMode when fire, StopFireRetractHardpoints ...)
 	int sCameraMode;			//initToggleCamera()				Classified Camera
-	int sSilentRuning;			//initToggleSilentRuning()			Silent Runing
-	
-	//If Misaligned With Game [S3]+Toggle The Switch
-	int sHardPoints;			//initToggleHardpoints()			HardPoints
-	int sGears;					//initToggleLandingGear()			Landing Gears
-	int sCargo;					//initToggleCargoScoop()			Cargo Scoop
-	int sLights;				//initToggleLights()				ShipLights

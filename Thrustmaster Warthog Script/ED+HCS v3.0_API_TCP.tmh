@@ -1,177 +1,299 @@
+//	Copyright (C) 2018 Thomas Duployez (CMDR Touille)
+//	V3.0.2b	2018/05
+//	Distributed freely under the MIT License.
+//	
+//	Permission is hereby granted, free of charge, to any person obtaining a copy
+//	of this software and associated documentation files (the "Software"), to deal
+//	in the Software without restriction, including without limitation the rights
+//	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//	copies of the Software, and to permit persons to whom the Software is
+//	furnished to do so, subject to the following conditions:
+//	
+//	The above copyright notice and this permission notice shall be included in all
+//	copies or substantial portions of the Software.
+//	
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//	SOFTWARE.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	ED API Stuff																																				//
+//	API Variables																																				//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-// ----------------------------------------------------- DECODING API Status.Json FLAGS --------------------------------
- 
-int Flags;
-//int size_Flags;
+	int Flags;
+	//int size_Flags;
 
-//----------------------flag constances Bit
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	API Constants Status.Json FLAGS																																//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-//byte f_Docked 		= 0x00000001;
-//byte f_Landed 		= 0x00000002;
-//byte f_LGearDown 		= 0x00000004;
-//byte f_ShieldUp		= 0x00000008;
-//byte f_Supercruise	= 0x00000010;
-//byte f_FAOff			= 0x00000020;
-//byte f_HardPoints		= 0x00000040;
-//byte f_InWing			= 0x00000080;
-//byte f_LightOn		= 0x00000100;
-//byte f_CScoop			= 0x00000200;
-//byte f_SilentR		= 0x00000400;
-//byte f_Scooping		= 0x00000800;
-//byte f_SRVHandbrake	= 0x00001000;
-//byte f_SRVTurret		= 0x00002000;
-//byte f_SRVUnderShip	= 0x00004000;
-//byte f_SRVDA			= 0x00008000;
-//byte f_MassLocked		= 0x00010000;
-//byte f_FSDCharging	= 0x00020000;
-//byte f_FSDCooldown	= 0x00040000;
-//byte f_LowFuel		= 0x00080000;
-//byte f_OverHeating	= 0x00100000;
-//byte f_HasLatLong		= 0x00200000;
-//byte f_InDanger		= 0x00400000;
-//byte f_Interdicted	= 0x00800000;
-//byte f_InShip			= 0x01000000;
-//byte f_InFighter		= 0x02000000;
-//byte f_InSRV			= 0x04000000;
+//----------------------flag status.json constances Bit
 
-//----------------------flag constances Value
+//byte f_Docked 			= 0x00000001;
+//byte f_Landed 			= 0x00000002;
+//byte f_LandingGearDown 	= 0x00000004;
+//byte f_ShieldUp			= 0x00000008;
+//byte f_Supercruise		= 0x00000010;
+//byte f_FlightAssistOff	= 0x00000020;
+//byte f_HardpointsDeployed	= 0x00000040;
+//byte f_InWing				= 0x00000080;
+//byte f_LightsOn			= 0x00000100;
+//byte f_CargoScoopDeployed	= 0x00000200;
+//byte f_SilentRunning		= 0x00000400;
+//byte f_ScoopingFuel		= 0x00000800;
+//byte f_SrvHandbrake		= 0x00001000;
+//byte f_SrvTurret			= 0x00002000;
+//byte f_SrvUnderShip		= 0x00004000;
+//byte f_SrvDriveAssist		= 0x00008000;
+//byte f_FsdMassLocked		= 0x00010000;
+//byte f_FsdCharging		= 0x00020000;
+//byte f_FsdCooldown		= 0x00040000;
+//byte f_LowFuel			= 0x00080000;
+//byte f_OverHeating		= 0x00100000;
+//byte f_HasLatLong			= 0x00200000;
+//byte f_IsInDanger			= 0x00400000;
+//byte f_BeingInterdicted	= 0x00800000;
+//byte f_InMainShip			= 0x01000000;
+//byte f_InFighter			= 0x02000000;
+//byte f_InSRV				= 0x04000000;
 
-int f_Docked 			= 1;			//Docked, (on a landing pad)
-int f_Landed 			= 2;			//Landed, (on planet surface)
-int f_LGearDown			= 4;			//Landing Gear Down
-int f_ShieldUp			= 8;			//Shields Up
-int f_Supercruise		= 16;			//Supercruise
-int f_FAOff				= 32;			//FlightAssist Off
-int f_HardPoints		= 64;			//Hardpoints Deployed
-int f_InWing			= 128;			//In Wing
-int f_LightOn			= 256;			//LightsOn
-int f_CScoop			= 512;			//Cargo Scoop Deployed
-int f_SilentR			= 1024;			//Silent Running
-int f_Scooping			= 2048;			//Scooping Fuel
-int f_SRVHandbrake		= 4096;			//Srv Handbrake
-int f_SRVTurret			= 8192;			//Srv Turret
-int f_SRVUnderShip		= 16384;		//Srv UnderShip
-int f_SRVDA				= 32768;		//Srv DriveAssist
-int f_MassLocked		= 65536;		//Fsd MassLocked
-int f_FSDCharging		= 131072;		//Fsd Charging
-int f_FSDCooldown		= 262144;		//Fsd Cooldown
-int f_LowFuel			= 524288;		//Low Fuel ( < 25% )
-int f_OverHeating		= 1048576;		//Over Heating ( > 100% )
-int f_HasLatLong		= 2097152;		//Has Lat Long
-int f_InDanger			= 4194304;		//IsInDanger
-int f_Interdicted		= 8388608;		//Being Interdicted
-int f_InShip			= 16777216;		//In MainShip
-int f_InFighter			= 33554432;		//In Fighter
-int f_InSRV				= 67108864;		//In SRV
+//----------------------flag status.json constances Value
 
+int f_Docked 				= 1;			//Docked, (on a landing pad)
+int f_Landed 				= 2;			//Landed, (on planet surface)
+int f_LandingGearDown		= 4;			//Landing Gear Down
+int f_ShieldUp				= 8;			//Shields Up
+int f_Supercruise			= 16;			//Supercruise
+int f_FlightAssistOff		= 32;			//FlightAssist Off
+int f_HardpointsDeployed	= 64;			//Hardpoints Deployed
+int f_InWing				= 128;			//In Wing
+int f_LightsOn				= 256;			//LightsOn
+int f_CargoScoopDeployed	= 512;			//Cargo Scoop Deployed
+int f_SilentRunning			= 1024;			//Silent Running
+int f_ScoopingFuel			= 2048;			//Scooping Fuel
+int f_SrvHandbrake			= 4096;			//Srv Handbrake
+int f_SrvTurret				= 8192;			//Srv Turret
+int f_SrvUnderShip			= 16384;		//Srv UnderShip
+int f_SrvDriveAssist		= 32768;		//Srv DriveAssist
+int f_FsdMassLocked			= 65536;		//Fsd MassLocked
+int f_FsdCharging			= 131072;		//Fsd Charging
+int f_FsdCooldown			= 262144;		//Fsd Cooldown
+int f_LowFuel				= 524288;		//Low Fuel ( < 25% )
+int f_OverHeating			= 1048576;		//Over Heating ( > 100% )
+int f_HasLatLong			= 2097152;		//Has Lat Long
+int f_IsInDanger			= 4194304;		//IsInDanger
+int f_BeingInterdicted		= 8388608;		//Being Interdicted
+int f_InMainShip			= 16777216;		//In MainShip
+int f_InFighter				= 33554432;		//In Fighter
+int f_InSRV					= 67108864;		//In SRV
 
-//----------------------flag test
-//if (Flags & f_Docked){};
-int initIsDocked(){
-	if (Flags & f_Docked) printf("Docked\x0a");
-}
-//if (Flags & f_Landed){};
-int initIsLanded(){
-	if (Flags & f_Landed) printf("Landed\x0a");
-}
-//if (Flags & f_LGearDown){};
-int initIsLGear(){
-	if (Flags & f_LGearDown) printf("LGear Down\x0a");
-}
-//if (Flags & fShieldUp){};
-int initIsShield(){
-	if (Flags & f_ShieldUp){}
-	else printf("Shield Down\x0a");
-}
-//if (Flags & f_Supercruise){};
-int initIsSupercruise(){
-	if (Flags & f_Supercruise) printf("In Supercruise\x0a");
-}
-//if (Flags & f_FAOff){};
-int initIsFA(){
-	if (Flags & f_FAOff) printf("FA OFF\x0a");
-}
-//if (Flags & f_HardPoints){};
-int initIsHardPoints(){
-	if (Flags & f_HardPoints) printf("HardPoints Deployed\x0a");
-}
-//if (Flags & f_InWing){};
-int initIsInWing(){
-	if (Flags & f_InWing) printf("In Wing\x0a");
-}
-//if (Flags & f_LightOn){};
-int initIsLight(){
-	if (Flags & f_LightOn) printf("Light On\x0a");
-}
-//if (Flags & f_CScoop){};
-int initIsCScoop(){
-	if (Flags & f_CScoop) printf("CScoop Down\x0a");
-}
-//if (Flags & f_SilentR){};
-int initIsSilentR(){
-	if (Flags & f_SilentR) printf("SilentR On\x0a");
-}
-//if (Flags & f_Scooping){};
-int initIsScooping(){
-	if (Flags & f_Scooping) printf("Scooping\x0a");
-}
-//if (Flags & f_SRVHandbrake){};
-int initIsSRVHandbrake(){
-	if (Flags & f_SRVHandbrake) printf("SRVHandbrake on\x0a");
-}
-//if (Flags & f_SRVTurret){};
-int initIsSRVTurret(){
-	if (Flags & f_SRVTurret) printf("SRVTurret Deployed\x0a");
-}
-//if (Flags & f_SRVUnderShip){};
-int initIsSRVUnderShip(){
-	if (Flags & f_SRVUnderShip) printf("SRVUnderShip\x0a");
-}
-//if (Flags & f_SRVDA){};
-int initIsSRVDA(){
-	if (Flags & f_SRVDA) printf("SRVDA OFF\x0a");
-}
-//if (Flags & f_FSDCharging){};
-int initIsFSDCharging(){
-	if (Flags & f_FSDCharging) printf("FSD Charging\x0a");
-}
-//if (Flags & f_FSDCooldown){};
-int initIsFSDCooldown(){
-	if (Flags & f_FSDCooldown) printf("FSD Cooldown\x0a");
-}
-//if (Flags & f_MassLocked){};
-int initIsMassLocked(){
-	if (Flags & f_MassLocked) printf("Mass Locked\x0a");
-}
-//if (Flags & f_LowFuel){};
-int initIsLowFuel(){
-	if (Flags & f_LowFuel) printf("LowFuel < 25%\x0a");
-}
-//if (Flags & f_OverHeating){};
-int initIsOverHeating(){
-	if (Flags & f_OverHeating) printf("OverHeating > 100%\x0a");
-}
-//if (Flags & f_HasLatLong){};
-int initIsHasLatLong(){
-	if (Flags & f_HasLatLong) printf("Approch Planet\x0a");
-}
-//if (Flags & f_InDanger){};
-int initIsInDanger(){
-	if (Flags & f_InDanger) printf("Warning : In Danger\x0a");
-}
-//if (Flags & f_Interdicted){};
-int initIsInterdicted(){
-	if (Flags & f_Interdicted) printf("Warning : Interdicted\x0a");
-}
-//if (Flags & f_InShip | Flags & f_InFighter | Flags & f_InSRV){};
-int initIsIngame(){
-	//if (Flags & f_InShip | Flags & f_InFighter | Flags & f_InSRV) printf("Ingame\x0a");
-	if (Flags & f_InShip | Flags & f_InFighter | Flags & f_InSRV){}
-	else printf("Not Ingame\x0a");
+//----------------------State of flag
+
+int s_Docked;
+int s_Landed;
+int s_LandingGearDown;		//initToggleLandingGear()
+int s_ShieldUp;
+int s_Supercruise;
+int s_FlightAssistOff;		//initToggleEnhancedFAOFF()	initAxisUpdateFA()
+int s_HardpointsDeployed;	//initToggleHardpoints()
+int s_InWing;
+int s_LightsOn;				//initToggleLights()
+int s_CargoScoopDeployed;	//initToggleCargoScoop()
+int s_SilentRunning;		//initToggleSilentRuning()
+int s_ScoopingFuel;
+int s_SrvHandbrake;
+int s_SrvTurret;
+int s_SrvUnderShip;
+int s_SrvDriveAssist;
+int s_FsdMassLocked;
+int s_FsdCharging;	
+int s_FsdCooldown;
+int s_LowFuel;
+int s_OverHeating;
+int s_HasLatLong;
+int s_IsInDanger;
+int s_BeingInterdicted;
+int s_InMainShip;
+int s_InFighter;
+int s_InSRV;
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	API Flags Checker																																			//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+int f_Check(){
+
+	if(DebugFlagsMode) printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\x0a");
+	
+		//0 1 0000 0001 Docked, (on a landing pad)
+	if (Flags & f_Docked) s_Docked = 1;
+	else  s_Docked = 0;
+	initLED(Docked_LED, s_Docked);
+	if(DebugFlagsMode) printf("Docked			[ %d ]	[DOCKED:[1] UNDOCKED:[0]]\x0a", s_Docked);
+	
+		//1 2 0000 0002 Landed, (on planet surface)
+	if (Flags & f_Landed) s_Landed = 1;
+	else  s_Landed = 0;
+	initLED(Landed_LED, s_Landed);
+	if(DebugFlagsMode) printf("Landed			[ %d ]	[LANDED:[1] NOT LANDED:[0]]\x0a", s_Landed);
+	
+		//2 4 0000 0004 Landing Gear Down
+	if (Flags & f_LandingGearDown) s_LandingGearDown = 1;
+	else s_LandingGearDown = 0;
+	initLED(LandingGearDown_LED, s_LandingGearDown);
+	if(DebugFlagsMode) printf("Landing Gear		[ %d ]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", s_LandingGearDown);
+	
+		//3 8 0000 0008 Shields Up
+	if (Flags & f_ShieldUp) s_ShieldUp = 1;
+	else s_ShieldUp = 0;
+	initLED(ShieldUp_LED, s_ShieldUp);
+	if(DebugFlagsMode) printf("Shield Up		[ %d ]	[YES:[1] NO:[0]]\x0a", s_ShieldUp);
+	
+		//4 16 0000 0010 Supercruise
+	if (Flags & f_Supercruise) s_Supercruise = 1;
+	else s_Supercruise = 0;
+	initLED(Supercruise_LED, s_Supercruise);
+	if(DebugFlagsMode) printf("Supercruise		[ %d ]	[ENGAGED:[1] DISENGAGED:[0]]\x0a", s_Supercruise);
+	
+		//5 32 0000 0020 FlightAssist Off
+	if (Flags & f_FlightAssistOff) s_FlightAssistOff = 1;
+	else s_FlightAssistOff = 0;
+	initLED(FlightAssistOff_LED, s_FlightAssistOff);
+	if(DebugFlagsMode) printf("Flight Assist		[ %d ]	[ENABLE:[1] DISABLE:[0]]	Rcorrection	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", s_FlightAssistOff, sRCorrection);
+	
+		//6 64 0000 0040 Hardpoints Deployed
+	if (Flags & f_HardpointsDeployed) s_HardpointsDeployed = 1;
+	else s_HardpointsDeployed = 0;
+	initLED(HardpointsDeployed_LED, s_HardpointsDeployed);
+	if(DebugFlagsMode) printf("HardPoints		[ %d ]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", s_HardpointsDeployed);
+	
+		//7 128 0000 0080 In Wing
+	if (Flags & f_InWing) s_InWing = 1;
+	else s_InWing = 0;
+	initLED(InWing_LED, s_InWing);
+	if(DebugFlagsMode) printf("In Wing		[ %d ]	[YES:[1] NO:[0]]\x0a", s_InWing);
+
+		//8 256 0000 0100 LightsOn
+	if (Flags & f_LightsOn) s_LightsOn = 1;
+	else s_LightsOn = 0;
+	initLED(LightsOn_LED, s_LightsOn);
+	if(DebugFlagsMode) printf("Lights			[ %d ]	[ON:[1] OFF:[0]]\x0a", s_LightsOn);
+	
+		//9 512 0000 0200 Cargo Scoop Deployed
+	if (Flags & f_CargoScoopDeployed) s_CargoScoopDeployed = 1;
+	else s_CargoScoopDeployed = 0;
+	initLED(CargoScoopDeployed_LED, s_CargoScoopDeployed);
+	if(DebugFlagsMode) printf("Cargo Scoop		[ %d ]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", s_CargoScoopDeployed);
+	
+		//10 1024 0000 0400 Silent Running
+	if (Flags & f_SilentRunning) s_SilentRunning = 1;
+	else s_SilentRunning = 0;
+	initLED(SilentRuning_LED, s_SilentRunning);
+	if(DebugFlagsMode) printf("Silent Runing		[ %d ]	[ON:[1] OFF:[0]]\x0a", s_SilentRunning);
+	
+		//11 2048 0000 0800 Scooping Fuel
+	if (Flags & f_ScoopingFuel) s_ScoopingFuel = 1;
+	else s_ScoopingFuel = 0;
+	initLED(ScoopingFuel_LED, s_ScoopingFuel);
+	if(DebugFlagsMode) printf("Scooping Fuel		[ %d ]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", s_ScoopingFuel);
+
+		//12 4096 0000 1000 Srv Handbrake
+	if (Flags & f_SrvHandbrake) s_SrvHandbrake = 1;
+	else s_SrvHandbrake = 0;
+	initLED(SrvHandbrake_LED, s_SrvHandbrake);
+	if(DebugFlagsMode) printf("SrvHand brake		[ %d ]	[ENGAGED:[1] DISENGAGED:[0]]\x0a", s_SrvHandbrake);
+	
+		//13 8192 0000 2000 Srv Turret
+	if (Flags & f_SrvTurret) s_SrvTurret = 1;
+	else s_SrvTurret = 0;
+	initLED(SrvTurret_LED, s_SrvTurret);
+	if(DebugFlagsMode) printf("Srv Turret		[ %d ]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", s_SrvTurret); 
+	
+		//14 16384 0000 4000 Srv UnderShip
+	if (Flags & f_SrvUnderShip) s_SrvUnderShip = 1;
+	else s_SrvUnderShip = 0;
+	initLED(SrvUnderShip_LED, s_SrvUnderShip);
+	if(DebugFlagsMode) printf("Scooping Fuel		[ %d ]	[YES:[1] NO:[0]]\x0a", s_SrvUnderShip); 
+	
+		//15 32768 0000 8000 Srv DriveAssist
+	if (Flags & f_SrvDriveAssist) s_SrvDriveAssist = 1;
+	else s_SrvDriveAssist = 0;
+	initLED(SrvDriveAssist_LED, s_SrvDriveAssist);
+	if(DebugFlagsMode) printf("Scooping Fuel		[ %d ]	[ENABLE:[1] DISABLE:[0]]\x0a", s_SrvDriveAssist); 
+	
+		//16 65536 0001 0000 Fsd MassLocked
+	if (Flags & f_FsdMassLocked) s_FsdMassLocked = 1;
+	else s_FsdMassLocked = 0;
+	initLED(FsdMassLocked_LED, s_FsdMassLocked);
+	if(DebugFlagsMode) printf("Fsd Mass Locked	[ %d ]	[YES:[1] NO:[0]]\x0a", s_FsdMassLocked);
+	
+		//17 131072 0002 0000 Fsd Charging
+	if (Flags & f_FsdCharging) s_FsdCharging = 1;
+	else s_FsdCharging = 0;
+	initLED(FsdCharging_LED, s_FsdCharging);
+	if(DebugFlagsMode) printf("FSD Charging		[ %d ]	[ENGAGED:[1] DISENGAGED:[0]]\x0a", s_FsdCharging);
+	
+		//18 262144 0004 0000 Fsd Cooldown
+	if (Flags & f_FsdCooldown) s_FsdCooldown = 1;
+	else s_FsdCooldown = 0;
+	initLED(FsdCooldown_LED, s_FsdCooldown);
+	if(DebugFlagsMode) printf("FSD Cooldown		[ %d ]	[ENGAGED:[1] DISENGAGED:[0]]\x0a", s_FsdCooldown);
+	
+		//19 524288 0008 0000 Low Fuel ( < 25% )
+	if (Flags & f_LowFuel) s_LowFuel = 1;
+	else s_LowFuel = 0;
+	initLED(LowFuel_LED, s_LowFuel);
+	if(DebugFlagsMode) printf("Low Fuel		[% d ]	[YES:[1] NO:[0]]\x0a", s_LowFuel);
+	
+		//20 1048576 0010 0000 Over Heating ( > 100% )
+	if (Flags & f_OverHeating) s_OverHeating = 1;
+	else s_OverHeating = 0;
+	initLED(OverHeating_LED, s_OverHeating);
+	if(DebugFlagsMode) printf("Over Heating		[ %d ]	[YES:[1] NO:[0]]\x0a", s_OverHeating);
+	
+		//21 2097152 0020 0000 Has Lat Long
+	if (Flags & f_HasLatLong) s_HasLatLong = 1;
+	else s_HasLatLong = 0;
+	initLED(HasLatLong_LED, s_HasLatLong);
+	if(DebugFlagsMode) printf("Has Lat Long		[ %d ]	[YES:[1] NO:[0]]\x0a", s_HasLatLong);
+	
+		//22 4194304 0040 0000 IsInDanger
+	if (Flags & f_IsInDanger) s_IsInDanger = 1;
+	else s_IsInDanger = 0;
+	initLED(IsInDanger_LED, s_IsInDanger);
+	if(DebugFlagsMode) printf("Is In Danger		[ %d ]	[YES:[1] NO:[0]]\x0a", s_IsInDanger);
+	
+		//23 8388608 0080 0000 Being Interdicted
+	if (Flags & f_BeingInterdicted) s_BeingInterdicted = 1;
+	else s_BeingInterdicted = 0;
+	initLED(BeingInterdicted_LED, s_BeingInterdicted);
+	if(DebugFlagsMode) printf("Being Interdicted	[ %d ]	[YES:[1] NO:[0]]\x0a", s_BeingInterdicted);
+	
+		//24 16777216 0100 0000 In MainShip
+	if (Flags & f_InMainShip) s_InMainShip = 1;
+	else s_InMainShip = 0;
+	initLED(InMainShip_LED, s_InMainShip);
+	if(DebugFlagsMode) printf("In Main Ship		[ %d ]	[YES:[1] NO:[0]]\x0a", s_InMainShip);
+	
+		//25 33554432 0200 0000 In Fighter
+	if (Flags & f_InFighter) s_InFighter = 1;
+	else s_InFighter = 0;
+	initLED(InFighter_LED, s_InFighter);
+	if(DebugFlagsMode) printf("In Fighter		[ %d ]	[YES:[1] NO:[0]]\x0a", s_InFighter);
+	
+		//26 67108864 0400 0000 In SRV
+	if (Flags & f_InSRV) s_InSRV = 1;
+	else s_InSRV = 0;
+	initLED(InSRV_LED, s_InSRV);
+	if(DebugFlagsMode) printf("In SRV			[ %d ]	[YES:[1] NO:[0]]\x0a", s_InSRV);
+	
+	if(DebugFlagsMode) printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\x0a");
+	
 }
 
-
-// ----------------------------------------------------- DECODING API Status.Json PIPS --------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//	API PIPS Checker																																			//
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------//

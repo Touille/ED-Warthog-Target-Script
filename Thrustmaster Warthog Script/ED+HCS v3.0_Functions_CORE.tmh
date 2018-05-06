@@ -134,14 +134,14 @@
 	//FUNCTION: Init Fire
 	int initFire(){
 		if(Joystick[TG1] | Joystick[P_S2]){
-			if(SilentRuningOFFonFire & sSilentRuning & !vSLonFire){	//ShutDown Silent Runing if it running
+			if(SilentRuningOFFonFire & s_SilentRunning & !vSLonFire){	//ShutDown Silent Runing if it running
 				vSLonFire=!vSLonFire;
-				vSilentRuningBackup = sSilentRuning;	//Backup Actual Silent Runing State
+				vSilentRuningBackup = s_SilentRunning;	//Backup Actual Silent Runing State
 				if(DebugMode) printf("Shut Down Silent Runing\x0a");
 				initToggleSilentRuning();
 			}
 			if(OptimalPIPMode & !sExplorerMode) initBackupPIPPower(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
-			if(HardPointsonFireGameMode & !sHardPoints){	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
+			if(HardPointsonFireGameMode & !s_HardpointsDeployed){	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
 				initToggleHardpoints();
 				//if(DebugMode) printf("Deploy Hardpoints On Fire\x0a");
 			}
@@ -161,7 +161,7 @@
 		
 		if(!Joystick[TG1] & !Joystick[P_S2]){
 			if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
-			if(HardPointsonFireGameMode & StopFireRetractHardpoints & sHardPoints & !sExplorerMode) initToggleHardpoints();//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
+			if(HardPointsonFireGameMode & StopFireRetractHardpoints & s_HardpointsDeployed & !sExplorerMode) initToggleHardpoints();//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
 			if(vSilentRuningBackup!=0){	//Restore Silent Runing if it was running before fire
 				vSilentRuningBackup = 0;
 				if(DebugMode) printf("Restore Silent Runing\x0a");				
@@ -207,7 +207,7 @@
 	//FUNCTION: Jettison All Cargo	
 	int initJettisonCargo(){
 		if(Throttle[T2_APUON]){
-			if(sCargo){
+			if(s_CargoScoopDeployed){
 				ActKey(KEYON+PULSE+JettisonAllCargo);
 				if(DebugMode | DebugMMode) printf("Jettison All Cargo\x0a");
 			}
@@ -259,18 +259,18 @@
 
 	//FUNCTION: Init Secure Retract
 	int initSecureRectract(){
-		if(SecureRetract & (sHardPoints | sCargo | sGears)){	//only if SecureRetract is ON & HardPoints or C Scoop Or L Gears is Deployed
+		if(SecureRetract & (s_HardpointsDeployed | s_CargoScoopDeployed | s_LandingGearDown)){	//only if SecureRetract is ON & HardPoints or C Scoop Or L Gears is Deployed
 			vSecureEscapeFight=!vSecureEscapeFight;
-			if(sHardPoints) initToggleHardpoints();
-			if(sGears)      initToggleLandingGear();
-			if(sCargo)      initToggleCargoScoop();
+			if(s_HardpointsDeployed) initToggleHardpoints();
+			if(s_LandingGearDown)      initToggleLandingGear();
+			if(s_CargoScoopDeployed)      initToggleCargoScoop();
 			vSecureEscapeFight=!vSecureEscapeFight;
 		}
 	}
 	
 	//FUNCTION: SystemJump
 	int initSystemJump(){
-		if(!SecureRetract & (sHardPoints | sCargo | sGears))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
+		if(!SecureRetract & (s_HardpointsDeployed | s_CargoScoopDeployed | s_LandingGearDown))initFrameShiftDrive();//IF SecureRectract = 0 Engage FSD To match the game mechanic and don't launch the speed to 0 from mSystemJump Macro if HardPoints or Cargo Scoop Or L Gears Deployed
 		else{
 			initSecureRectract();
 			if(OptimalPIPMode) initPIPPower(ENG, SYS);	//4 ENG	2 SYS (1)
@@ -322,7 +322,7 @@
 			DeferCall(2000, &ActKey, KEYON+PULSE+EXEC("SecureRetract=!SecureRetract;")); //Then we Disable it after the initSecureRectract() below is done (2s should be ok)
 		}
 		initSecureRectract();	//All we want is to Escape so we retract Hardpoints, C.Scoop and L.Gears if deployed
-		if(!sSilentRuning & !vSLonEscapeFight){	//If Silent Running is Disable, Enable it
+		if(!s_SilentRunning & !vSLonEscapeFight){	//If Silent Running is Disable, Enable it
 			vSLonEscapeFight=!vSLonEscapeFight;
 			initToggleSilentRuning();
 		}
@@ -333,7 +333,7 @@
 			DeferCall(10000, &initRestorePIPPower, vOptimalPIPEFBackup);	//Restore Previous PIP Mode If vOptimalPIPEFBackup != 4 SYS 2 ENG (3)
 		//}	//If you want to check if OptimalPIPMode is Enable UnComment this line
 		ActKey(KEYON+PULSE+mEscapeFight);
-		if(sSilentRuning){		//Disable Silent Runing previouly Enable
+		if(s_SilentRunning){		//Disable Silent Runing previouly Enable
 			DeferCall(4000, &ActKey, KEYON+PULSE+EXEC("initToggleSilentRuning();"));
 			if(vSLonEscapeFight) DeferCall(5000, &ActKey, KEYON+PULSE+EXEC("vSLonEscapeFight=!vSLonEscapeFight;"));
 		}

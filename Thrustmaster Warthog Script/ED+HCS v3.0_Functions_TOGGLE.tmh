@@ -148,123 +148,248 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//TOGGLE: Landing Gear
+//	int initToggleLandingGear(){
+//		if(!Joystick[P_S3]){
+//			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
+//				s_LandingGearDown=!s_LandingGearDown;
+//				if(DebugMode | DebugMMode) printf("Landing Gear SecureEscapeFight : Toggle the Switch\x0a");
+//			}
+//			else{	//Or Change the flag status with the switch position
+//				if(Throttle[T2_EACON]) s_LandingGearDown = 1;	//Switch position is UP : Landing Gear Is Deployed
+//				else                             s_LandingGearDown = 0;	//Switch position is DOWN : Landing Gear Is Retracted
+//			}
+//			if((s_LandingGearDown & !vLG) | (!s_LandingGearDown & vLG)){	//vLG is there if initSecureRectract() initialise This
+//				vLG=!vLG;	//Reset On The FLY : Just switch
+//				ActKey(KEYON+PULSE+LandingGear);			
+//			}
+//			else{
+//				if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly\x0a");
+//			}
+//		}
+//		else{	//Reset The Flag On The FLY P_S3 + SWITCH
+//			vLG=!vLG;
+//			s_LandingGearDown=!s_LandingGearDown;
+//			if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly with P_S3\x0a");
+//		}
+//		initLED(LandingGear_LED, s_LandingGearDown);
+//		if(DebugMode) printf("Landing Gear	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", s_LandingGearDown);
+//	}
+
+		//TOGGLE: Landing Gear
 	int initToggleLandingGear(){
 		if(!Joystick[P_S3]){
+			ActKey(KEYON+PULSE+LandingGear);
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
-				sGears=!sGears;
-				if(DebugMode | DebugMMode) printf("Landing Gear SecureEscapeFight : Toggle the Switch\x0a");
+				if(DebugMode | DebugMMode) printf("SecureEscapeFight : Reset On The Fly with P_S3 & Toggle the Switch Landing Gear\x0a");
 			}
-			else{	//Or Change the flag status with the switch position
-				if(Throttle[T2_EACON]) sGears = 1;	//Switch position is UP : Landing Gear Is Deployed
-				else                             sGears = 0;	//Switch position is DOWN : Landing Gear Is Retracted
-			}
-			if((sGears & !vLG) | (!sGears & vLG)){	//vLG is there if initSecureRectract() initialise This
-				vLG=!vLG;	//Reset On The FLY : Just switch
-				ActKey(KEYON+PULSE+LandingGear);			
-			}
-			else{
-				if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly\x0a");
-			}
+		} else {	//Reset The Flag On The FLY P_S3 + SWITCH
+			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Landing Gear\x0a");
 		}
-		else{	//Reset The Flag On The FLY P_S3 + SWITCH
-			vLG=!vLG;
-			sGears=!sGears;
-			if(DebugMode | DebugMMode) printf("Landing Gear Reset On The Fly with P_S3\x0a");
-		}
-		initLED(LandingGear_LED, sGears);
-		if(DebugMode) printf("Landing Gear	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sGears);
 	}
-	
+
 	//TOGGLE: Cargo Scoop	
+//	int initToggleCargoScoop(){
+//		if(!Joystick[P_S3]){
+//			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
+//				s_CargoScoopDeployed=!s_CargoScoopDeployed;
+//				if(DebugMode | DebugMMode) printf("Cargo Scoop SecureEscapeFight : Toggle the Switch\x0a");
+//			}
+//			else{	//Or Change the flag status with the switch position
+//				if(Throttle[T2_RDRNRM]) s_CargoScoopDeployed = 1;	//Switch position is UP : Cargo Scoop Is Deployed
+//				else                    s_CargoScoopDeployed = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
+//			}
+//			if((s_CargoScoopDeployed & !vCS) | (!s_CargoScoopDeployed & vCS)){	//vCS is there if initSecureRectract() initialise This
+//				vCS=!vCS;	//Reset On The FLY : Just switch
+//				ActKey(KEYON+PULSE+CargoScoop);				
+//			}
+//			else{
+//				if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly\x0a");
+//			}
+//		}
+//		else{	//Reset The Flag On The FLY P_S3 + SWITCH
+//			vCS=!vCS;
+//			s_CargoScoopDeployed=!s_CargoScoopDeployed;
+//			if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly with P_S3\x0a");
+//		}
+//		initLED(CargoScoop_LED, s_CargoScoopDeployed);
+//		if(DebugMode) printf("Cargo Scoop	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", s_CargoScoopDeployed);
+//	}
+
+		//TOGGLE: Cargo Scoop	
 	int initToggleCargoScoop(){
 		if(!Joystick[P_S3]){
+			ActKey(KEYON+PULSE+CargoScoop);
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
-				sCargo=!sCargo;
-				if(DebugMode | DebugMMode) printf("Cargo Scoop SecureEscapeFight : Toggle the Switch\x0a");
+				if(DebugMode | DebugMMode) printf("SecureEscapeFight : Reset On The Fly with P_S3 & Toggle the Switch Cargo Scoop\x0a");
 			}
-			else{	//Or Change the flag status with the switch position
-				if(Throttle[T2_RDRNRM]) sCargo = 1;	//Switch position is UP : Cargo Scoop Is Deployed
-				else                    sCargo = 0;	//Switch position is DOWN : Cargo Scoop Is Retracted
-			}
-			if((sCargo & !vCS) | (!sCargo & vCS)){	//vCS is there if initSecureRectract() initialise This
-				vCS=!vCS;	//Reset On The FLY : Just switch
-				ActKey(KEYON+PULSE+CargoScoop);				
-			}
-			else{
-				if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly\x0a");
-			}
+		} else {	//Reset The Flag On The FLY P_S3 + SWITCH
+			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Cargo Scoop\x0a");
 		}
-		else{	//Reset The Flag On The FLY P_S3 + SWITCH
-			vCS=!vCS;
-			sCargo=!sCargo;
-			if(DebugMode | DebugMMode) printf("Cargo Scoop Reset On The Fly with P_S3\x0a");
-		}
-		initLED(CargoScoop_LED, sCargo);
-		if(DebugMode) printf("Cargo Scoop	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sCargo);
 	}
 
 	//TOGGLE: Light	
+//	int initToggleLights(){
+//		if(!Joystick[P_S3]){
+//			if(Throttle[T2_EFRNORM]) s_LightsOn = 1;	//Switch position is UP : Light Is ON
+//			else                     s_LightsOn = 0;	//Switch position is DOWN : Light Is OFF
+//			ActKey(KEYON+PULSE+ShipLights);
+//			initLED(Lights_LED, s_LightsOn);
+//		}
+//		if(DebugMode) printf("Light		[%d]	[ON:[1] OFF:[0]]\x0a", s_LightsOn);
+//	}
+	
+		//TOGGLE: Light	
 	int initToggleLights(){
 		if(!Joystick[P_S3]){
-			if(Throttle[T2_EFRNORM]) sLights = 1;	//Switch position is UP : Light Is ON
-			else                     sLights = 0;	//Switch position is DOWN : Light Is OFF
-			ActKey(KEYON+PULSE+ShipLights);
-			initLED(Lights_LED, sLights);
+			ActKey(KEYON+PULSE+ShipLights); //Switch position is UP : Light Is ON
+		} else {
+			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Light\x0a");
 		}
-		if(DebugMode) printf("Light		[%d]	[ON:[1] OFF:[0]]\x0a", sLights);
 	}
 	
 	//TOGGLE: HardPoints	
+//	int initToggleHardpoints(){
+//		if(!Joystick[P_S3] | (Joystick[P_S3] & Joystick[TG1]) | (Joystick[P_S3] & Joystick[P_S2])){ // No [P_S3] Pressed OR automatic fire with [P_S3]?
+//			if(vSecureEscapeFight){	//If initSecureRectract() initialise This Just Display Msg (Hardpoint is Mapped on Button : No Position)
+//				if(DebugMode | DebugMMode) printf("HardPoints SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+//			}
+//			s_HardpointsDeployed=!s_HardpointsDeployed;
+//			ActKey(KEYON+PULSE+DeployHardpoints);
+//			if(s_HardpointsDeployed){
+//				if(OptimalPIPMode & !sExplorerMode){
+//					initBackupPIPPower(OptimalPIPHPBackup);	//Backup Actual PIP Mode OptimalPIPHPBackup (2)
+//					initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
+//				}
+//			}
+//			else{
+//				if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPHPBackup);	//Restore Previous PIP Mode
+//			}
+//		}
+//		else if(Joystick[P_S3] & (!Joystick[TG1] | !Joystick[P_S2])){	//Reset The Flag On The FLY P_S3 + SWITCH
+//			s_HardpointsDeployed=!s_HardpointsDeployed;
+//			if(DebugMode | DebugMMode) printf("Hardpoints Reset On The Fly with P_S3\x0a");
+//		}
+//		initLED(Hardpoints_LED, s_HardpointsDeployed);
+//		if(DebugMode) printf("HardPoints	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", s_HardpointsDeployed);
+//	}
+
+		//TOGGLE: HardPoints	
 	int initToggleHardpoints(){
 		if(!Joystick[P_S3] | (Joystick[P_S3] & Joystick[TG1]) | (Joystick[P_S3] & Joystick[P_S2])){ // No [P_S3] Pressed OR automatic fire with [P_S3]?
 			if(vSecureEscapeFight){	//If initSecureRectract() initialise This Just Display Msg (Hardpoint is Mapped on Button : No Position)
-				if(DebugMode | DebugMMode) printf("HardPoints SecureEscapeFight [%d]\x0a", vSecureEscapeFight);
+				if(DebugMode | DebugMMode) printf("SecureEscapeFight : HardPoints\x0a");
 			}
-			sHardPoints=!sHardPoints;
 			ActKey(KEYON+PULSE+DeployHardpoints);
-			if(sHardPoints){
-				if(OptimalPIPMode & !sExplorerMode){
-					initBackupPIPPower(OptimalPIPHPBackup);	//Backup Actual PIP Mode OptimalPIPHPBackup (2)
-					initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
-				}
-			}
-			else{
-				if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPHPBackup);	//Restore Previous PIP Mode
-			}
+			DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("initHarpointsPips();"));
+		} else if(Joystick[P_S3] & (!Joystick[TG1] | !Joystick[P_S2])){	//Reset The Flag On The FLY P_S3 + SWITCH
+			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Hardpoints\x0a");
 		}
-		else if(Joystick[P_S3] & (!Joystick[TG1] | !Joystick[P_S2])){	//Reset The Flag On The FLY P_S3 + SWITCH
-			sHardPoints=!sHardPoints;
-			if(DebugMode | DebugMMode) printf("Hardpoints Reset On The Fly with P_S3\x0a");
+	}
+	
+	int initHarpointsPips(){
+		if(s_HardpointsDeployed){
+			if(OptimalPIPMode & !sExplorerMode){
+				initBackupPIPPower(OptimalPIPHPBackup);	//Backup Actual PIP Mode OptimalPIPHPBackup (2)
+				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
+			}
+		} else {
+			if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPHPBackup);	//Restore Previous PIP Mode
 		}
-		initLED(Hardpoints_LED, sHardPoints);
-		if(DebugMode) printf("HardPoints	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", sHardPoints);
+	
 	}
 
 	//TOGGLE: Silent Runing
+//	int initToggleSilentRuning(){
+//		if(Joystick[H3D] | Joystick[TG1] | Joystick[P_S2] | vSLonFire | vSLonEscapeFight | vSLonGameMenu | vSLonCamera){
+//			s_SilentRunning=!s_SilentRunning;
+//			if(SilentRuningGameMode){	//Silent Runing [TOGGLE] Mode Ingame
+//				if(HeatSinkonSilentRuning) ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);	//Call The Heat Sink on Silent Running Macro
+//				else ActKey(KEYON+PULSE+SilentRunning);
+//				if(DebugMode) printf("Silent Runing [TOGGLE]	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", s_SilentRunning);
+//			}
+//			else ActKey(KEYON+DOWN+SilentRunning);	//Silent Runing [HOLD] Mode Engage
+//		}
+//		else{
+//			if(!SilentRuningGameMode & s_SilentRunning){		//Silent Runing [HOLD] Mode DisEngage
+//				s_SilentRunning=!s_SilentRunning;
+//				ActKey(KEYON+UP+SilentRunning);
+//			}
+//		}
+//		initLED(SilentRuning_LED, s_SilentRunning);
+//		if(DebugMode & !SilentRuningGameMode) printf("Silent Runing [HOLD]	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", s_SilentRunning);
+//	}	
+
+		//TOGGLE: Silent Runing
 	int initToggleSilentRuning(){
 		if(Joystick[H3D] | Joystick[TG1] | Joystick[P_S2] | vSLonFire | vSLonEscapeFight | vSLonGameMenu | vSLonCamera){
-			sSilentRuning=!sSilentRuning;
 			if(SilentRuningGameMode){	//Silent Runing [TOGGLE] Mode Ingame
 				if(HeatSinkonSilentRuning) ActKey(KEYON+PULSE+mHeatSinkonSilentRuning);	//Call The Heat Sink on Silent Running Macro
 				else ActKey(KEYON+PULSE+SilentRunning);
-				if(DebugMode) printf("Silent Runing [TOGGLE]	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
-			}
+			} 
 			else ActKey(KEYON+DOWN+SilentRunning);	//Silent Runing [HOLD] Mode Engage
+		} else {
+			if(!SilentRuningGameMode & s_SilentRunning) ActKey(KEYON+UP+SilentRunning);	//Silent Runing [HOLD] Mode DisEngage
 		}
-		else{
-			if(!SilentRuningGameMode & sSilentRuning){		//Silent Runing [HOLD] Mode DisEngage
-				sSilentRuning=!sSilentRuning;
-				ActKey(KEYON+UP+SilentRunning);
-			}
-		}
-		initLED(SilentRuning_LED, sSilentRuning);
-		if(DebugMode & !SilentRuningGameMode) printf("Silent Runing [HOLD]	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sSilentRuning);
 	}	
 
 	//TOGGLE: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
+//	int initToggleEnhancedFAOFF(){
+//		if(Joystick[P_S4]){
+//			s_FlightAssistOff=!s_FlightAssistOff;
+//			if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
+//				vFA=!vFA;
+//				if(sRCorrection){
+//					if(vFA){	//FA [TOGGLE] Mode First Pulse Engage
+//						vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
+//						vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
+//						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
+//							initJoystickCurves();
+//							if(DebugMode | DebugMMode) printf("Curve Profile Adjusted\x0a");
+//						}
+//					}
+//					else{	//FA [TOGGLE] Mode Second Pulse DisEngage	
+//						vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
+//						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
+//							initJoystickCurves();
+//							if(DebugMode | DebugMMode) printf("Curve Profile Return to Default\x0a");
+//						}
+//					}
+//				}
+//				ActKey(KEYON+PULSE+FlightAssist);
+//				if(DebugMode) printf("EnhancedFAOFF [TOGGLE]	[%d]	[ENABLE:[1] DISABLE:[0]]	Rcorrection	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", s_FlightAssistOff, sRCorrection);
+//			}
+//			else{	//FA [HOLD] Mode Ingame Engage
+//				if(sRCorrection){
+//					vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
+//					vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
+//					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
+//						initJoystickCurves();
+//						if(DebugMode | DebugMMode) printf("Curve Profile Adjusted\x0a");
+//					}
+//				}
+//				ActKey(KEYON+DOWN+FlightAssist);
+//			}
+//		}
+//		else{
+//			if(!FlightAssistGameMode & s_FlightAssistOff){	//FA [HOLD] Mode Ingame DisEngage
+//				s_FlightAssistOff=!s_FlightAssistOff;
+//				if(sRCorrection){
+//					vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
+//					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
+//						initJoystickCurves();
+//						if(DebugMode | DebugMMode) printf("Curve Profile Return to Default\x0a");
+//					}
+//				}
+//				ActKey(KEYON+UP+FlightAssist);
+//			}
+//		}
+//		initLED(FA_LED, s_FlightAssistOff);
+//		if(DebugMode & !FlightAssistGameMode) printf("EnhancedFAOFF [HOLD]	[%d]	[ENABLE:[1] DISABLE:[0]]	Rcorrection	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", s_FlightAssistOff, sRCorrection);
+//	}
+	
+		//TOGGLE: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
 	int initToggleEnhancedFAOFF(){
 		if(Joystick[P_S4]){
-			sFlightAssist=!sFlightAssist;
 			if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
 				vFA=!vFA;
 				if(sRCorrection){
@@ -285,7 +410,6 @@
 					}
 				}
 				ActKey(KEYON+PULSE+FlightAssist);
-				if(DebugMode) printf("EnhancedFAOFF [TOGGLE]	[%d]	[ENABLE:[1] DISABLE:[0]]	Rcorrection	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sFlightAssist, sRCorrection);
 			}
 			else{	//FA [HOLD] Mode Ingame Engage
 				if(sRCorrection){
@@ -300,8 +424,7 @@
 			}
 		}
 		else{
-			if(!FlightAssistGameMode & sFlightAssist){	//FA [HOLD] Mode Ingame DisEngage
-				sFlightAssist=!sFlightAssist;
+			if(!FlightAssistGameMode & s_FlightAssistOff){	//FA [HOLD] Mode Ingame DisEngage
 				if(sRCorrection){
 					vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
@@ -312,8 +435,6 @@
 				ActKey(KEYON+UP+FlightAssist);
 			}
 		}
-		initLED(FA_LED, sFlightAssist);
-		if(DebugMode & !FlightAssistGameMode) printf("EnhancedFAOFF [HOLD]	[%d]	[ENABLE:[1] DISABLE:[0]]	Rcorrection	[%d]	[ENABLE:[1] DISABLE:[0]]\x0a", sFlightAssist, sRCorrection);
 	}
 	
 	//TOGGLE: Reverse Throttle
@@ -344,7 +465,7 @@
 	//TOGGLE: External Camera
 	int initToggleCamera(){
 		sCameraMode=!sCameraMode;
-		if(sSilentRuning){
+		if(s_SilentRunning){
 			vSLonCamera=!vSLonCamera;
 			initToggleSilentRuning();	//If Silent Runing is Engaged, Disengade it
 			vSLonCamera=!vSLonCamera;
@@ -389,7 +510,7 @@
 	//TOGGLE: GameMenu
 	int initToggleGameMenu(){
 		sGameMenu=!sGameMenu;
-		if(sSilentRuning){
+		if(s_SilentRunning){
 			vSLonGameMenu=!vSLonGameMenu;
 			initToggleSilentRuning();	//If Silent Runing is Engaged, Disengade it
 			vSLonGameMenu=!vSLonGameMenu;

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+//#include <thread>
+//#include <conio.h>
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
@@ -15,10 +17,19 @@ using namespace rapidjson;
 
 #pragma comment(lib, "ws2_32.lib")
 
+/*
+void escape() {
+}
+*/
+
 int main()
 {
 	std::cout << "Hello world!" << std::endl;
 	std::cout << "ED-Warthog-Target-Script 3.x : Status.json Flags Addon" << std::endl;
+	//std::cout << "Press escape to quit" << std::endl;
+
+		//spawn new thread that calls escape()
+	//std::thread first(escape);
 
 		//Create an Empty string to be able to save the Status.json string later
 	std::string jsonStr_Backup;
@@ -88,18 +99,16 @@ int main()
 			//	}
 			}*/
 
-				//Display the status.json content in windows console
-			if (v_Flags != 0) {
-				std::cout << jsonStr << std::endl;
-			  //std::cout << "Status.json Backup = " << jsonStr_Backup << std::endl;
-			}
-
 			//Clear and minimize the RapidJSON Document of Status.json File : status
 			status.SetObject(); 
 
-				//If we are In Game, we can send the Data through Socket TCP to Target
+				//If we are In Game, we can Diplay the status.json content in windows console and send the Data through Socket TCP to Target
 			if (v_Flags != 0) {
 
+					//Display the status.json content in windows console
+				std::cout << jsonStr << std::endl;
+				//std::cout << "Status.json Backup = " << jsonStr_Backup << std::endl;
+				
 					//Since Flags is an int, we convert it to String to be able to send through Socket TCP
 				std::string s_Flags = std::to_string(v_Flags);
 				const char * c = s_Flags.c_str();
@@ -136,7 +145,7 @@ int main()
 				std::cerr << "Warning : You need to be logged in Elite Dangerous ..." << std::endl;
 			}
 		}
-		Sleep(1000);
+		Sleep(750);
 	}
 	return 0;
 }
