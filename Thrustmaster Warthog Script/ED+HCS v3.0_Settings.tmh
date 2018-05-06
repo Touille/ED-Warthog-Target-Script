@@ -65,8 +65,11 @@
 									//That will keep key pressed x Sec , so you can just push TG1 and/or S2 and release to scan : That work with PrimaryFireKeyScanDelay and SecondaryKeyScanDelay (PRESS & PULSE DELAY SETTINGS bellow)
 	define AutoDiscoveryScan	1	//Automatic Discovery Scan When entering System when you use System Jump whil explorer mode is ON
 	define TargetNearestStar	1	//Automatic Target Nearest Star when entering System when you use System Jump whil explorer mode is ON
-
-
+	
+	define WarningLED			1	//Flash briefly the Throttle BackLight when : Over Heating, Is In Danger, Being Interdicted, Low Fuel (< 25%) and Shield Down
+	define HeatSinkOnOverHeat	1   //Automatic fire HeatSink on Over Heating ( > 100% )
+	define HasLatLongAssist		1	//Automatic Change Joystick Axis Curve on Planet approach (Only In Main Ship & Rotational Correction ON)
+	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	------------Default States--------Can Be Switched On The Fly---[S3]Joystick Shift Key (see chart)---[S]Short---[L]Long---[EL]ExtraLong----------------------//
 //	Note :		int : "= (Value);" with ";" at the END of the Line																								//
@@ -115,7 +118,8 @@
 //	Note :		When define : no ";" at the END of the Line			When int : "=(Value);" with ";" at the END of the Line										//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	int FAOffCurve                  = 2 ;       //Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
+	int FAOffCurve                  = 1 ;       //Flight Assist OFF Default Curve : 0 or 1 or 2 -> AXIS CURVES
+	int HasLatLongCurve				= 2 ;		//Has Lat Long : Planet approach  Default Curve : 0 or 1 or 2 -> AXIS CURVES
 	int Trim_INC                    = 20 ;      //Trim Incrementation : The trim provides 2048 values (+/- 1024) to cover the full axis range.
 	
 	//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
@@ -218,7 +222,8 @@
 	
 //	--Throttle Backlight Flashing Speed-------------------------------------------------------------------------------------------------------------------------//
 
-	define ThrottleLight_FSpeed	350		//Base Throttle LED Intensity delay	
+	define ThrottleLight_FSpeed	200		//Base Throttle LED Flashing DELAY
+	define ThrottleLight_Length	750	//Base Throttle LED Lenght of Flashing
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	PRESS & PULSE DELAY SETTINGS																																//

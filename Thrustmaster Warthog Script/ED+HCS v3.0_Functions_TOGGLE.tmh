@@ -389,11 +389,31 @@
 	
 		//TOGGLE: Enhanced Joystick Curves tailored for Flight Assist Off ONLY IF Rotational Correction is Enable
 	int initToggleEnhancedFAOFF(){
-		if(Joystick[P_S4]){
-			if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
-				vFA=!vFA;
-				if(sRCorrection){
-					if(vFA){	//FA [TOGGLE] Mode First Pulse Engage
+		if (!s_Supercruise){
+			if(Joystick[P_S4]){
+				if(FlightAssistGameMode){	//FA [TOGGLE] Mode Ingame
+					vFA=!vFA;
+					if(sRCorrection){
+						if(vFA){	//FA [TOGGLE] Mode First Pulse Engage
+							vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
+							vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
+							if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
+								initJoystickCurves();
+								if(DebugMode | DebugMMode) printf("Curve Profile Adjusted\x0a");
+							}
+						}
+						else{	//FA [TOGGLE] Mode Second Pulse DisEngage	
+							vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
+							if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
+								initJoystickCurves();
+								if(DebugMode | DebugMMode) printf("Curve Profile Return to Default\x0a");
+							}
+						}
+					}
+					ActKey(KEYON+PULSE+FlightAssist);
+				}
+				else {	//FA [HOLD] Mode Ingame Engage
+					if(sRCorrection){
 						vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
 						vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
@@ -401,38 +421,20 @@
 							if(DebugMode | DebugMMode) printf("Curve Profile Adjusted\x0a");
 						}
 					}
-					else{	//FA [TOGGLE] Mode Second Pulse DisEngage	
+					ActKey(KEYON+DOWN+FlightAssist);
+				}
+			}
+			else if (!s_Supercruise){
+				if(!FlightAssistGameMode & s_FlightAssistOff){	//FA [HOLD] Mode Ingame DisEngage
+					if(sRCorrection){
 						vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
 						if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
 							initJoystickCurves();
 							if(DebugMode | DebugMMode) printf("Curve Profile Return to Default\x0a");
 						}
 					}
+					ActKey(KEYON+UP+FlightAssist);
 				}
-				ActKey(KEYON+PULSE+FlightAssist);
-			}
-			else{	//FA [HOLD] Mode Ingame Engage
-				if(sRCorrection){
-					vJoystickCurveProfileBackup = vJoystickCurveProfile;	//Backup Current Curves
-					vJoystickCurveProfile = FAOffCurve;	//Apply the Setting FAOffCurve (Settings)
-					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
-						initJoystickCurves();
-						if(DebugMode | DebugMMode) printf("Curve Profile Adjusted\x0a");
-					}
-				}
-				ActKey(KEYON+DOWN+FlightAssist);
-			}
-		}
-		else{
-			if(!FlightAssistGameMode & s_FlightAssistOff){	//FA [HOLD] Mode Ingame DisEngage
-				if(sRCorrection){
-					vJoystickCurveProfile = vJoystickCurveProfileBackup;	//Restore Previous Curves
-					if(vJoystickCurveProfileBackup != FAOffCurve){	//Only if Previous Curve is != from FAOffCurrve preset
-						initJoystickCurves();
-						if(DebugMode | DebugMMode) printf("Curve Profile Return to Default\x0a");
-					}
-				}
-				ActKey(KEYON+UP+FlightAssist);
 			}
 		}
 	}

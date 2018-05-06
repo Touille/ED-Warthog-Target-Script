@@ -20,7 +20,7 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	VARIABLES USED IN FUNCTION																																	//
+//	USED IN FUNCTION																																	//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 	//Hardware
@@ -33,6 +33,7 @@
 	int vLG;									//initToggleLandingGear()
 	int vCS;									//initToggleCargoScoop()
 	int vFA;									//initToggleEnhancedFAOFF()		Flight Assist [TOGGLE] Mode Ingame
+	int v_HasLatLongCurve;
 	
 	//initVoicePTT()	
 	int vVoicePTT;

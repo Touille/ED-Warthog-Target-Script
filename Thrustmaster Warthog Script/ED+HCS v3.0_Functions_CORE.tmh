@@ -261,9 +261,9 @@
 	int initSecureRectract(){
 		if(SecureRetract & (s_HardpointsDeployed | s_CargoScoopDeployed | s_LandingGearDown)){	//only if SecureRetract is ON & HardPoints or C Scoop Or L Gears is Deployed
 			vSecureEscapeFight=!vSecureEscapeFight;
-			if(s_HardpointsDeployed) initToggleHardpoints();
-			if(s_LandingGearDown)      initToggleLandingGear();
-			if(s_CargoScoopDeployed)      initToggleCargoScoop();
+			if(s_HardpointsDeployed)	initToggleHardpoints();
+			if(s_LandingGearDown)		initToggleLandingGear();
+			if(s_CargoScoopDeployed)	initToggleCargoScoop();
 			vSecureEscapeFight=!vSecureEscapeFight;
 		}
 	}
