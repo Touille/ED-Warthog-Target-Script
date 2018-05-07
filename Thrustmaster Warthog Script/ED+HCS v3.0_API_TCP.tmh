@@ -1,5 +1,5 @@
 //	Copyright (C) 2018 Thomas Duployez (CMDR Touille)
-//	V3.0.2b	2018/05
+//	V3.0.5b	2018/05
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -150,10 +150,7 @@ int f_Check(){
 	if (Flags & f_ShieldUp) s_ShieldUp = 1;
 	else s_ShieldUp = 0;
 	initLED(ShieldUp_LED, s_ShieldUp);
-	if (WarningLED & !s_ShieldUp){
-		initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);
-		DeferCall(ThrottleLight_Length, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);"));
-	}
+	if (WarningLED & !s_ShieldUp) initWarningBACKLIGHT();
 	if(DebugFlagsMode) printf("Shield Up		[ %d ]	[YES:[1] NO:[0]]\x0a", s_ShieldUp);
 	
 		//4 16 0000 0010 Supercruise
@@ -250,10 +247,7 @@ int f_Check(){
 	if (Flags & f_LowFuel) s_LowFuel = 1;
 	else s_LowFuel = 0;
 	initLED(LowFuel_LED, s_LowFuel);
-	if (WarningLED & s_LowFuel){
-		initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);
-		DeferCall(ThrottleLight_Length, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);"));
-	}
+	if (WarningLED & s_LowFuel) initWarningBACKLIGHT();
 	if(DebugFlagsMode) printf("Low Fuel		[% d ]	[YES:[1] NO:[0]]\x0a", s_LowFuel);
 	
 		//20 1048576 0010 0000 Over Heating ( > 100% )
@@ -262,10 +256,7 @@ int f_Check(){
 	initLED(OverHeating_LED, s_OverHeating);
 	if(DebugFlagsMode) printf("Over Heating		[ %d ]	[YES:[1] NO:[0]]\x0a", s_OverHeating);
 	if (HeatSinkOnOverHeat & s_OverHeating) ActKey(KEYON+PULSE+DeployHeatSink);
-	if (WarningLED & s_OverHeating){
-		initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);
-		DeferCall(ThrottleLight_Length, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);"));
-	}
+	if (WarningLED & s_OverHeating) initWarningBACKLIGHT();
 	
 		//21 2097152 0020 0000 Has Lat Long
 	if (Flags & f_HasLatLong) s_HasLatLong = 1;
@@ -295,20 +286,14 @@ int f_Check(){
 	else s_IsInDanger = 0;
 	initLED(IsInDanger_LED, s_IsInDanger);
 	if(DebugFlagsMode) printf("Is In Danger		[ %d ]	[YES:[1] NO:[0]]\x0a", s_IsInDanger);
-	if (WarningLED & s_IsInDanger){
-		initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);
-		DeferCall(ThrottleLight_Length, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);"));	
-	}
+	if (WarningLED & s_IsInDanger) initWarningBACKLIGHT();
 	
 		//23 8388608 0080 0000 Being Interdicted
 	if (Flags & f_BeingInterdicted) s_BeingInterdicted = 1;
 	else s_BeingInterdicted = 0;
 	initLED(BeingInterdicted_LED, s_BeingInterdicted);
 	if(DebugFlagsMode) printf("Being Interdicted	[ %d ]	[YES:[1] NO:[0]]\x0a", s_BeingInterdicted);
-	if (WarningLED & s_BeingInterdicted){
-		initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);
-		DeferCall(ThrottleLight_Length, &ActKey, KEYON+PULSE+EXEC("initBACKLIGHT(Throttle_BL, vThrottleLightBackup, ThrottleLight_FSpeed);"));	
-	}
+	if (WarningLED & s_BeingInterdicted) initWarningBACKLIGHT();
 	
 		//24 16777216 0100 0000 In MainShip
 	if (Flags & f_InMainShip) s_InMainShip = 1;

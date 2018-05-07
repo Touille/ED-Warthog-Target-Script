@@ -1,18 +1,15 @@
-06/05/2018
+2018/05/07
 
-ED_API_over_TCP_RapidJSON.exe NEED to be placed in the same directory as Status.json and other log/json ED files :
+ED_API_over_TCP.exe NEED to be placed in the same directory as Status.json and other log/json ED files :
 ```
-\Users\....\Saved Games\Frontier Developments\Elite Dangerous\
+\Users\<USER>\Saved Games\Frontier Developments\Elite Dangerous\
 ```
-This file is, right now, only for testing purpose: it can crash and don't work for you PLEASE Report Bug
+This exe file is, right now, in beta stage
 
-If Someone can help me on this part (C++ stuff) you are welcome :) I'm just starting to learn c++ some day ago ... so the code can have some BIG Noob mistake ....
-
-* You need to use the script provided this branch.
-* You can log in game, try deploy hardpoint, deploy cargo scoop, scooping star, turn the ligh on/off, ....
+* You need to use the script provided this branch for using it
 * You should get Flags value and time it have been sent to target in the main windows console program
-* You should get States change in the Target Script console windows
-* We are now able to retreive all the Flags from Status.json files in the script :
+* You should get States change in the Target Script console windows. You can desactivate the meassages in Setting file : DebugFlagsMode 0 instead of 1
+* We retreive all the Flags from Status.json files in the script :
 
 int s_Docked;  
 int s_Landed;  
