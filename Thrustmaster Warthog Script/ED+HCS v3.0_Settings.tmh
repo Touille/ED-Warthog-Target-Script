@@ -124,15 +124,15 @@
 	
 	//Set via the FLAP switch (Up is most aggresive, down is least aggressive)
 	
-	//Joystick			Up,M,Down
+	//Joystick			Up, M, Down
 	short JS_CURVE[] = {-1, 0,  2};         //Negative values make the axis more sensitive around the center, while positive values provide better control in the center position
 	short JS_ZOOM[]  = { 1, 0, -1};         //Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
-	define JS_DEADZONE 1                    //Set the JS Deadzone.. use the Device Analyzer to validate
+	define JS_DEADZONE 1                    //Set the Center Joystick Deadzone.. use the Device Analyzer to validate
 
-	//Slew				Up,M,Down
+	//Slew				Up, M, Down
 	short SL_CURVE[] = {-1, 0,  2};         //Negative values make the axis more sensitive around the center, while positive values provide better control in the center position
 	short SL_ZOOM[]  = { 1, 0, -1};         //Negative value will limit the travel on the axis. Positive value will make the minimum and maximum values on the axis reached before the mechanical axis limits
-	define SL_DEADZONE 1                    //Set the SL Deadzone.. use the Device Analyzer to validate
+	define SL_DEADZONE 1                    //Set the Center Slez Deadzone.. use the Device Analyzer to validate
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	LED SETTINGS (29)																																			//

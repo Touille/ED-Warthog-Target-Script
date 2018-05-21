@@ -29,7 +29,7 @@
 	int vThrottleCurveProfile;					//initSetThrottleCurves()
 	
 	//Game
-	int vSecureEscapeFight;						//initSecureRectract()	initToggleLandingGear()	initToggleCargoScoop()	initToggleHardpoints()
+	int vSecureEscapeFight;
 	int vLG;									//initToggleLandingGear()
 	int vCS;									//initToggleCargoScoop()
 	int vFA;									//initToggleEnhancedFAOFF()		Flight Assist [TOGGLE] Mode Ingame

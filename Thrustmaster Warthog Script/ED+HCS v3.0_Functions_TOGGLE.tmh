@@ -48,7 +48,7 @@
 	int initToggleExplorerMode(){
 		if(!Joystick[P_S3]){
 			if(Throttle[T2_EFLNORM]) sExplorerMode = 1;	//Switch position is UP : Explorer Mode Is ON
-			else                                    sExplorerMode = 0;	//Switch position is DOWN : Explorer Mode Is OFF
+			else                     sExplorerMode = 0;	//Switch position is DOWN : Explorer Mode Is OFF
 			initLED(ExplorerMode_LED, sExplorerMode);
 			if(DebugMode | DebugMMode) printf("Explorer Mode	[%d]	[ON:[1] OFF:[0]]\x0a", sExplorerMode);
 		}
@@ -175,17 +175,24 @@
 //		if(DebugMode) printf("Landing Gear	[%d]	[DEPLOYED:[1] RETRACTED:[0]]\x0a", s_LandingGearDown);
 //	}
 
-		//TOGGLE: Landing Gear
+//		//TOGGLE: Landing Gear T2_EACON
+//	int initToggleLandingGear(){
+//		if(!Joystick[P_S3]){
+//			ActKey(KEYON+PULSE+LandingGear);
+//		} else {	//Reset The Flag On The FLY P_S3 + SWITCH
+//			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Landing Gear\x0a");
+//		}
+//	}
+
+		//TOGGLE: Landing Gear T2_EACON
 	int initToggleLandingGear(){
-		if(!Joystick[P_S3]){
+		if(Throttle[T2_EACON] & !s_LandingGearDown | !Throttle[T2_EACON] & s_LandingGearDown | vSecureEscapeFight){
 			ActKey(KEYON+PULSE+LandingGear);
-			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
-				if(DebugMode | DebugMMode) printf("SecureEscapeFight : Reset On The Fly with P_S3 & Toggle the Switch Landing Gear\x0a");
-			}
-		} else {	//Reset The Flag On The FLY P_S3 + SWITCH
-			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Landing Gear\x0a");
+//		} else {	//Reset The Flag On The FLY P_S3 + SWITCH
+//			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Landing Gear\x0a");
 		}
 	}
+
 
 	//TOGGLE: Cargo Scoop	
 //	int initToggleCargoScoop(){
@@ -217,13 +224,10 @@
 
 		//TOGGLE: Cargo Scoop	
 	int initToggleCargoScoop(){
-		if(!Joystick[P_S3]){
+		if(Throttle[T2_RDRNRM] & !s_CargoScoopDeployed | !Throttle[T2_RDRNRM] & s_CargoScoopDeployed | vSecureEscapeFight){
 			ActKey(KEYON+PULSE+CargoScoop);
-			if(vSecureEscapeFight){	//If initSecureRectract() initialise This
-				if(DebugMode | DebugMMode) printf("SecureEscapeFight : Reset On The Fly with P_S3 & Toggle the Switch Cargo Scoop\x0a");
-			}
-		} else {	//Reset The Flag On The FLY P_S3 + SWITCH
-			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Cargo Scoop\x0a");
+//		} else {	//Reset The Flag On The FLY P_S3 + SWITCH
+//			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Cargo Scoop\x0a");
 		}
 	}
 
@@ -276,9 +280,6 @@
 		//TOGGLE: HardPoints	
 	int initToggleHardpoints(){
 		if(!Joystick[P_S3] | (Joystick[P_S3] & Joystick[TG1]) | (Joystick[P_S3] & Joystick[P_S2])){ // No [P_S3] Pressed OR automatic fire with [P_S3]?
-			if(vSecureEscapeFight){	//If initSecureRectract() initialise This Just Display Msg (Hardpoint is Mapped on Button : No Position)
-				if(DebugMode | DebugMMode) printf("SecureEscapeFight : HardPoints\x0a");
-			}
 			ActKey(KEYON+PULSE+DeployHardpoints);
 			DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("initHarpointsPips();"));
 		} else if(Joystick[P_S3] & (!Joystick[TG1] | !Joystick[P_S2])){	//Reset The Flag On The FLY P_S3 + SWITCH

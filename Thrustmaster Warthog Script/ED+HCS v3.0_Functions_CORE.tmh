@@ -261,9 +261,18 @@
 	int initSecureRectract(){
 		if(SecureRetract & (s_HardpointsDeployed | s_CargoScoopDeployed | s_LandingGearDown)){	//only if SecureRetract is ON & HardPoints or C Scoop Or L Gears is Deployed
 			vSecureEscapeFight=!vSecureEscapeFight;
-			if(s_HardpointsDeployed)	initToggleHardpoints();
-			if(s_LandingGearDown)		initToggleLandingGear();
-			if(s_CargoScoopDeployed)	initToggleCargoScoop();
+			if(s_HardpointsDeployed){
+				initToggleHardpoints();
+				if(DebugMode | DebugMMode) printf("SecureEscapeFight : HardPoints\x0a");
+			}
+			if(s_LandingGearDown){
+				initToggleLandingGear();
+				if(DebugMode | DebugMMode) printf("SecureEscapeFight : Reset On The Fly with P_S3 & Toggle the Switch Landing Gear\x0a");
+			}
+			if(s_CargoScoopDeployed){
+				initToggleCargoScoop();
+				if(DebugMode | DebugMMode) printf("SecureEscapeFight : Reset On The Fly with P_S3 & Toggle the Switch Cargo Scoop\x0a");
+			}
 			vSecureEscapeFight=!vSecureEscapeFight;
 		}
 	}

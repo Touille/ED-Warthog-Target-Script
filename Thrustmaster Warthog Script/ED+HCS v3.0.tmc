@@ -91,7 +91,7 @@ int main()
 	// Initiate Led State
 	if(DebugMode | DebugMMode) printf("Initialising LED States\x0a"); initLEDStates();
 
-	// Initiate Custom Macros Functions (ED+HCS_Macros_v2.3.tmh)
+	// Initiate Custom Macros Functions
 	initCustomCommands();
 	
 	if(DebugMode) initPrintState();
