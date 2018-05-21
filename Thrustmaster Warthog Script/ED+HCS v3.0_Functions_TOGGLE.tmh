@@ -281,22 +281,9 @@
 	int initToggleHardpoints(){
 		if(!Joystick[P_S3] | (Joystick[P_S3] & Joystick[TG1]) | (Joystick[P_S3] & Joystick[P_S2])){ // No [P_S3] Pressed OR automatic fire with [P_S3]?
 			ActKey(KEYON+PULSE+DeployHardpoints);
-			DeferCall(1500, &ActKey, KEYON+PULSE+EXEC("initHarpointsPips();"));
 		} else if(Joystick[P_S3] & (!Joystick[TG1] | !Joystick[P_S2])){	//Reset The Flag On The FLY P_S3 + SWITCH
 			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Hardpoints\x0a");
 		}
-	}
-	
-	int initHarpointsPips(){
-		if(s_HardpointsDeployed){
-			if(OptimalPIPMode & !sExplorerMode){
-				initBackupPIPPower(OptimalPIPHPBackup);	//Backup Actual PIP Mode OptimalPIPHPBackup (2)
-				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
-			}
-		} else {
-			if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPHPBackup);	//Restore Previous PIP Mode
-		}
-	
 	}
 
 	//TOGGLE: Silent Runing

@@ -109,16 +109,14 @@
 	int vPIPB;
 	int vOptimalPIPFireBackup;					//initFire()
 	define OptimalPIPFireBackup  1
-	int vOptimalPIPHPBackup;					//initToggleHardpoints()
-	define OptimalPIPHPBackup    2
 	int vOptimalPIPEFBackup;					//initEscapeFight()
-	define OptimalPIPEFBackup    3
+	define OptimalPIPEFBackup    2
 	int vOptimalPIPGMBackup;					//initToggleGameMenu()
-	define OptimalPIPGMBackup    4
+	define OptimalPIPGMBackup    3
 	int vOptimalPIPCCBackup;					//initToggleCamera()
-	define OptimalPIPCCBackup    5
+	define OptimalPIPCCBackup    4
 //	int vOptimalPIPBoostBackup;					//initThrottleBoost()
-//	define OptimalPIPBoostBackup 6
+//	define OptimalPIPBoostBackup 5
 	
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	TOGGLE STATES																																				//

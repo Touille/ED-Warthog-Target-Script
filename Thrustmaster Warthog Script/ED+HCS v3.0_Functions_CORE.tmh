@@ -111,17 +111,16 @@
 	
 	//PIP Backup Management
 	int initBackupPIPPower(int p=0){
-		if(p == 1 | p == 2 | p == 3 | p == 4 | p == 5){
-			if     (p == 1 & vOptimalPIPFireBackup != vOptimalPIP & vOptimalPIP != 6){vOptimalPIPFireBackup = vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPFireBackup (1) 4 WEP 2 SYS (6) Fire if the PIP it already 4 WEP 2 SYS (6) we don't save it again
-			else if(p == 2 & vOptimalPIPHPBackup   != vOptimalPIP){                   vOptimalPIPHPBackup   = vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPHPBackup   (2) 4 WEP 2 SYS (6) Hardpoints
-			else if(p == 3 & vOptimalPIPEFBackup   != vOptimalPIP){                   vOptimalPIPEFBackup   = vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPEFBackup   (3) 4 ENG 2 SYS (1) & 4 SYS 2 ENG (3) EscapeFight
-			else if(p == 4 & vOptimalPIPGMBackup   != vOptimalPIP){                   vOptimalPIPGMBackup   = vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPGMBackup   (4) 4 SYS 2 ENG (3) ToggleGameMenu
-			else if(p == 5 & vOptimalPIPCCBackup   != vOptimalPIP){                   vOptimalPIPCCBackup   = vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPCCBackup   (5) 4 SYS 2 ENG (3) ToggleCamera
-//			else if(p == 6 & vOptimalPIPBoostBackup!= vOptimalPIP){                   vOptimalPIPBoostBackup= vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPBoostBackup(6) 4 ENG 2 SYS (1) ThrottleBoost			
+		if(p == 1 | p == 2 | p == 3 | p == 4){
+			if     (p == 1 & vOptimalPIPFireBackup != vOptimalPIP){vOptimalPIPFireBackup = vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPFireBackup (1) 4 WEP 2 SYS (6) Fire
+			else if(p == 2 & vOptimalPIPEFBackup   != vOptimalPIP){vOptimalPIPEFBackup   = vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPEFBackup   (2) 4 ENG 2 SYS (1) & 4 SYS 2 ENG (3) EscapeFight
+			else if(p == 3 & vOptimalPIPGMBackup   != vOptimalPIP){vOptimalPIPGMBackup   = vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPGMBackup   (3) 4 SYS 2 ENG (3) ToggleGameMenu
+			else if(p == 4 & vOptimalPIPCCBackup   != vOptimalPIP){vOptimalPIPCCBackup   = vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPCCBackup   (4) 4 SYS 2 ENG (3) ToggleCamera
+//			else if(p == 5 & vOptimalPIPBoostBackup!= vOptimalPIP){vOptimalPIPBoostBackup= vOptimalPIP; vPIPB=!vPIPB;}	//OptimalPIPBoostBackup(5) 4 ENG 2 SYS (1) ThrottleBoost			
 		}
 		if(vPIPB){
 			vPIPB=!vPIPB;
-			if(DebugMode) printf("Backuped PIP [%d] (1Fire,2HP,3EF,4GM,5CC) Previous PIP [%d]\x0a",p, vOptimalPIP);
+			if(DebugMode) printf("Backuped PIP [%d] (1:Fire,2:EF,3:GM,4:CC) Previous PIP [%d]\x0a",p, vOptimalPIP);
 		}
 	}
 
@@ -145,7 +144,7 @@
 				initToggleHardpoints();
 				//if(DebugMode) printf("Deploy Hardpoints On Fire\x0a");
 			}
-			else if(OptimalPIPMode & !sExplorerMode){	//PIP Mode 4 WEP 2 SYS
+			if(OptimalPIPMode & !sExplorerMode){	//PIP Mode 4 WEP 2 SYS
 				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 				//if(DebugMode) printf("OptimalPIPMode On Fire\x0a");
 			}
