@@ -244,10 +244,10 @@
 	
 		//TOGGLE: Light	
 	int initToggleLights(){
-		if(!Joystick[P_S3]){
+		if(Throttle[T2_EFRNORM] & !s_LightsOn | !Throttle[T2_EFRNORM] & s_LightsOn){
 			ActKey(KEYON+PULSE+ShipLights); //Switch position is UP : Light Is ON
-		} else {
-			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Light\x0a");
+//		} else {
+//			if(DebugMode | DebugMMode) printf("Reset On The Fly with P_S3 : Light\x0a");
 		}
 	}
 	

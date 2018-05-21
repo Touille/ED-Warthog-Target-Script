@@ -47,7 +47,7 @@ __The Command's are on the Joystick and Throttle Chart : [S]ShortPress, [L]LongP
 
 **This Script require you have Check this Files before you start to Fly, so, please, take some minutes to check them.**
 
-When you are in game, if, Throttle Switch are misaligned for Landing Gears and Cargo Scoop and Lights, you can Switch the states without sending game commands, Press [S3] (Joystick Nosewhell Steering Button)and switch LGears, CScoop or Lights. 
+When you are in game, if, Throttle Switch are misaligned for Landing Gears, Cargo Scoop or Lights, Just toggle the Switch.
 
 The Optimal PIP Mode, make Backup of Previous engaged PIP. By Default it will return to //2 SYS 2 ENG 2 WEP (0) if you don't make change before deploying Hardpoints or Fire after the game launch. 
 I suggest, when you launch the game, to make one change to PIP before deploying hardpoints and another before fire, so the script can backup those value.
@@ -58,7 +58,6 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 
 - [ ] __Support MFD (2), Rudders and T.Flight rudders__ (NOT TESTED YET)
 - [x] HMD / TrackIR Option for Some Function : Head Reset, Pause (TrackIr), Throttle Led Intensity.
-- [ ] Easy Switch resest On The Fly for Landing Gear, Cargo Scoop, Light, Hardpoints, Rotational Correction : Press Joystick S3 Button + Switch
 - [x] Easy Debug Msg OFF (Debugmode OFF (0) Or ON (1) In Settings File)
 - [ ] __Supercruise On Throttle when throttle > 99%__ (Can be switched ON/OFF On The Fly, Disable by default). If you use Hardware Afterburner Detent you need to pass detent to supercruise.
 - [x] Game Menu Up on Idle Throttle states. (Off by Default)
@@ -84,7 +83,7 @@ Almost ALL Optional Extra (OptimalPIPMode, Stop Fire Retract Hardpoints, Silent 
 	
 ### PIP:
 
-- [x] __Automatic PIP Mode__ (Backup & Restrore previous PIP Mode) when Deploy or Retract Hardpoints, Escape Fight, Fire, Game Menu,... Can be switched ON/OFF On The Fly
+- [x] __Automatic PIP Mode__ (Backup & Restrore previous PIP Mode) when Fire, Escape Fight, Game Menu,... Can be switched ON/OFF On The Fly
 - [x] __PIP Management Joystick Hat Switch__ offering __12 different presets__ depending how long you hold down the Hat Button.
 
 ### PTT:
