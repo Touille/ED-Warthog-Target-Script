@@ -1,5 +1,5 @@
 //	Copyright (C) 2018 Thomas Duployez (CMDR Touille)
-//	V3.0.5b	2018/05
+//	V3.3.01b	2018/12
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -59,6 +59,9 @@
 //byte f_InMainShip			= 0x01000000;
 //byte f_InFighter			= 0x02000000;
 //byte f_InSRV				= 0x04000000;
+//byte f_HUDAnalysis		= 0x08000000;
+//byte f_NightVision		= 0x10000000;
+
 
 //----------------------flag status.json constances Value
 
@@ -89,6 +92,9 @@ int f_BeingInterdicted		= 8388608;		//Being Interdicted
 int f_InMainShip			= 16777216;		//In MainShip
 int f_InFighter				= 33554432;		//In Fighter
 int f_InSRV					= 67108864;		//In SRV
+int f_HUDAnalysis			= 134217728;	//Hud in Analysis mode
+int f_NightVision			= 268435456;	//Night Vision
+
 
 //----------------------State of flag
 
@@ -119,6 +125,9 @@ int s_BeingInterdicted;
 int s_InMainShip;
 int s_InFighter;
 int s_InSRV;
+int s_HUDAnalysis;
+int s_NightVision;
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	API Flags Checker																																			//
@@ -312,6 +321,18 @@ int f_Check(){
 	else s_InSRV = 0;
 	initLED(InSRV_LED, s_InSRV);
 	if(DebugFlagsMode) printf("In SRV			[ %d ]	[YES:[1] NO:[0]]\x0a", s_InSRV);
+	
+		//27 134217728 0800 0000 Hud in Analysis mode
+	if (Flags & f_HUDAnalysis) s_HUDAnalysis = 1;
+	else s_HUDAnalysis = 0;
+	initLED(HUDAnalysis_LED, s_HUDAnalysis);
+	if(DebugFlagsMode) printf("HUD Analysis		[ %d ]	[YES:[1] NO:[0]]\x0a", s_HUDAnalysis);
+
+		//28 268435456 1000 0000 Night Vision
+	if (Flags & f_NightVision) s_NightVision = 1;
+	else s_NightVision = 0;
+	initLED(NightVision_LED, s_NightVision);
+	if(DebugFlagsMode) printf("NightVision		[ %d ]	[YES:[1] NO:[0]]\x0a", s_NightVision);
 	
 	if(DebugFlagsMode) printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\x0a");
 	

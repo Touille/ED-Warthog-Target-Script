@@ -1,5 +1,5 @@
 //	Copyright (C) 2018 Thomas Duployez (CMDR Touille)
-//	V3.0.5b	2018/05
+//	V3.3.01b	2018/12
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -123,6 +123,8 @@
 	define SystemMap                USB_SEMICOLON           // :			[HCS]
 	define GalaxyMap                USB_SLASH               // /			[HCS]
 	define GameMenu                 USB_P                   // P			[HCS]
+	define Discovery				L_CTL+L_ALT+USB_D		// CTRL+ALT+D
+	define HUDMode					L_CTL+L_ALT+USB_H       // CTRL+ALT+H
 	
 	//MISCELLANEOUS
 	define MicrophoneMute           USB_BACKSLASH           // \			[HCS]
@@ -137,6 +139,7 @@
 	define HighResScreenshot        L_ALT+USB_F10           // ALT-F10
 	define ChangeWeaponColor        L_ALT+USB_KP_1          // ALT+NUMPAD 1
 	define ChangeEngineColor        L_ALT+USB_KP_2          // ALT+NUMPAD 2
+	define NightVision 				L_CTL+L_ALT+USB_N       // CTRL+ALT+N
 	
 	//MULTI-CREW
 	define MC_Mode_Toggle           L_CTL+L_ALT+USB_M       // CTRL+ALT+M
@@ -205,6 +208,16 @@
 //	define GA_Skip_Forward				L_ALT+USB_PAGEUP
 //	define GA_Skip_Backward				L_ALT+USB_PAGEDOWN
 //	define GA_Clear_Queue				L_ALT+USB_END
+
+	//FULL SPECTRUM SYSTEM SCANNER
+	define FSSS_Mode_Toggle				L_CTL+L_ALT+USB_S       // CTRL+ALT+S
+//	define FSSS_Discovery_Scan
+//	define FSSS_Target_Signal
+
+	//DETAILES SURFACE SCAN
+//	define DSS_Toggle_Front_Back
+
+
 	
 //----EXTERNAL BINDINGS-----------------------------------------------------------------------------------------------------------------------------------------//
 

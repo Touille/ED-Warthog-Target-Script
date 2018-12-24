@@ -1,5 +1,5 @@
 //	Copyright (C) 2018 Thomas Duployez (CMDR Touille)
-//	V3.0.5b	2018/05
+//	V3.3.01b	2018/12
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,15 +24,15 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 include "target.tmh"
-include "ED+HCS v3.0_Variables.tmh"
-include "ED+HCS v3.0_Settings.tmh"
-include "ED+HCS v3.0_USBKey.ttm"
-include "ED+HCS v3.0_KeyBindings.ttm"
-include "ED+HCS v3.0_Macros.tmh"
-include "ED+HCS v3.0_Functions_HARDWARE.tmh"
-include "ED+HCS v3.0_Functions_TOGGLE.tmh"
-include "ED+HCS v3.0_Functions_CORE.tmh"
-include "ED+HCS v3.0_API_TCP.tmh"
+include "ED+HCS v3.3_Variables.tmh"
+include "ED+HCS v3.3_Settings.tmh"
+include "ED+HCS v3.3_USBKey.ttm"
+include "ED+HCS v3.3_KeyBindings.ttm"
+include "ED+HCS v3.3_Macros.tmh"
+include "ED+HCS v3.3_Functions_HARDWARE.tmh"
+include "ED+HCS v3.3_Functions_TOGGLE.tmh"
+include "ED+HCS v3.3_Functions_CORE.tmh"
+include "ED+HCS v3.3_API_TCP.tmh"
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 int main()
@@ -43,7 +43,9 @@ int main()
 	Configure(&T16000,       MODE_EXCLUDED);
 	Configure(&T16000L,      MODE_EXCLUDED);
 	Configure(&TWCSThrottle, MODE_EXCLUDED);
-
+	Configure(&TFRPHARudder, MODE_EXCLUDED);
+	Configure(&JoystickF18,	 MODE_EXCLUDED);
+	
 	//Rudders
 	if(Rudders < 2) Configure(&TFRPRudder, MODE_EXCLUDED);
 	else            Configure(&TFRPRudder, MODE_FILTERED);
@@ -100,7 +102,7 @@ int main()
 //	;)																																							//
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-	printf("--------------------------V3.0.5b-------2018/05/07------------------------\x0a");
+	printf("--------------------------V3.3.01b------2018/12/24------------------------\x0a");
 	printf("---------Enhanced Elite Dangerous Warthog Profile by CMDR Touille---------\x0a");
 	printf("------------------------------Fly Safe CMDR! o7---------------------------\x0a");
 	printf("-o/--o/--o/-Aussiedroid-DarKcyde0-WraithMG11235-Synkc-Solarfly-o/--o/--o/-\x0a");
@@ -162,13 +164,13 @@ int main()
 	//	-------------------------Target Management Switch (TMS)
 	MapKeyIOUMD(&Joystick, H_H2U,	// UP
 		0, PULSE+Enter_Free_Camera,
-		0, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay),
-		0, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay)
+		PULSE+Discovery, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay),
+		PULSE+Discovery, TEMPO(PULSE+SelectTargetAhead, PULSE+SelectHighestThreat, LongPressDelay)
 	);
 	MapKeyIOUMD(&Joystick, H_H2D,	// DOWN
 		0, PULSE+FC_Exit_Free_Camera,
-		0, PULSE+SelectNextSystemInRoute,
-		0, PULSE+SelectNextSystemInRoute
+		PULSE+FSSS_Mode_Toggle, PULSE+SelectNextSystemInRoute,
+		PULSE+FSSS_Mode_Toggle, PULSE+SelectNextSystemInRoute
 	);
 	MapKeyIOUMD(&Joystick, H_H2L,	// LEFT
 		0, PULSE+FC_Lock_To_Vehicle,
@@ -211,8 +213,8 @@ int main()
 	//	-------------------------Countermeasures Management Switch (CMS)
 	MapKeyIOUMD(&Joystick, H_H4U,	// UP
 		0, FC_Move_Forward,
-		0, UIUp,
-		0, UIUp
+		PULSE+NightVision, UIUp,
+		PULSE+NightVision, UIUp
 	);
 	MapKeyIOUMD(&Joystick, H_H4D,	// DOWN
 		0, FC_Move_Backward,
@@ -361,9 +363,10 @@ int main()
 	MapKeyR(&Throttle, T3_APALT, PULSE+MC_Mode_Toggle);											// Modifier DOWN Release(ALT)
 
 	//	-------------------------Engine Fuel Flow Switches LEFT	EFLNORM/EFLOVER
-	MapKey (&Throttle, T2_EFLNORM, EXEC("initToggleExplorerMode();"));							// Switch UP
-	MapKeyR(&Throttle, T2_EFLNORM, EXEC("initToggleExplorerMode();"));							// Switch UP RELEASE
-//	MapKey(&Throttle, T2_EFLOVER, 0);															// Switch DOWN
+	
+	MapKey (&Throttle, T2_EFLNORM, EXEC("initToggleHUDMode();"));							// Switch UP
+	MapKeyR(&Throttle, T2_EFLNORM, EXEC("initToggleHUDMode();"));							// Switch UP RELEASE
+//	MapKey(&Throttle, T2_EFLOVER, 0);							/ Switch DOWN
 
 	//	-------------------------Engine Fuel Flow Switches RIGHT EFRNORM/EFROVER
 	MapKey (&Throttle, T2_EFRNORM, EXEC("initToggleLights();"));								// Switch UP
@@ -373,14 +376,14 @@ int main()
 	//	-------------------------Engine Operate Ign/Norm LEFT
 	MapKeyIO(&Throttle, T3_EOLIGN, TEMPO(EXEC("initTogglePTTPTP();"), EXEC("initTogglePTTMode();"), LongPressDelay), 
 								TEMPO(0, EXEC("initFPSCONNECTION();"), LongPressDelay));				// UP								
-//	MapKey  (&Throttle, T3_EOLNORM, 0);																// OFF
+//	MapKey  (&Throttle, T3_EOLNORM, 0);																	// OFF
 	MapKey  (&Throttle, T3_EOLMOTOR, EXEC("initToggleVoiceAttackMic();"));								// DOWN
 	MapKeyR (&Throttle, T3_EOLMOTOR, EXEC("initToggleVoiceAttackMic();"));								// DOWN RELEASE
 
 	//	-------------------------Engine Operate Ign/Norm RIGHT
 	MapKeyIO(&Throttle, T3_EORIGN, TEMPO(EXEC("initToggleSecureRetract();"), EXEC("initToggleRotationalCorrection();"), LongPressDelay),
 								TEMPO(EXEC("initToggleOptimalPIPMode();"), EXEC("initToggleStopFireRetractHardpoints();"), LongPressDelay));	// UP								
-//	MapKey  (&Throttle, T3_EORNORM, 0);																										// OFF
+//	MapKey  (&Throttle, T3_EORNORM, 0);																											// OFF
 	MapKey  (&Throttle, T3_EORMOTOR, EXEC("initToggleGameMenu();"));																			// DOWN
 	MapKeyR (&Throttle, T3_EORMOTOR, EXEC("initToggleGameMenu();"));																			// DOWN RELEASE
 
@@ -394,22 +397,22 @@ int main()
 //	MapKey (&Throttle, T2_EACOFF, 0);																	// Switch DOWN			(OFF)
 
 	//	-------------------------RDR ALTM RDRNRM/RDRDIS
-	MapKey (&Throttle, T2_RDRNRM, EXEC("initToggleCargoScoop();"));											// Switch UP			(NRM)
-	MapKeyR(&Throttle, T2_RDRNRM, EXEC("initToggleCargoScoop();"));											// Switch UP RELEASE
-//	MapKey (&Throttle, T2_RDRDIS, 0);																		// Switch DOWN			(DIS)
+	MapKey (&Throttle, T2_RDRNRM, EXEC("initToggleCargoScoop();"));										// Switch UP			(NRM)
+	MapKeyR(&Throttle, T2_RDRNRM, EXEC("initToggleCargoScoop();"));										// Switch UP RELEASE
+//	MapKey (&Throttle, T2_RDRDIS, 0);																	// Switch DOWN			(DIS)
 
 
 //--THROTTLE BASE TRHOTTLE--------------------------------------------------------------------------------------------------------------------------------------//
 
 	//	-------------------------Throttle Idle Detents LEFT
-	MapKey (&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));												// ON	[Locking (Down): Stationary]
-	MapKeyR(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));												// ON RELEASE
-//	MapKey (&Throttle, IDLELOFF, 0);																				// OFF
+	MapKey (&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));									// ON	[Locking (Down): Stationary]
+	MapKeyR(&Throttle, IDLELON, EXEC("initToggleIDLEonThrottle();"));									// ON RELEASE
+//	MapKey (&Throttle, IDLELOFF, 0);																	// OFF
 
 	//	-------------------------Throttle Idle Detents RIGHT
-//	MapKey (&Throttle, IDLERON, 0);																					// ON
-//	MapKeyR(&Throttle, IDLERON, 0);																					// ON RELEASE
-//	MapKey (&Throttle, IDLEROFF, 0);																				// OFF
+//	MapKey (&Throttle, IDLERON, 0);																		// ON
+//	MapKeyR(&Throttle, IDLERON, 0);																		// ON RELEASE
+//	MapKey (&Throttle, IDLEROFF, 0);																	// OFF
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------//
 }

@@ -1,5 +1,5 @@
 //	Copyright (C) 2018 Thomas Duployez (CMDR Touille)
-//	V3.0.5b	2018/05
+//	V3.3.01b	2018/12
 //	Distributed freely under the MIT License.
 //	
 //	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -139,12 +139,12 @@
 				if(DebugMode) printf("Shut Down Silent Runing\x0a");
 				initToggleSilentRuning();
 			}
-			if(OptimalPIPMode & !sExplorerMode) initBackupPIPPower(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
-			if(HardPointsonFireGameMode & !s_HardpointsDeployed){	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
+			if(OptimalPIPMode & !s_HUDAnalysis) initBackupPIPPower(OptimalPIPFireBackup);	//Backup Actual PIP Mode OptimalPIPFireBackup (1)
+			if(HardPointsonFireGameMode & !s_HardpointsDeployed & !s_HUDAnalysis){	//Deploy Hardpoint if HardPointsonFireGameMode is Enable
 				initToggleHardpoints();
 				//if(DebugMode) printf("Deploy Hardpoints On Fire\x0a");
 			}
-			if(OptimalPIPMode & !sExplorerMode){	//PIP Mode 4 WEP 2 SYS
+			if(OptimalPIPMode & !s_HUDAnalysis){	//PIP Mode 4 WEP 2 SYS
 				initPIPPower(WEP,SYS);	//4 WEP 2 SYS (6)
 				//if(DebugMode) printf("OptimalPIPMode On Fire\x0a");
 			}
@@ -159,8 +159,8 @@
 		initSecondaryFire();
 		
 		if(!Joystick[TG1] & !Joystick[P_S2]){
-			if(OptimalPIPMode & !sExplorerMode) initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
-			if(HardPointsonFireGameMode & StopFireRetractHardpoints & s_HardpointsDeployed & !sExplorerMode) initToggleHardpoints();//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
+			if(OptimalPIPMode & !s_HUDAnalysis) initRestorePIPPower(vOptimalPIPFireBackup);	//Restore Previous PIP Mode
+			if(HardPointsonFireGameMode & StopFireRetractHardpoints & s_HardpointsDeployed & !s_HUDAnalysis) initToggleHardpoints();//Retract Hardpoint if StopFireRetractHardpoints & HardPointsonFireGameMode are Enable
 			if(vSilentRuningBackup!=0){	//Restore Silent Runing if it was running before fire
 				vSilentRuningBackup = 0;
 				if(DebugMode) printf("Restore Silent Runing\x0a");				
@@ -179,7 +179,7 @@
 			//if(DebugMode) printf("PrimaryFire Down\x0a");
 		}
 		else if(!Joystick[TG1] & vPrimaryFire){
-			if((sExplorerMode & !vScanPrimaryFire & (ExploreModeFire == 0 | ExploreModeFire == 2)) | vScanPrimaryFire) DeferCall(PrimaryFireKeyScanDelay, &ActKey, KEYON+UP+PrimaryFire);
+			if((!vScanPrimaryFire & (ExploreModeFire == 0 | ExploreModeFire == 2)) | vScanPrimaryFire) DeferCall(PrimaryFireKeyScanDelay, &ActKey, KEYON+UP+PrimaryFire);
 			else ActKey(KEYON+UP+PrimaryFire);	//if(DebugMode) printf("TG1 Up\x0a");
 			if(vScanPrimaryFire) vScanPrimaryFire=!vScanPrimaryFire;
 			vPrimaryFire=!vPrimaryFire;
@@ -194,7 +194,7 @@
 			//if(DebugMode) printf("P_S2  Down\x0a");
 		}
 		else if(!Joystick[P_S2] & vSecondaryFire){
-			if((sExplorerMode & !vScanSecondaryFire & (ExploreModeFire == 1 | ExploreModeFire == 2)) | vScanSecondaryFire) DeferCall(SecondaryFireKeyScanDelay, &ActKey, KEYON+UP+SecondaryFire);
+			if((!vScanSecondaryFire & (ExploreModeFire == 1 | ExploreModeFire == 2)) | vScanSecondaryFire) DeferCall(SecondaryFireKeyScanDelay, &ActKey, KEYON+UP+SecondaryFire);
 			else ActKey(KEYON+UP+SecondaryFire);	//if(DebugMode) printf("P_S2  Up\x0a");
 			if(vScanSecondaryFire) vScanSecondaryFire=!vScanSecondaryFire;
 			vSecondaryFire=!vSecondaryFire;
@@ -282,38 +282,7 @@
 		else{
 			initSecureRectract();
 			if(OptimalPIPMode) initPIPPower(ENG, SYS);	//4 ENG	2 SYS (1)
-			if(!sExplorerMode){	//Normal System Jump
-				ActKey(KEYON+PULSE+mSystemJump);
-				if(DebugMode | DebugMMode) printf("Engage System Jump\x0a");
-			}
-			else{	//Explorer System Jump
-				ActKey(KEYON+PULSE+mExplorerSystemJump);
-				if(DebugMode | DebugMMode) printf("Engage Explorer System Jump\x0a");
-			}
-		}
-	}
-
-	//FUNCTION: Explorer System Jump Scan
-	int initExplorerSystemScan(){
-		if(AutoDiscoveryScan){
-			if(ExploreModeFire == 0 | ExploreModeFire == 2){
-				ActKey(KEYON+DOWN+PrimaryFire);
-				DeferCall(PrimaryFireKeyScanDelay, &ActKey, KEYON+UP+PrimaryFire);
-				if(DebugMode | DebugMMode) printf("Primary Fire Explorer Mode\x0a");
-			}
-			if(ExploreModeFire == 1 | ExploreModeFire == 2){
-				ActKey(KEYON+DOWN+SecondaryFire);
-				DeferCall(SecondaryFireKeyScanDelay, &ActKey, KEYON+UP+SecondaryFire);
-				if(DebugMode | DebugMMode) printf("Secondary Fire Explorer Mode\x0a");
-			}
-		}
-	}
-
-	//FUNCTION: Explorer Target Nearest Star
-	int initTargetNearestStar(){
-		if(TargetNearestStar){
-			ActKey(KEYON+PULSE+mTargetNearestStar);
-			if(DebugMode | DebugMMode) printf("Target Nearest Star Explorer Mode\x0a");
+			ActKey(KEYON+PULSE+mSystemJump);
 		}
 	}
 

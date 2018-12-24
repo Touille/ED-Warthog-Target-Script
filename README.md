@@ -1,6 +1,6 @@
 # Elite Dangerous Warthog Target Script (HCS Keys Binding) 3.0.5b 2018/08/05 : IF YOU USED PREVIOUS VERSION PLEASE READ BELOW
 
-![ED LOGO](https://www.elitedangerous.com/_assets/img/logo-elite-dangerous.png)
+![ED LOGO](https://www.elitedangerous.com/img/logo-elite-dangerous-2018.a1fb88a3.png)
 
 
 ***Special thanks go out to Aussiedroid, DarKcyde0, WraithMG11235, Synkc, Solarfly and Farinhir***
@@ -25,11 +25,11 @@
 ## WHEN YOU WANT TO PLAY :  
 - __Launch the ED-Warthog-Target-Script_Addon.exe__   
 	-First Option :  __With the shortcut__ previously created  
-	-Second Option : Let the script Start the exe for you -> __Edit ED+HCS v3.0.tmc file, find the line below and replace <USER> with your Windows username and Uncomment the line__ (ex : Replace  __*< USER >*__ with __*martin*__ and __remove the //__ at the begining)
+	-Second Option : Let the script Start the exe for you -> __Edit ED+HCS v3.3.tmc file, find the line below and replace <USER> with your Windows username and Uncomment the line__ (ex : Replace  __*< USER >*__ with __*martin*__ and __remove the //__ at the begining)
 ```
 	//system("spawn -w \"C:\\Users\\< USER >\\Saved Games\\Frontier Developments\\Elite Dangerous\" \"C:\\Users\\< USER >\\Saved Games\\Frontier Developments\\Elite Dangerous\\ED-Warthog-Target-Script_Addon.exe\"");
 ```  
-- Just __Drag&Drop ED+HCS v3.0.tmc in TARGET Script Editor and Run__. (Default script path can also be set in the options). __Always make sure the script is running prior to starting Elite Dangerous.__ 
+- Just __Drag&Drop ED+HCS v3.3.tmc in TARGET Script Editor and Run__. (Default script path can also be set in the options). __Always make sure the script is running prior to starting Elite Dangerous.__ 
 - Most commands can be tested prior to starting the game in Target Script Editor using the Debug Message, Event Tester and Device Analyzer.
 - __Launch Elite Dangerous, Options, Controls and chose the correct Binds Profile__ __ED+HCS V3.X.XX.XX.3.0.binds__  
 - __Play :)__
@@ -41,7 +41,7 @@
 
 ***First, I'm sorry for my English, as it is not my native language. You are Welcome to help me on my English Skill, and, obviously, with my Coding Skill (it is, also, not my native language) ;)***
 
-__All the Settings are in the Settings File__ : **ED+HCS v3.0_Settings.tmh**
+__All the Settings are in the Settings File__ : **ED+HCS v3.3_Settings.tmh**
 
 __The Command's are on the Joystick and Throttle Chart : [S]ShortPress, [L]LongPress, [EL]ExtraLongPress, [S3]Modifier Key on Joystick (Joystick Nosewhell Steering Button)__
 
