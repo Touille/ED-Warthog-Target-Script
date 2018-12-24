@@ -1,4 +1,4 @@
-2018/05/07
+2018/12/24
 
 ED_API_over_TCP.exe NEED to be placed in the same directory as Status.json and other log/json ED files :
 ```
@@ -37,4 +37,6 @@ int s_IsInDanger;
 int s_BeingInterdicted;  
 int s_InMainShip;  
 int s_InFighter;  
-int s_InSRV;
+int s_InSRV;  
+int s_HUDAnalysis;  
+int s_NightVision;
