@@ -37,6 +37,6 @@ int s_IsInDanger;
 int s_BeingInterdicted;  
 int s_InMainShip;  
 int s_InFighter;  
-int s_InSRV;
-int s_HUDAnalysis;
+int s_InSRV;  
+int s_HUDAnalysis;  
 int s_NightVision;
