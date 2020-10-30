@@ -88,7 +88,8 @@ int main()
 			int v_Flags = 0;
 			if (status.HasMember("Flags")) {
 				assert(status["Flags"].IsNumber()); //Flags
-				v_Flags = status["Flags"].GetInt();
+//				v_Flags = status["Flags"].GetInt();
+				v_Flags = status["Flags"].GetUint();
 				//printf("Flags = %d\n", v_Flags);
 			}
 
