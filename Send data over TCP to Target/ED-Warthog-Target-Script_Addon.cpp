@@ -35,7 +35,7 @@ int main()
 	std::string jsonStr_Backup;
 
 	//Create a buffer where FileReadStream can store the data 
-	char readBuffer[256];
+	char readBuffer[512];   //[DM] status.json length often exceeds 256.
 
 	LOOP:for (;;) {
 
